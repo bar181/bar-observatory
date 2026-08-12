@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BAR Observatory — captured session report</title>
+<style>
+/* Harvard Crimson palette (official PMS-187 crimson #A51C30). No Harvard marks are used and no
+   endorsement is implied — see the footer disclaimer. */
+:root{--crimson:#A51C30;--ink:#1a1a1a;--muted:#5c5c5c;--line:#e7dcd0;--bg:#fbf8f5;}
+*{box-sizing:border-box}body{margin:0;font:16px/1.6 -apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;color:var(--ink);background:var(--bg)}
+.wrap{max-width:860px;margin:0 auto;padding:2rem 1.25rem}
+header{border-bottom:3px solid var(--crimson);padding-bottom:1rem;margin-bottom:1.5rem}
+h1{color:var(--crimson);margin:.2rem 0;font-size:1.6rem}
+.tag{color:var(--muted);margin:0}
+h2{color:var(--crimson);font-size:1.15rem;border-bottom:1px solid var(--line);padding-bottom:.3rem;margin-top:2rem}
+.lead{font-size:1.05rem}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:.75rem;margin:1rem 0}
+.card{background:#fff;border:1px solid var(--line);border-radius:8px;padding:.75rem 1rem}
+.card .n{font-size:1.5rem;font-weight:700;color:var(--crimson)}
+.card .l{font-size:.8rem;color:var(--muted)}
+.card .sub{font-size:.72rem;color:var(--muted);margin-top:.15rem}
+.narr{font-size:1.08rem;font-weight:500;margin:1rem 0 .5rem}
+.verdict{display:flex;flex-wrap:wrap;gap:.75rem;margin:1rem 0}
+/* analyzer-status chips. INFO (slate) = a recorder capability not yet enabled — NOT a warning.
+   WARN (amber) = a measured gap/risk in the session itself. The two must never look alike. */
+.vchip{flex:1;min-width:180px;background:#fff;border:1px solid var(--line);border-left:4px solid #5b7089;border-radius:8px;padding:.6rem .85rem}
+.vchip.info{border-left-color:#5b7089}
+.vchip.warn{border-left-color:#c98a2b}
+.vchip .vk{font-size:.72rem;text-transform:uppercase;letter-spacing:.04em;color:var(--muted)}
+.vchip .vv{font-size:1.05rem;font-weight:700}
+.vchip .vs{font-size:.75rem;color:var(--muted)}
+.action{background:#eef2f7;border:1px solid var(--line);border-left:4px solid #5b7089;border-radius:8px;padding:.7rem 1rem;margin:1rem 0}
+.action .ak{font-size:.72rem;text-transform:uppercase;letter-spacing:.04em;color:var(--muted)}
+.action .av{font-size:1.1rem;font-weight:700}
+.action .as{font-size:.8rem;color:var(--muted)}
+.keylegend{font-size:.78rem;color:var(--muted);margin:.4rem 0}
+.dot{display:inline-block;width:.7rem;height:.7rem;border-radius:2px;vertical-align:middle;margin-right:.2rem}
+.dot.warn{background:#c98a2b}.dot.info{background:#5b7089}
+details{margin:.6rem 0}
+details>summary{cursor:pointer;font-weight:600;color:var(--crimson)}
+details.method>summary{color:var(--muted);font-weight:500;font-size:.85rem}
+.tw{overflow-x:auto;max-width:100%;-webkit-overflow-scrolling:touch}
+table{width:100%;border-collapse:collapse;margin:.5rem 0;font-size:.92rem}
+th,td{text-align:left;padding:.5rem .6rem;border-bottom:1px solid var(--line);vertical-align:top}
+th{color:var(--muted);font-weight:600;font-size:.8rem;text-transform:uppercase;letter-spacing:.04em}
+td.num{text-align:right;font-variant-numeric:tabular-nums}
+.st{font-size:.78rem;padding:.1rem .45rem;border-radius:10px;font-weight:600}
+/* "complete" == no loss DETECTED, not verified coverage — deliberately a neutral slate, not
+   success-green, so a scanning reader never reads it as a coverage guarantee (coverage is its
+   own column). */
+.st-complete{background:#eaeef5;color:#3a4a63}
+.st-partial{background:#fdf1dc;color:#8a5a00}
+.st-not_recorded{background:#f2ede6;color:#6b5f4f}
+.warn-note{background:#fff4e5;border-left:3px solid #A51C30;padding:.5rem .75rem;border-radius:4px}
+.st-task-completed{background:#e6f4ea;color:#1e7a3c}
+.st-task-in_progress{background:#e7edfb;color:#2b4a8a}
+.st-task-pending{background:#f2ede6;color:#6b5f4f}
+/* the outlier state must be visually distinct from pending — a dashed amber outline (skeptic/design):
+   it's the row a lead most needs to spot, and it's the session meta-task, not a failure. */
+.st-task-created{background:#fff;color:#8a5a00;border:1px dashed #c98a2b}
+.st-task-other{background:#fff;color:#8a5a00;border:1px dashed #c98a2b}
+.cov{font-size:.78rem;color:var(--muted)}
+.prov{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.78rem;color:var(--muted);word-break:break-all}
+footer{margin-top:2.5rem;border-top:1px solid var(--line);padding-top:1rem;color:var(--muted);font-size:.8rem}
+@media (prefers-color-scheme: dark){
+:root{--crimson:#e8859a;--ink:#e8e6e1;--muted:#a49f97;--line:#38352f;--bg:#141210;}
+body{background:var(--bg);color:var(--ink)}
+.card,.vchip{background:#1c1a16}
+.st-complete{background:#22303f;color:#a9c4e0}
+.st-partial{background:#3a2f16;color:#e0b877}
+.st-not_recorded{background:#26231d;color:#b6ab98}
+.action{background:#1c1a16}
+}
+</style></head><body><div class="wrap">
+<header>
+<h1>BAR Observatory — captured session report</h1>
+<p class="tag">Observe how agentic work actually gets done.</p>
+</header>
+
+<p class="narr">In a recorded window of 1h 00m, the recorder captured 3 transcript turns plus 10 timeline events across 8 hook events, 2 log/metric events and 1 span(s); hook-lifecycle coverage is verified; transcript coverage is verified, and 0 dead-letter loss(es) were detected.</p>
+
+<div class="verdict">
+<div class="vchip info"><div class="vk">Outcome (self-reported)</div><div class="vv">Not enabled</div><div class="vs">no task calls in this transcript to derive a ledger from</div></div>
+<div class="vchip info"><div class="vk">Rework signal</div><div class="vv">Not enabled</div><div class="vs">no repeated-edit or error signal in this transcript</div></div>
+<div class="vchip"><div class="vk">Recorded window</div><div class="vv">1h 00m</div><div class="vs">wall-clock span of the captured session</div></div>
+</div>
+
+<div class="action"><div class="ak">Action required</div><div class="av">None identified</div>
+<div class="as">Risk/outcome analyzers found no signal (or aren't enabled) — an absence of instrumentation, not an all-clear.</div></div>
+
+<p class="keylegend"><span class="dot warn"></span> amber = a <strong>measured gap or risk in this
+session</strong> &nbsp;·&nbsp; <span class="dot info"></span> slate = a <strong>recorder capability
+not yet enabled</strong> (not a finding).</p>
+
+<div class="grid">
+<div class="card"><div class="n">1</div><div class="l">runs / sessions</div></div>
+<div class="card"><div class="n">10</div><div class="l">timeline events</div></div>
+<div class="card"><div class="n">8</div><div class="l">hook events</div></div>
+<div class="card"><div class="n">3</div><div class="l">transcript turns</div></div>
+<div class="card"><div class="n">26,300</div><div class="l">tokens (in+out)</div></div>
+<div class="card"><div class="n">0</div><div class="l">capture losses <em>detected</em></div><div class="sub">coverage measured per channel below</div></div>
+</div>
+
+<h2>Summary</h2>
+<div class="tw"><table><thead><tr><th>Measure</th><th>Value</th></tr></thead>
+<tbody>
+<tr><td>Runs / sessions</td><td class="num">1</td></tr>
+<tr><td>Timeline events</td><td class="num">10</td></tr>
+<tr><td>Hook events</td><td class="num">8</td></tr>
+<tr><td>Log/metric events</td><td class="num">2</td></tr>
+<tr><td>OTLP spans</td><td class="num">1</td></tr>
+<tr><td>Transcript turns</td><td class="num">3</td></tr>
+<tr><td>Requests</td><td class="num">2</td></tr>
+<tr><td>Tokens in</td><td class="num">20,800</td></tr>
+<tr><td>Tokens out</td><td class="num">5,500</td></tr>
+<tr><td>Tokens total</td><td class="num">26,300</td></tr>
+<tr><td>Capture losses</td><td class="num">0</td></tr>
+</tbody></table></div>
+
+<h2>Capture quality</h2>
+<p>What was recorded, per channel, with an honest status. The hooks channel carries an
+<strong>expected-vs-observed</strong> coverage oracle (see "What this means"); other channels stay
+honest <em>unverified</em> until their oracle ships. No capture losses recorded (dead_letters is empty).</p>
+<div class="tw"><table><thead><tr><th>Channel</th><th>Status</th><th>Coverage</th><th>Recorded</th><th>What this means</th></tr></thead>
+<tbody>
+<tr><td>hooks</td><td><span class="st st-complete">complete</span></td><td>verified</td><td class="num">8</td><td>Lifecycle complete (MEASURED): session bracketed — SessionStart×1, Stop×1; all 2 tool call(s) paired (PreToolUse↔PostToolUse); no dead-letter loss.</td></tr>
+<tr><td>events</td><td><span class="st st-complete">complete</span></td><td>unverified</td><td class="num">2</td><td>2 recorded; no capture loss detected (coverage unverified — oracle in Phase 6+).</td></tr>
+<tr><td>spans</td><td><span class="st st-complete">complete</span></td><td>verified</td><td class="num">1</td><td>Span tree complete (MEASURED): 1 spans, all closed, all parents resolve, no OTLP loss (structural only — prompt-correlation best-effort).</td></tr>
+<tr><td>transcripts</td><td><span class="st st-complete">complete</span></td><td>verified</td><td class="num">3</td><td>Transcript DAG complete (MEASURED): 3 turns, seq gapless, every parent resolves, all 1 tool_use paired BY ID with a tool_result, no transcript loss.</td></tr>
+<tr><td>requests</td><td><span class="st st-complete">complete</span></td><td>unverified</td><td class="num">2</td><td>2 recorded; no capture loss detected (coverage unverified — oracle in Phase 6+).</td></tr>
+<tr><td>provider_cost_usd</td><td><span class="st st-not_recorded">not_recorded</span></td><td>not_applicable</td><td class="num">0</td><td>Subscription auth (ADR-024) exposes no authoritative per-token USD; a labeled list-price ESTIMATE is derived instead (see cost). Tokens + wall-clock stay primary.</td></tr>
+</tbody></table></div>
+<details class="method"><summary>Methodology &amp; definitions (status vs coverage, the oracle)</summary>
+<p><strong>Status</strong> is loss-detection: <code>complete</code> = no dead-letter loss recorded;
+<code>partial</code> = a loss or gap was measured; <code>not_recorded</code> = the channel produced
+no rows. <strong>Coverage</strong> is a separate axis: <code>verified</code> means an oracle
+measured completeness (hooks: bracketed + paired; transcripts: seq gapless + parents resolve +
+tool_use paired with tool_result; spans: closed + parents resolve); <code>gap_detected</code> names
+the shortfall; <code>unverified</code> means no oracle exists for that channel yet. A green status is
+never a coverage guarantee.</p></details>
+
+<h2>Cost (list-price estimate)</h2>
+<p><strong>API-cost equivalent: ≈ $0.14</strong> at API list price (<code>list-price-v1-2026-08</code>) for 20,800 in / 5,500 out tokens.<br>• <strong>Subscription value:</strong> on a Pro/Max subscription you paid <em>nothing extra</em> for this session — that ≈$0.14 is the list-price value your subscription absorbed.<br>• <strong>If you switched to the API:</strong> this same session would cost you ≈$0.14 in pay-per-token billing.<br>A <em>list-price equivalent</em>, <strong>not what a subscriber paid</strong> (subscriptions are prepaid; tokens + wall-clock is the primary unit).</p>
+
+<h2>Still not built</h2>
+<p>7 analyzer(s) are <strong>not yet built</strong> — disclosed here so an unbuilt measure is
+never mistaken for a measured zero. This is capability state, not a finding.</p>
+<details><summary>Show the 7 not-yet-built analyzer(s) &amp; why each is absent</summary>
+<div class="tw"><table><thead><tr><th>Section</th><th>Why it is absent</th></tr></thead>
+<tbody>
+<tr><td>Tasks &amp; completion</td><td>Not observed — no TodoWrite/TaskCreate task calls in this transcript to derive a ledger from.</td></tr>
+<tr><td>Rework</td><td>Not observed — no repeated-edit or error signals in this transcript.</td></tr>
+<tr><td>Agents &amp; handoffs</td><td>Not observed — no Agent/Task sub-agent dispatches in this transcript.</td></tr>
+<tr><td>Skills usage</td><td>Not observed — no Skill invocations in this transcript (0 is real here, not unbuilt).</td></tr>
+<tr><td>Human-vs-AI recovery</td><td>Not observed — human-vs-AI recovery classification is not built yet.</td></tr>
+<tr><td>Validation runs</td><td>Not observed — no cargo `test result:` lines in this transcript's tool outputs.</td></tr>
+<tr><td>Micro-observations &amp; silent signals</td><td>Not observed — micro-observation extraction and silent-signal detection are not built yet; no findings are fabricated.</td></tr>
+</tbody></table></div></details>
+
+<h2>Evidence &amp; integrity</h2>
+<p>This report is deterministic: the same database always renders byte-identically. No LLM and no
+network are in the render path. Provenance (for auditors):</p>
+<p class="prov">recorded_window: 1h 00m (3,600,000 ms)<br>source_db_hash: blake3:a47010b467b5011af00f3a2474d4588a18352b16746617cc4c1ea14c387100cc<br>template_hash: blake3:b8bcf83ef579efa16b0185ca546f39cf8a408aa8c0a58051763eab7500742871<br>renderer_version: 0.1.0 ·
+generated_at (from DB): 2025-06-15T16:06:40Z</p>
+
+<footer>Independent open-source project by Bradley Ross / Bradley.Academy. Academic crimson palette; no Harvard University marks are used and no endorsement is implied.<br>Report barobs-a47010b467b5 · template bar-observatory-engineering-1.0 · Bradley.Academy</footer>
+</div></body></html>

@@ -1,0 +1,1144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>BAR Observatory — Agentic Engineering Report</title>
+<style>
+:root{
+  --bg:#f4f6f8;
+  --panel:#ffffff;
+  --panel-2:#f8fafc;
+  --text:#152033;
+  --muted:#667085;
+  --line:#d8dee8;
+  --brand:#A51C30;
+  --brand-2:#8C1515;
+  --good:#067647;
+  --warn:#b54708;
+  --bad:#b42318;
+  --info:#175cd3;
+  --chip:#eef2f6;
+  --shadow:0 10px 30px rgba(16,24,40,.08);
+}
+[data-theme="dark"]{
+  --bg:#0e131b;
+  --panel:#151c26;
+  --panel-2:#101722;
+  --text:#edf2f7;
+  --muted:#9aa4b2;
+  --line:#2a3442;
+  --brand:#F08A98;
+  --brand-2:#FFB3BE;
+  --good:#47cd89;
+  --warn:#fdb022;
+  --bad:#f97066;
+  --info:#84adff;
+  --chip:#1f2937;
+  --shadow:none;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  font-family:Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  line-height:1.5;
+}
+a{color:inherit}
+button,input,select{font:inherit}
+.topbar{
+  position:sticky; top:0; z-index:50;
+  display:flex; align-items:center; justify-content:space-between;
+  padding:14px 24px;
+  background:color-mix(in srgb, var(--panel) 92%, transparent);
+  border-bottom:1px solid var(--line);
+  backdrop-filter:blur(12px);
+}
+.brand{display:flex;gap:12px;align-items:center}
+.logo{
+  width:36px;height:36px;border-radius:10px;
+  display:grid;place-items:center;color:white;font-weight:800;
+  background:linear-gradient(145deg,var(--brand),var(--brand-2));
+}
+.brand-title{font-weight:800}
+.brand-sub{font-size:12px;color:var(--muted)}
+.actions{display:flex;gap:8px;align-items:center}
+.btn{
+  border:1px solid var(--line); background:var(--panel);
+  color:var(--text); padding:8px 11px; border-radius:9px; cursor:pointer;
+}
+.btn:hover{border-color:var(--brand)}
+.layout{display:grid;grid-template-columns:250px minmax(0,1fr);min-height:100vh}
+.sidebar{
+  position:sticky; top:65px; height:calc(100vh - 65px);
+  padding:22px 16px; border-right:1px solid var(--line);
+  overflow:auto; background:var(--panel);
+}
+.sidebar h4{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:16px 10px 8px}
+.nav a{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:9px 10px;border-radius:8px;text-decoration:none;color:var(--muted);font-size:14px
+}
+.nav a:hover,.nav a.active{background:var(--panel-2);color:var(--text)}
+.nav .dot{width:7px;height:7px;border-radius:50%;background:var(--good)}
+.main{padding:28px;max-width:1500px;width:100%;margin:auto}
+.hero{
+  background:linear-gradient(140deg, color-mix(in srgb,var(--brand) 16%,var(--panel)), var(--panel));
+  border:1px solid var(--line); border-radius:18px; padding:26px; box-shadow:var(--shadow);
+}
+.eyebrow{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--brand-2);font-weight:800}
+.hero h1{margin:8px 0 6px;font-size:34px;line-height:1.15}
+.hero p{margin:0;color:var(--muted);max-width:900px}
+.hero-meta{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+.chip{
+  display:inline-flex;gap:7px;align-items:center;
+  padding:7px 10px;border-radius:999px;background:var(--chip);font-size:12px
+}
+.status-good{color:var(--good)}
+.status-warn{color:var(--warn)}
+.status-bad{color:var(--bad)}
+.grid{display:grid;gap:16px}
+.grid-2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.grid-3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.grid-4{grid-template-columns:repeat(4,minmax(0,1fr))}
+.grid-6{grid-template-columns:repeat(6,minmax(0,1fr))}
+.section{margin-top:28px;scroll-margin-top:90px}
+.section-head{display:flex;justify-content:space-between;align-items:end;margin-bottom:12px}
+.section h2{font-size:23px;margin:0}
+.section .desc{color:var(--muted);font-size:14px}
+.card{
+  background:var(--panel);border:1px solid var(--line);border-radius:14px;
+  padding:18px;box-shadow:var(--shadow)
+}
+.card h3{margin:0 0 12px;font-size:17px}
+.metric{padding:14px}
+.metric .label{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+.metric .value{font-size:27px;font-weight:800;margin-top:3px}
+.metric .sub{font-size:12px;color:var(--muted);margin-top:2px}
+.kpi-strip{margin-top:16px}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th,td{padding:11px 10px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+th{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+tr:last-child td{border-bottom:0}
+.num{text-align:right;font-variant-numeric:tabular-nums}
+.bar{
+  height:8px;border-radius:999px;background:var(--chip);overflow:hidden;min-width:90px
+}
+.bar > span{display:block;height:100%;border-radius:999px;background:var(--brand-2)}
+.bar.good > span{background:var(--good)}
+.bar.warn > span{background:var(--warn)}
+.bar.bad > span{background:var(--bad)}
+.phase{
+  display:grid;grid-template-columns:36px minmax(150px,1.4fr) repeat(7,minmax(60px,.7fr));
+  gap:8px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line);font-size:13px
+}
+.phase:last-child{border-bottom:0}
+.phase .n{width:28px;height:28px;border-radius:8px;background:var(--chip);display:grid;place-items:center;font-weight:800}
+.phase .title{font-weight:750}
+.phase .small{font-size:11px;color:var(--muted)}
+.score{
+  display:inline-flex;align-items:center;justify-content:center;
+  min-width:42px;padding:4px 8px;border-radius:999px;font-weight:800;font-size:12px
+}
+.score.good{background:color-mix(in srgb,var(--good) 14%,transparent);color:var(--good)}
+.score.warn{background:color-mix(in srgb,var(--warn) 16%,transparent);color:var(--warn)}
+.score.bad{background:color-mix(in srgb,var(--bad) 14%,transparent);color:var(--bad)}
+.callout{
+  border-left:4px solid var(--brand-2);padding:12px 14px;background:var(--panel-2);border-radius:8px
+}
+details{border-top:1px solid var(--line);padding:12px 0}
+details:first-of-type{border-top:0}
+summary{cursor:pointer;font-weight:750}
+.mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:12px}
+.legend{display:flex;gap:12px;flex-wrap:wrap;color:var(--muted);font-size:12px}
+.legend span{display:inline-flex;gap:5px;align-items:center}
+.legend i{width:8px;height:8px;border-radius:50%;display:inline-block}
+.observation{
+  padding:13px 0;border-bottom:1px solid var(--line)
+}
+.observation:last-child{border-bottom:0}
+.obs-head{display:flex;justify-content:space-between;gap:12px;align-items:center}
+.obs-id{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--brand-2);font-weight:800}
+.obs-title{font-weight:750}
+.obs-meta{font-size:12px;color:var(--muted);margin-top:5px}
+.search-wrap{display:flex;gap:8px;align-items:center}
+.search{
+  width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:9px;background:var(--panel);color:var(--text)
+}
+.hidden{display:none!important}
+.provenance{
+  font-size:11px;color:var(--muted);margin-top:12px;padding-top:10px;border-top:1px dashed var(--line)
+}
+.footer{margin:34px 0 16px;color:var(--muted);font-size:12px;text-align:center}
+.badge{
+  font-size:11px;padding:3px 7px;border-radius:999px;background:var(--chip);white-space:nowrap
+}
+.spark{display:flex;gap:3px;align-items:end;height:32px}
+.spark i{display:block;width:7px;border-radius:2px 2px 0 0;background:var(--brand-2)}
+.step-risk{display:flex;align-items:center;gap:8px}
+.risk-dot{width:9px;height:9px;border-radius:50%}
+.sticky-note{
+  background:color-mix(in srgb,var(--warn) 10%,var(--panel));border:1px solid color-mix(in srgb,var(--warn) 35%,var(--line));
+  border-radius:12px;padding:13px 14px
+}
+@media(max-width:1100px){
+  .layout{grid-template-columns:1fr}.sidebar{display:none}
+  .grid-6{grid-template-columns:repeat(3,1fr)}
+  .grid-4{grid-template-columns:repeat(2,1fr)}
+  .phase{grid-template-columns:32px 1fr repeat(3,80px)}
+  .phase > :nth-child(n+6){display:none}
+}
+@media(max-width:700px){
+  .main{padding:16px}.topbar{padding:10px 14px}
+  .brand-sub{display:none}.actions .btn span{display:none}
+  .grid-2,.grid-3,.grid-4,.grid-6{grid-template-columns:1fr}
+  .hero h1{font-size:27px}
+  .phase{grid-template-columns:32px 1fr 70px}
+  .phase > :nth-child(n+4){display:none}
+}
+@media print{
+  .sidebar,.actions,.no-print{display:none!important}
+  .layout{display:block}.main{padding:0;max-width:none}
+  body{background:#fff}.card,.hero{box-shadow:none;break-inside:avoid}
+  details{display:block} details > *{display:block}
+}
+
+/* --- WOW POLISH LAYER --- */
+.hero{
+  position:relative;
+  overflow:hidden;
+  background:
+    radial-gradient(circle at 90% 15%, color-mix(in srgb,var(--brand) 16%,transparent), transparent 27%),
+    linear-gradient(135deg, color-mix(in srgb,var(--brand) 13%,var(--panel)), var(--panel) 52%);
+}
+.hero::after{
+  content:"";
+  position:absolute; right:-70px; top:-80px;
+  width:280px; height:280px; border-radius:50%;
+  border:1px solid color-mix(in srgb,var(--brand) 20%,transparent);
+  box-shadow:0 0 0 34px color-mix(in srgb,var(--brand) 5%,transparent),
+             0 0 0 70px color-mix(in srgb,var(--brand) 3%,transparent);
+  pointer-events:none;
+}
+.hero > *{position:relative;z-index:1}
+.hero-kicker{
+  display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:12px
+}
+.hero-kicker .line{width:54px;height:2px;background:var(--brand)}
+.hero-score{
+  margin-top:22px;
+  display:grid;grid-template-columns:minmax(0,1.4fr) minmax(260px,.8fr);gap:18px;align-items:stretch
+}
+.story-panel{
+  background:color-mix(in srgb,var(--panel) 90%,transparent);
+  border:1px solid var(--line);border-radius:14px;padding:18px
+}
+.story-panel h3{font-size:19px;margin:0 0 8px}
+.story-panel p{margin:0;color:var(--muted)}
+.story-flow{
+  display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin-top:16px
+}
+.story-step{
+  position:relative;padding:11px 9px;border-radius:10px;background:var(--panel-2);border:1px solid var(--line);
+  min-height:76px;font-size:11px;color:var(--muted)
+}
+.story-step strong{display:block;color:var(--text);font-size:12px;margin-bottom:4px}
+.story-step::after{
+  content:"›";position:absolute;right:-7px;top:25px;color:var(--brand);font-size:18px;font-weight:900;z-index:2
+}
+.story-step:last-child::after{display:none}
+.hero-verdict{
+  background:linear-gradient(160deg,var(--brand),var(--brand-2));
+  color:#fff;border-radius:14px;padding:20px;display:flex;flex-direction:column;justify-content:space-between
+}
+.hero-verdict .big{font-size:42px;font-weight:900;line-height:1}
+.hero-verdict .label{font-size:11px;text-transform:uppercase;letter-spacing:.1em;opacity:.8}
+.hero-verdict p{color:rgba(255,255,255,.82);font-size:13px;margin:12px 0 0}
+.dna{
+  display:grid;grid-template-columns:1.15fr .85fr;gap:16px
+}
+.dna-visual{
+  background:
+    radial-gradient(circle at 50% 45%, color-mix(in srgb,var(--brand) 11%,transparent), transparent 37%),
+    var(--panel);
+  min-height:430px;display:grid;place-items:center;position:relative;overflow:hidden
+}
+.dna-ring{
+  width:330px;height:330px;border-radius:50%;position:relative;
+  border:1px solid color-mix(in srgb,var(--brand) 25%,var(--line));
+  box-shadow:inset 0 0 50px color-mix(in srgb,var(--brand) 7%,transparent);
+}
+.dna-ring::before,.dna-ring::after{
+  content:"";position:absolute;border-radius:50%;inset:38px;border:1px dashed color-mix(in srgb,var(--brand) 28%,transparent)
+}
+.dna-ring::after{inset:83px;border-style:solid;opacity:.55}
+.dna-center{
+  position:absolute;inset:105px;border-radius:50%;display:grid;place-items:center;text-align:center;
+  background:linear-gradient(145deg,var(--brand),var(--brand-2));color:#fff;padding:15px
+}
+.dna-center strong{font-size:30px;line-height:1}
+.dna-center span{font-size:10px;text-transform:uppercase;letter-spacing:.08em;opacity:.8}
+.dna-node{
+  position:absolute;width:86px;padding:8px;border-radius:10px;background:var(--panel);border:1px solid var(--line);
+  box-shadow:var(--shadow);font-size:10px;text-align:center
+}
+.dna-node strong{display:block;font-size:13px;color:var(--text)}
+.dna-node.n1{left:50%;top:-20px;transform:translateX(-50%)}
+.dna-node.n2{right:-30px;top:72px}
+.dna-node.n3{right:-18px;bottom:45px}
+.dna-node.n4{left:50%;bottom:-25px;transform:translateX(-50%)}
+.dna-node.n5{left:-30px;bottom:45px}
+.dna-node.n6{left:-30px;top:72px}
+.dna-list{display:grid;gap:10px}
+.dna-item{
+  display:grid;grid-template-columns:42px 1fr auto;gap:10px;align-items:center;padding:12px;border:1px solid var(--line);border-radius:11px;background:var(--panel)
+}
+.dna-item .icon{width:38px;height:38px;border-radius:10px;background:var(--chip);display:grid;place-items:center;font-weight:900;color:var(--brand)}
+.dna-item strong{display:block}
+.dna-item small{color:var(--muted)}
+.ribbon{
+  display:grid;grid-template-columns:repeat(8,1fr);gap:0;margin-top:14px;border-radius:12px;overflow:hidden;border:1px solid var(--line)
+}
+.ribbon > div{padding:14px 10px;background:var(--panel-2);border-right:1px solid var(--line);position:relative}
+.ribbon > div:last-child{border-right:0}
+.ribbon strong{display:block;font-size:12px}
+.ribbon span{font-size:10px;color:var(--muted)}
+.ribbon .hot{background:color-mix(in srgb,var(--bad) 9%,var(--panel))}
+.ribbon .warm{background:color-mix(in srgb,var(--warn) 10%,var(--panel))}
+.ribbon .cool{background:color-mix(in srgb,var(--good) 8%,var(--panel))}
+.waterfall{display:grid;gap:10px}
+.water-row{display:grid;grid-template-columns:170px minmax(0,1fr) 70px;gap:12px;align-items:center}
+.water-track{height:13px;border-radius:999px;background:var(--chip);overflow:hidden}
+.water-fill{height:100%;border-radius:999px;background:linear-gradient(90deg,var(--brand),var(--brand-2))}
+.water-fill.warn{background:linear-gradient(90deg,var(--warn),color-mix(in srgb,var(--warn) 55%,var(--brand)))}
+.water-fill.bad{background:linear-gradient(90deg,var(--bad),var(--brand))}
+.insight-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.insight{
+  min-height:170px;padding:18px;border-radius:14px;border:1px solid var(--line);background:var(--panel);
+  position:relative;overflow:hidden
+}
+.insight::before{
+  content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--brand)
+}
+.insight.warn::before{background:var(--warn)}
+.insight.bad::before{background:var(--bad)}
+.insight .eyebrow{font-size:10px}
+.insight h3{font-size:17px;margin:8px 0}
+.insight p{font-size:13px;color:var(--muted);margin:0}
+.insight .fact{font-size:26px;font-weight:900;margin-top:14px}
+.section-number{
+  width:34px;height:34px;border-radius:10px;background:var(--brand);color:#fff;display:inline-grid;place-items:center;
+  font-weight:900;margin-right:10px;font-size:13px
+}
+.section-head .title-wrap{display:flex;align-items:center}
+.section-head h2{display:inline}
+.executive-rule{
+  display:flex;gap:12px;align-items:center;margin:18px 0;color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.1em
+}
+.executive-rule::before,.executive-rule::after{content:"";height:1px;background:var(--line);flex:1}
+.quote{
+  font-family:Georgia,"Times New Roman",serif;font-size:22px;line-height:1.35;margin:0;color:var(--text)
+}
+.quote span{color:var(--brand)}
+@media(max-width:1000px){
+  .hero-score,.dna{grid-template-columns:1fr}
+  .story-flow{grid-template-columns:repeat(3,1fr)}
+  .story-step:nth-child(3)::after,.story-step:last-child::after{display:none}
+  .insight-grid{grid-template-columns:1fr}
+  .ribbon{grid-template-columns:repeat(4,1fr)}
+}
+@media(max-width:700px){
+  .story-flow{grid-template-columns:1fr}
+  .story-step::after{display:none}
+  .dna-ring{transform:scale(.82)}
+  .ribbon{grid-template-columns:repeat(2,1fr)}
+  .water-row{grid-template-columns:110px 1fr 55px}
+}
+
+</style>
+</head>
+<body>
+<header class="topbar">
+  <div class="brand">
+    <div class="logo">BAR</div>
+    <div>
+      <div class="brand-title">BAR Observatory</div>
+      <div class="brand-sub">Deterministic Agentic Engineering Report</div>
+    </div>
+  </div>
+  <div class="actions">
+    <button class="btn" onclick="toggleSections()">Sections</button>
+    <button class="btn" onclick="window.print()">Export PDF</button>
+    <button class="btn" onclick="toggleTheme()" aria-label="Toggle theme">◐ <span>Theme</span></button>
+  </div>
+</header>
+
+<div class="layout">
+<aside class="sidebar">
+  <h4>Report</h4>
+  <nav class="nav">
+    <a href="#overview">Overview <span class="dot"></span></a>
+    <a href="#engineering-dna">Engineering DNA</a>
+    <a href="#executive-findings">Executive Findings</a>
+    <a href="#tasks">Tasks & Completion</a>
+    <a href="#process">Process Steps</a>
+    <a href="#agents">Agents & Handoffs</a>
+    <a href="#skills">Skills & Context</a>
+    <a href="#rework">Loops & Rework</a>
+    <a href="#recovery">Human vs AI Recovery</a>
+    <a href="#collaboration">Human–Agent</a>
+    <a href="#repository">Repository & Specs</a>
+    <a href="#validation">Validation</a>
+    <a href="#observations">Observations & Silent Signals</a>
+    <a href="#capture">Capture Quality</a>
+  </nav>
+  <h4>Optional</h4>
+  <nav class="nav" id="optionalNav">
+    <a href="#terminal" data-optional>Terminal Activity</a>
+    <a href="#config" data-optional>Harness & Config</a>
+    <a href="#evidence" data-optional>Evidence Manifest</a>
+  </nav>
+  <h4>Trust Boundary</h4>
+  <div class="callout" style="font-size:12px">
+    LLM interpretation is <strong>disabled</strong>. All visible findings are generated from recorded events, repository state, deterministic classifications, and configured rules.
+  </div>
+</aside>
+
+<main class="main"><div class="executive-rule">Example data · deterministic report acceptance target</div>
+<div class="executive-rule">BAR Observatory · Bradley.Academy · Engineering report</div>
+<section id="overview" class="hero">
+  <div class="eyebrow">Agentic Engineering Record · 5-session scope</div>
+  <h1>Deterministic Distributed Capture Pipeline</h1>
+  <p>Implementation of session, agent, terminal, file-version, replay, and micro-observation capture across a mature Claude Code engineering harness.</p>
+  <div class="hero-meta">
+    <span class="chip"><strong>Status:</strong> <span class="status-good">Completed</span></span>
+    <span class="chip"><strong>Repository:</strong> bar181/bar-observatory</span>
+    <span class="chip"><strong>Report address:</strong> &lt;example swarm to populate&gt;</span>
+    <span class="chip"><strong>Scope:</strong> 5 sessions</span>
+    <span class="chip"><strong>Generated:</strong> 2026-07-30 09:18 EDT</span>
+    <span class="chip"><strong>Interpretation:</strong> Off</span>
+  </div>
+
+
+  <div class="hero-score">
+    <div class="story-panel">
+      <div class="hero-kicker"><span class="line"></span><span class="eyebrow">Deterministic engineering story</span></div>
+      <h3>Architecture held. Replay integration became the recovery point.</h3>
+      <p>
+        The run progressed cleanly through scope and repository orientation, concentrated effort in core implementation,
+        then encountered repeated replay-ordering failures. A validator reassignment resolved the migration dependency,
+        and the feature converged to a clean final validation.
+      </p>
+      <div class="story-flow">
+        <div class="story-step"><strong>Scope</strong>Accepted without redo</div>
+        <div class="story-step"><strong>Orient</strong>129 files reviewed</div>
+        <div class="story-step"><strong>Design</strong>1 architecture revision</div>
+        <div class="story-step"><strong>Build</strong>1.39M tokens</div>
+        <div class="story-step"><strong>Recover</strong>4 replay redo loops</div>
+        <div class="story-step"><strong>Validate</strong>236 / 236 passed</div>
+      </div>
+      <div class="provenance">Generated from phase transitions, validation outcomes, reassignment events, token totals, and final test records.</div>
+    </div>
+    <div class="hero-verdict">
+      <div>
+        <div class="label">Recorded outcome</div>
+        <div class="big">PASS</div>
+        <p>All configured final validation checks completed successfully. No unresolved recorded failures remained.</p>
+      </div>
+      <div style="margin-top:20px;font-size:12px;opacity:.86">Capture coverage: 99.9% hooks · 100% transcripts · 100% file versions</div>
+    </div>
+  </div>
+
+</section>
+
+<section class="section" id="about-report">
+  <div class="grid grid-2">
+    <div class="card">
+      <div class="eyebrow">How this report works</div>
+      <h3 style="font-size:20px;margin-top:8px">Recorded evidence, not generated judgment</h3>
+      <p class="desc">
+        BAR Observatory reconstructs an agentic engineering run from captured Claude Code events,
+        agent lifecycles, repository state, Git history, terminal outcomes, provider usage, file versions,
+        workflow transitions, and deterministic micro-observations.
+      </p>
+      <p class="desc">
+        Highlighted agents and process steps are selected by declared rules such as retry count,
+        validation failures, token concentration, file revisits, abandoned branches, and evidence density.
+        The standard report does not use an LLM and does not infer hidden reasoning, code quality, or business value.
+      </p>
+    </div>
+    <div class="card">
+      <div class="eyebrow">Report identity</div>
+      <table style="margin-top:8px">
+        <tr><td>Product</td><td class="num"><strong>BAR Observatory</strong></td></tr>
+        <tr><td>Expansion</td><td class="num">Base Agentic Reporter</td></tr>
+        <tr><td>Created by</td><td class="num">Bradley Ross</td></tr>
+        <tr><td>Studio</td><td class="num">Bradley.Academy</td></tr>
+        <tr><td>Report address</td><td class="num mono">&lt;example swarm to populate&gt;</td></tr>
+        <tr><td>LinkedIn</td><td class="num mono">&lt;linkedin URL&gt;</td></tr>
+        <tr><td>Website</td><td class="num mono">&lt;personal website URL&gt;</td></tr>
+      </table>
+    </div>
+  </div>
+
+
+<section class="section" id="engineering-dna">
+  <div class="section-head">
+    <div class="title-wrap"><span class="section-number">01</span><div><h2>Engineering DNA</h2><div class="desc">The one-page signature of how this feature was engineered.</div></div></div>
+    <span class="badge">Deterministic synthesis</span>
+  </div>
+  <div class="dna">
+    <div class="card dna-visual">
+      <div class="dna-ring">
+        <div class="dna-center"><div><strong>6h 18m</strong><br><span>active engineering</span></div></div>
+        <div class="dna-node n1"><strong>87</strong>human prompts</div>
+        <div class="dna-node n2"><strong>24</strong>agent runs</div>
+        <div class="dna-node n3"><strong>49</strong>files changed</div>
+        <div class="dna-node n4"><strong>236</strong>tests passed</div>
+        <div class="dna-node n5"><strong>13</strong>redo loops</div>
+        <div class="dna-node n6"><strong>4.86M</strong>tokens</div>
+      </div>
+    </div>
+    <div class="dna-list">
+      <div class="dna-item"><div class="icon">↗</div><div><strong>Primary engineering rhythm</strong><small>Read → plan → edit → validate → revise</small></div><span class="score warn">7 cycles</span></div>
+      <div class="dna-item"><div class="icon">⚙</div><div><strong>Highest effort phase</strong><small>Core implementation</small></div><span class="score warn">1.39M tokens</span></div>
+      <div class="dna-item"><div class="icon">!</div><div><strong>Recovery point</strong><small>Replay ordering and migration integration</small></div><span class="score bad">4 redo</span></div>
+      <div class="dna-item"><div class="icon">◎</div><div><strong>Most shared surface</strong><small>Capture router across five agents</small></div><span class="score warn">10 revisions</span></div>
+      <div class="dna-item"><div class="icon">✓</div><div><strong>Final state</strong><small>Clean checkout and repeat validation</small></div><span class="score good">236 / 236</span></div>
+      <div class="dna-item"><div class="icon">μ</div><div><strong>Knowledge captured</strong><small>Promoted deterministic micro-observations</small></div><span class="score good">428</span></div>
+    </div>
+  </div>
+  <div class="ribbon">
+    <div class="cool"><strong>Scope</strong><span>41m · no redo</span></div>
+    <div class="cool"><strong>Orient</strong><span>36m · 129 files</span></div>
+    <div class="warm"><strong>Design</strong><span>58m · 1 redo</span></div>
+    <div class="warm"><strong>Implement</strong><span>1h 42m · 2 redo</span></div>
+    <div class="hot"><strong>Integrate</strong><span>52m · 4 redo</span></div>
+    <div class="warm"><strong>Validate</strong><span>54m · 2 redo</span></div>
+    <div class="cool"><strong>Document</strong><span>29m · no redo</span></div>
+    <div class="cool"><strong>Release</strong><span>26m · clean pass</span></div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-head">
+    <div class="title-wrap"><span class="section-number">02</span><div><h2>Engagement summary</h2><div class="desc">Observed work, outputs, and evidence captured across the feature lifecycle.</div></div></div>
+    <span class="badge">Report template: engineering-summary-v1.3</span>
+  </div>
+  <div class="grid grid-6 kpi-strip">
+    <div class="card metric"><div class="label">Active time</div><div class="value">6h 18m</div><div class="sub">7h 04m elapsed</div></div>
+    <div class="card metric"><div class="label">Human prompts</div><div class="value">87</div><div class="sub">441 avg chars</div></div>
+    <div class="card metric"><div class="label">Agent runs</div><div class="value">24</div><div class="sub">7 roles · depth 3</div></div>
+    <div class="card metric"><div class="label">Files reviewed</div><div class="value">214</div><div class="sub">49 changed</div></div>
+    <div class="card metric"><div class="label">Token use</div><div class="value">4.86M</div><div class="sub">input + output</div></div>
+    <div class="card metric"><div class="label">Micro-observations</div><div class="value">3,146</div><div class="sub">7,882 evidence links</div></div>
+  </div>
+
+  <div class="grid grid-2" style="margin-top:16px">
+    <div class="card">
+      <h3>Observed completion evidence</h3>
+      <table>
+        <tr><td>Feature specification resolved</td><td class="num status-good">Observed</td></tr>
+        <tr><td>Required modules present</td><td class="num status-good">Observed</td></tr>
+        <tr><td>Database migration applied in test environment</td><td class="num status-good">Observed</td></tr>
+        <tr><td>Replay and capture suites completed</td><td class="num status-good">Observed</td></tr>
+        <tr><td>Final branch validation passed</td><td class="num status-good">Observed</td></tr>
+        <tr><td>Documentation and ADRs updated</td><td class="num status-good">Observed</td></tr>
+      </table>
+      <div class="provenance">Sources: git history, file versions, command exits, test result parser, specification links.</div>
+    </div>
+
+    <div class="card">
+      <h3>Process outcome</h3>
+      <table>
+        <tr><td>Standard process steps completed</td><td class="num">8 / 8</td></tr>
+        <tr><td>Steps completed without redo</td><td class="num">5 / 8</td></tr>
+        <tr><td>Human-triggered redirections</td><td class="num">4</td></tr>
+        <tr><td>Agent-triggered retries</td><td class="num">9</td></tr>
+        <tr><td>Abandoned agent branches</td><td class="num status-warn">2</td></tr>
+        <tr><td>Final unresolved failures</td><td class="num status-good">0</td></tr>
+      </table>
+      <div class="provenance">No composite quality score is asserted. Values are direct counts from the workflow graph.</div>
+    </div>
+  </div>
+</section>
+
+
+<section class="section" id="executive-findings">
+  <div class="section-head">
+    <div class="title-wrap"><span class="section-number">03</span><div><h2>Executive findings</h2><div class="desc">The most consequential recorded facts from the run.</div></div></div>
+  </div>
+  <div class="insight-grid">
+    <div class="insight bad">
+      <div class="eyebrow">Primary issue</div>
+      <h3>Replay ordering absorbed disproportionate recovery effort.</h3>
+      <p>One specialist produced the highest retry count, the highest validation-to-output ratio, and one superseded branch.</p>
+      <div class="fact">3 redo loops</div>
+    </div>
+    <div class="insight warn">
+      <div class="eyebrow">Process signal</div>
+      <h3>Most rework was concentrated, not systemic.</h3>
+      <p>Five of eight standard phases completed with no redo. Integration and validation contained most observed iteration.</p>
+      <div class="fact">5 / 8 clean</div>
+    </div>
+    <div class="insight">
+      <div class="eyebrow">Final outcome</div>
+      <h3>The run converged after reassignment, not continued expansion.</h3>
+      <p>Migration work moved to Validator 02; the replay specialist retained the ordering task and the final suite passed.</p>
+      <div class="fact status-good">236 / 236</div>
+    </div>
+  </div>
+  <div class="executive-rule">deterministic report narrative</div>
+  <p class="quote">The engineering story is not that the swarm failed. It is that <span>one narrow integration surface created measurable drag</span>, was isolated, reassigned, and recovered.</p>
+  <div class="provenance">Narrative assembled from fixed templates using recorded phase, agent, validation, reassignment, and final-state facts.</div>
+</section>
+
+
+<section id="tasks" class="section">
+  <div class="section-head"><div class="title-wrap"><span class="section-number">04</span><div><h2>Tasks, attempts, and completion evidence</h2><div class="desc">Task closure is recorded separately from an agent completion claim.</div></div></div><span class="badge">31 tasks · 28 supported complete</span></div>
+  <div class="grid grid-4">
+    <div class="card metric"><div class="label">Supported complete</div><div class="value status-good">28</div><div class="sub">completion event + evidence</div></div>
+    <div class="card metric"><div class="label">Open at session end</div><div class="value status-warn">1</div><div class="sub">agent completion collector</div></div>
+    <div class="card metric"><div class="label">Superseded</div><div class="value">2</div><div class="sub">replacement output retained</div></div>
+    <div class="card metric"><div class="label">Task loops</div><div class="value">13</div><div class="sub">across four highlighted tasks</div></div>
+  </div>
+  <div class="card" style="margin-top:16px"><table><thead><tr><th>Task</th><th>State</th><th>Completion evidence</th><th class="num">Attempts</th><th class="num">Loops</th><th class="num">Rework</th><th>Agents / skills</th></tr></thead><tbody>
+    <tr><td><strong>Make replay ordering migration-safe</strong><div class="small mono">task-replay-ordering</div></td><td><span class="score good">completed</span></td><td>TaskCompleted + final validation</td><td class="num">4</td><td class="num">4</td><td class="num status-bad">4</td><td>Replay Specialist 02 → Validator 02<br><span class="small">rust-debugging · sqlite-migrations</span></td></tr>
+    <tr><td><strong>Keep stop-hook reporting below ceiling</strong><div class="small mono">task-stop-hook</div></td><td><span class="score good">completed</span></td><td>benchmark threshold + validation</td><td class="num">3</td><td class="num">3</td><td class="num status-warn">3</td><td>Hook Engineer 01 → Test Engineer 02<br><span class="small">rust-profiling</span></td></tr>
+    <tr><td><strong>Enforce HTML/Markdown fact parity</strong><div class="small mono">task-report-parity</div></td><td><span class="score good">completed</span></td><td>golden + parity lint</td><td class="num">2</td><td class="num">2</td><td class="num">2</td><td>Report Engineer 01<br><span class="small">golden-reporting</span></td></tr>
+    <tr><td><strong>Capture agent completion events</strong><div class="small mono">task-agent-completion</div></td><td><span class="score warn">open</span></td><td>completion event not recorded</td><td class="num">1</td><td class="num">1</td><td class="num">1</td><td>Agent Events 03<br><span class="small">no skill invocation recorded</span></td></tr>
+  </tbody></table><div class="provenance">“Completed” reflects recorded task state and supporting evidence. It does not assert product correctness beyond the recorded checks.</div></div>
+</section>
+
+<section id="process" class="section">
+  <div class="section-head">
+    <div class="title-wrap"><span class="section-number">05</span><div><h2>Engineering process steps</h2><div class="desc">Eight deterministic phases inferred from configured harness states and event transitions.</div></div></div>
+    <div class="legend"><span><i style="background:var(--good)"></i> low rework</span><span><i style="background:var(--warn)"></i> moderate</span><span><i style="background:var(--bad)"></i> high</span></div>
+  </div>
+
+  <div class="card">
+    <div class="phase" style="font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em">
+      <div></div><div>Process step</div><div>Time</div><div>Prompts</div><div>Agents</div><div>Files</div><div>Tokens</div><div>Loops</div><div>Redo</div>
+    </div>
+    <div class="phase">
+      <div class="n">1</div><div><div class="title">Scope & requirements</div><div class="small">Session 1 · prompts, specs, acceptance criteria</div></div>
+      <div>41m</div><div>14</div><div>3</div><div>38</div><div>412k</div><div>4</div><div><span class="score good">0</span></div>
+    </div>
+    <div class="phase">
+      <div class="n">2</div><div><div class="title">Repository orientation</div><div class="small">Index, skills, CLAUDE.md, dependency map</div></div>
+      <div>36m</div><div>7</div><div>4</div><div>129</div><div>538k</div><div>5</div><div><span class="score good">0</span></div>
+    </div>
+    <div class="phase">
+      <div class="n">3</div><div><div class="title">Architecture & design</div><div class="small">Schema, event model, ADR review</div></div>
+      <div>58m</div><div>12</div><div>5</div><div>74</div><div>761k</div><div>8</div><div><span class="score warn">1</span></div>
+    </div>
+    <div class="phase">
+      <div class="n">4</div><div><div class="title">Core implementation</div><div class="small">Capture router, storage, file versions</div></div>
+      <div>1h 42m</div><div>25</div><div>8</div><div>83</div><div>1.39M</div><div>16</div><div><span class="score warn">2</span></div>
+    </div>
+    <div class="phase">
+      <div class="n">5</div><div><div class="title">Integration & replay</div><div class="small">Hooks, timeline, replay convergence</div></div>
+      <div>52m</div><div>10</div><div>5</div><div>46</div><div>706k</div><div>11</div><div><span class="score bad">4</span></div>
+    </div>
+    <div class="phase">
+      <div class="n">6</div><div><div class="title">Validation & debugging</div><div class="small">Build, unit, integration, migration tests</div></div>
+      <div>54m</div><div>9</div><div>5</div><div>39</div><div>614k</div><div>13</div><div><span class="score warn">2</span></div>
+    </div>
+    <div class="phase">
+      <div class="n">7</div><div><div class="title">Documentation & handoff</div><div class="small">Specs, ADRs, usage notes</div></div>
+      <div>29m</div><div>6</div><div>3</div><div>27</div><div>291k</div><div>3</div><div><span class="score good">0</span></div>
+    </div>
+    <div class="phase">
+      <div class="n">8</div><div><div class="title">Final release checks</div><div class="small">Clean tree, final suite, report generation</div></div>
+      <div>26m</div><div>4</div><div>2</div><div>19</div><div>148k</div><div>2</div><div><span class="score good">0</span></div>
+    </div>
+    <div class="provenance">Phase assignment rules: configured workflow state, task labels, command categories, referenced specifications, and temporal event boundaries.</div>
+  </div>
+  <div class="card" style="margin-top:16px">
+    <h3>Effort distribution</h3>
+    <div class="waterfall">
+      <div class="water-row"><div>Core implementation</div><div class="water-track"><div class="water-fill" style="width:100%"></div></div><div class="num">1h 42m</div></div>
+      <div class="water-row"><div>Architecture & design</div><div class="water-track"><div class="water-fill" style="width:57%"></div></div><div class="num">58m</div></div>
+      <div class="water-row"><div>Validation & debugging</div><div class="water-track"><div class="water-fill warn" style="width:53%"></div></div><div class="num">54m</div></div>
+      <div class="water-row"><div>Integration & replay</div><div class="water-track"><div class="water-fill bad" style="width:51%"></div></div><div class="num">52m</div></div>
+      <div class="water-row"><div>Scope & requirements</div><div class="water-track"><div class="water-fill" style="width:40%"></div></div><div class="num">41m</div></div>
+      <div class="water-row"><div>Repository orientation</div><div class="water-track"><div class="water-fill" style="width:35%"></div></div><div class="num">36m</div></div>
+      <div class="water-row"><div>Documentation</div><div class="water-track"><div class="water-fill" style="width:28%"></div></div><div class="num">29m</div></div>
+      <div class="water-row"><div>Release checks</div><div class="water-track"><div class="water-fill" style="width:25%"></div></div><div class="num">26m</div></div>
+    </div>
+    <div class="provenance">Width represents active phase duration; color indicates recorded redo concentration.</div>
+  </div>
+
+  <div class="grid grid-3" style="margin-top:16px">
+    <div class="card"><h3>Highest rework phase</h3><div class="value" style="font-size:23px;font-weight:800">Integration & replay</div><p class="desc">4 redo loops · 3 failed validations · 2 agents reassigned</p></div>
+    <div class="card"><h3>Highest token phase</h3><div class="value" style="font-size:23px;font-weight:800">Core implementation</div><p class="desc">1.39M tokens · 28.6% of total</p></div>
+    <div class="card"><h3>Most file-intensive phase</h3><div class="value" style="font-size:23px;font-weight:800">Repository orientation</div><p class="desc">129 files reviewed · 104 unique</p></div>
+  </div>
+</section>
+
+<section id="agents" class="section">
+  <div class="section-head">
+    <div class="title-wrap"><span class="section-number">06</span><div><h2>Agents, task contributions, and handoffs</h2><div class="desc">Role and run-level statistics. “Redo” is detected from failed validation followed by renewed work on the same task or files.</div></div></div>
+    <span class="badge">24 executions</span>
+  </div>
+
+  <div class="grid grid-4">
+    <div class="card metric"><div class="label">Completed</div><div class="value status-good">22</div><div class="sub">91.7%</div></div>
+    <div class="card metric"><div class="label">Cancelled</div><div class="value status-warn">2</div><div class="sub">both superseded</div></div>
+    <div class="card metric"><div class="label">Median duration</div><div class="value">11m</div><div class="sub">P95 39m</div></div>
+    <div class="card metric"><div class="label">Accepted first pass</div><div class="value">15</div><div class="sub">62.5%</div></div>
+  </div>
+
+  <div class="card" style="margin-top:16px">
+    <table>
+      <thead><tr><th>Role</th><th class="num">Runs</th><th class="num">Duration</th><th class="num">Files reviewed</th><th class="num">Files changed</th><th class="num">Tokens</th><th class="num">Loops</th><th class="num">Redo</th><th>Signal</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Supervisor</strong><div class="small">planning, routing, synthesis</div></td><td class="num">5</td><td class="num">4h 51m</td><td class="num">117</td><td class="num">14</td><td class="num">1.08M</td><td class="num">14</td><td class="num">1</td><td><span class="score good">stable</span></td></tr>
+        <tr><td><strong>Repository analyst</strong><div class="small">codebase map, dependency tracing</div></td><td class="num">3</td><td class="num">52m</td><td class="num">176</td><td class="num">0</td><td class="num">702k</td><td class="num">5</td><td class="num">0</td><td><span class="score good">stable</span></td></tr>
+        <tr><td><strong>Architecture agent</strong><div class="small">schema, contracts, ADRs</div></td><td class="num">4</td><td class="num">1h 14m</td><td class="num">89</td><td class="num">7</td><td class="num">811k</td><td class="num">9</td><td class="num">1</td><td><span class="score good">stable</span></td></tr>
+        <tr><td><strong>Implementation agent</strong><div class="small">capture, storage, hooks</div></td><td class="num">7</td><td class="num">2h 37m</td><td class="num">103</td><td class="num">41</td><td class="num">1.52M</td><td class="num">22</td><td class="num">3</td><td><span class="score warn">rework</span></td></tr>
+        <tr><td><strong>Replay specialist</strong><div class="small">timeline rebuild, ordering</div></td><td class="num">2</td><td class="num">1h 03m</td><td class="num">44</td><td class="num">12</td><td class="num">469k</td><td class="num">12</td><td class="num">4</td><td><span class="score bad">issue</span></td></tr>
+        <tr><td><strong>Validator</strong><div class="small">tests, migrations, contract checks</div></td><td class="num">2</td><td class="num">47m</td><td class="num">36</td><td class="num">5</td><td class="num">183k</td><td class="num">8</td><td class="num">2</td><td><span class="score warn">retries</span></td></tr>
+        <tr><td><strong>Documentation agent</strong><div class="small">spec, ADR, operator guide</div></td><td class="num">1</td><td class="num">24m</td><td class="num">29</td><td class="num">8</td><td class="num">95k</td><td class="num">2</td><td class="num">0</td><td><span class="score good">stable</span></td></tr>
+      </tbody>
+    </table>
+    <div class="provenance">Counts may overlap where multiple agents reviewed the same file. Token totals are recorded provider usage, not estimates.</div>
+  </div>
+
+  <div class="grid grid-2" style="margin-top:16px">
+    <div class="card">
+      <h3>Agent requiring attention</h3>
+      <div class="sticky-note">
+        <div class="step-risk"><span class="risk-dot" style="background:var(--bad)"></span><strong>Replay Specialist 02</strong></div>
+        <table style="margin-top:8px">
+          <tr><td>Duration</td><td class="num">38m 14s</td></tr>
+          <tr><td>Tokens</td><td class="num">311k</td></tr>
+          <tr><td>Files changed</td><td class="num">8</td></tr>
+          <tr><td>Validation attempts</td><td class="num">6</td></tr>
+          <tr><td>Redo loops</td><td class="num status-bad">3</td></tr>
+          <tr><td>Retained-output percentage</td><td class="num">not calculated</td></tr>
+        </table>
+        <p class="desc">Deterministic trigger: highest redo count, highest validation-to-output ratio, and one superseded branch.</p>
+      </div>
+    </div>
+    <div class="card">
+      <h3>Agent detail — Replay Specialist 02</h3>
+      <details open>
+        <summary>Observed work sequence</summary>
+        <ol>
+          <li>Read replay contract and timeline schema.</li>
+          <li>Modified ordering and cursor logic.</li>
+          <li>Ran integration suite; 3 ordering failures recorded.</li>
+          <li>Reopened 5 previously edited files.</li>
+          <li>Revised event ordering and deduplication.</li>
+          <li>Reran suite; 1 migration failure recorded.</li>
+          <li>Supervisor reassigned schema migration to Validator 02.</li>
+          <li>Final replay suite passed.</li>
+        </ol>
+      </details>
+      <details><summary>Artifacts</summary><p class="mono">src/replay/order.rs<br>src/replay/cursor.rs<br>src/timeline/rebuild.rs<br>tests/replay_integration.rs</p></details>
+      <details><summary>Evidence links</summary><p class="desc">213 hooks · 48 terminal events · 27 file versions · 14 task transitions · 96 micro-observations</p></details>
+    </div>
+  </div>
+</section>
+
+
+<section id="skills" class="section">
+  <div class="section-head"><div class="title-wrap"><span class="section-number">07</span><div><h2>Skills, instructions, and context assets</h2><div class="desc">Observed availability and use linked to agents, tasks, and validation events.</div></div></div><span class="badge">11 skill invocations</span></div>
+  <div class="grid grid-3">
+    <div class="card"><h3>rust-debugging</h3><div class="value" style="font-size:23px;font-weight:800">4 invocations</div><p class="desc">Used reactively after replay failures by Replay Specialist 02.</p><span class="score warn">reactive</span></div>
+    <div class="card"><h3>sqlite-migrations</h3><div class="value" style="font-size:23px;font-weight:800">3 invocations</div><p class="desc">Used by replay and validation agents during the migration handoff.</p><span class="score warn">mixed timing</span></div>
+    <div class="card"><h3>golden-reporting</h3><div class="value" style="font-size:23px;font-weight:800">2 invocations</div><p class="desc">Preloaded for report parity work before validation.</p><span class="score good">preloaded</span></div>
+  </div>
+  <div class="card" style="margin-top:16px"><table><thead><tr><th>Capability</th><th>Version / source</th><th class="num">Loaded</th><th class="num">Invoked</th><th>Linked tasks</th><th>Interpretation limit</th></tr></thead><tbody>
+    <tr><td>rust-debugging</td><td class="mono">sha256:example-rust-debugging</td><td class="num">2</td><td class="num">4</td><td>task-replay-ordering</td><td>Correlation only; no causal success claim</td></tr>
+    <tr><td>sqlite-migrations</td><td class="mono">sha256:example-sqlite</td><td class="num">2</td><td class="num">3</td><td>task-replay-ordering</td><td>One implicit use may be unrecorded</td></tr>
+    <tr><td>golden-reporting</td><td class="mono">sha256:example-golden</td><td class="num">1</td><td class="num">2</td><td>task-report-parity</td><td>Validation supports outcome, not causality</td></tr>
+  </tbody></table></div>
+</section>
+
+<section id="rework" class="section">
+  <div class="section-head"><div class="title-wrap"><span class="section-number">08</span><div><h2>Loops and rework</h2><div class="desc">Measured iteration patterns without a subjective efficiency score.</div></div></div></div>
+  <div class="grid grid-2">
+    <div class="card">
+      <h3>Engineering loop types</h3>
+      <table>
+        <tr><th>Loop</th><th class="num">Count</th><th class="num">Completed</th><th class="num">Abandoned</th></tr>
+        <tr><td>Read → search → plan</td><td class="num">11</td><td class="num">11</td><td class="num">0</td></tr>
+        <tr><td>Edit → build</td><td class="num">21</td><td class="num">19</td><td class="num">2</td></tr>
+        <tr><td>Build → error → edit</td><td class="num">8</td><td class="num">8</td><td class="num">0</td></tr>
+        <tr><td>Edit → test → edit</td><td class="num">13</td><td class="num">11</td><td class="num">2</td></tr>
+        <tr><td>Validate → revise → validate</td><td class="num">7</td><td class="num">7</td><td class="num">0</td></tr>
+        <tr><td>Human correction → agent redo</td><td class="num">4</td><td class="num">4</td><td class="num">0</td></tr>
+      </table>
+    </div>
+    <div class="card">
+      <h3>Rework concentration</h3>
+      <table>
+        <tr><td>Files changed once</td><td class="num">19</td></tr>
+        <tr><td>Files changed 2–3 times</td><td class="num">18</td></tr>
+        <tr><td>Files changed 4+ times</td><td class="num status-warn">12</td></tr>
+        <tr><td>Edits after failed validation</td><td class="num">24</td></tr>
+        <tr><td>Substantially reversed edits</td><td class="num">5</td></tr>
+        <tr><td>Abandoned agent outputs</td><td class="num">2</td></tr>
+        <tr><td>Human-triggered redo loops</td><td class="num">4</td></tr>
+        <tr><td>Agent-triggered redo loops</td><td class="num">9</td></tr>
+      </table>
+    </div>
+  </div>
+  <div class="card" style="margin-top:16px">
+    <h3>Most iterated items</h3>
+    <table>
+      <tr><th>Item</th><th class="num">Revisions</th><th class="num">Agents</th><th class="num">Failed validations</th><th class="num">Tokens associated</th><th>Pattern</th></tr>
+      <tr><td class="mono">src/replay/order.rs</td><td class="num">13</td><td class="num">4</td><td class="num">5</td><td class="num">402k</td><td><span class="score bad">high rework</span></td></tr>
+      <tr><td class="mono">src/capture/router.rs</td><td class="num">10</td><td class="num">5</td><td class="num">2</td><td class="num">318k</td><td><span class="score warn">moderate</span></td></tr>
+      <tr><td class="mono">migrations/031_capture_events.sql</td><td class="num">8</td><td class="num">3</td><td class="num">2</td><td class="num">179k</td><td><span class="score warn">moderate</span></td></tr>
+      <tr><td class="mono">tests/replay_integration.rs</td><td class="num">7</td><td class="num">3</td><td class="num">1</td><td class="num">151k</td><td><span class="score good">expected</span></td></tr>
+    </table>
+  </div>
+</section>
+
+
+<section id="recovery" class="section">
+  <div class="section-head"><div class="title-wrap"><span class="section-number">09</span><div><h2>Human intervention versus AI recovery</h2><div class="desc">Recovery intervals classified from captured events, not subjective autonomy ratings.</div></div></div></div>
+  <div class="grid grid-4">
+    <div class="card metric"><div class="label">AI-recovered</div><div class="value status-good">8</div><div class="sub">no human event in recovery interval</div></div>
+    <div class="card metric"><div class="label">Human-assisted</div><div class="value status-warn">3</div><div class="sub">clarification, correction, or routing</div></div>
+    <div class="card metric"><div class="label">Human-required</div><div class="value">1</div><div class="sub">permission or policy boundary</div></div>
+    <div class="card metric"><div class="label">Unknown</div><div class="value">1</div><div class="sub">capture did not support classification</div></div>
+  </div>
+  <div class="grid grid-2" style="margin-top:16px">
+    <div class="card"><h3>Human judgment changed the path</h3><p>A human clarification made the migration-ordering invariant explicit before Validator 02 completed the replay task.</p><div class="provenance">prompt-77 → handoff-12 → validation-07</div></div>
+    <div class="card"><h3>AI recovered routine performance work</h3><p>Hook Engineer 01 and Test Engineer 02 profiled, revised, and revalidated the stop-hook path without a captured human event.</p><div class="provenance">benchmark-14 → skill-rust-profiling-01 → benchmark-18</div></div>
+  </div>
+</section>
+
+<section id="collaboration" class="section">
+  <div class="section-head"><div class="title-wrap"><span class="section-number">10</span><div><h2>Human–agent collaboration</h2><div class="desc">Prompt, routing, decision, and intervention statistics.</div></div></div></div>
+  <div class="grid grid-3">
+    <div class="card">
+      <h3>Human prompts</h3>
+      <table>
+        <tr><td>Total</td><td class="num">87</td></tr>
+        <tr><td>Average length</td><td class="num">441 chars</td></tr>
+        <tr><td>Median length</td><td class="num">286 chars</td></tr>
+        <tr><td>Longest</td><td class="num">3,841 chars</td></tr>
+        <tr><td>Referenced files/specs</td><td class="num">39</td></tr>
+        <tr><td>Acceptance criteria present</td><td class="num">16</td></tr>
+      </table>
+    </div>
+    <div class="card">
+      <h3>Human interventions</h3>
+      <table>
+        <tr><td>Clarifications</td><td class="num">12</td></tr>
+        <tr><td>Corrections</td><td class="num">4</td></tr>
+        <tr><td>Explicit approvals</td><td class="num">6</td></tr>
+        <tr><td>Task cancellations</td><td class="num">2</td></tr>
+        <tr><td>Scope changes</td><td class="num">1</td></tr>
+        <tr><td>Manual terminal commands</td><td class="num">17</td></tr>
+      </table>
+    </div>
+    <div class="card">
+      <h3>Routing transitions</h3>
+      <table>
+        <tr><td>Human → supervisor</td><td class="num">87</td></tr>
+        <tr><td>Supervisor → subagent</td><td class="num">38</td></tr>
+        <tr><td>Agent → validator</td><td class="num">16</td></tr>
+        <tr><td>Validator → implementation</td><td class="num">7</td></tr>
+        <tr><td>Agent → human decision</td><td class="num">11</td></tr>
+        <tr><td>Human correction → redo</td><td class="num">4</td></tr>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section id="repository" class="section">
+  <div class="section-head"><div class="title-wrap"><span class="section-number">11</span><div><h2>Repository, files, and specifications</h2><div class="desc">Repository state combined with observed agent behavior.</div></div></div></div>
+  <div class="grid grid-2">
+    <div class="card">
+      <h3>Repository interaction</h3>
+      <table>
+        <tr><td>Repository files indexed</td><td class="num">2,734</td></tr>
+        <tr><td>Files reviewed by agents</td><td class="num">214</td></tr>
+        <tr><td>Files searched</td><td class="num">337</td></tr>
+        <tr><td>Files modified</td><td class="num">49</td></tr>
+        <tr><td>Files created</td><td class="num">11</td></tr>
+        <tr><td>Files deleted</td><td class="num">1</td></tr>
+        <tr><td>Specifications referenced</td><td class="num">12</td></tr>
+        <tr><td>ADRs referenced</td><td class="num">8</td></tr>
+        <tr><td>CLAUDE.md files loaded</td><td class="num">4</td></tr>
+        <tr><td>Skills loaded</td><td class="num">13</td></tr>
+      </table>
+    </div>
+    <div class="card">
+      <h3>Change footprint</h3>
+      <table>
+        <tr><td>Rust files changed</td><td class="num">31</td></tr>
+        <tr><td>SQL files changed</td><td class="num">4</td></tr>
+        <tr><td>Markdown files changed</td><td class="num">9</td></tr>
+        <tr><td>YAML/TOML changed</td><td class="num">5</td></tr>
+        <tr><td>Insertions</td><td class="num">3,982</td></tr>
+        <tr><td>Deletions</td><td class="num">1,146</td></tr>
+        <tr><td>Net lines</td><td class="num">+2,836</td></tr>
+        <tr><td>Commits</td><td class="num">11</td></tr>
+        <tr><td>Tests added</td><td class="num">74</td></tr>
+        <tr><td>Schema migrations</td><td class="num">2</td></tr>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section id="validation" class="section">
+  <div class="section-head"><div class="title-wrap"><span class="section-number">12</span><div><h2>Validation progression</h2><div class="desc">Recorded build, test, lint, formatting, and migration outcomes.</div></div></div></div>
+  <div class="grid grid-4">
+    <div class="card metric"><div class="label">Build attempts</div><div class="value">34</div><div class="sub">31 passed · 3 failed</div></div>
+    <div class="card metric"><div class="label">Test executions</div><div class="value">236</div><div class="sub">final 236 / 236 passed</div></div>
+    <div class="card metric"><div class="label">Validation retries</div><div class="value status-warn">7</div><div class="sub">all recovered</div></div>
+    <div class="card metric"><div class="label">Migration checks</div><div class="value">9</div><div class="sub">8 passed · 1 retried</div></div>
+  </div>
+  <div class="card" style="margin-top:16px">
+    <table>
+      <tr><th>Session</th><th>Observed validation state</th><th class="num">Tests passed</th><th class="num">Failures</th><th class="num">Retry loops</th></tr>
+      <tr><td>1</td><td>Specification and schema checks</td><td class="num">18 / 18</td><td class="num">0</td><td class="num">0</td></tr>
+      <tr><td>2</td><td>Core capture unit suite</td><td class="num">91 / 95</td><td class="num status-warn">4</td><td class="num">2</td></tr>
+      <tr><td>3</td><td>Replay and migration integration</td><td class="num">151 / 158</td><td class="num status-bad">7</td><td class="num">4</td></tr>
+      <tr><td>4</td><td>Full workspace validation</td><td class="num">236 / 236</td><td class="num">0</td><td class="num">1</td></tr>
+      <tr><td>5</td><td>Release repeat and clean checkout</td><td class="num">236 / 236</td><td class="num">0</td><td class="num">0</td></tr>
+    </table>
+  </div>
+</section>
+
+<section id="observations" class="section">
+  <div class="section-head">
+    <div class="title-wrap"><span class="section-number">13</span><div><h2>Micro-observations and silent signals</h2><div class="desc">Explicit agent signals and evidence absent from final handoffs, linked to source records.</div></div></div>
+    <span class="badge">3,146 total</span>
+  </div>
+  <div class="grid grid-3">
+    <div class="card metric"><div class="label">Promoted</div><div class="value">428</div><div class="sub">met configured support threshold</div></div>
+    <div class="card metric"><div class="label">Duplicate-linked</div><div class="value">619</div><div class="sub">retained as shared evidence</div></div>
+    <div class="card metric"><div class="label">Rejected</div><div class="value">73</div><div class="sub">rule mismatch or insufficient support</div></div>
+  </div>
+
+  <div class="card" style="margin-top:16px">
+    <h3>Observation domains</h3>
+    <table>
+      <tr><th>Domain</th><th class="num">Observations</th><th class="num">Evidence links</th><th class="num">Files</th><th>Share</th></tr>
+      <tr><td>Repository structure</td><td class="num">421</td><td class="num">914</td><td class="num">109</td><td><div class="bar"><span style="width:13%"></span></div></td></tr>
+      <tr><td>Architecture & contracts</td><td class="num">378</td><td class="num">882</td><td class="num">54</td><td><div class="bar"><span style="width:12%"></span></div></td></tr>
+      <tr><td>Implementation behavior</td><td class="num">744</td><td class="num">1,861</td><td class="num">47</td><td><div class="bar"><span style="width:24%"></span></div></td></tr>
+      <tr><td>Testing & validation</td><td class="num">492</td><td class="num">1,220</td><td class="num">33</td><td><div class="bar"><span style="width:16%"></span></div></td></tr>
+      <tr><td>Terminal behavior</td><td class="num">407</td><td class="num">941</td><td class="num">22</td><td><div class="bar"><span style="width:13%"></span></div></td></tr>
+      <tr><td>Documentation & specs</td><td class="num">208</td><td class="num">467</td><td class="num">29</td><td><div class="bar"><span style="width:7%"></span></div></td></tr>
+      <tr><td>Security & sanitization</td><td class="num">81</td><td class="num">164</td><td class="num">12</td><td><div class="bar"><span style="width:3%"></span></div></td></tr>
+      <tr><td>Agent coordination</td><td class="num">415</td><td class="num">1,433</td><td class="num">24 agents</td><td><div class="bar"><span style="width:13%"></span></div></td></tr>
+    </table>
+  </div>
+
+  <div class="card" style="margin-top:16px">
+    <div class="search-wrap no-print">
+      <input id="obsSearch" class="search" placeholder="Search observations: replay, scheduler, privacy, migration, agent..." oninput="filterObservations()" />
+      <select id="obsFilter" class="btn" onchange="filterObservations()">
+        <option value="">All domains</option>
+        <option>Agent coordination</option>
+        <option>Testing & validation</option>
+        <option>Implementation behavior</option>
+        <option>Architecture & contracts</option>
+      </select>
+    </div>
+
+    <div id="obsList">
+      <div class="observation" data-domain="Agent coordination" data-search="replay specialist redo validation reassigned">
+        <div class="obs-head"><div><span class="obs-id">MO-2194</span> · <span class="obs-title">Replay specialist produced the highest redo concentration</span></div><span class="score bad">priority</span></div>
+        <div class="obs-meta">3 redo loops · 6 validation attempts · 1 reassignment · 213 evidence links</div>
+      </div>
+      <div class="observation" data-domain="Testing & validation" data-search="replay ordering test failure pass sequence">
+        <div class="obs-head"><div><span class="obs-id">MO-1842</span> · <span class="obs-title">Replay ordering failures converged after three edit–test cycles</span></div><span class="score warn">iterated</span></div>
+        <div class="obs-meta">Files: order.rs, cursor.rs, replay_integration.rs · Sessions 3–4</div>
+      </div>
+      <div class="observation" data-domain="Implementation behavior" data-search="capture router revisions shared agents">
+        <div class="obs-head"><div><span class="obs-id">MO-1627</span> · <span class="obs-title">Capture router was the most shared implementation surface</span></div><span class="score warn">shared</span></div>
+        <div class="obs-meta">5 agents · 10 revisions · 318k associated tokens · 287 evidence links</div>
+      </div>
+      <div class="observation" data-domain="Architecture & contracts" data-search="event schema adr specification references">
+        <div class="obs-head"><div><span class="obs-id">MO-1038</span> · <span class="obs-title">Event schema contract was referenced in every implementation session</span></div><span class="score good">stable</span></div>
+        <div class="obs-meta">5 sessions · 11 agents · 42 file references · 0 contradictory edits</div>
+      </div>
+      <div class="observation" data-domain="Testing & validation" data-search="migration failure validator rerun pass">
+        <div class="obs-head"><div><span class="obs-id">MO-2377</span> · <span class="obs-title">Migration validation required one reassignment and one successful rerun</span></div><span class="score warn">recovered</span></div>
+        <div class="obs-meta">Validator 02 · 1 failed migration · 4 files reviewed · final pass</div>
+      </div>
+      <div class="observation" data-domain="Agent coordination" data-search="supervisor fan out parallel agents session 3">
+        <div class="obs-head"><div><span class="obs-id">MO-1450</span> · <span class="obs-title">Maximum swarm fan-out occurred during Session 3</span></div><span class="score good">parallel</span></div>
+        <div class="obs-meta">6 concurrent agents · hierarchy depth 3 · 2 synchronization points</div>
+      </div>
+      <div class="observation" data-domain="Implementation behavior" data-search="scheduler file revisited changed revisions">
+        <div class="obs-head"><div><span class="obs-id">MO-1991</span> · <span class="obs-title">Replay order module was the most iterated file</span></div><span class="score bad">13 revisions</span></div>
+        <div class="obs-meta">4 agents · 5 failed validations · first modified Session 3 · final modified Session 4</div>
+      </div>
+      <div class="observation" data-domain="Architecture & contracts" data-search="claude md skills loaded hierarchy">
+        <div class="obs-head"><div><span class="obs-id">MO-0874</span> · <span class="obs-title">All agent branches loaded the same project instruction hierarchy</span></div><span class="score good">consistent</span></div>
+        <div class="obs-meta">4 CLAUDE.md files · 13 skills · configuration hashes matched</div>
+      </div>
+    </div>
+    <div class="provenance">Featured observations selected by deterministic ranking: redo count, cross-agent reach, revision count, validation impact, and evidence-link density.</div>
+  </div>
+
+  <div class="grid grid-2" style="margin-top:16px">
+    <div class="card"><h3>Explicit agent signal</h3><div class="sticky-note"><strong>“The replay sequence assumes migrations are monotonic.”</strong><p class="desc">Promoted candidate: specification rule + regression fixture + sqlite-migrations skill update.</p></div></div>
+    <div class="card"><h3>Unreported evidence gap</h3><div class="sticky-note"><strong>Three replay validation failures were absent from the final handoff.</strong><p class="desc">This compares recorded evidence with the captured handoff. It is not a claim about hidden reasoning.</p></div></div>
+  </div>
+</section>
+
+<section id="capture" class="section">
+  <div class="section-head"><div class="title-wrap"><span class="section-number">14</span><div><h2>Capture quality</h2><div class="desc">Channel-level recording status and explicit not-recorded register.</div></div></div></div>
+  <div class="grid grid-2">
+    <div class="card">
+      <h3>Capture matrix</h3>
+      <table>
+        <tr><th>Source</th><th class="num">Expected</th><th class="num">Recorded</th><th>Status</th></tr>
+        <tr><td>Transcript turns</td><td class="num">2,184</td><td class="num">2,184</td><td><span class="score good">complete</span></td></tr>
+        <tr><td>Hooks</td><td class="num">8,922</td><td class="num">8,914</td><td><span class="score warn">99.9%</span></td></tr>
+        <tr><td>Spans</td><td class="num">4,118</td><td class="num">4,118</td><td><span class="score good">complete</span></td></tr>
+        <tr><td>File versions</td><td class="num">284</td><td class="num">284</td><td><span class="score good">complete</span></td></tr>
+        <tr><td>Terminal commands</td><td class="num">667</td><td class="num">667</td><td><span class="score good">complete</span></td></tr>
+        <tr><td>Agent task events</td><td class="num">192</td><td class="num">192</td><td><span class="score good">complete</span></td></tr>
+        <tr><td>Micro-results</td><td class="num">3,146</td><td class="num">3,146</td><td><span class="score good">complete</span></td></tr>
+        <tr><td>Provider usage</td><td class="num">24</td><td class="num">24</td><td><span class="score good">complete</span></td></tr>
+      </table>
+    </div>
+    <div class="card">
+      <h3>Not recorded / limitations</h3>
+      <table>
+        <tr><td>Hidden model reasoning</td><td class="num">not_recorded</td></tr>
+        <tr><td>Provider-side cache internals</td><td class="num">not_recorded</td></tr>
+        <tr><td>OS-level CPU attribution by subagent</td><td class="num">partial</td></tr>
+        <tr><td>Network payload bodies</td><td class="num">disabled</td></tr>
+        <tr><td>Human intent classification</td><td class="num">rules_only</td></tr>
+        <tr><td>Semantic code quality judgment</td><td class="num">not_generated</td></tr>
+      </table>
+      <div class="provenance">Report does not infer hidden reasoning, productivity, correctness beyond recorded validation, or business value.</div>
+    </div>
+  </div>
+</section>
+
+<section id="terminal" class="section optional-section">
+  <div class="section-head"><div><h2>Terminal activity</h2><div class="desc">Optional detail section.</div></div></div>
+  <div class="card">
+    <table>
+      <tr><th>Category</th><th class="num">Commands</th><th class="num">Failures</th><th class="num">Successful reruns</th></tr>
+      <tr><td>Build</td><td class="num">34</td><td class="num">3</td><td class="num">3</td></tr>
+      <tr><td>Unit tests</td><td class="num">118</td><td class="num">5</td><td class="num">5</td></tr>
+      <tr><td>Integration tests</td><td class="num">54</td><td class="num">3</td><td class="num">3</td></tr>
+      <tr><td>Formatting / linting</td><td class="num">29</td><td class="num">2</td><td class="num">2</td></tr>
+      <tr><td>Git</td><td class="num">96</td><td class="num">0</td><td class="num">—</td></tr>
+      <tr><td>Search / inspection</td><td class="num">281</td><td class="num">4</td><td class="num">4</td></tr>
+      <tr><td>Database inspection</td><td class="num">55</td><td class="num">1</td><td class="num">1</td></tr>
+    </table>
+  </div>
+</section>
+
+<section id="config" class="section optional-section">
+  <div class="section-head"><div><h2>Harness and configuration</h2><div class="desc">Optional deterministic environment snapshot.</div></div></div>
+  <div class="grid grid-2">
+    <div class="card">
+      <table>
+        <tr><td>Harness</td><td class="num">Claude Code</td></tr>
+        <tr><td>Harness version</td><td class="num">1.0.84</td></tr>
+        <tr><td>Primary model</td><td class="num">claude-opus-4-6</td></tr>
+        <tr><td>Fallback model</td><td class="num">claude-sonnet-4-6</td></tr>
+        <tr><td>OS</td><td class="num">Ubuntu 24.04</td></tr>
+        <tr><td>Git</td><td class="num">2.45.2</td></tr>
+        <tr><td>Rust</td><td class="num">1.84.0</td></tr>
+      </table>
+    </div>
+    <div class="card">
+      <table>
+        <tr><td>CLAUDE.md hierarchy</td><td class="num">4 files</td></tr>
+        <tr><td>Loaded skills</td><td class="num">13</td></tr>
+        <tr><td>MCP servers</td><td class="num">5</td></tr>
+        <tr><td>Hooks enabled</td><td class="num">9</td></tr>
+        <tr><td>Permission profile</td><td class="num">engineering-mature-v3</td></tr>
+        <tr><td>Config hash</td><td class="num mono">9e7c…18d2</td></tr>
+        <tr><td>Schema version</td><td class="num">obs-3.1</td></tr>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section id="evidence" class="section optional-section">
+  <div class="section-head"><div><h2>Evidence manifest</h2><div class="desc">Optional flight-recorder pointer set.</div></div></div>
+  <div class="card mono">
+    report.json<br>
+    evidence/events.ndjson<br>
+    evidence/hooks.ndjson<br>
+    evidence/spans.ndjson<br>
+    evidence/transcript_turns.ndjson<br>
+    evidence/file_versions/<br>
+    evidence/terminal_commands.ndjson<br>
+    evidence/micro_observations.ndjson<br>
+    evidence/config_snapshot.json<br>
+    evidence/git_manifest.json<br>
+    manifest.sha256<br>
+    report.sig
+  </div>
+</section>
+
+
+<section class="section" id="cta">
+  <div class="hero" style="margin-top:8px">
+    <div class="eyebrow">Open-source agentic engineering infrastructure</div>
+    <h2 style="font-size:28px;margin:8px 0">Turn agent activity into an engineering record people can trust.</h2>
+    <p>
+      BAR Observatory provides a local-first, deterministic record of human prompts, agent work,
+      process phases, tokens, rework, validation, repository changes, and micro-observations—without requiring
+      an LLM to explain the run.
+    </p>
+    <div class="hero-meta no-print">
+      <a class="btn" href="#" aria-label="Repository placeholder">View the repository</a>
+      <a class="btn" href="#" aria-label="Documentation placeholder">Read the methodology</a>
+      <a class="btn" href="#" aria-label="Bradley Academy placeholder">Visit Bradley.Academy</a>
+      <a class="btn" href="#" aria-label="LinkedIn placeholder">Connect with Bradley Ross</a>
+    </div>
+    <div class="provenance">
+      Independent open-source project by Bradley Ross / Bradley.Academy. Crimson is used as a visual palette;
+      this project does not use Harvard University marks and does not imply Harvard sponsorship or endorsement.
+    </div>
+  </div>
+</section>
+
+<div class="footer">
+  BAR Observatory · Bradley Ross / Bradley.Academy · Deterministic report · No LLM interpretation · Report ID obs-rpt-20260730-5s-0041
+</div>
+</main>
+</div>
+
+<script>
+function toggleTheme(){
+  const root=document.documentElement;
+  const next=root.getAttribute('data-theme')==='dark'?'light':'dark';
+  root.setAttribute('data-theme',next);
+  localStorage.setItem('obs-theme',next);
+}
+(function(){
+  const saved=localStorage.getItem('obs-theme');
+  if(saved) document.documentElement.setAttribute('data-theme',saved);
+})();
+function toggleSections(){
+  document.querySelectorAll('.optional-section').forEach(el=>el.classList.toggle('hidden'));
+  document.querySelectorAll('[data-optional]').forEach(el=>el.classList.toggle('hidden'));
+}
+function filterObservations(){
+  const q=document.getElementById('obsSearch').value.toLowerCase().trim();
+  const domain=document.getElementById('obsFilter').value;
+  document.querySelectorAll('#obsList .observation').forEach(el=>{
+    const matchesQ=!q || (el.dataset.search+' '+el.innerText).toLowerCase().includes(q);
+    const matchesD=!domain || el.dataset.domain===domain;
+    el.classList.toggle('hidden', !(matchesQ && matchesD));
+  });
+}
+</script>
+<!-- Deterministic acceptance example. LLM interpretation is disabled and absent. -->
+</body>
+</html>

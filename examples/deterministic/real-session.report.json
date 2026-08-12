@@ -1,0 +1,933 @@
+{
+  "schema_version": "bar-observatory-report-1.0",
+  "report": {
+    "id": "barobs-557f024108c3",
+    "title": "BAR Observatory — captured session report",
+    "generated_at": "2026-08-03T17:00:10Z",
+    "template_version": "bar-observatory-engineering-1.0",
+    "deterministic": true,
+    "interpretation": {
+      "enabled": false,
+      "status": "separate_artifact"
+    }
+  },
+  "branding": {
+    "product_name": "BAR Observatory",
+    "product_expansion": "Base Agentic Reporter",
+    "short_name": "BAR",
+    "tagline": "Observe how agentic work actually gets done.",
+    "creator_name": "Bradley Ross",
+    "studio_name": "Bradley.Academy",
+    "repository_url": "https://github.com/bar181/bar-observatory",
+    "affiliation_disclaimer": "Independent open-source project by Bradley Ross / Bradley.Academy. Academic crimson palette; no Harvard University marks are used and no endorsement is implied."
+  },
+  "scope": {
+    "type": "session",
+    "session_count": 1,
+    "started_at": "2026-08-02T10:02:10Z",
+    "ended_at": "2026-08-03T17:00:10Z",
+    "note": "Scope is inferred from captured run/hook/event windows; repository and branch binding lands with the git measurement (later phase)."
+  },
+  "summary": {
+    "runs": 1,
+    "hooks_recorded": null,
+    "events_recorded": null,
+    "spans_recorded": null,
+    "transcript_turns": 3970,
+    "timeline_events": null,
+    "requests": null,
+    "tokens_in": null,
+    "tokens_out": null,
+    "tokens_total": null,
+    "capture_losses": 0,
+    "elapsed_ms": 111480000,
+    "tool_calls": 1145,
+    "tools": [
+      {
+        "tool": "Bash",
+        "calls": 603
+      },
+      {
+        "tool": "Edit",
+        "calls": 293
+      },
+      {
+        "tool": "Read",
+        "calls": 98
+      },
+      {
+        "tool": "Write",
+        "calls": 43
+      },
+      {
+        "tool": "TaskUpdate",
+        "calls": 30
+      },
+      {
+        "tool": "TaskCreate",
+        "calls": 27
+      },
+      {
+        "tool": "Agent",
+        "calls": 22
+      },
+      {
+        "tool": "mcp__plugin_ruvnet-brain_ruvnet-brain__search_ruvnet",
+        "calls": 9
+      },
+      {
+        "tool": "ToolSearch",
+        "calls": 7
+      },
+      {
+        "tool": "AskUserQuestion",
+        "calls": 4
+      },
+      {
+        "tool": "SendUserFile",
+        "calls": 4
+      },
+      {
+        "tool": "WebSearch",
+        "calls": 2
+      },
+      {
+        "tool": "Grep",
+        "calls": 1
+      },
+      {
+        "tool": "ScheduleWakeup",
+        "calls": 1
+      },
+      {
+        "tool": "WebFetch",
+        "calls": 1
+      }
+    ],
+    "tasks_total": 27,
+    "tasks_completed": 12,
+    "tasks_in_progress": 0,
+    "tasks_pending": 0,
+    "tasks_other": 15,
+    "error_results": 25,
+    "redacted_edits": 0,
+    "cost_estimate_usd_cents": null,
+    "cost_pricing_version": "list-price-v1-2026-08",
+    "agent_runs": 22,
+    "agents": [
+      {
+        "subagent_type": "general-purpose",
+        "count": 15
+      },
+      {
+        "subagent_type": "bar-skeptic-reviewer",
+        "count": 5
+      },
+      {
+        "subagent_type": "bar-repo-archaeologist",
+        "count": 1
+      },
+      {
+        "subagent_type": "bar-test-architect",
+        "count": 1
+      }
+    ],
+    "skills": []
+  },
+  "tasks": {
+    "status": "observed",
+    "items": [
+      {
+        "attempts": null,
+        "completion_evidence": "self_reported",
+        "evidence_refs": [
+          "transcript:task-tool-calls"
+        ],
+        "loops": null,
+        "rework_events": null,
+        "state": "completed",
+        "task_id": "task-1",
+        "title": "Phase 0 — Cleanup & green baseline"
+      },
+      {
+        "attempts": null,
+        "completion_evidence": "self_reported",
+        "evidence_refs": [
+          "transcript:task-tool-calls"
+        ],
+        "loops": null,
+        "rework_events": null,
+        "state": "completed",
+        "task_id": "task-2",
+        "title": "P7.5: token→USD list-price cost table (labeled estimate)"
+      },
+      {
+        "attempts": null,
+        "completion_evidence": "self_reported",
+        "evidence_refs": [
+          "transcript:task-tool-calls"
+        ],
+        "loops": null,
+        "rework_events": null,
+        "state": "completed",
+        "task_id": "task-3",
+        "title": "Generate all reports from real data + QE + brutal review + rubric"
+      },
+      {
+        "attempts": null,
+        "completion_evidence": "self_reported",
+        "evidence_refs": [
+          "transcript:task-tool-calls"
+        ],
+        "loops": null,
+        "rework_events": null,
+        "state": "completed",
+        "task_id": "task-4",
+        "title": "P8: agents & skills detectors + review-swarm fixes"
+      },
+      {
+        "attempts": null,
+        "completion_evidence": "self_reported",
+        "evidence_refs": [
+          "transcript:task-tool-calls"
+        ],
+        "loops": null,
+        "rework_events": null,
+        "state": "created",
+        "task_id": "task-5",
+        "title": "P9: recall-memory ON + rubric-vs-ruvnet-SOTA + phase-end (live tests,"
+      },
+      {
+        "attempts": null,
+        "completion_evidence": "self_reported",
+        "evidence_refs": [
+          "transcript:task-tool-calls"
+        ],
+        "loops": null,
+        "rework_events": null,
+        "state": "created",
+        "task_id": "task-6",
+        "title": "P10.1 — Debug ruflo/ruvnet failures; canonical memory proof; root-cause file"
+      },
+      {
+        "attempts": null,
+        "completion_evidence": "self_reported",
+        "evidence_refs": [
+          "transcript:task-tool-calls"
+        ],
+        "loops": null,
+        "rework_events": null,
+        "state": "created",
+        "task_id": "task-7",
+        "title": "P10.2 — Confirm DB create-if-not-exists; plan DB upload/portability feature"
+      },
+      {
+        "attempts": null,
+        "completion_evidence": "self_reported",
+        "evidence_refs": [
+          "transcript:task-tool-calls"
+        ],
+        "loops": null,
+        "rework_events": null,
+        "state": "created",
+        "task_id": "task-8",
+        "title": "P10.3 — Refresh 5 reports w/ real data; QE+designer+reviewer+persona lens"
+      },
+      {
+        "attempts": null,
+        "completion_evidence": "self_reported",
+        "evidence_refs": [
+          "transcript:task-tool-calls"
+        ],
+        "loops": null,
+        "rework_events": null,
+        "state": "created",
+        "task_id": "task-9",
+        "title": "P10.4 — Phase-end: validation+optimization, live tests, improvements, seal"
+      },
+      {
+        "attempts": null,
+        "completion_evidence": "self_reported",
+        "evidence_refs": [
+          "transcript:task-tool-calls"
+        ],
+        "loops": null,
+        "rework_events": null,
+        "state": "created",
+        "task_id": "task-10",
+        "title": "P11.1 — ADR: ground brain via CLI/RVF front door (not MCP); make explicit in"
+      },
+      {
+        "attempts": null,
+        "completion_evidence": "self_reported",
+        "evidence_refs": [
+          "transcript:task-tool-calls"
+        ],
+        "loops": null,
+        "rework_events": null,
+        "state": "created",
+        "task_id": "task-11",
+        "title": "P11.2 — Deep dive public repo folder (bar-observatory/); production-grade +"
+      },
+      {
+        "attempts": null,
+        "completion_evidence": "self_reported",
+        "evidence_refs": [
+          "transcript:task-tool-calls"
+        ],
+        "loops": null,
+        "rework_events": null,
+        "state": "completed",
+        "task_id": "task-12",
+        "title": "Phase 1 — Structural refactor (tooling path drift)"
+      },
+      {
+        "attempts": null,
+        "completion_evidence": "self_reported",
+        "evidence_refs": [
+          "transcript:task-tool-calls"
+        ],
+        "loops": null,
+        "rework_events": null,
+        "state": "created",
+        "task_id": "task-13",
+        "title": "P11.3 — Review + update all stale files/docs"
+      },
+      {
+        "attempts": null,
+        "completion_evidence": "self_reported",
+        "evidence_refs": [
+          "transcript:task-tool-calls"
+        ],
+        "loops": null,
+        "rework_events": null,
+        "state": "created",
+        "task_id": "task-14",
+        "title": "P11.4 — Optimize CLAUDE.md + README docs"
+      },
+      {
+        "attempts": null,
+        "completion_evidence": "self_reported",
+        "evidence_refs": [
+          "transcript:task-tool-calls"
+        ],
+        "loops": null,
+        "rework_events": null,
+        "state": "created",
+        "task_id": "task-15",
+        "title": "P12.1 — Complete the live DB (create-if-not-exists + full ingest); document"
+      },
+      {
+        "attempts": null,
+        "completion_evidence": "self_reported",
+        "evidence_refs": [
+          "transcript:task-tool-calls"
+        ],
+        "loops": null,
+        "rework_events": null,
+        "state": "created",
+        "task_id": "task-16",
+        "title": "P12.2 — Regenerate 5 reports from real DB; system+report review"
+      },
+      {
+        "attempts": null,
+        "completion_evidence": "self_reported",
+        "evidence_refs": [
+          "transcript:task-tool-calls"
+        ],
+        "loops": null,
+        "rework_events": null,
+        "state": "created",
+        "task_id": "task-17",
+        "title": "P12.3 — Reshape public folder = process (init/config/db/ingest/optional/sample)"
+      },
+      {
+        "attempts": null,
+        "completion_evidence": "self_reported",
+        "evidence_refs": [
+          "transcript:task-tool-calls"
+        ],
+        "loops": null,
+        "rework_events": null,
+        "state": "created",
+        "task_id": "task-18",
+        "title": "P12.4 — Audit private/public boundary (phases 0+ + crates in private;"
+      },
+      {
+        "attempts": null,
+        "completion_evidence": "self_reported",
+        "evidence_refs": [
+          "transcript:task-tool-calls"
+        ],
+        "loops": null,
+        "rework_events": null,
+        "state": "created",
+        "task_id": "task-19",
+        "title": "P13 — bar doctor: live toolchain/DB/ruvnet health command (CF-P10-1)"
+      },
+      {
+        "attempts": null,
+        "completion_evidence": "self_reported",
+        "evidence_refs": [
+          "transcript:task-tool-calls"
+        ],
+        "loops": null,
+        "rework_events": null,
+        "state": "created",
+        "task_id": "task-20",
+        "title": "P14 — runnable public front door + dogfood + ruvnet capabilities (SEALED)"
+      },
+      {
+        "attempts": null,
+        "completion_evidence": "self_reported",
+        "evidence_refs": [
+          "transcript:task-tool-calls"
+        ],
+        "loops": null,
+        "rework_events": null,
+        "state": "completed",
+        "task_id": "task-21",
+        "title": "Phase 2 — ADR updates"
+      },
+      {
+        "attempts": null,
+        "completion_evidence": "self_reported",
+        "evidence_refs": [
+          "transcript:task-tool-calls"
+        ],
+        "loops": null,
+        "rework_events": null,
+        "state": "completed",
+        "task_id": "task-22",
+        "title": "Phase 3 — Data-spec updates"
+      },
+      {
+        "attempts": null,
+        "completion_evidence": "self_reported",
+        "evidence_refs": [
+          "transcript:task-tool-calls"
+        ],
+        "loops": null,
+        "rework_events": null,
+        "state": "completed",
+        "task_id": "task-23",
+        "title": "Phase 4 — Recursive implementation loop (PAUSE before this)"
+      },
+      {
+        "attempts": null,
+        "completion_evidence": "self_reported",
+        "evidence_refs": [
+          "transcript:task-tool-calls"
+        ],
+        "loops": null,
+        "rework_events": null,
+        "state": "completed",
+        "task_id": "task-24",
+        "title": "Land P6.1 seal (external-review UX fixes)"
+      },
+      {
+        "attempts": null,
+        "completion_evidence": "self_reported",
+        "evidence_refs": [
+          "transcript:task-tool-calls"
+        ],
+        "loops": null,
+        "rework_events": null,
+        "state": "completed",
+        "task_id": "task-25",
+        "title": "Append brutal review + build SOTA rubric doc"
+      },
+      {
+        "attempts": null,
+        "completion_evidence": "self_reported",
+        "evidence_refs": [
+          "transcript:task-tool-calls"
+        ],
+        "loops": null,
+        "rework_events": null,
+        "state": "completed",
+        "task_id": "task-26",
+        "title": "P6.5: ingest real transcript + span/transcript coverage oracles"
+      },
+      {
+        "attempts": null,
+        "completion_evidence": "self_reported",
+        "evidence_refs": [
+          "transcript:task-tool-calls"
+        ],
+        "loops": null,
+        "rework_events": null,
+        "state": "completed",
+        "task_id": "task-27",
+        "title": "P7: task/completion ledger + rework detection from real transcript"
+      }
+    ],
+    "note": "Real ledger from the ingested transcript: 27 task(s) — 12 completed, 0 in-progress, 0 pending, 15 other/untracked (sums to 27). State is the agent's SELF-REPORT (TodoWrite/TaskUpdate); per-task attempt/loop/evidence linkage (claim≠evidence) is P8 (rendered null, not a measured zero)."
+  },
+  "agents": {
+    "status": "observed",
+    "items": [
+      {
+        "count": 15,
+        "subagent_type": "general-purpose"
+      },
+      {
+        "count": 5,
+        "subagent_type": "bar-skeptic-reviewer"
+      },
+      {
+        "count": 1,
+        "subagent_type": "bar-repo-archaeologist"
+      },
+      {
+        "count": 1,
+        "subagent_type": "bar-test-architect"
+      }
+    ],
+    "note": "Real sub-agent hierarchy from the transcript: 22 dispatch(es) across 4 sub-agent type(s). Deterministic post-hoc 'who was dispatched'; live nested-span viz needs the runtime (conceded)."
+  },
+  "skills": {
+    "status": "not_observed",
+    "items": [],
+    "note": "Not observed — no Skill invocations in this transcript (0 is real here, not unbuilt)."
+  },
+  "rework": {
+    "status": "observed",
+    "events": [
+      {
+        "confidence": "exact",
+        "detail": "./observatory/crates/bar-observatory/src/report.rs edited 157 times",
+        "evidence_refs": [
+          "transcript:edit:./observatory/crates/bar-observatory/src/report.rs"
+        ],
+        "rework_id": "rw-1",
+        "task_id": "session",
+        "type": "repeated_edit"
+      },
+      {
+        "confidence": "exact",
+        "detail": "./observatory/crates/bar-observatory/src/lib.rs edited 24 times",
+        "evidence_refs": [
+          "transcript:edit:./observatory/crates/bar-observatory/src/lib.rs"
+        ],
+        "rework_id": "rw-2",
+        "task_id": "session",
+        "type": "repeated_edit"
+      },
+      {
+        "confidence": "exact",
+        "detail": "./observatory/crates/bar-observatory/src/detectors.rs edited 22 times",
+        "evidence_refs": [
+          "transcript:edit:./observatory/crates/bar-observatory/src/detectors.rs"
+        ],
+        "rework_id": "rw-3",
+        "task_id": "session",
+        "type": "repeated_edit"
+      },
+      {
+        "confidence": "exact",
+        "detail": "./scripts/public-export.sh edited 12 times",
+        "evidence_refs": [
+          "transcript:edit:./scripts/public-export.sh"
+        ],
+        "rework_id": "rw-4",
+        "task_id": "session",
+        "type": "repeated_edit"
+      },
+      {
+        "confidence": "exact",
+        "detail": "./docs/bar-observatory/LEARNING-LOG.md edited 9 times",
+        "evidence_refs": [
+          "transcript:edit:./docs/bar-observatory/LEARNING-LOG.md"
+        ],
+        "rework_id": "rw-5",
+        "task_id": "session",
+        "type": "repeated_edit"
+      },
+      {
+        "confidence": "exact",
+        "detail": "./docs/bar-observatory/REPORT-SCORES.md edited 9 times",
+        "evidence_refs": [
+          "transcript:edit:./docs/bar-observatory/REPORT-SCORES.md"
+        ],
+        "rework_id": "rw-6",
+        "task_id": "session",
+        "type": "repeated_edit"
+      },
+      {
+        "confidence": "exact",
+        "detail": "./docs/bar-observatory/PHASE-2-5-CHECKLISTS.md edited 8 times",
+        "evidence_refs": [
+          "transcript:edit:./docs/bar-observatory/PHASE-2-5-CHECKLISTS.md"
+        ],
+        "rework_id": "rw-7",
+        "task_id": "session",
+        "type": "repeated_edit"
+      },
+      {
+        "confidence": "exact",
+        "detail": "./docs/bar-observatory/schemas/report.schema.json edited 7 times",
+        "evidence_refs": [
+          "transcript:edit:./docs/bar-observatory/schemas/report.schema.json"
+        ],
+        "rework_id": "rw-8",
+        "task_id": "session",
+        "type": "repeated_edit"
+      },
+      {
+        "confidence": "exact",
+        "detail": "./docs/bar-observatory/tests/schema/validate.mjs edited 6 times",
+        "evidence_refs": [
+          "transcript:edit:./docs/bar-observatory/tests/schema/validate.mjs"
+        ],
+        "rework_id": "rw-9",
+        "task_id": "session",
+        "type": "repeated_edit"
+      },
+      {
+        "confidence": "exact",
+        "detail": "./CURRENT-STATE.md edited 5 times",
+        "evidence_refs": [
+          "transcript:edit:./CURRENT-STATE.md"
+        ],
+        "rework_id": "rw-10",
+        "task_id": "session",
+        "type": "repeated_edit"
+      },
+      {
+        "confidence": "exact",
+        "detail": "./docs/bar-observatory/RUBRIC-VS-SOTA.md edited 5 times",
+        "evidence_refs": [
+          "transcript:edit:./docs/bar-observatory/RUBRIC-VS-SOTA.md"
+        ],
+        "rework_id": "rw-11",
+        "task_id": "session",
+        "type": "repeated_edit"
+      },
+      {
+        "confidence": "exact",
+        "detail": "./docs/bar-observatory/tests/frontend/eval.mjs edited 5 times",
+        "evidence_refs": [
+          "transcript:edit:./docs/bar-observatory/tests/frontend/eval.mjs"
+        ],
+        "rework_id": "rw-12",
+        "task_id": "session",
+        "type": "repeated_edit"
+      },
+      {
+        "confidence": "exact",
+        "detail": "./observatory/crates/bar-observatory/src/main.rs edited 5 times",
+        "evidence_refs": [
+          "transcript:edit:./observatory/crates/bar-observatory/src/main.rs"
+        ],
+        "rework_id": "rw-13",
+        "task_id": "session",
+        "type": "repeated_edit"
+      },
+      {
+        "confidence": "exact",
+        "detail": "./docs/bar-observatory/examples/deterministic/README.md edited 4 times",
+        "evidence_refs": [
+          "transcript:edit:./docs/bar-observatory/examples/deterministic/README.md"
+        ],
+        "rework_id": "rw-14",
+        "task_id": "session",
+        "type": "repeated_edit"
+      },
+      {
+        "confidence": "exact",
+        "detail": "./observatory/CLAUDE.md edited 4 times",
+        "evidence_refs": [
+          "transcript:edit:./observatory/CLAUDE.md"
+        ],
+        "rework_id": "rw-15",
+        "task_id": "session",
+        "type": "repeated_edit"
+      },
+      {
+        "confidence": "exact",
+        "detail": "./observatory/crates/bar-observatory/Cargo.toml edited 4 times",
+        "evidence_refs": [
+          "transcript:edit:./observatory/crates/bar-observatory/Cargo.toml"
+        ],
+        "rework_id": "rw-16",
+        "task_id": "session",
+        "type": "repeated_edit"
+      },
+      {
+        "confidence": "exact",
+        "detail": "./docs/bar-observatory/CHECKLIST.md edited 3 times",
+        "evidence_refs": [
+          "transcript:edit:./docs/bar-observatory/CHECKLIST.md"
+        ],
+        "rework_id": "rw-17",
+        "task_id": "session",
+        "type": "repeated_edit"
+      },
+      {
+        "confidence": "exact",
+        "detail": "./docs/bar-observatory/config-rs/src/lib.rs edited 3 times",
+        "evidence_refs": [
+          "transcript:edit:./docs/bar-observatory/config-rs/src/lib.rs"
+        ],
+        "rework_id": "rw-18",
+        "task_id": "session",
+        "type": "repeated_edit"
+      },
+      {
+        "confidence": "exact",
+        "detail": "./docs/bar-observatory/RUVNET-BRAIN-ISSUE-REPORT.md edited 2 times",
+        "evidence_refs": [
+          "transcript:edit:./docs/bar-observatory/RUVNET-BRAIN-ISSUE-REPORT.md"
+        ],
+        "rework_id": "rw-19",
+        "task_id": "session",
+        "type": "repeated_edit"
+      },
+      {
+        "confidence": "exact",
+        "detail": "./docs/bar-observatory/config-rs/Cargo.toml edited 2 times",
+        "evidence_refs": [
+          "transcript:edit:./docs/bar-observatory/config-rs/Cargo.toml"
+        ],
+        "rework_id": "rw-20",
+        "task_id": "session",
+        "type": "repeated_edit"
+      },
+      {
+        "confidence": "exact",
+        "detail": "./observatory/crates/bar-observatory/examples/dogfood.rs edited 2 times",
+        "evidence_refs": [
+          "transcript:edit:./observatory/crates/bar-observatory/examples/dogfood.rs"
+        ],
+        "rework_id": "rw-21",
+        "task_id": "session",
+        "type": "repeated_edit"
+      },
+      {
+        "confidence": "exact",
+        "detail": "./observatory/scripts/session-init.sh edited 2 times",
+        "evidence_refs": [
+          "transcript:edit:./observatory/scripts/session-init.sh"
+        ],
+        "rework_id": "rw-22",
+        "task_id": "session",
+        "type": "repeated_edit"
+      }
+    ],
+    "hotspots": [
+      {
+        "edits": 157,
+        "path": "./observatory/crates/bar-observatory/src/report.rs"
+      },
+      {
+        "edits": 24,
+        "path": "./observatory/crates/bar-observatory/src/lib.rs"
+      },
+      {
+        "edits": 22,
+        "path": "./observatory/crates/bar-observatory/src/detectors.rs"
+      },
+      {
+        "edits": 12,
+        "path": "./scripts/public-export.sh"
+      },
+      {
+        "edits": 9,
+        "path": "./docs/bar-observatory/LEARNING-LOG.md"
+      },
+      {
+        "edits": 9,
+        "path": "./docs/bar-observatory/REPORT-SCORES.md"
+      },
+      {
+        "edits": 8,
+        "path": "./docs/bar-observatory/PHASE-2-5-CHECKLISTS.md"
+      },
+      {
+        "edits": 7,
+        "path": "./docs/bar-observatory/schemas/report.schema.json"
+      },
+      {
+        "edits": 6,
+        "path": "./docs/bar-observatory/tests/schema/validate.mjs"
+      },
+      {
+        "edits": 5,
+        "path": "./CURRENT-STATE.md"
+      },
+      {
+        "edits": 5,
+        "path": "./docs/bar-observatory/RUBRIC-VS-SOTA.md"
+      },
+      {
+        "edits": 5,
+        "path": "./docs/bar-observatory/tests/frontend/eval.mjs"
+      },
+      {
+        "edits": 5,
+        "path": "./observatory/crates/bar-observatory/src/main.rs"
+      },
+      {
+        "edits": 4,
+        "path": "./docs/bar-observatory/examples/deterministic/README.md"
+      },
+      {
+        "edits": 4,
+        "path": "./observatory/CLAUDE.md"
+      },
+      {
+        "edits": 4,
+        "path": "./observatory/crates/bar-observatory/Cargo.toml"
+      },
+      {
+        "edits": 3,
+        "path": "./docs/bar-observatory/CHECKLIST.md"
+      },
+      {
+        "edits": 3,
+        "path": "./docs/bar-observatory/config-rs/src/lib.rs"
+      },
+      {
+        "edits": 2,
+        "path": "./docs/bar-observatory/RUVNET-BRAIN-ISSUE-REPORT.md"
+      },
+      {
+        "edits": 2,
+        "path": "./docs/bar-observatory/config-rs/Cargo.toml"
+      },
+      {
+        "edits": 2,
+        "path": "./observatory/crates/bar-observatory/examples/dogfood.rs"
+      },
+      {
+        "edits": 2,
+        "path": "./observatory/scripts/session-init.sh"
+      }
+    ],
+    "note": "Real deterministic rework signals from the transcript: 22 attributable file(s) edited ≥2× (churn) + 25 error tool_result(s). Structural signals (repeated-edit / error) — NOT hallucination/quality judgment (that is the interpreted report, P10+). Repeated edits are normal in iterative/TDD work; this flags concentration, not failure."
+  },
+  "human_ai_recovery": {
+    "status": "not_observed",
+    "items": [],
+    "note": "Not observed — human-vs-AI recovery classification is not built yet."
+  },
+  "validation": {
+    "status": "observed",
+    "items": [
+      {
+        "failed": 20,
+        "last_ok": true,
+        "passed": 99,
+        "runs": 119
+      }
+    ],
+    "note": "Real validation EVIDENCE from ingested tool outputs: 119 cargo `test result:` line(s) — 99 passed, 20 failed; last line PASSED. (One `cargo test --workspace` emits several such lines — one per crate — so this counts result-lines, not invocations; the last verdict is as of the capture window's end.) Measured, not self-reported: it begins to back the ledger's completion claims."
+  },
+  "flaky": {
+    "status": "observed",
+    "items": [
+      {
+        "fails": 2,
+        "passes": 1,
+        "test": "migration_files_are_byte_frozen"
+      },
+      {
+        "fails": 1,
+        "passes": 1,
+        "test": "report::tests::p5_empty_store_honest_absent"
+      }
+    ],
+    "note": "2 test(s) both passed AND failed across the session's captured cargo runs (measured from `test … ok`/`FAILED` lines, no LLM). This is a verdict-change signal to investigate — on an actively-editing session a flip can be a fix or a regression, not only non-determinism."
+  },
+  "failures": {
+    "status": "observed",
+    "items": [
+      {
+        "count": 9,
+        "kind": "mcp",
+        "tool": "mcp__plugin_ruvnet-brain_ruvnet-brain__search_ruvnet"
+      },
+      {
+        "count": 7,
+        "kind": "tool",
+        "tool": "Bash"
+      },
+      {
+        "count": 7,
+        "kind": "tool",
+        "tool": "Edit"
+      },
+      {
+        "count": 1,
+        "kind": "tool",
+        "tool": "Agent"
+      },
+      {
+        "count": 1,
+        "kind": "tool",
+        "tool": "AskUserQuestion"
+      }
+    ],
+    "note": "Real failures captured from tool outputs: 25 error result(s) across 5 distinct tool(s), categorized (mcp / tool / unknown). Remediation: 1 MCP tool(s) failed (worst: search_ruvnet (MCP) ×9). A repeatedly-failing MCP server (e.g. a timing-out one) should be reached through its alternative front door — its CLI/RVF path — instead of the MCP (BAR ADR-021). This section surfaces both system failures (a tool or MCP not working) and coded errors so they are recorded, not silently dropped."
+  },
+  "observations": {
+    "status": "not_observed",
+    "featured": [],
+    "note": "Not observed — micro-observation extraction and silent-signal detection are not built yet; no findings are fabricated."
+  },
+  "capture": {
+    "channels": [
+      {
+        "id": "hooks",
+        "status": "not_recorded",
+        "coverage": "not_applicable",
+        "recorded": 0,
+        "reason": "No hooks rows in this store."
+      },
+      {
+        "id": "events",
+        "status": "not_recorded",
+        "coverage": "not_applicable",
+        "recorded": 0,
+        "reason": "No events rows in this store."
+      },
+      {
+        "id": "spans",
+        "status": "not_recorded",
+        "coverage": "not_applicable",
+        "recorded": 0,
+        "reason": "No spans rows in this store."
+      },
+      {
+        "id": "transcripts",
+        "status": "partial",
+        "coverage": "gap_detected",
+        "recorded": 3970,
+        "reason": "3970 turns; coverage gap (MEASURED) — 350 dangling parent(s); 36 unpaired tool_use/tool_result."
+      },
+      {
+        "id": "requests",
+        "status": "not_recorded",
+        "coverage": "not_applicable",
+        "recorded": 0,
+        "reason": "No requests rows in this store."
+      },
+      {
+        "id": "provider_cost_usd",
+        "status": "not_recorded",
+        "coverage": "not_applicable",
+        "recorded": 0,
+        "reason": "Subscription auth (ADR-024) exposes no authoritative per-token USD; a labeled list-price ESTIMATE is derived instead (see cost). Tokens + wall-clock stay primary."
+      }
+    ],
+    "health_note": "No capture losses recorded (dead_letters is empty)."
+  },
+  "integrity": {
+    "source_db_hash": "blake3:557f024108c3ecefff021360adb4f8c0ef223754c5704c6c46fe4ac5b4711ee6",
+    "template_hash": "blake3:b8bcf83ef579efa16b0185ca546f39cf8a408aa8c0a58051763eab7500742871",
+    "renderer_version": "0.1.0",
+    "deterministic_render": true,
+    "llm_in_render_path": false
+  }
+}

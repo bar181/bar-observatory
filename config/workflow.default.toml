@@ -1,0 +1,42 @@
+version = 1
+workflow_id = "standard-eight-phase-v1"
+
+[[phase]]
+id = "scope"
+label = "Scope and acceptance"
+order = 1
+
+[[phase]]
+id = "orientation"
+label = "Repository orientation"
+order = 2
+
+[[phase]]
+id = "architecture"
+label = "Architecture and design"
+order = 3
+
+[[phase]]
+id = "implementation"
+label = "Core implementation"
+order = 4
+
+[[phase]]
+id = "integration"
+label = "Integration and replay"
+order = 5
+
+[[phase]]
+id = "validation"
+label = "Validation and debugging"
+order = 6
+
+[[phase]]
+id = "documentation"
+label = "Documentation and handoff"
+order = 7
+
+[[phase]]
+id = "release"
+label = "Release and verification"
+order = 8

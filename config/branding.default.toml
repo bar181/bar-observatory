@@ -1,0 +1,18 @@
+[branding]
+product_name = "BAR Observatory"
+product_expansion = "Base Agentic Reporter"
+short_name = "BAR"
+tagline = "Observe how agentic work actually gets done."
+creator_name = "Bradley Ross"
+studio_name = "Bradley.Academy"
+repository_url = "https://github.com/bar181/bar-observatory"
+# See config/bar-observatory.default.toml's [branding] section for the same fix + rationale
+# (D-13). NEW finding (not in the original review): this file duplicates that [branding]
+# table verbatim with no stated precedence rule if the two ever disagree — see human-specs/03-*.md.
+documentation_url = "TBD"
+linkedin_url = "https://linkedin.com/in/bradaross"
+personal_website_url = "TBD"
+report_address = "TBD"
+cta_enabled = true
+palette = "academic-crimson"
+affiliation_disclaimer = "Independent open-source project by Bradley Ross / Bradley.Academy. Academic crimson palette; no Harvard University marks are used and no endorsement is implied."

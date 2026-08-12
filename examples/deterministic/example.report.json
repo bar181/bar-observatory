@@ -1,0 +1,542 @@
+{
+  "schema_version": "bar-observatory-report-1.0",
+  "report": {
+    "id": "barobs-20260730-example-001",
+    "title": "Distributed Capture and Replay Integration",
+    "generated_at": "2026-07-30T12:30:00-04:00",
+    "template_version": "bar-observatory-engineering-1.0",
+    "example": true,
+    "interpretation": {
+      "enabled": false,
+      "status": "separate_artifact"
+    }
+  },
+  "branding": {
+    "product_name": "BAR Observatory",
+    "product_expansion": "Base Agentic Reporter",
+    "short_name": "BAR",
+    "tagline": "Observe how agentic work actually gets done.",
+    "creator_name": "Bradley Ross",
+    "studio_name": "Bradley.Academy",
+    "repository_url": "https://github.com/bar181/bar-observatory",
+    "documentation_url": "TBD",
+    "linkedin_url": "https://linkedin.com/in/bradaross",
+    "personal_website_url": "TBD",
+    "report_address": "TBD",
+    "affiliation_disclaimer": "Independent open-source project by Bradley Ross / Bradley.Academy. Academic crimson palette; no Harvard University marks are used and no endorsement is implied."
+  },
+  "scope": {
+    "type": "feature",
+    "repository": "private/aisp-observatory",
+    "branch": "feature/bar-observatory-foundation",
+    "session_count": 5,
+    "started_at": "2026-07-29T09:01:00-04:00",
+    "ended_at": "2026-07-29T16:19:00-04:00",
+    "active_ms": 22680000
+  },
+  "summary": {
+    "tasks_total": 31,
+    "tasks_completed_supported": 28,
+    "tasks_open": 1,
+    "tasks_superseded": 2,
+    "human_prompts": 87,
+    "agent_runs": 24,
+    "skills_invoked": 11,
+    "files_changed": 49,
+    "tokens_total": 4860000,
+    "rework_events": 13,
+    "tests_passed": 236,
+    "tests_failed_final": 0,
+    "micro_observations_promoted": 18,
+    "silent_signals": 4
+  },
+  "story": {
+    "headline": "Architecture held. Replay integration became the recovery point.",
+    "sentences": [
+      {
+        "template_id": "story.clean-start.v1",
+        "text": "Scope and repository orientation completed without recorded rework.",
+        "fact_refs": [
+          "phase.scope",
+          "phase.orientation"
+        ]
+      },
+      {
+        "template_id": "story.rework-task.v1",
+        "text": "Four rework loops concentrated in replay ordering and migration integration.",
+        "fact_refs": [
+          "task-replay-ordering",
+          "rework.rw-01",
+          "rework.rw-02",
+          "rework.rw-03"
+        ]
+      },
+      {
+        "template_id": "story.human-ai.v1",
+        "text": "The AI recovered eight loops without human intervention; three recoveries used human clarification or routing.",
+        "fact_refs": [
+          "recovery-replay-03",
+          "recovery-hook-02"
+        ]
+      },
+      {
+        "template_id": "story.validation.v1",
+        "text": "Final recorded validation completed with 236 of 240 tests passing (4 skipped, 0 failed).",
+        "fact_refs": [
+          "validation.final"
+        ]
+      }
+    ]
+  },
+  "tasks": {
+    "status": "observed",
+    "items": [
+      {
+        "task_id": "task-replay-ordering",
+        "fact_id": "task-replay-ordering",
+        "title": "Make replay ordering migration-safe",
+        "state": "completed",
+        "completion_evidence": "supported_completed",
+        "attempts": 4,
+        "loops": 4,
+        "rework_events": 4,
+        "agent_run_ids": ["agent-replay-02", "agent-validator-02"],
+        "skill_invocation_ids": ["skill-rust-debugging-03", "skill-sqlite-migrations-01"],
+        "human_event_ids": ["human-clarification-07"],
+        "validation_refs": ["validation-06", "validation-07"],
+        "evidence_refs": ["task-event-44", "terminal-891", "terminal-902"]
+      },
+      {
+        "task_id": "task-stop-hook",
+        "fact_id": "task-stop-hook",
+        "title": "Keep stop-hook reporting below the ceiling",
+        "state": "completed",
+        "completion_evidence": "supported_completed",
+        "attempts": 3,
+        "loops": 3,
+        "rework_events": 3,
+        "agent_run_ids": ["agent-hook-01", "agent-test-02"],
+        "skill_invocation_ids": ["skill-rust-profiling-01"],
+        "human_event_ids": [],
+        "validation_refs": ["validation-05"],
+        "evidence_refs": ["task-event-51", "benchmark-18"]
+      },
+      {
+        "task_id": "task-report-parity",
+        "fact_id": "task-report-parity",
+        "title": "Enforce HTML and Markdown fact parity",
+        "state": "completed",
+        "completion_evidence": "supported_completed",
+        "attempts": 2,
+        "loops": 2,
+        "rework_events": 2,
+        "agent_run_ids": ["agent-report-01"],
+        "skill_invocation_ids": ["skill-golden-reporting-02"],
+        "human_event_ids": ["human-correction-09"],
+        "validation_refs": ["validation-04"],
+        "evidence_refs": ["golden-22", "parity-18"]
+      },
+      {
+        "task_id": "task-agent-completion",
+        "fact_id": "task-agent-completion",
+        "title": "Capture agent completion events",
+        "state": "open_at_session_end",
+        "completion_evidence": "open",
+        "attempts": 1,
+        "loops": 1,
+        "rework_events": 1,
+        "agent_run_ids": ["agent-events-03"],
+        "skill_invocation_ids": [],
+        "human_event_ids": [],
+        "validation_refs": [],
+        "evidence_refs": ["task-event-62"]
+      }
+    ]
+  },
+  "agents": {
+    "status": "observed",
+    "runs": [
+      {
+        "agent_run_id": "agent-replay-02",
+        "fact_id": "agent-replay-02",
+        "display_name": "Replay Specialist 02",
+        "role": "integration",
+        "status": "superseded",
+        "task_ids": ["task-replay-ordering"],
+        "duration_ms": 2294000,
+        "tokens_total": 735000,
+        "rework_events": 3,
+        "skills": ["rust-debugging", "sqlite-migrations"],
+        "handoff_to": "agent-validator-02",
+        "attention_rules": ["highest_rework_count", "validation_retries"]
+      },
+      {
+        "agent_run_id": "agent-validator-02",
+        "fact_id": "agent-validator-02",
+        "display_name": "Validator 02",
+        "role": "validation",
+        "status": "completed",
+        "task_ids": ["task-replay-ordering"],
+        "duration_ms": 1480000,
+        "tokens_total": 388000,
+        "rework_events": 0,
+        "skills": ["sqlite-migrations"],
+        "handoff_to": null,
+        "attention_rules": []
+      },
+      {
+        "agent_run_id": "agent-hook-01",
+        "fact_id": "agent-hook-01",
+        "display_name": "Hook Engineer 01",
+        "role": "implementation",
+        "status": "completed",
+        "task_ids": ["task-stop-hook"],
+        "duration_ms": 1640000,
+        "tokens_total": 402000,
+        "rework_events": 2,
+        "skills": ["rust-profiling"],
+        "handoff_to": "agent-test-02",
+        "attention_rules": []
+      },
+      {
+        "agent_run_id": "agent-report-01",
+        "fact_id": "agent-report-01",
+        "display_name": "Report Engineer 01",
+        "role": "reporting",
+        "status": "completed",
+        "task_ids": ["task-report-parity"],
+        "duration_ms": 1320000,
+        "tokens_total": 315000,
+        "rework_events": 2,
+        "skills": ["golden-reporting"],
+        "handoff_to": null,
+        "attention_rules": []
+      }
+    ]
+  },
+  "skills": {
+    "status": "observed",
+    "items": [
+      {
+        "skill_id": "rust-debugging",
+        "fact_id": "skill.rust-debugging",
+        "version_hash": "sha256:example-rust-debugging",
+        "available": true,
+        "catalog_source": "filesystem_scan_at_report_time",
+        "loaded_count": 2,
+        "invoked_count": 4,
+        "loaded": true,
+        "invoked": true,
+        "loaded_invoked_conflated": true,
+        "evidenced_in_output": "pending_derivation",
+        "task_ids": ["task-replay-ordering"],
+        "agent_run_ids": ["agent-replay-02"],
+        "usage_timing": "reactive_after_failure",
+        "evidence_refs": ["skill-event-31", "skill-event-34"]
+      },
+      {
+        "skill_id": "sqlite-migrations",
+        "fact_id": "skill.sqlite-migrations",
+        "version_hash": "sha256:example-sqlite",
+        "available": true,
+        "catalog_source": "filesystem_scan_at_report_time",
+        "loaded_count": 2,
+        "invoked_count": 3,
+        "loaded": true,
+        "invoked": true,
+        "loaded_invoked_conflated": true,
+        "evidenced_in_output": "pending_derivation",
+        "task_ids": ["task-replay-ordering"],
+        "agent_run_ids": ["agent-replay-02", "agent-validator-02"],
+        "usage_timing": "mixed",
+        "evidence_refs": ["skill-event-37"]
+      },
+      {
+        "skill_id": "golden-reporting",
+        "fact_id": "skill.golden-reporting",
+        "version_hash": "sha256:example-golden",
+        "available": true,
+        "catalog_source": "filesystem_scan_at_report_time",
+        "loaded_count": 1,
+        "invoked_count": 2,
+        "loaded": true,
+        "invoked": true,
+        "loaded_invoked_conflated": true,
+        "evidenced_in_output": "pending_derivation",
+        "task_ids": ["task-report-parity"],
+        "agent_run_ids": ["agent-report-01"],
+        "usage_timing": "preloaded",
+        "evidence_refs": ["skill-event-41"]
+      },
+      {
+        "skill_id": "rust-profiling",
+        "fact_id": "skill.rust-profiling",
+        "available": true,
+        "catalog_source": "filesystem_scan_at_report_time",
+        "loaded_count": 0,
+        "invoked_count": 0,
+        "loaded": false,
+        "invoked": false,
+        "loaded_invoked_conflated": true,
+        "evidenced_in_output": "not_applicable",
+        "task_ids": ["task-stop-hook"],
+        "agent_run_ids": [],
+        "usage_timing": "never_loaded",
+        "evidence_refs": []
+      }
+    ]
+  },
+  "rework": {
+    "status": "observed",
+    "events": [
+      {
+        "rework_id": "rw-01",
+        "fact_id": "rework.rw-01",
+        "type": "validation_redo",
+        "task_id": "task-replay-ordering",
+        "attempt_id": "attempt-1",
+        "loop_id": "loop-1",
+        "agent_run_ids": ["agent-replay-02"],
+        "skill_invocation_ids": ["skill-rust-debugging-03"],
+        "human_event_ids": [],
+        "phase_id": "integration",
+        "rule_id": "rework.validation-redo.v1",
+        "confidence": "exact",
+        "evidence_refs": ["validation-02", "terminal-850"]
+      },
+      {
+        "rework_id": "rw-02",
+        "fact_id": "rework.rw-02",
+        "type": "human_correction",
+        "task_id": "task-replay-ordering",
+        "attempt_id": "attempt-3",
+        "loop_id": "loop-3",
+        "agent_run_ids": ["agent-replay-02"],
+        "skill_invocation_ids": ["skill-sqlite-migrations-01"],
+        "human_event_ids": ["human-clarification-07"],
+        "phase_id": "integration",
+        "rule_id": "rework.human-correction.v1",
+        "confidence": "exact",
+        "evidence_refs": ["prompt-77", "validation-06"]
+      },
+      {
+        "rework_id": "rw-03",
+        "fact_id": "rework.rw-03",
+        "type": "routing_change_after_failure",
+        "task_id": "task-replay-ordering",
+        "attempt_id": "attempt-4",
+        "loop_id": "loop-4",
+        "agent_run_ids": ["agent-replay-02", "agent-validator-02"],
+        "skill_invocation_ids": [],
+        "human_event_ids": [],
+        "phase_id": "validation",
+        "rule_id": "rework.routing-change.v1",
+        "confidence": "rule_match",
+        "evidence_refs": ["handoff-12", "validation-07"]
+      },
+      {
+        "rework_id": "rw-04",
+        "fact_id": "rework.rw-04",
+        "type": "agent_retry",
+        "task_id": "task-stop-hook",
+        "attempt_id": "attempt-2",
+        "loop_id": "loop-2",
+        "agent_run_ids": ["agent-hook-01"],
+        "skill_invocation_ids": ["skill-rust-profiling-01"],
+        "human_event_ids": [],
+        "phase_id": "validation",
+        "rule_id": "rework.agent-retry.v1",
+        "confidence": "exact",
+        "evidence_refs": ["benchmark-14", "benchmark-18"]
+      }
+    ],
+    "hotspots": [
+      {
+        "task_id": "task-replay-ordering",
+        "rework_events": 4,
+        "loops": 4,
+        "agent_run_ids": ["agent-replay-02", "agent-validator-02"],
+        "skill_ids": ["rust-debugging", "sqlite-migrations"],
+        "human_interventions": 1,
+        "final_state": "completed"
+      },
+      {
+        "task_id": "task-stop-hook",
+        "rework_events": 3,
+        "loops": 3,
+        "agent_run_ids": ["agent-hook-01", "agent-test-02"],
+        "skill_ids": ["rust-profiling"],
+        "human_interventions": 0,
+        "final_state": "completed"
+      }
+    ]
+  },
+  "human_ai_recovery": {
+    "status": "observed",
+    "summary": {
+      "ai_recovered": 8,
+      "human_assisted": 3,
+      "human_required": 1,
+      "mixed": 0,
+      "unknown": 1
+    },
+    "events": [
+      {
+        "recovery_id": "recovery-replay-03",
+        "fact_id": "recovery-replay-03",
+        "task_id": "task-replay-ordering",
+        "classification": "human_assisted",
+        "human_event_ids": ["human-clarification-07"],
+        "agent_run_ids": ["agent-replay-02", "agent-validator-02"],
+        "failure_ref": "validation-06",
+        "recovery_ref": "validation-07",
+        "rule_id": "recovery.human-assisted.v1"
+      },
+      {
+        "recovery_id": "recovery-hook-02",
+        "fact_id": "recovery-hook-02",
+        "task_id": "task-stop-hook",
+        "classification": "ai_recovered",
+        "human_event_ids": [],
+        "agent_run_ids": ["agent-hook-01", "agent-test-02"],
+        "failure_ref": "benchmark-14",
+        "recovery_ref": "benchmark-18",
+        "rule_id": "recovery.ai-only.v1"
+      }
+    ]
+  },
+  "process": {
+    "workflow_id": "standard-eight-phase-v1",
+    "phases": [
+      { "id": "scope", "fact_id": "phase.scope", "label": "Scope", "active_ms": 2460000, "rework": 0, "tokens": 310000, "confidence": "exact", "rule_id": "phase.explicit.v1" },
+      { "id": "orientation", "fact_id": "phase.orientation", "label": "Repository orientation", "active_ms": 2160000, "rework": 0, "tokens": 420000, "confidence": "rule_match", "rule_id": "phase.file-review.v1" },
+      { "id": "architecture", "fact_id": "phase.architecture", "label": "Architecture and design", "active_ms": 3480000, "rework": 1, "tokens": 580000, "confidence": "rule_match", "rule_id": "phase.spec-design.v1" },
+      { "id": "implementation", "fact_id": "phase.implementation", "label": "Core implementation", "active_ms": 6120000, "rework": 2, "tokens": 1390000, "confidence": "rule_match", "rule_id": "phase.edit-build.v1" },
+      { "id": "integration", "fact_id": "phase.integration", "label": "Integration and replay", "active_ms": 3120000, "rework": 4, "tokens": 870000, "confidence": "rule_match", "rule_id": "phase.replay.v1" },
+      { "id": "validation", "fact_id": "phase.validation", "label": "Validation and debugging", "active_ms": 3240000, "rework": 2, "tokens": 760000, "confidence": "rule_match", "rule_id": "phase.validation.v1" },
+      { "id": "documentation", "fact_id": "phase.documentation", "label": "Documentation and handoff", "active_ms": 1740000, "rework": 0, "tokens": 320000, "confidence": "rule_match", "rule_id": "phase.docs.v1" },
+      { "id": "release", "fact_id": "phase.release", "label": "Release checks", "active_ms": 1560000, "rework": 0, "tokens": 210000, "confidence": "rule_match", "rule_id": "phase.release.v1" }
+    ]
+  },
+  "validation": {
+    "status": "observed",
+    "attempts": 7,
+    "final": {
+      "fact_id": "validation.final",
+      "label": "recorded validation passed",
+      "passed": 236,
+      "failed": 0,
+      "skipped": 4,
+      "total": 240,
+      "command_fingerprint": "cargo-test-workspace",
+      "evidence_refs": ["terminal-891", "terminal-902"]
+    }
+  },
+  "observations": {
+    "status": "observed",
+    "candidate": 31,
+    "promoted": 18,
+    "duplicate_linked": 8,
+    "rejected": 5,
+    "featured": [
+      {
+        "id": "MO-001",
+        "fact_id": "observation.MO-001",
+        "kind": "agent_signal",
+        "domain": "architecture",
+        "title": "Replay code assumed monotonic migrations",
+        "statement": "The replay sequence assumes migrations are monotonic.",
+        "state": "promoted",
+        "rule_id": "observation.agent-signal.v1",
+        "promotion_target": "specification",
+        "evidence_refs": ["message-agent-replay-18"]
+      },
+      {
+        "id": "MO-002",
+        "fact_id": "observation.MO-002",
+        "kind": "agent_signal",
+        "domain": "performance",
+        "title": "Stop-hook ceiling remained a known risk",
+        "statement": "The stop hook can still exceed the 120 second ceiling on a large database.",
+        "state": "promoted",
+        "rule_id": "observation.agent-signal.v1",
+        "promotion_target": "regression_test",
+        "evidence_refs": ["message-agent-hook-11", "benchmark-14"]
+      },
+      {
+        "id": "SS-001",
+        "fact_id": "observation.SS-001",
+        "kind": "unreported_evidence_gap",
+        "domain": "handoff",
+        "title": "Three replay validation failures were absent from the final handoff",
+        "state": "promoted",
+        "rule_id": "silent.omitted-failure.v1",
+        "promotion_target": "task_template",
+        "evidence_refs": ["validation-03", "validation-04", "validation-05", "handoff-replay-final"]
+      },
+      {
+        "id": "SS-002",
+        "fact_id": "observation.SS-002",
+        "kind": "unreported_evidence_gap",
+        "domain": "completion",
+        "title": "One task was described as done without completion evidence",
+        "state": "candidate",
+        "rule_id": "silent.completion-without-evidence.v1",
+        "promotion_target": "completion_gate",
+        "evidence_refs": ["message-agent-events-final", "task-event-62"]
+      }
+    ]
+  },
+  "capture": {
+    "channels": [
+      { "id": "hooks", "status": "complete", "recorded": 12842, "dropped": 9, "coverage_percent": 99.9 },
+      { "id": "transcripts", "status": "complete", "recorded": 2311, "dropped": 0, "coverage_percent": 100.0 },
+      { "id": "task_events", "status": "partial", "recorded": 74, "reason": "Completion-event capture remains incomplete for one agent path." },
+      { "id": "skill_events", "status": "partial", "recorded": 46, "reason": "Availability is captured; not every implicit skill use emits an invocation event." },
+      { "id": "provider_cost_usd", "status": "not_recorded", "reason": "Subscription authentication does not expose authoritative per-token USD cost." }
+    ]
+  },
+  "evidence": {
+    "terminal-891": { "id": "terminal-891", "kind": "terminal_output", "source": "ambient.sqlite:terminal_events", "locator": "row 891", "hash": "sha256:example-terminal-891" },
+    "terminal-902": { "id": "terminal-902", "kind": "terminal_output", "source": "ambient.sqlite:terminal_events", "locator": "row 902", "hash": "sha256:example-terminal-902" },
+    "terminal-850": { "id": "terminal-850", "kind": "terminal_output", "source": "ambient.sqlite:terminal_events", "locator": "row 850", "hash": "sha256:example-terminal-850" },
+    "validation-02": { "id": "validation-02", "kind": "validation_run", "source": "ambient.sqlite:validation_runs", "locator": "row 2", "hash": "sha256:example-validation-02" },
+    "validation-03": { "id": "validation-03", "kind": "validation_run", "source": "ambient.sqlite:validation_runs", "locator": "row 3", "hash": "sha256:example-validation-03" },
+    "validation-04": { "id": "validation-04", "kind": "validation_run", "source": "ambient.sqlite:validation_runs", "locator": "row 4", "hash": "sha256:example-validation-04" },
+    "validation-05": { "id": "validation-05", "kind": "validation_run", "source": "ambient.sqlite:validation_runs", "locator": "row 5", "hash": "sha256:example-validation-05" },
+    "validation-06": { "id": "validation-06", "kind": "validation_run", "source": "ambient.sqlite:validation_runs", "locator": "row 6", "hash": "sha256:example-validation-06" },
+    "validation-07": { "id": "validation-07", "kind": "validation_run", "source": "ambient.sqlite:validation_runs", "locator": "row 7", "hash": "sha256:example-validation-07" },
+    "prompt-77": { "id": "prompt-77", "kind": "human_prompt", "source": "ambient.sqlite:prompts", "locator": "row 77", "hash": "sha256:example-prompt-77" },
+    "handoff-12": { "id": "handoff-12", "kind": "handoff_message", "source": "ambient.sqlite:agent_messages", "locator": "row 12", "hash": "sha256:example-handoff-12" },
+    "handoff-replay-final": { "id": "handoff-replay-final", "kind": "handoff_message", "source": "ambient.sqlite:agent_messages", "locator": "final handoff, task-replay-ordering", "hash": "sha256:example-handoff-replay-final" },
+    "benchmark-14": { "id": "benchmark-14", "kind": "benchmark_result", "source": "ambient.sqlite:benchmarks", "locator": "row 14", "hash": "sha256:example-benchmark-14" },
+    "benchmark-18": { "id": "benchmark-18", "kind": "benchmark_result", "source": "ambient.sqlite:benchmarks", "locator": "row 18", "hash": "sha256:example-benchmark-18" },
+    "message-agent-replay-18": { "id": "message-agent-replay-18", "kind": "agent_message", "source": "ambient.sqlite:agent_messages", "locator": "row 18, agent-replay-02", "hash": "sha256:example-message-replay-18" },
+    "message-agent-hook-11": { "id": "message-agent-hook-11", "kind": "agent_message", "source": "ambient.sqlite:agent_messages", "locator": "row 11, agent-hook-01", "hash": "sha256:example-message-hook-11" },
+    "message-agent-events-final": { "id": "message-agent-events-final", "kind": "agent_message", "source": "ambient.sqlite:agent_messages", "locator": "final message, agent-events-03", "hash": "sha256:example-message-events-final" },
+    "task-event-44": { "id": "task-event-44", "kind": "task_event", "source": "ambient.sqlite:task_events", "locator": "row 44", "hash": "sha256:example-task-event-44" },
+    "task-event-51": { "id": "task-event-51", "kind": "task_event", "source": "ambient.sqlite:task_events", "locator": "row 51", "hash": "sha256:example-task-event-51" },
+    "task-event-62": { "id": "task-event-62", "kind": "task_event", "source": "ambient.sqlite:task_events", "locator": "row 62", "hash": "sha256:example-task-event-62" },
+    "golden-22": { "id": "golden-22", "kind": "golden_diff", "source": "tests/golden", "locator": "diff run 22", "hash": "sha256:example-golden-22" },
+    "parity-18": { "id": "parity-18", "kind": "parity_check", "source": "tests/parity", "locator": "run 18", "hash": "sha256:example-parity-18" },
+    "skill-event-31": { "id": "skill-event-31", "kind": "skill_event", "source": "ambient.sqlite:skill_events", "locator": "row 31", "hash": "sha256:example-skill-event-31" },
+    "skill-event-34": { "id": "skill-event-34", "kind": "skill_event", "source": "ambient.sqlite:skill_events", "locator": "row 34", "hash": "sha256:example-skill-event-34" },
+    "skill-event-37": { "id": "skill-event-37", "kind": "skill_event", "source": "ambient.sqlite:skill_events", "locator": "row 37", "hash": "sha256:example-skill-event-37" },
+    "skill-event-41": { "id": "skill-event-41", "kind": "skill_event", "source": "ambient.sqlite:skill_events", "locator": "row 41", "hash": "sha256:example-skill-event-41" }
+  },
+  "reserved": {
+    "memory": { "status": "disabled" },
+    "briefing": { "status": "disabled" },
+    "observations_agent": { "status": "disabled" },
+    "observations_subagent": { "status": "disabled" }
+  },
+  "integrity": {
+    "source_db_hash": "sha256:example-source",
+    "template_hash": "sha256:example-template",
+    "renderer_version": "0.1.0",
+    "locale": "en-CA",
+    "timezone": "America/Toronto",
+    "config_hash": "blake3:20e80a86dd5493d3cc47d1974de7f84a1bc7845be9cf1ec4716148bc99477c97",
+    "config_layers_summary": "Resolved from compiled defaults folded into shipped default TOML."
+  }
+}

@@ -1,0 +1,136 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://bar-observatory.dev/schemas/interpretation-1.0.json",
+  "title": "BAR Observatory Self-Improvement Interpretation",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "interpretation",
+    "executive_synthesis",
+    "findings",
+    "experiments"
+  ],
+  "$defs": {
+    "fact_ref": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Structural check only (non-empty string). The binding constraint: every fact_ref here must equal a fact_id present in the paired report.json named by interpretation.report_id/report_hash. JSON Schema cannot express a cross-document existence check; a resolver test enforces it as code."
+    },
+    "evidence_ref": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Must be a key in the paired report.json's top-level evidence object — same resolver-test caveat as fact_ref."
+    }
+  },
+  "properties": {
+    "schema_version": {
+      "const": "bar-observatory-interpretation-1.0"
+    },
+    "interpretation": {
+      "type": "object",
+      "required": [
+        "id",
+        "report_id",
+        "report_hash",
+        "provider",
+        "model",
+        "prompt_version",
+        "disclaimer"
+      ]
+    },
+    "executive_synthesis": {
+      "type": "object",
+      "required": [
+        "headline",
+        "summary",
+        "fact_refs"
+      ],
+      "properties": {
+        "headline": { "type": "string" },
+        "summary": { "type": "string" },
+        "fact_refs": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/fact_ref" }
+        }
+      }
+    },
+    "findings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "finding_id",
+          "category",
+          "title",
+          "statement",
+          "kind",
+          "confidence",
+          "fact_refs",
+          "evidence_refs",
+          "uncertainty",
+          "recommended_action",
+          "verification_plan"
+        ],
+        "properties": {
+          "kind": {
+            "enum": [
+              "fact_summary",
+              "inference",
+              "hypothesis",
+              "recommendation"
+            ]
+          },
+          "confidence": {
+            "enum": [
+              "low",
+              "medium",
+              "high"
+            ]
+          },
+          "fact_refs": {
+            "type": "array",
+            "minItems": 1,
+            "items": { "$ref": "#/$defs/fact_ref" }
+          },
+          "evidence_refs": {
+            "type": "array",
+            "items": { "$ref": "#/$defs/evidence_ref" }
+          },
+          "counter_evidence": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Optional (not in `required`, CONFIRM open — see archive/bar-obs-private-build-docs-2026-08-11/docs/bar-observatory/docs/steps/16-llm-self-improvement-interpretation.md): what would disprove this finding. Keeps a finding falsifiable rather than one-sided, per this project's honesty discipline. Render an explicit \"none recorded\" when empty rather than omitting the line — an absence marker, not a silent gap."
+          }
+        }
+      }
+    },
+    "experiments": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "experiment_id",
+          "priority",
+          "title",
+          "red",
+          "green",
+          "optimize",
+          "success_measures",
+          "fact_refs"
+        ],
+        "properties": {
+          "fact_refs": {
+            "type": "array",
+            "minItems": 1,
+            "items": { "$ref": "#/$defs/fact_ref" }
+          }
+        }
+      }
+    },
+    "promotion_candidates": {
+      "type": "array"
+    }
+  },
+  "additionalProperties": false
+}

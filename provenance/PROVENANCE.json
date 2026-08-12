@@ -1,0 +1,7 @@
+{
+  "product": "bar-observatory",
+  "note": "This folder is mostly hand-maintained static content (README, RUN.md, run.sh, process/, schemas/, config/, examples/, LICENSE, SECURITY.md, CONTRIBUTING.md, CHANGELOG.md). Only CRATES.md is generated -- by scripts/public-export.sh, from bar-obs-private/crates/*/Cargo.toml in the private working repo. Not yet a public release; requires human approval (ADR-016) before this folder is pushed to a real GitHub remote.",
+  "generated_files": ["CRATES.md"],
+  "generator": "scripts/public-export.sh",
+  "checksums_manifest": "checksums/SHA256SUMS.txt"
+}

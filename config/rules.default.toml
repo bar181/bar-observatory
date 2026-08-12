@@ -1,0 +1,23 @@
+version = 1
+
+[rules]
+phase_explicit = "phase.explicit.v1"
+phase_command = "phase.command.v1"
+task_completion_event = "task.completed-event.v1"
+task_completion_supported = "task.completion-supported.v1"
+rework_validation = "rework.validation-redo.v1"
+rework_human = "rework.human-correction.v1"
+rework_retry = "rework.agent-retry.v1"
+recovery_ai = "recovery.ai-only.v1"
+recovery_human = "recovery.human-assisted.v1"
+observation_agent_signal = "observation.agent-signal.v1"
+silent_omitted_failure = "silent.omitted-failure.v1"
+silent_completion_without_evidence = "silent.completion-without-evidence.v1"
+
+[observation_ranking]
+recurrence_weight = 4
+evidence_weight = 5
+cross_session_weight = 3
+unresolved_weight = 4
+impact_surface_weight = 2
+recency_weight = 1

@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://bar-observatory.dev/schemas/resolved-config-1.0.json",
+  "title": "BAR Observatory Resolved Config",
+  "type": "object",
+  "required": ["enabled", "directory", "retain_days"],
+  "properties": {
+    "enabled": { "type": "boolean" },
+    "directory": { "type": "string" },
+    "retain_days": { "type": "integer", "minimum": 0 }
+  },
+  "additionalProperties": false
+}

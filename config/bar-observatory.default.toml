@@ -1,0 +1,183 @@
+version = 1
+enabled = true
+
+# Governs the resolver's own behavior. No [config] "enabled" key exists - resolution cannot be
+# turned off, same precedent as [product]/[storage] carrying no enabled key.
+[config]
+project_config_path = ".bar/config.toml"
+allow_env_overrides = true
+env_prefix = "BAR"
+unknown_key_policy = "warn"
+
+[config.env_allowlist]
+# Explicit allowlist - only these dotted paths may be set via environment. Anything else matching
+# the BAR__ prefix is ignored and recorded as a warning, never silently applied.
+paths = [
+  "storage.directory",
+  "storage.retain_days",
+  "privacy.sanitize",
+  "reports.self_improvement.enabled",
+]
+
+[product]
+name = "BAR Observatory"
+expansion = "Base Agentic Reporter"
+command = "bar"
+
+[storage]
+directory = ".bar"
+ambient_database = "ambient.sqlite"
+index_database = "index.sqlite"
+retain_days = 90
+
+[measurements.session]
+enabled = true
+
+[measurements.prompts]
+enabled = true
+store_text = true
+
+[measurements.tasks]
+enabled = true
+capture_explicit_tasks = true
+infer_when_missing = true
+
+[measurements.agents]
+enabled = true
+capture_hierarchy = true
+capture_messages = true
+
+[measurements.skills]
+enabled = true
+capture_available = true
+capture_loaded = true
+capture_invoked = true
+hash_content = true
+
+[measurements.tools]
+enabled = true
+
+[measurements.terminal]
+enabled = true
+capture_output = "sanitized"
+max_output_bytes = 262144
+
+[measurements.files]
+enabled = true
+capture_versions = true
+capture_content = "diff"
+
+[measurements.git]
+enabled = true
+
+# cost_mode changed 2026-07-31 (Bradley's ruling): "authoritative_only" left cost permanently
+# unrenderable on any non-proxy capture path (confirmed live: the `requests` table is 0 rows on
+# ambient/hook/OTLP-only sessions) with no schema field to carry it even if fixed. Two-tier rule
+# now: prefer real provider-billed/proxy-captured cost when available; fall back to a
+# published-price-table estimate (tokens x per-model rate) when it isn't, always labeled which
+# source was used (schemas/report.schema.json's provider_usage.cost_source) — never silently
+# blank, never silently presented as authoritative when it's an estimate.
+[measurements.provider_usage]
+enabled = true
+cost_mode = "authoritative_preferred_priced_fallback"
+
+[measurements.validation]
+enabled = true
+parsers = ["cargo", "pytest", "npm", "generic-exit"]
+
+[measurements.process]
+enabled = true
+workflow = "standard-eight-phase-v1"
+
+[measurements.rework]
+enabled = true
+validation_redo = true
+human_correction = true
+agent_retry = true
+task_reopened = true
+plan_rejected = true
+file_rework = true
+rollback = true
+superseded_output = true
+abandoned_work = true
+conflicting_handoff = true
+routing_change_after_failure = true
+skill_change_after_failure = true
+
+[measurements.human_ai_recovery]
+enabled = true
+
+[measurements.micro_observations]
+enabled = true
+extract_agent_signals = true
+detect_unreported_evidence_gaps = true
+promote_threshold = 2
+featured_limit = 12
+
+[reports.engineering]
+enabled = true
+default_format = "html"
+additional_formats = ["md"]
+# Standardized on report.template_version's semantic-version form (this field selects the same
+# template that field records the version of -- they must match, one canonical form).
+template = "bar-observatory-engineering-1.0"
+
+[reports.self_improvement]
+enabled = false
+# Same semantic-version convention as [reports.engineering].template above, applied here too even
+# though no example currently exercises self-improvement's template_version — a real reviewer
+# caught the CONFIRM note above stating "one canonical form" while this line still said -v1, five
+# lines below itself.
+template = "bar-observatory-self-improvement-1.0"
+provider = "claude-code-session"
+model = "runtime-recorded"
+require_fact_refs = true
+
+[report_sections]
+tasks = true
+process = true
+rework = true
+agents = true
+skills = true
+human_ai_recovery = true
+repository = true
+validation = true
+micro_observations = true
+silent_signals = true
+capture_quality = true
+
+[privacy]
+sanitize = true
+redact_home_paths = true
+redact_secrets = true
+store_environment_values = false
+store_network_bodies = false
+
+[integrity]
+manifest = true
+hash_algorithm = "sha256"
+sign = false
+provenance = true
+
+[branding]
+profile = "bradley-academy"
+product_name = "BAR Observatory"
+product_expansion = "Base Agentic Reporter"
+creator_name = "Bradley Ross"
+studio_name = "Bradley.Academy"
+repository_url = "https://github.com/bar181/bar-observatory"
+# Fixes D-13 (human-specs/01-inital-plan-review.md): these three were unresolved
+# "<...>" placeholders inside a file this same phase declares frozen. linkedin_url is
+# now a verified fact (matches upstream/aisp's own README byline, cross-checked live
+# against github.com/bar181/aisp-open-core, 2026-07-30). documentation_url and
+# personal_website_url are genuinely undecided (docs.rs vs repo README; no confirmed
+# personal/studio site URL) — flagged "TBD" rather than invented, and verify.sh's
+# placeholder check now only fails on literal "<...>" so these no longer trip it
+# while staying visibly unresolved. See bar-obs-private/OPEN-QUESTIONS-AND-ASSUMPTIONS-2026-07-30.md.
+documentation_url = "TBD"
+linkedin_url = "https://linkedin.com/in/bradaross"
+personal_website_url = "TBD"
+report_address = "TBD"
+cta_enabled = true
+palette = "academic-crimson"
+affiliation_disclaimer = "Independent open-source project by Bradley Ross / Bradley.Academy. Academic crimson palette; no Harvard University marks are used and no endorsement is implied."

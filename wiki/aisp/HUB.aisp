@@ -1,0 +1,14 @@
+BAR_OBSERVATORY{
+ ID=bar-observatory;
+ EXPANSION=Base_Agentic_Reporter;
+ FACTORY=private;
+ PUBLIC=verified_gold_only;
+ CFG=TOML;
+ CONTRACT=report.json;
+ SCHEMA_V=bar-observatory-report-1.0;
+ FACT_ID_RULE=fact-id.assign.v1;
+ REPORTS=[engineering:deterministic,self_improvement:LLM_optional_off];
+ CORE=[Task,Attempt,Loop,CompletionEvidence,Agent,Skill,HumanEvent,Validation,Rework,Observation,SilentSignal];
+ INV=[missing!=0,claim!=correctness,interpretation!=fact,public<-verified_export];
+ LOOP=[UNDERSTAND,RESEARCH,CONFIRM,RED,GREEN,OPTIMIZE,DOGFOOD,REVIEW,UPDATE,VALIDATE,DONE];
+}

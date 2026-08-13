@@ -1,5 +1,5 @@
-77f239e8c0bc764d10578a2bb826a5fbb3e73ab93df152eb64325a5d34e8a1e0  ./.claude-plugin/marketplace.json
-f9811ed8b4207dcca9ca925a2776276165f014d1fa598fedec0b0ee084574cf5  ./.claude-plugin/plugin.json
+f62188937c007f450c3f75201f41f3ca9016a095a09e4665aa6e9f219e78f803  ./.claude-plugin/marketplace.json
+0ec8ceb91099df4f83a82b36ebfd6823580e023f51a347f9660a6370ad14e485  ./.claude-plugin/plugin.json
 dcd24af57488fb2c34e387533b93da37be56b29b4d5c19cca3952f79cddd2c29  ./CHANGELOG.md
 5ee5161079b2917569fe7378fe65bf942af79b15b910e38d7c386774b6233738  ./CONTRIBUTING.md
 cc2c985920cab194c253247f0ebc00b77c1a5929b59421adc15da7c2133836ea  ./CRATES.md

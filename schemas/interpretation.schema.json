@@ -100,7 +100,7 @@
           "counter_evidence": {
             "type": "array",
             "items": { "type": "string" },
-            "description": "Optional (not in `required`, CONFIRM open — see archive/bar-obs-private-build-docs-2026-08-11/docs/bar-observatory/docs/steps/16-llm-self-improvement-interpretation.md): what would disprove this finding. Keeps a finding falsifiable rather than one-sided, per this project's honesty discipline. Render an explicit \"none recorded\" when empty rather than omitting the line — an absence marker, not a silent gap."
+            "description": "Optional (not in `required` — whether it should be mandatory is still an open call): what would disprove this finding. Keeps a finding falsifiable rather than one-sided, per this project's honesty discipline. Render an explicit \"none recorded\" when empty rather than omitting the line — an absence marker, not a silent gap."
           }
         }
       }

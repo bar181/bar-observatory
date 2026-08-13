@@ -1,33 +1,50 @@
-# 04 — Optional modules
+# Step 4 — Optional modules: what layers on top of the deterministic core
 
-The deterministic core (capture → store → report) is always on. These layer on top and are opt-in:
+The deterministic core — capture, store, render — is always on and never changes shape. Layered
+on top of it are five modules. Each one is opt-in, and every one of them keeps the same rule:
+nothing optional is allowed to leak non-determinism into the deterministic report.
 
 | Module | What it adds | Determinism |
 |---|---|---|
 | **Coverage oracles** | hooks/transcript/span loss detection → `verified` / `gap_detected` | deterministic |
-| **Cost estimate** | labeled token→USD list-price estimate (honest "not recorded" without token rows) | deterministic |
+| **Cost estimate** | a labeled token→USD list-price estimate (honestly reports "not recorded" when there are no token rows) | deterministic |
 | **Detectors** | tool usage, task ledger, agents/skills, rework, error results, validation runs | deterministic |
-| **Interpreted report** | an *optional* self-improvement/LLM-judge layer, kept **separate** from the deterministic file | non-deterministic by nature — never in the deterministic report |
-| **Direct query** | `bar query` — read-only DB access (3 use cases + raw SELECT) for slices the report doesn't pre-bake | deterministic (named queries are explicitly ordered) |
+| **Interpreted report** | an optional self-improvement / LLM-judge layer, kept as a separate artifact from the deterministic file | non-deterministic by nature — never in the deterministic report |
+| **Direct query** | `bar query` — read-only DB access for slices the report doesn't pre-bake | deterministic (named queries run in a fixed, explicit order) |
 
-Rule: nothing optional is allowed to leak non-determinism into the deterministic report. The
-interpreted layer is a distinct artifact you request explicitly.
+## The interpreted report: BAR owns the facts, an LLM owns the wording
 
-## Interpreted report (LLM-written, two audiences)
-`bar interpret <db> --audience engineering|executive` emits a **deterministic brief** (the exact
-facts + tone/coverage guidance). Hand the brief to your Claude Code session (or any LLM) and it
-writes the interpreted report — technical for **engineering**, value/cost/risk for **executive**.
-The brief is byte-identical (BAR owns the facts); the prose varies (the LLM owns the wording). BAR
-never invents numbers — the brief pins them.
+Want prose alongside the raw numbers? `bar interpret` writes a **deterministic brief** — the
+exact facts plus tone/coverage guidance for the audience you pick:
 
-## Direct query (read-only, `bar query`)
-When you want a slice the report doesn't pre-bake, go straight to the DB:
+```bash
+bar interpret <db> --audience engineering|executive
+```
+(Plugin: `/bar-interpret engineering` or `/bar-interpret executive`.)
+
+Hand that brief to your Claude Code session (or any LLM) and it writes the interpreted report —
+technical detail for **engineering**, value/cost/risk framing for **executive**. The brief is
+byte-identical every time you generate it (BAR owns the facts); only the prose written from it
+varies (the LLM owns the wording). BAR never invents numbers — the brief pins every one of them.
+
+## Direct query: when the report doesn't pre-bake what you need
+
+For a slice the report doesn't cover, go straight to the database:
+
 ```bash
 bar query <db> --list                       # the 3 named use cases + how format/limit work
 bar query <db> tools --format csv           # tool-usage breakdown (also: timeline, errors)
 bar query <db> --sql "SELECT role, count(*) FROM transcript_turns GROUP BY role"
 ```
-The connection is opened `SQLITE_OPEN_READ_ONLY`, so a write in `--sql` is refused by SQLite
-itself — not a regex we could get wrong. `--format table|json|csv` (table for humans, json/csv for
-agents/pipes); `--limit N` windows the output (`--limit 0` = all). Named queries are explicitly
-ordered, so a fixed DB renders identically every time.
+
+The connection is opened `SQLITE_OPEN_READ_ONLY`, so any write you accidentally send in `--sql`
+is refused by SQLite itself — not by a regex BAR could get wrong. `--format table|json|csv` picks
+a human-readable table or a machine-friendly json/csv for piping elsewhere; `--limit N` windows
+the output (`--limit 0` returns everything). Named queries run in a fixed order, so a given
+database always renders the same result.
+
+If you're an AI agent rather than a person running commands, you don't need to shell out to `bar
+query` at all — **[`bar-mcp`](https://crates.io/crates/bar-mcp)** exposes the same read-only
+queries as MCP tools you can call directly. See the [README](../README.md) for how to connect it.
+
+Next: [05 — Sample report](05-sample-report.md) to see all of this rendered in a real report.

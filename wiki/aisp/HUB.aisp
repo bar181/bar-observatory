@@ -1,14 +1,21 @@
 BAR_OBSERVATORY{
  ID=bar-observatory;
  EXPANSION=Base_Agentic_Reporter;
- FACTORY=private;
- PUBLIC=verified_gold_only;
+ WHAT=local_only_deterministic_flight_recorder_for_claude_code_agent_sessions;
+ DISTRIBUTION=crates_io_primary;
+ INSTALL=cargo_install_bar-observatory;
+ CLI=bar;
+ CLI_CMDS=[init,ingest,report,doctor,interpret,query];
+ MCP=bar-mcp;
+ MCP_CONNECT=claude_mcp_add_bar-observatory_--_bar-mcp_--db-root_<dir>;
+ MCP_TOOLS=[list_runs,get_ledger,get_run_report,query_delta_findings,get_convergence,compare_conditions,get_dead_letters,get_completeness,search_observations,list_findings,recall_context,get_hub];
+ MCP_READ_ONLY=true;
  CFG=TOML;
  CONTRACT=report.json;
  SCHEMA_V=bar-observatory-report-1.0;
  FACT_ID_RULE=fact-id.assign.v1;
  REPORTS=[engineering:deterministic,self_improvement:LLM_optional_off];
  CORE=[Task,Attempt,Loop,CompletionEvidence,Agent,Skill,HumanEvent,Validation,Rework,Observation,SilentSignal];
- INV=[missing!=0,claim!=correctness,interpretation!=fact,public<-verified_export];
- LOOP=[UNDERSTAND,RESEARCH,CONFIRM,RED,GREEN,OPTIMIZE,DOGFOOD,REVIEW,UPDATE,VALIDATE,DONE];
+ INV=[missing!=0,claim!=correctness,interpretation!=fact,same_db-\>byte_identical_report];
+ DOCS=github.com/bar181/bar-observatory;
 }

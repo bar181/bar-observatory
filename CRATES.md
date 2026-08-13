@@ -7,25 +7,26 @@ BAR Observatory is a thin `bar` CLI facade (crate `bar-observatory`) over a 14-c
 `bar-*` engine (reuse-not-recreate, ADR-017). **Crates.io is the primary distribution
 channel** — this public repo carries the front door, documentation, and process
 walkthrough only, no crate source. Crate source lives and is published from the private
-working repo.
+working repo. Crates publish incrementally, dependency-tier-ordered — a link below means
+cleared for publish, not necessarily live yet; click through for the real, current status.
 
 | Crate | Role | crates.io |
 |---|---|---|
-| `bar-hook` | L1 — hook binary (stdin JSON). | pending |
-| `bar-index` | L0.5 second kernel — the ADR-057 index DB: cross-run catalog + artifact store. Depends only on the store. | pending |
-| `bar-ingest` | L1 — transcript JSONL parser. | pending |
-| `bar-mcp` | L3 — read-only stdio MCP server over per-run capture DBs (ADR-049). | pending |
-| `bar-metrics` | L2 — T/R/L/Δ/E ledger + Δ subsystem. | pending |
-| `bar-obs-config` | BAR Observatory layered TOML config resolution. | pending |
-| `bar-observatory` | BAR Observatory (Base Agentic Reporter) — the bar CLI: init, ingest, report, query, doctor, interpret. | pending |
-| `bar-otlp` | L1 — native OTLP receiver (tonic gRPC + hand-rolled HTTP/1.1). | pending |
-| `bar-proxy` | L1 — ANTHROPIC_BASE_URL interceptor (axum/hyper). | pending |
-| `bar-read` | L1 — read-only query surface over the observations SQLite DB (named use-case queries + guarded raw SELECT; table/json/csv). | pending |
-| `bar-registry` | The Hub's registry (ADR-062, spec 14): Capability type + collect() + a byte-deterministic canonical-JSON emitter. Zero deps by design — this is metadata about every other crate, not a consumer of them. | pending |
-| `bar-review` | L2 — the reflection engine: detectors + review orchestration + recommendations (ADR-064). Depends on store + index (the two-kernel spoke rule). | pending |
-| `bar-sanitize` | Publication sanitizer (ADR-005): scrub PII from a capture DB into a publish-safe copy. | pending |
-| `bar-schema` | BAR Observatory report.json typed contract - ReportDocument, AbsenceState, fact_id assignment. | pending |
-| `bar-store` | L0 — SQLite schema + substrate trait. Depends on nothing internal. | pending |
+| `bar-hook` | L1 — hook binary (stdin JSON). | [crates.io](https://crates.io/crates/bar-hook) |
+| `bar-index` | L0.5 second kernel — the ADR-057 index DB: cross-run catalog + artifact store. Depends only on the store. | [crates.io](https://crates.io/crates/bar-index) |
+| `bar-ingest` | L1 — transcript JSONL parser. | [crates.io](https://crates.io/crates/bar-ingest) |
+| `bar-mcp` | L3 — read-only stdio MCP server over per-run capture DBs (ADR-049). | [crates.io](https://crates.io/crates/bar-mcp) |
+| `bar-metrics` | L2 — T/R/L/Δ/E ledger + Δ subsystem. | [crates.io](https://crates.io/crates/bar-metrics) |
+| `bar-obs-config` | BAR Observatory layered TOML config resolution. | [crates.io](https://crates.io/crates/bar-obs-config) |
+| `bar-observatory` | BAR Observatory (Base Agentic Reporter) — the bar CLI: init, ingest, report, query, doctor, interpret. | [crates.io](https://crates.io/crates/bar-observatory) |
+| `bar-otlp` | L1 — native OTLP receiver (tonic gRPC + hand-rolled HTTP/1.1). | [crates.io](https://crates.io/crates/bar-otlp) |
+| `bar-proxy` | L1 — ANTHROPIC_BASE_URL interceptor (axum/hyper). | [crates.io](https://crates.io/crates/bar-proxy) |
+| `bar-read` | L1 — read-only query surface over the observations SQLite DB (named use-case queries + guarded raw SELECT; table/json/csv). | [crates.io](https://crates.io/crates/bar-read) |
+| `bar-registry` | The Hub's registry (ADR-062, spec 14): Capability type + collect() + a byte-deterministic canonical-JSON emitter. Zero deps by design — this is metadata about every other crate, not a consumer of them. | [crates.io](https://crates.io/crates/bar-registry) |
+| `bar-review` | L2 — the reflection engine: detectors + review orchestration + recommendations (ADR-064). Depends on store + index (the two-kernel spoke rule). | [crates.io](https://crates.io/crates/bar-review) |
+| `bar-sanitize` | Publication sanitizer (ADR-005): scrub PII from a capture DB into a publish-safe copy. | [crates.io](https://crates.io/crates/bar-sanitize) |
+| `bar-schema` | BAR Observatory report.json typed contract - ReportDocument, AbsenceState, fact_id assignment. | [crates.io](https://crates.io/crates/bar-schema) |
+| `bar-store` | L0 — SQLite schema + substrate trait. Depends on nothing internal. | [crates.io](https://crates.io/crates/bar-store) |
 | `bar-testenv` | Track R item 1 (ADR-076): pre-main env isolation for the test tree — decoys OBSERVATORY_DB/SPOOL/BLOB_ROOT and strips telemetry vars before any test body runs, so a leaked ambient env can no longer reach ambient.sqlite from an in-process test. | not published (internal/dev-only) |
 
 **Deliberately not ported/published:** `bar-engine` — an internal-only, more

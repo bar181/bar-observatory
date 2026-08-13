@@ -1,0 +1,18 @@
+{
+  "name": "bar-observatory",
+  "displayName": "BAR Observatory",
+  "version": "0.1.0",
+  "description": "Local-only, deterministic flight recorder for Claude Code agent sessions. Five-channel effort ledger (T/R/L/Δ/E), report generation, and a read-only MCP query surface. Pure Rust + SQLite; nothing leaves your machine.",
+  "author": { "name": "bar181", "email": "bar181@yahoo.com" },
+  "homepage": "https://github.com/bar181/bar-observatory",
+  "repository": "https://github.com/bar181/bar-observatory",
+  "license": "MIT",
+  "keywords": ["claude-code", "observability", "agents", "telemetry", "sqlite", "mcp"],
+  "hooks": "./hooks/hooks.json",
+  "mcpServers": {
+    "bar-observatory": {
+      "command": "bar-mcp",
+      "args": ["--db-root", ".bar"]
+    }
+  }
+}

@@ -11,8 +11,13 @@ guidance, that lives in the private working repo, not here.
 server lets you query them directly instead of shelling out to `bar query`.
 
 ```bash
-claude mcp add bar-observatory -- bar-mcp --db-root ~/.bar/data
+claude mcp add bar-observatory -- bar-mcp --db-root .bar
 ```
+
+If this repo's own Claude Code plugin (`.claude-plugin/plugin.json` at the repo root) is
+installed, this is already wired for you — along with `bar-hook`'s 21 lifecycle hooks and five
+slash commands (`/bar-init`, `/bar-report`, `/bar-interpret`, `/bar-doctor`, `/bar-query`) a
+human in the session can invoke directly. See the [README](../../README.md) for plugin install.
 
 It never opens a DB in write mode. Every freeform text field crossing the boundary is routed
 through PII redaction first. `db` arguments are paths relative to `--db-root`; absolute paths and
@@ -20,14 +25,22 @@ through PII redaction first. `db` arguments are paths relative to `--db-root`; a
 
 ## What you can ask it
 
-12 read-only/non-destructive/idempotent tools — call `get_hub` first in any new session (the
-full CLI/tool/hook registry):
+12 tools total, every one read-only, non-destructive, and idempotent. Call `get_hub` first in any
+new session — it returns the full CLI/tool/hook registry so you know what else exists before you
+guess:
 
-`list_runs`, `get_ledger` (the T/R/L/Δ/E effort ledger), `get_run_report`,
-`query_delta_findings`, `get_convergence`, `compare_conditions`, `get_dead_letters`,
-`get_completeness` (per-channel capture-completeness verdicts, never a bare boolean),
-`search_observations` (full-text search over the index DB), `list_findings` (the reflection
-engine's stored recommendations), `recall_context` (memory-graph recall, up to 3 hops), `get_hub`.
+- `get_hub` — the full CLI/tool/hook registry. Call this first.
+- `list_runs` — every run in a database (or every database under `--db-root`).
+- `get_ledger` — the T/R/L/Δ/E effort ledger for a run.
+- `get_run_report` — the full report for one run.
+- `query_delta_findings` — Δ (handoff-loss / drop-rate) findings for a run.
+- `get_convergence` — convergence-test rows for a run.
+- `compare_conditions` — aggregate ledgers across runs/conditions.
+- `get_dead_letters` — capture-plane failures for a database.
+- `get_completeness` — per-channel capture-completeness verdicts, never a bare boolean.
+- `search_observations` — full-text search over the index database.
+- `list_findings` — the reflection engine's stored recommendations.
+- `recall_context` — memory-graph recall, up to 3 hops.
 
 ## If you'd rather use the CLI directly
 

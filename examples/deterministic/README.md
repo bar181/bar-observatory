@@ -1,23 +1,21 @@
 # Deterministic report examples
 
-Two different kinds of file live here — don't confuse them:
+Four files, three different origins — worth knowing which is which before you read one as a
+preview of what your own report will look like.
 
-| File(s) | Origin | Data |
+| File(s) | Origin | What the data means |
 |---|---|---|
-| `real-session.report.{json,html,md}` | **Real Rust renderer over REAL data** | Rendered from **this build session's actual Claude-Code transcript** (re-rendered from this build session's real transcript each phase; see the report itself for current counts). Shows real tool usage, a real task ledger, real rework hotspots, a categorized Failures section (with MCP remediation), validation evidence, and honest "not recorded" for uncaptured channels. This is the answer to the "row counter" critique. |
-| `dogfood-session.report.{json,html,md}` | **Real Rust renderer output** (`bar-observatory::report`, Phase 5) | Rendered from a **synthetic fixture store** — a real `bar-store` SQLite DB seeded with fixed, illustrative rows by `crates/bar-observatory/examples/dogfood.rs`. **NOT a live Claude-Code capture.** It exists to show the renderer's real output shape + honest-absent states; the numbers are seeded, not measured from a live session. |
-| `example.report.json`, `bar_observatory_engineering_report.html` | **Hand-authored design mocks** (`"example": true`) | Fictional data illustrating the *full* report vision (all detectors populated). These are targets, not generated output. |
+| `real-session.report.{json,html,md}` | Rendered by the real `bar` CLI | A genuine capture database from an actual Claude Code session, run through `bar report` exactly as you'd run it yourself. Real tool usage, a real task ledger, real rework hotspots, a categorized failures section, validation evidence, and an honest `not_observed` for any channel that wasn't captured. This is the best preview of what your own report will look like. |
+| `dogfood-session.report.{json,html,md}` | Rendered by the real `bar` CLI, over seeded data | The renderer is real, but the database underneath is a fixture seeded with fixed, illustrative rows rather than a live session. Useful for seeing the report's full shape — including its honest-absent states — without needing a real transcript on hand. |
+| `example.report.json`, `bar_observatory_engineering_report.html` | Hand-authored mock | Fictional data illustrating every section of the report at once (all detectors populated). A target for what a fully-populated report looks like, not something `bar report` ever produced. |
 
-A report rendered from a **live-captured** session (proxy + hooks against a real `claude` run)
-is the seal criterion for the Phase 2–5 block and does not exist yet — see `../../CAPTURE-RUNBOOK.md`
-for the steps and the honest account of what's still env-blocked. When it lands it will be added
-here and labeled as live.
+## How to read them
 
-As of **P6** the fixture demonstrates the **measured coverage oracle** (the hooks channel shows
-`verified` because its lifecycle is bracketed + every tool call paired) and the **Harvard Crimson
-`#A51C30`** palette. The oracle is real code (tested); the *data* it measures here is still the
-labeled fixture until live capture is wired locally.
+Open any `.html` file for the human view, the `.md` for a terminal- or diff-friendly view, or the
+`.json` for the machine contract (validates against
+[`schemas/report.schema.json`](../../schemas/report.schema.json)). For a fixed database, all
+three are byte-identical — that's the determinism guarantee: same input, same output, every time.
 
-Determinism note: the `dogfood-session` fixture DB embeds a wall-clock migration timestamp, so
-regenerating it produces different bytes (a different input). The product contract is that
-rendering **one fixed DB** is byte-identical — see `LEARNING-LOG.md` L9.
+See **[wiki/human/README.md](../../wiki/human/README.md)** for a section-by-section guide to
+reading a report, and **[examples/interpreted/](../interpreted/)** for the optional,
+LLM-written self-improvement report that layers on top of these facts.

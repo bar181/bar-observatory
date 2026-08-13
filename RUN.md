@@ -1,37 +1,65 @@
 # Run BAR Observatory — the front door
 
-BAR Observatory is a **local-only, deterministic flight-recorder for Claude Code sessions**. It
-turns a session transcript into an auditable report (JSON + HTML + Markdown) with **no API key, no
-network, no LLM in the render path**. Same database → byte-identical report.
+Three ways in, all reading the same local, deterministic SQLite database — nothing here calls
+out to a network or an LLM to produce a report:
+
+1. **The Claude Code plugin** (recommended) — installs the hooks and the MCP server for you, plus
+   five slash commands covering setup and every report: `/bar-init`, `/bar-report`,
+   `/bar-interpret`, `/bar-doctor`, `/bar-query`. See the
+   [README](README.md#get-started--the-plugin-recommended-front-door) for what it wires and how
+   to get the binaries onto PATH.
+2. **The `bar` CLI**, manually — below.
+3. **The `bar-mcp` MCP server**, manually — for an AI agent that wants to query databases
+   directly without the plugin.
 
 ## Fastest path — one script
+
 From this folder:
 ```bash
 ./run.sh <path-to-a-claude-code-session.jsonl>          # e.g. ~/.claude/projects/<proj>/<session>.jsonl
 ```
-`run.sh` builds the `bar` CLI (from the in-repo crates today; from crates.io at release), creates a
-local database, ingests the transcript (no API calls), renders the report, and runs `bar doctor`.
-Output lands in `./_run/` — open `_run/*.report.html`.
+`run.sh` builds the `bar` CLI, creates a local database, ingests the transcript (no API calls),
+renders the report, and runs a live health check. Output lands in `./_run/` — open
+`_run/*.report.html` and you're done.
 
-## Manual path — the 4 steps
+## Manual path — five commands
+
 ```bash
-bar init   --dir .                         # create local config + SQLite stores (never clobbers)
-bar ingest .bar/ambient.sqlite <session>.jsonl   # always-done ingest, no API calls
-bar report .bar/ambient.sqlite --out .           # JSON + HTML + MD, deterministic
-bar doctor .bar/ambient.sqlite                   # live health: is the recorder OK? what did it capture?
-bar query  .bar/ambient.sqlite --list            # direct read-only DB access (3 use cases + raw SELECT)
+bar init   --dir .                               # create local config + SQLite stores (never clobbers)
+bar ingest .bar/ambient.sqlite <session>.jsonl    # always-on transcript parsing, no API calls
+bar report .bar/ambient.sqlite --out .            # JSON + HTML + MD, deterministic
+bar doctor .bar/ambient.sqlite                    # live health check: is the recorder OK? what did it capture?
+bar query  .bar/ambient.sqlite --list             # direct read-only DB access (3 named queries + raw SELECT)
 ```
 
+Each command is safe to re-run. `bar init` never overwrites an existing config; `bar report` on
+an unchanged database always produces byte-identical output.
+
 ## Where do I get `bar`?
-- **In the private working repo now:** `run.sh` builds it from `../bar-obs-private/crates`
-  automatically (that's where crate source lives — this public repo carries no crate code).
-- **At release:** `cargo install bar-observatory` (crates.io — human-gated, ADR-016), then the four
-  commands above work anywhere.
+
+```bash
+cargo install bar-observatory
+```
+Crate source lives and publishes from a private working repo — this public repo carries no
+crate code by design. See [CRATES.md](CRATES.md) for real-time publish status.
+
+## Connect your AI agent instead
+
+If an AI agent wants to query your capture database directly rather than shelling out to `bar
+query`, point it at **[`bar-mcp`](https://crates.io/crates/bar-mcp)**, the read-only MCP server:
+
+```bash
+claude mcp add bar-observatory -- bar-mcp --db-root .bar
+```
+
+See [wiki/agent/AI-CONTEXT.md](wiki/agent/AI-CONTEXT.md) for the full tool list.
 
 ## What you get
-- `*.report.html` — the human view (Harvard-crimson, a11y-checked).
-- `*.report.md` — a terminal/diff-friendly view.
-- `*.report.json` — the machine contract (validates against `schemas/report.schema.json`).
 
-Honesty by design: a channel that wasn't captured reads **"not recorded"**, never a fabricated `0`.
-See [process/](process/) for init · config · database · ingestion · optional modules · sample.
+- `*.report.html` — the human view (accessibility-checked).
+- `*.report.md` — a terminal- and diff-friendly view.
+- `*.report.json` — the machine contract, validated against `schemas/report.schema.json`.
+
+**Honest by design:** a channel that wasn't captured reads `not_observed`, never a fabricated
+`0`. See [process/](process/) for the full guided walkthrough — init, config, database creation,
+ingestion, optional modules, and a real sample report.

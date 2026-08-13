@@ -1,0 +1,41 @@
+# BAR Observatory
+
+> A free, open-source, local-only flight recorder and deterministic audit-report generator for
+> Claude Code AI agent sessions. Reads a session transcript already on disk, stores it in a local
+> SQLite file, and renders a byte-identical report — no LLM in the render path, no network calls,
+> no API key.
+
+BAR Observatory (Base Agentic Reporter) turns an AI coding agent session into a receipt: every
+tool call, task, sub-agent dispatch, rework loop, and error, with an explicit `not_observed` state
+for anything it couldn't capture rather than a fabricated zero. It also exposes the same data to
+AI agents over a read-only MCP server, so a new session can check what a previous one already
+tried before repeating it. Built by Bradley Ross; not affiliated with or endorsed by Anthropic.
+
+## Start here
+
+- [README](README.md): full technical overview — install, architecture, comparison, FAQ, MCP tools
+- [Plain-language guide](wiki/human-md/README.md): no assumed background, click-along setup
+- [AI agent guide](wiki/agent/AI-CONTEXT.md): MCP tool reference for an agent consuming this project
+- [RUN.md](RUN.md): the command reference, three ways to install and run it
+- [CRATES.md](CRATES.md): the 15-crate architecture, each crate's role and crates.io link
+
+## Deeper reference
+
+- [wiki/human-md/architecture.md](wiki/human-md/architecture.md): crate table, determinism contract, absence semantics, known limits
+- [wiki/human-md/comparison.md](wiki/human-md/comparison.md): how this differs from live dashboards, OTel backends, and LLM eval platforms
+- [wiki/human-md/enterprise.md](wiki/human-md/enterprise.md): offline/air-gapped use, what "local-only" actually guarantees
+- [wiki/human-html/documentation-layers.html](wiki/human-html/documentation-layers.html): why this project's docs exist in three registers (human/AI/AISP), with a live tab switcher between them
+- [wiki/human-html/report-guide.html](wiki/human-html/report-guide.html): section-by-section annotated walkthrough of a real report, quoting the shipped example verbatim
+- [wiki/aisp/HUB.aisp](wiki/aisp/HUB.aisp): machine-readable capability registry (AISP symbolic spec)
+- [schemas/report.schema.json](schemas/report.schema.json): a versioned JSON contract for report.json -- currently out of sync with live output, disclosed as a known gap, not silently wrong
+
+## Examples
+
+- [examples/deterministic/](examples/deterministic/): real, re-rendered sample reports (JSON/HTML/MD), not mocks
+- [examples/interpreted/](examples/interpreted/): a sample of the optional LLM-written interpretation layer
+
+## Policy
+
+- [SECURITY.md](SECURITY.md): local-only guarantee, redaction, vulnerability reporting
+- [CONTRIBUTING.md](CONTRIBUTING.md): what's open to a PR (nearly everything except the generated CRATES.md)
+- [LICENSE](LICENSE): MIT

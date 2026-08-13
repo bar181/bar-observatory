@@ -15,14 +15,14 @@ every tool result and lets you surface the errors on demand:
 $ bar query <session>.sqlite errors
 seq   tool  excerpt
 ----  ----  -----------------------------------------------------------------
-308         MCP server "…ruvnet-brain…" tool "search_ruvnet" timed out after 60s
-316         search_ruvnet error: brain worker timed out after 240s on tools/call
-389         MCP server "…ruvnet-brain…" tool "search_ruvnet" timed out after 60s
+308         MCP server "…brain…" tool "search" timed out after 60s
+316         search error: worker timed out after 240s on tools/call
+389         MCP server "…brain…" tool "search" timed out after 60s
 436         Exit code 143 … (a killed long-running command)
 1391        <tool_use_error> Blocked: sleep 90 … (a guardrail refusal)
 ```
 
-**31 error results** turned up across this one real session — MCP timeouts, a killed command,
+**25 error results** turned up across this one real session — MCP timeouts, a killed command,
 guardrail refusals — each one with its exact seq and text, still queryable months later. Nothing
 was swallowed.
 
@@ -60,7 +60,8 @@ than hide it: the instrument measures what the session recorded, not what the mo
 Everything above was run by hand from a terminal. If you'd rather have your AI agent answer its
 own "what actually happened in that session?" question, point it at
 **[`bar-mcp`](https://crates.io/crates/bar-mcp)** instead — the same read-only queries (`tools`,
-`timeline`, `errors`, and more) are exposed as MCP tools an agent can call directly, no shelling
+`timeline`, `errors`, and more) are exposed as MCP (Model Context Protocol — the standard
+interface AI agents use to call external tools) tools an agent can call directly, no shelling
 out to the CLI:
 
 ```bash

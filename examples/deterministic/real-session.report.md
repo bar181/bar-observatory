@@ -19,7 +19,7 @@
 
 ### Recommendations (resolution-first)
 
-- **P1** — A failing MCP tool has an alternative front door — reach it via its CLI/RVF path instead of the MCP (ADR-021).
+- **P1** — A failing MCP tool may have a non-MCP path available — prefer it over retrying the same MCP call.
 - **P1** — Resolve the remaining failing tests before relying on the session's completion claims.
 - **P2** — Review `./observatory/crates/bar-observatory/src/report.rs` (highest edit churn) for a refactor or missing test coverage.
 - **P3** — Enable OTEL telemetry + hooks to capture tokens/cost, timeline, and coverage (see the process docs).
@@ -92,7 +92,7 @@ What the agent actually did: **1,145** tool calls this session.
 
 ## Failures
 
-Real failures captured from tool outputs: 25 error result(s) across 5 distinct tool(s), categorized (mcp / tool / unknown). Remediation: 1 MCP tool(s) failed (worst: search_ruvnet (MCP) ×9). A repeatedly-failing MCP server (e.g. a timing-out one) should be reached through its alternative front door — its CLI/RVF path — instead of the MCP (BAR ADR-021). This section surfaces both system failures (a tool or MCP not working) and coded errors so they are recorded, not silently dropped.
+Real failures captured from tool outputs: 25 error result(s) across 5 distinct tool(s), categorized (mcp / tool / unknown). Remediation: 1 MCP tool(s) failed (worst: search_ruvnet (MCP) ×9). If a non-MCP path exists for a repeatedly-failing MCP server (e.g. a timing-out one), prefer it over retrying the same MCP call. This section surfaces both system failures (a tool or MCP not working) and coded errors so they are recorded, not silently dropped.
 
 | Tool | Kind | Errors |
 |---|---|---:|

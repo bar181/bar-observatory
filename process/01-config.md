@@ -6,9 +6,10 @@ setting is set in more than one place.
 
 ## Typed TOML, five layers, one clear winner
 
-BAR's configuration is **typed TOML** — every field has a real type, so a bad value fails loudly
-at parse time instead of being silently coerced into something else. Settings are resolved
-through five layers, each one able to override the layer before it:
+BAR's configuration is **typed TOML** (TOML is a plain-text, human-readable config-file format)
+— every field has a real type, so a bad value fails loudly at parse time instead of being
+silently coerced into something else. Settings are resolved through five layers, each one able
+to override the layer before it:
 
 ```
 compiled defaults  <  shipped config  <  project config  <  environment  <  CLI flags
@@ -17,8 +18,9 @@ compiled defaults  <  shipped config  <  project config  <  environment  <  CLI 
 In practice: the defaults shipped in `config/*.toml` are your baseline, your project's
 `.bar/config.toml` can override them, a `BAR_*` environment variable can override that, and a
 command-line flag wins over everything. Nothing is hidden — the fully resolved config is emitted
-as deterministic JSON (validated against `schemas/resolved-config.schema.json`), so any tool
-downstream can see exactly what settings a given run actually used.
+as deterministic JSON (the same inputs always produce the exact same JSON output, byte for
+byte), validated against `schemas/resolved-config.schema.json`, so any tool downstream can see
+exactly what settings a given run actually used.
 
 ## A closed environment allowlist
 
@@ -31,9 +33,10 @@ fall-through to a lower-precedence layer.
 
 ## Integrity
 
-The resolved config is hashed with **blake3**, BAR's single hash algorithm across the whole
-project — branding and integrity checks both key off it, so there's one source of truth for
-"did this config change."
+The resolved config is hashed with **blake3** (a fast cryptographic hash algorithm — it turns
+any input into a short fixed-length fingerprint, so even a one-character change produces a
+completely different hash), BAR's single hash algorithm across the whole project — branding and
+integrity checks both key off it, so there's one source of truth for "did this config change."
 
 The short version: config is data, not code. A bad value is rejected at parse time or at use,
 never guessed at or coerced.

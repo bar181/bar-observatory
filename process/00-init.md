@@ -1,8 +1,9 @@
 # Step 0 — Init: set up your local project
 
 This is where every BAR Observatory session starts. `bar init` creates a small local
-project — a config file and a couple of SQLite stores — so BAR has somewhere safe to keep
-what it captures about your Claude Code agent sessions.
+project — a config file and a couple of SQLite stores (SQLite is a lightweight, file-based
+database format — no server to install or manage) — so BAR has somewhere safe to keep what it
+captures about your Claude Code agent sessions.
 
 ## Run it
 
@@ -12,8 +13,10 @@ From wherever you want your BAR project to live:
 bar init --dir .
 ```
 Using the Claude Code plugin? Run `/bar-init` instead — same command, one line inside your
-session. It's also what wires the plugin's hooks and MCP server to find your data with zero
-extra configuration, since they default to this same `.bar` directory.
+session. It's also what wires the plugin's hooks (small scripts that run automatically at
+points in a session) and MCP server (Model Context Protocol — the standard interface AI agents
+use to call external tools) to find your data with zero extra configuration, since they default
+to this same `.bar` directory.
 
 You'll see BAR create:
 - `.bar/config.toml` — your typed configuration, covered next in [01 — Config](01-config.md)
@@ -36,7 +39,8 @@ bar doctor .bar/ambient.sqlite
 (Plugin: `/bar-doctor`.)
 
 `bar doctor` is a **live** health check, distinct from the deterministic report you'll generate
-later. It confirms the `bar` binary is working, validates that your store is a real,
+later (deterministic here means the exact same database always produces the exact same report,
+byte for byte). It confirms the `bar` binary is working, validates that your store is a real,
 uncorrupted SQLite file, and reports honestly which capture channels actually have rows in
 them — a missing channel renders `not_observed`, never a fabricated `0`, the same honesty rule
 you'll see everywhere in BAR Observatory. It checks only what BAR Observatory itself captured; it

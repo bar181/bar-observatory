@@ -10,16 +10,10 @@ if [ -z "$TX" ] || [ ! -f "$TX" ]; then
   exit 2
 fi
 
-# 1) Locate or build the `bar` CLI.
+# 1) Locate the `bar` CLI on PATH.
 BAR=""
 if command -v bar >/dev/null 2>&1; then
   BAR="$(command -v bar)"
-elif [ -x "$HERE/../bar-obs-private/crates/target/release/bar" ]; then
-  BAR="$HERE/../bar-obs-private/crates/target/release/bar"
-elif [ -f "$HERE/../bar-obs-private/crates/Cargo.toml" ]; then
-  echo "building bar from ../bar-obs-private/crates ..."
-  ( cd "$HERE/../bar-obs-private/crates" && cargo build --release -p bar-observatory --bin bar >/dev/null )
-  BAR="$HERE/../bar-obs-private/crates/target/release/bar"
 else
   echo "no bar binary found — install with: cargo install bar-observatory" >&2
   exit 3

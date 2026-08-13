@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>What did I actually pay for? — BAR Observatory</title>
+<meta name="description" content="A guide for executives, clients, and managers who commission AI-assisted development work: how to get a verifiable record of what an AI agent actually did, without reading a line of code.">
+<!-- No external font CDN by design, matching ../index.html -->
+<style>
+:root{
+  --paper:#E4E6E1; --card:#F3F4F1; --ink:#14181C; --ink-2:#4A5158;
+  --stamp:#8C2F2A; --verified:#1F5C4A; --absent:#8A8F8B;
+  --rule:#C8CCC5; --rule-2:#D9DCD6;
+  --display:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --body:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --mono:ui-monospace,"SFMono-Regular",Menlo,Consolas,monospace;
+  --wrap:1100px; --gap:clamp(48px,6vw,88px);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--body);
+  font-size:17px;line-height:1.64;-webkit-font-smoothing:antialiased}
+a{color:var(--stamp);text-decoration-thickness:1px;text-underline-offset:3px}
+a:focus-visible{outline:2.5px solid var(--stamp);outline-offset:3px}
+.wrap{max-width:var(--wrap);margin:0 auto;padding:0 24px}
+.narrow{max-width:700px}
+h1,h2,h3{font-family:var(--display);font-weight:800;letter-spacing:-.025em;line-height:1.06;margin:0}
+h1{font-size:clamp(36px,5.4vw,58px);margin-bottom:20px}
+h2{font-size:clamp(27px,3.6vw,38px)}
+h3{font-size:clamp(19px,2vw,23px);letter-spacing:-.015em;line-height:1.2}
+p{margin:0 0 1em}
+section{padding:var(--gap) 0;border-top:1px solid var(--rule)}
+.eyebrow{font-family:var(--mono);font-size:11.5px;font-weight:600;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--ink-2);margin:0 0 16px;display:flex;align-items:center;gap:10px}
+.eyebrow::after{content:"";height:1px;flex:1;background:var(--rule)}
+.lede{font-size:clamp(18px,2vw,20px);color:var(--ink-2);max-width:62ch}
+.muted{color:var(--ink-2)}
+
+.topbar{position:sticky;top:0;z-index:60;background:rgba(228,230,225,.93);
+  backdrop-filter:blur(9px);border-bottom:1px solid var(--rule)}
+.topbar-in{display:flex;align-items:center;gap:18px;min-height:56px;flex-wrap:wrap}
+.mark{font-family:var(--display);font-weight:800;font-size:17px;letter-spacing:-.02em;
+  text-decoration:none;color:var(--ink)}
+.mark span{color:var(--stamp)}
+.crumb{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--absent);margin-right:auto}
+
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:32px}
+@media(max-width:820px){.cards{grid-template-columns:1fr}}
+.card{background:var(--card);border:1px solid var(--rule-2);border-radius:3px;padding:24px 22px}
+.card h3{margin-bottom:8px;font-size:18px}
+.card p{margin:0;color:var(--ink-2);font-size:15px}
+.card .tag{font-family:var(--mono);font-size:10px;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--stamp);display:block;margin-bottom:10px}
+
+.two{display:grid;grid-template-columns:1fr 1fr;gap:clamp(28px,4vw,52px);align-items:start}
+@media(max-width:860px){.two{grid-template-columns:1fr}}
+
+table{width:100%;border-collapse:collapse;margin-top:28px;font-size:15px;background:var(--card)}
+th,td{text-align:left;padding:12px 14px;border-bottom:1px solid var(--rule-2);vertical-align:top}
+thead th{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--ink-2);border-bottom:1.5px solid var(--ink)}
+td.yes{color:var(--verified);font-weight:600}
+.scroll-x{overflow-x:auto}
+
+pre{font-family:var(--mono);font-size:13px;line-height:1.6;background:var(--ink);color:#DFE3DE;
+  padding:16px 18px;border-radius:3px;overflow-x:auto;margin:18px 0}
+code{font-family:var(--mono);font-size:.92em}
+p code,li code,td code{background:var(--card);border:1px solid var(--rule-2);padding:1px 5px;border-radius:2px}
+
+ul.plain{list-style:none;padding:0;margin:16px 0}
+ul.plain li{padding:10px 0 10px 24px;border-bottom:1px solid var(--rule-2);position:relative;color:var(--ink-2)}
+ul.plain li::before{content:"→";position:absolute;left:0;color:var(--stamp);font-family:var(--mono)}
+ul.plain li b{color:var(--ink)}
+
+.note{border-left:3px solid var(--stamp);background:var(--card);padding:16px 20px;margin:22px 0;
+  font-size:15px;color:var(--ink-2)}
+.note.green{border-left-color:var(--verified)}
+.note b{color:var(--ink)}
+
+.stamp-quote{border:1.5px solid var(--ink);background:var(--card);padding:26px 28px;margin:30px 0;
+  font-family:var(--display);font-weight:700;font-size:clamp(19px,2.4vw,25px);line-height:1.35}
+.stamp-quote small{display:block;font-family:var(--mono);font-weight:500;font-size:12px;
+  letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);margin-top:12px}
+
+details{background:var(--card);border:1px solid var(--rule-2);border-radius:3px;margin-bottom:8px}
+summary{cursor:pointer;padding:14px 18px;font-weight:600;font-size:15.5px;list-style:none;
+  display:flex;justify-content:space-between;gap:14px;align-items:center}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";font-family:var(--mono);color:var(--stamp);font-size:18px}
+details[open] summary::after{content:"–"}
+details .body{padding:0 18px 16px;color:var(--ink-2);font-size:15px}
+
+.btn{font-family:var(--body);font-weight:600;font-size:15px;text-decoration:none;
+  padding:12px 20px;border:1.5px solid var(--ink);border-radius:2px;
+  background:var(--ink);color:var(--paper);display:inline-block}
+.btn:hover{background:var(--stamp);border-color:var(--stamp)}
+.btn.ghost{background:none;color:var(--ink)}
+
+footer{border-top:1px solid var(--rule);padding:36px 0 56px;font-size:14px;color:var(--ink-2)}
+footer a{color:var(--ink-2)}
+.disclaim{font-size:12.5px;margin-top:20px;color:var(--absent);max-width:74ch}
+.byline{font-family:var(--mono);font-size:12px;color:var(--absent);letter-spacing:.05em;margin-top:6px}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wrap topbar-in">
+    <a class="mark" href="../../../index.html">BAR <span>Observatory</span></a>
+    <span class="crumb">/ wiki / guide for executives</span>
+  </div>
+</div>
+
+<section style="border-top:0;padding-top:clamp(40px,5vw,68px)">
+  <div class="wrap narrow">
+    <p class="eyebrow">A guide for executives, clients &amp; managers</p>
+    <h1>What did I actually pay for?</h1>
+    <p class="byline">No terminal, no code reading, no jargon required for this page.</p>
+    <p class="lede" style="margin-top:18px">You commissioned AI-assisted work — from a vendor, a
+    contractor, or your own team. At the end, you got a confident summary: it's done, it works,
+    here's what we built. That summary was written by the same AI that did the work. This page is
+    about the difference between that summary and a record you can actually check.</p>
+  </div>
+</section>
+
+<section id="situation">
+  <div class="wrap narrow">
+    <p class="eyebrow">The situation</p>
+    <h2>You can't verify a summary. You can verify a record.</h2>
+    <p class="lede" style="margin-top:16px">An AI coding agent working on a real task does hundreds
+    of things — reads files, runs commands, tries something, fails, tries again, hands work to
+    helper agents you never see. Then it writes you a paragraph: "Completed successfully." That
+    paragraph is a claim, not evidence. It's written by the party being evaluated, about its own
+    work.</p>
+    <p class="muted">This isn't a trust problem specific to AI — it's the same reason an invoice
+    isn't the same thing as a receipt, and a project update isn't the same thing as an audit. The
+    difference is that a human contractor's work leaves other kinds of evidence around it. An AI
+    agent's work leaves almost nothing <em>unless something specifically captures it</em> — which
+    is the entire reason this tool exists.</p>
+
+    <div class="cards">
+      <div class="card">
+        <span class="tag">Cost 01</span>
+        <h3>You can't tell effort from padding</h3>
+        <p>Was that a genuinely hard problem, or did the agent circle back on the same file 150
+        times because the spec was unclear? Both look identical from a summary alone.</p>
+      </div>
+      <div class="card">
+        <span class="tag">Cost 02</span>
+        <h3>Failures don't reach you</h3>
+        <p>A timeout, a blocked command, a retry loop — these scroll past in a terminal window
+        nobody hands you. You only hear about the ones the agent chose to mention.</p>
+      </div>
+      <div class="card">
+        <span class="tag">Cost 03</span>
+        <h3>Nothing to attach to a decision</h3>
+        <p>Sign-off, invoicing, a client update, a post-mortem — all of these want an artifact.
+        "The agent said it went well" isn't one.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="receipt">
+  <div class="wrap narrow">
+    <p class="eyebrow">The guide</p>
+    <h2>Think of it as an itemized receipt for the work.</h2>
+    <p class="lede" style="margin-top:16px">BAR Observatory doesn't ask the agent what happened. It
+    reads the actual record the session left behind — every tool call, every failure, every retry —
+    and turns it into a report. Not a summary written by the party you're evaluating: a calculation
+    over what was actually recorded.</p>
+
+    <div class="stamp-quote">
+      "0 failures" means the report looked at the evidence and found none.
+      <br>"Not recorded" means the report didn't have enough evidence to make that claim at all.
+      <small>The single rule that makes the rest of this trustworthy</small>
+    </div>
+
+    <p class="muted">That distinction matters more than it sounds. A tool that quietly turns "we
+    didn't check" into a reassuring zero is worse than no tool — it's a false sense of certainty
+    with your name on the sign-off. BAR Observatory says plainly when it doesn't know something,
+    the same way a good accountant flags "unable to verify" instead of guessing a number that
+    looks fine.</p>
+  </div>
+</section>
+
+<section id="one-session">
+  <div class="wrap narrow">
+    <p class="eyebrow">What one real report looked like</p>
+    <h2>Twenty-five things that would never have reached you.</h2>
+    <p class="lede" style="margin-top:16px">This isn't a demo built to look impressive — it's the
+    actual report from a real captured session, the same one that ships in this project's own
+    repository so anyone can check it.</p>
+
+    <div class="scroll-x">
+    <table>
+      <thead><tr><th>What the report found</th><th>Why it matters to you</th></tr></thead>
+      <tbody>
+        <tr><td><b>25</b> tool errors, each with exact position and cause</td><td>Every one of these was invisible in the agent's own end-of-session summary</td></tr>
+        <tr><td><b>157 of 293</b> edits landed in one file</td><td>More than half the session's effort concentrated in a single spot — a signal worth a follow-up question, not a red flag by itself</td></tr>
+        <tr><td><b>20 of 119</b> test-result lines failed at capture end</td><td>Measured from real test output, not the agent's own "tests pass" claim</td></tr>
+        <tr><td><b>5 of 6</b> capture channels not recorded this run</td><td>The report says so plainly, rather than reporting a flattering silence</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <p class="fine" style="color:var(--absent);font-size:13.5px;margin-top:14px">Full walkthrough of
+    every section in this same report, with the real figures behind each one:
+    <a href="../report-guide.html">wiki/report-guide.html</a>.</p>
+  </div>
+</section>
+
+<section id="two-reports">
+  <div class="wrap narrow">
+    <p class="eyebrow">What you'd actually receive</p>
+    <h2>A report built for you, and a separate one for whoever maintains this.</h2>
+    <p class="lede" style="margin-top:16px">You shouldn't have to read a technical timeline to get
+    an answer, and your engineering team shouldn't have to read a client memo to get one either.
+    BAR Observatory produces both from the same underlying facts, so they can never quietly
+    disagree with each other:</p>
+
+    <div class="scroll-x">
+    <table>
+      <thead><tr><th></th><th>Calculated (always available, $0.00)</th><th>Interpreted (optional, written)</th></tr></thead>
+      <tbody>
+        <tr><th>For you</th><td>The full itemized record — every claim traces to a real row</td><td>A consulting-style memo: what was delivered, what it cost, what risks surfaced</td></tr>
+        <tr><th>For the engineers</th><td>The chronological technical timeline, every failure, every rework hotspot</td><td>Why the run went the way it did, and what to change next time</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <p class="muted" style="margin-top:16px">The calculated report is the evidence. The interpreted
+    one is commentary written about that evidence — always labeled as such, and the underlying
+    facts never depend on it existing.</p>
+  </div>
+</section>
+
+<section id="get-it">
+  <div class="wrap narrow">
+    <p class="eyebrow">What this requires from you</p>
+    <h2>Nothing technical. That's the point.</h2>
+    <ul class="plain">
+      <li><b>You don't run anything.</b> Whoever is doing the AI-assisted work — your vendor, your
+      contractor, your own developers — installs a free, open-source tool. You just receive the
+      report.</li>
+      <li><b>You don't need an account, and neither do they.</b> No sign-up, no subscription to
+      this tool specifically, no data handed to a third-party service.</li>
+      <li><b>Nothing about your project changes.</b> No code is added to what's being built. The
+      tool watches the AI session, not your product.</li>
+      <li><b>It works after the fact, too.</b> If a session already happened and nobody was
+      recording, a report can often still be generated from the transcript that's already sitting
+      on disk.</li>
+    </ul>
+
+    <div class="note">
+      <b>The one honest exception.</b> If you ask for the optional written narrative (the
+      "interpreted" report), that step uses an AI model to write the prose — clearly labeled
+      wherever it appears. The itemized, calculated report never depends on it and never involves
+      a model itself.
+    </div>
+  </div>
+</section>
+
+<section id="faq">
+  <div class="wrap narrow">
+    <p class="eyebrow">Questions you'd actually ask</p>
+    <h2>Before you ask your team to set this up.</h2>
+    <div style="margin-top:28px">
+      <details open>
+        <summary>Is this a compliance certification I can point to?</summary>
+        <div class="body"><p>No, and it doesn't claim to be. Reports are reproducible and
+        consistent — the same underlying record always produces the same report — but that's an
+        engineering property, not a legal one. If you have a specific regulatory or evidentiary
+        requirement, check it against what you actually need.</p></div>
+      </details>
+      <details>
+        <summary>Does this cost anything?</summary>
+        <div class="body"><p>The tool itself is free and open-source, and stays that way — the
+        license doesn't allow that to change retroactively. Whoever runs it (your team or vendor)
+        bears only their own normal development time.</p></div>
+      </details>
+      <details>
+        <summary>Can a vendor just turn this off before the parts that make them look bad?</summary>
+        <div class="body"><p>A vendor could choose not to run it, the same way they could choose
+        not to send you an invoice. What this tool prevents is a different failure mode: an agent
+        session that <em>was</em> recorded quietly showing you a flattering summary instead of the
+        real one. If you want the guarantee it provides, ask for the report as a deliverable
+        up front — the same way you'd ask for anything else you expect to receive.</p></div>
+      </details>
+      <details>
+        <summary>What if I want the technical detail myself?</summary>
+        <div class="body"><p>You can — the full report is available to any reader, and the plain
+        language walkthrough of how to get one at all is here:
+        <a href="../../human-md/README.md">wiki/human-md/README.md</a>.</p></div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<section id="cta">
+  <div class="wrap narrow">
+    <p class="eyebrow">Next step</p>
+    <h2>Ask for the report as part of the deliverable.</h2>
+    <p class="lede" style="margin-top:16px">The simplest version of everything on this page: the
+    next time you commission AI-assisted work, ask for a BAR Observatory report alongside it — the
+    same way you'd ask for an invoice, a changelog, or test results. It costs the person doing the
+    work one command to produce.</p>
+    <div style="margin-top:24px;display:flex;gap:12px;flex-wrap:wrap">
+      <a class="btn" href="../../../README.md">See the full technical README</a>
+      <a class="btn ghost" href="../report-guide.html">See a real report, annotated</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap narrow">
+    <p><a href="../../../index.html">← Back to the BAR Observatory site</a> ·
+    <a href="../../human-md/README.md">Plain-language setup guide</a> ·
+    <a href="../../human-md/comparison.md">How this compares</a></p>
+    <p class="disclaim">BAR Observatory is an independent open-source project by Bradley Ross
+    (Bradley.Academy) and is not affiliated with or endorsed by Anthropic. This page describes
+    engineering properties, not legal or compliance guarantees — verify against your own
+    requirements.</p>
+  </div>
+</footer>
+
+</body>
+</html>

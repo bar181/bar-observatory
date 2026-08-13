@@ -108,7 +108,7 @@ body{background:var(--bg);color:var(--ink)}
 <li><strong>5 of 6 capture channels were not recorded this session.</strong><div class="ev">Uncaptured channels read "not recorded" (never a fabricated 0) — this is a transcript-only ingest.</div></li>
 </ul>
 <h3>Recommendations (resolution-first)</h3><ol class="recs">
-<li><span class="pri pri1">P1</span> A failing MCP tool has an alternative front door — reach it via its CLI/RVF path instead of the MCP (ADR-021).</li>
+<li><span class="pri pri1">P1</span> A failing MCP tool may have a non-MCP path available — prefer it over retrying the same MCP call.</li>
 <li><span class="pri pri1">P1</span> Resolve the remaining failing tests before relying on the session's completion claims.</li>
 <li><span class="pri pri2">P2</span> Review `./observatory/crates/bar-observatory/src/report.rs` (highest edit churn) for a refactor or missing test coverage.</li>
 <li><span class="pri pri3">P3</span> Enable OTEL telemetry + hooks to capture tokens/cost, timeline, and coverage (see the process docs).</li>
@@ -197,7 +197,7 @@ never a coverage guarantee.</p></details>
 <tr><td>WebFetch</td><td class="num">1</td></tr>
 </tbody></table></div>
 <h2>Failures</h2>
-<p class="warn-note">Real failures captured from tool outputs: 25 error result(s) across 5 distinct tool(s), categorized (mcp / tool / unknown). Remediation: 1 MCP tool(s) failed (worst: search_ruvnet (MCP) ×9). A repeatedly-failing MCP server (e.g. a timing-out one) should be reached through its alternative front door — its CLI/RVF path — instead of the MCP (BAR ADR-021). This section surfaces both system failures (a tool or MCP not working) and coded errors so they are recorded, not silently dropped.</p>
+<p class="warn-note">Real failures captured from tool outputs: 25 error result(s) across 5 distinct tool(s), categorized (mcp / tool / unknown). Remediation: 1 MCP tool(s) failed (worst: search_ruvnet (MCP) ×9). If a non-MCP path exists for a repeatedly-failing MCP server (e.g. a timing-out one), prefer it over retrying the same MCP call. This section surfaces both system failures (a tool or MCP not working) and coded errors so they are recorded, not silently dropped.</p>
 <div class="tw"><table><thead><tr><th>Tool</th><th>Kind</th><th>Errors</th></tr></thead><tbody>
 <tr><td>search_ruvnet (MCP)</td><td><span class="st st-not_recorded">mcp</span></td><td class="num">9</td></tr>
 <tr><td>Bash</td><td><span class="st st-task-created">tool</span></td><td class="num">7</td></tr>

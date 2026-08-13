@@ -57,3 +57,13 @@ for the full command set and crate list.
   invent the deterministic facts underneath it.
 - A missing capture channel is reported as `not_observed`, never a fabricated zero — don't
   silently fill a gap in with a guess.
+
+## Why this document reads the way it does
+
+This page is the "AI" register in this project's three-layer documentation architecture — human
+prose, structured agent-facing docs (this file), and AISP symbolic specs
+([`wiki/aisp/HUB.aisp`](../aisp/HUB.aisp)). See
+[`documentation-layers.html`](../human-html/documentation-layers.html) for why the split exists and
+what's actually generated versus hand-maintained today (hand-maintained, honestly disclosed). For
+what a `get_run_report` call actually returns, annotated field by field against a real example:
+[`report-guide.html`](../human-html/report-guide.html).

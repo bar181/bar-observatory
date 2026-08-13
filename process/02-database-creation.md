@@ -1,8 +1,8 @@
 # Step 2 — Database creation: one local SQLite file, portable by design
 
 Everything a BAR Observatory run produces — every captured tool call, every ingested transcript
-turn — lands in **one local SQLite file**. No server, no separate migration step, nothing to
-stand up.
+turn — lands in **one local SQLite file** (SQLite is a lightweight, file-based database format —
+no server process, no install step). No server, no separate migration step, nothing to stand up.
 
 ## How the store comes to exist
 
@@ -15,7 +15,8 @@ stand up.
 
 ## Why this makes the report trustworthy
 
-Provenance is content-addressed with **blake3**: the report's `source_db_hash` is derived
+Provenance is content-addressed with **blake3** (a fast cryptographic hash algorithm that turns
+any input into a short fixed-length fingerprint): the report's `source_db_hash` is derived
 directly from the database's own content. That's what makes BAR Observatory's core promise hold
 — the same database always produces a byte-identical report, whether you render it today or a
 year from now.

@@ -532,7 +532,7 @@
     },
     "reserved": {
       "type": "object",
-      "description": "Phase 19-21 (memory / bounded-gradient rendering / source-gated observation) contract stubs, declared-and-disabled per human-specs/02-plan-enhancements.md Gate 2 item 3. Not implemented before those phases; renders as status=disabled.",
+      "description": "Phase 19-21 (memory / bounded-gradient rendering / source-gated observation) contract stubs, declared and disabled ahead of implementation. Not implemented before those phases; renders as status=disabled.",
       "properties": {
         "memory": {
           "type": "object",

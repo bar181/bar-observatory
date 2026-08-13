@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>What's actually in a report — BAR Observatory</title>
+<meta name="description" content="A section-by-section, annotated walkthrough of a real BAR Observatory report — what each part means, why it exists, and the real evidence behind it, quoting the shipped example report directly.">
+<!-- No external font CDN by design, matching ../index.html -->
+<style>
+:root{
+  --paper:#E4E6E1; --card:#F3F4F1; --ink:#14181C; --ink-2:#4A5158;
+  --stamp:#8C2F2A; --verified:#1F5C4A; --absent:#8A8F8B;
+  --rule:#C8CCC5; --rule-2:#D9DCD6;
+  --display:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --body:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --mono:ui-monospace,"SFMono-Regular",Menlo,Consolas,monospace;
+  --wrap:1180px; --gap:clamp(48px,6vw,88px);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--body);
+  font-size:17px;line-height:1.62;-webkit-font-smoothing:antialiased}
+a{color:var(--stamp);text-decoration-thickness:1px;text-underline-offset:3px}
+a:focus-visible,button:focus-visible{outline:2.5px solid var(--stamp);outline-offset:3px}
+.wrap{max-width:var(--wrap);margin:0 auto;padding:0 24px}
+.narrow{max-width:780px}
+h1,h2,h3{font-family:var(--display);font-weight:800;letter-spacing:-.025em;line-height:1.05;margin:0}
+h1{font-size:clamp(34px,5.2vw,60px);margin-bottom:20px}
+h2{font-size:clamp(26px,3.6vw,38px)}
+h3{font-size:clamp(18px,2vw,22px);letter-spacing:-.015em;line-height:1.2}
+p{margin:0 0 1em}
+section{padding:var(--gap) 0;border-top:1px solid var(--rule)}
+.eyebrow{font-family:var(--mono);font-size:11.5px;font-weight:600;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--ink-2);margin:0 0 16px;display:flex;align-items:center;gap:10px}
+.eyebrow::after{content:"";height:1px;flex:1;background:var(--rule)}
+.lede{font-size:clamp(17px,1.9vw,20px);color:var(--ink-2);max-width:66ch}
+.muted{color:var(--ink-2)}
+
+.topbar{position:sticky;top:0;z-index:60;background:rgba(228,230,225,.93);
+  backdrop-filter:blur(9px);border-bottom:1px solid var(--rule)}
+.topbar-in{display:flex;align-items:center;gap:18px;min-height:56px;flex-wrap:wrap}
+.mark{font-family:var(--display);font-weight:800;font-size:17px;letter-spacing:-.02em;
+  text-decoration:none;color:var(--ink)}
+.mark span{color:var(--stamp)}
+.crumb{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--absent);margin-right:auto}
+
+/* section card = one annotated part of a real report */
+.item{display:grid;grid-template-columns:280px 1fr;gap:0;border:1px solid var(--rule-2);
+  background:var(--card);border-radius:3px;margin-top:22px;overflow:hidden}
+@media(max-width:820px){.item{grid-template-columns:1fr}}
+.item-n{font-family:var(--mono);font-size:22px;font-weight:800;color:var(--stamp);
+  padding:22px 22px 4px}
+.item-label{padding:0 22px 22px;background:var(--paper);border-right:1px solid var(--rule-2);
+  display:flex;flex-direction:column}
+@media(max-width:820px){.item-label{border-right:0;border-bottom:1px solid var(--rule-2)}}
+.item-label h3{margin-bottom:8px}
+.item-label p{font-size:14.5px;color:var(--ink-2);margin:0}
+.item-body{padding:22px 24px}
+.item-body p{font-size:15px;color:var(--ink-2)}
+.item-body p:last-child{margin-bottom:0}
+.evidence{font-family:var(--mono);font-size:13px;line-height:1.7;background:var(--ink);
+  color:#DFE3DE;padding:14px 16px;border-radius:3px;overflow-x:auto;margin:10px 0 14px}
+.evidence .k{color:#8FA39B}
+.evidence .v{color:#D8A38F}
+code{font-family:var(--mono);font-size:.92em}
+p code{background:var(--paper);border:1px solid var(--rule-2);padding:1px 5px;border-radius:2px}
+
+.chip{display:inline-block;font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;
+  text-transform:uppercase;padding:3px 8px;border-radius:2px;margin-bottom:10px}
+.chip-real{border:1px solid var(--verified);color:var(--verified)}
+.chip-absent{border:1px solid var(--absent);color:var(--absent);background:none}
+
+.shot{width:100%;max-width:900px;border:1px solid var(--rule-2);border-radius:3px;
+  box-shadow:0 18px 34px -22px rgba(20,24,28,.5);display:block;margin:28px auto 0}
+.shot-cap{text-align:center;font-size:13.5px;color:var(--absent);margin-top:12px}
+
+.note{border-left:3px solid var(--stamp);background:var(--card);padding:16px 20px;margin:22px 0;
+  font-size:15px;color:var(--ink-2)}
+.note.green{border-left-color:var(--verified)}
+.note b{color:var(--ink)}
+
+footer{border-top:1px solid var(--rule);padding:36px 0 56px;font-size:14px;color:var(--ink-2)}
+footer a{color:var(--ink-2)}
+.disclaim{font-size:12.5px;margin-top:20px;color:var(--absent);max-width:74ch}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wrap topbar-in">
+    <a class="mark" href="../../index.html">BAR <span>Observatory</span></a>
+    <span class="crumb">/ wiki / report guide</span>
+  </div>
+</div>
+
+<section style="border-top:0;padding-top:clamp(40px,5vw,68px)">
+  <div class="wrap narrow">
+    <p class="eyebrow">Wiki · report guide</p>
+    <h1>What's actually in a report.</h1>
+    <p class="lede">Every section below is annotated from the <b>real</b> shipped example —
+    <a href="../../examples/deterministic/real-session.report.json">real-session.report.json</a> — not
+    a mock-up written to look good. Where a section is empty, that's shown too: an unbuilt feature
+    reads <code>not_observed</code>, the same as an uncaptured channel, never silently omitted.</p>
+    <img class="shot" src="../../examples/deterministic/real-session.report.png"
+      alt="The real-session.report.html example open in a browser, showing its stat bar, executive summary, key findings, and recommendations.">
+    <p class="shot-cap">The actual rendered report this page annotates. Open it yourself:
+    <a href="../../examples/deterministic/real-session.report.html">real-session.report.html</a></p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap narrow">
+    <p class="eyebrow">Walkthrough</p>
+    <h2>Ten parts, each traceable to a row.</h2>
+
+    <div class="item">
+      <div class="item-label"><span class="item-n">01</span><h3>Stat bar</h3>
+        <p>The header. Orientation before detail.</p></div>
+      <div class="item-body">
+        <p>Elapsed time, tool-call count, sub-agent-type count, transcript turns captured — the
+        numbers a reader needs before anything else. The real bar for this session:</p>
+        <div class="evidence"><span class="k">30h 58m</span> · <span class="v">1,145 tool calls</span> · 4 sub-agent type(s)<br>3,970 transcript turns captured · 0 fabricated numbers</div>
+        <p>"0 fabricated numbers" isn't a slogan here — it's the schema's own absence rule, visible
+        as the first thing you read.</p>
+      </div>
+    </div>
+
+    <div class="item">
+      <div class="item-label"><span class="item-n">02</span><h3>Executive summary</h3>
+        <p>One paragraph, assembled from fields — never composed by a model.</p></div>
+      <div class="item-body">
+        <p>A single sentence stitched from real counters, not written prose:</p>
+        <div class="evidence">Over 30h 58m, the session made 1,145 tool calls across 3,970<br>transcript turns, dispatched 22 sub-agent run(s), and captured<br>25 error result(s).</div>
+        <p>Compare this to <code>bar interpret</code>'s output: that one <em>is</em> LLM-written
+        prose, and is labeled as such wherever it appears. This one is template substitution over
+        typed fields — swap the database, the sentence updates itself; nothing here was composed.</p>
+      </div>
+    </div>
+
+    <div class="item">
+      <div class="item-label"><span class="item-n">03</span><h3>Key findings</h3>
+        <p>What the detectors actually found, each with its own evidence line.</p></div>
+      <div class="item-body">
+        <p>Four findings, each a plain claim with a supporting detail underneath it — not a single
+        undifferentiated wall of text:</p>
+        <div class="evidence">25 tool error(s) were captured — the failures are recorded, not swallowed.<br>&nbsp;&nbsp;Worst: <span class="k">search_ruvnet (MCP)</span> ×9.
+One file absorbed the most churn: 157 edits.<br>&nbsp;&nbsp;<span class="k">report.rs</span> — a refactor / test-coverage candidate.
+Validation was not fully green at capture end: 20 failing vs 99 passing.<br>&nbsp;&nbsp;From real `test result:` lines (measured, not self-reported).
+5 of 6 capture channels were not recorded this session.<br>&nbsp;&nbsp;Uncaptured channels read "not recorded" — this is a transcript-only ingest.</div>
+        <p>Each of these traces to a section further down this page — the findings aren't a
+        separate narrative, they're a summary of facts that are also shown in full.</p>
+      </div>
+    </div>
+
+    <div class="item">
+      <div class="item-label"><span class="item-n">04</span><h3>Recommendations</h3>
+        <p>Resolution-first, priority-tagged, grounded in the findings above.</p></div>
+      <div class="item-body">
+        <p>Four recommendations, each tagged P1/P2/P3 by how directly it follows from captured
+        evidence — not a generic best-practices list:</p>
+        <div class="evidence"><span class="v">P1</span> A failing MCP tool may have a non-MCP path available — prefer it<br>&nbsp;&nbsp;over retrying the same MCP call.
+<span class="v">P1</span> Resolve the remaining failing tests before relying on the session's<br>&nbsp;&nbsp;completion claims.
+<span class="k">P2</span> Review report.rs (highest edit churn) for a refactor or missing<br>&nbsp;&nbsp;test coverage.
+<span class="k">P3</span> Enable OTEL telemetry + hooks to capture tokens/cost, timeline,<br>&nbsp;&nbsp;and coverage.</div>
+      </div>
+    </div>
+
+    <div class="item">
+      <div class="item-label"><span class="item-n">05</span><h3>Task ledger</h3>
+        <p>What was attempted, and how each item's state was determined.</p></div>
+      <div class="item-body">
+        <p>27 tasks total this session — 12 completed, 15 in other states (created, superseded).
+        Every row carries its own evidence type rather than a bare status:</p>
+        <div class="evidence">state: completed<br>completion_evidence: <span class="k">self_reported</span><br>evidence_refs: [transcript:task-tool-calls]</div>
+        <p><code>self_reported</code> is disclosed as exactly that — the task tool said "done,"
+        which is evidence of a claim, not independent proof of correctness. Compare that honestly
+        against §08's validation evidence, which is measured from real test output instead.</p>
+      </div>
+    </div>
+
+    <div class="item">
+      <div class="item-label"><span class="item-n">06</span><h3>Tool usage</h3>
+        <p>Which tools, and how hard, ranked by real call counts.</p></div>
+      <div class="item-body">
+        <div class="evidence">Bash 603 · Edit 293 · Read 98 · Write 43 · TaskUpdate 30<br>TaskCreate 27 · Agent 22 · ToolSearch 7 · AskUserQuestion 4 · …</div>
+        <p>Fifteen distinct tools appear in the full record; this is the ranked head of that list,
+        exactly as captured — nothing rounded, nothing merged.</p>
+      </div>
+    </div>
+
+    <div class="item">
+      <div class="item-label"><span class="item-n">07</span><h3>Sub-agent dispatches</h3>
+        <p>What got delegated, and to which agent type.</p></div>
+      <div class="item-body">
+        <div class="evidence">22 agent run(s) total<br>general-purpose ×15 · bar-skeptic-reviewer ×5<br>bar-repo-archaeologist ×1 · bar-test-architect ×1</div>
+        <p>A session that spawns helper agents can hide its real failure surface inside them — this
+        section is why that no longer works. Every dispatch is counted by type, whether or not the
+        parent session's own summary mentioned it.</p>
+      </div>
+    </div>
+
+    <div class="item">
+      <div class="item-label"><span class="item-n">08</span><h3>Rework hotspots</h3>
+        <p>Where effort concentrated — a signal about the work, not a score.</p></div>
+      <div class="item-body">
+        <div class="evidence">./…/bar-observatory/src/report.rs — edited 157 times<br>./…/bar-observatory/src/lib.rs — edited 24 times<br>./…/bar-observatory/src/detectors.rs — edited 22 times</div>
+        <p>157 of that session's 293 total edits — more than half — landed in one file. The report
+        doesn't editorialize about why; it just makes the concentration impossible to miss, which is
+        usually enough to prompt the right question.</p>
+      </div>
+    </div>
+
+    <div class="item">
+      <div class="item-label"><span class="item-n">09</span><h3>Validation &amp; flaky signals</h3>
+        <p>Measured from real test output — not a self-reported "tests pass."</p></div>
+      <div class="item-body">
+        <div class="evidence">119 cargo `test result:` line(s) — 99 passed, 20 failed<br>last line: PASSED (measured, not self-reported)
+
+flaky: 2 test(s) both passed AND failed this session<br>&nbsp;&nbsp;migration_files_are_byte_frozen — 2 fails / 1 pass<br>&nbsp;&nbsp;report::tests::p5_empty_store_honest_absent — 1 fail / 1 pass</div>
+        <p>A test that flips between pass and fail across the same session is a real signal — could
+        be a fix landing mid-session, could be a regression, could be flakiness. The report doesn't
+        guess which; it surfaces the flip and lets a human or agent decide.</p>
+      </div>
+    </div>
+
+    <div class="item">
+      <div class="item-label"><span class="item-n">10</span><h3>What's honestly not here yet</h3>
+        <p>Unbuilt features disclosed as <code>not_observed</code>, not omitted.</p></div>
+      <div class="item-body">
+        <span class="chip chip-absent">not_observed</span>
+        <div class="evidence">human_ai_recovery: "Not observed — human-vs-AI recovery<br>classification is not built yet."
+
+observations: "Not observed — micro-observation extraction and<br>silent-signal detection are not built yet; no findings are fabricated."</div>
+        <p>This is the clearest example on this page of the rule this whole project is built
+        around: a capability that doesn't exist yet is stated as absent, in the same schema
+        position a real finding would occupy — never a quietly empty section that looks like
+        "nothing to report" when the honest answer is "not measured."</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section>
+  <div class="wrap narrow">
+    <p class="eyebrow">Capture &amp; integrity</p>
+    <h2>The two sections that let you trust the other ten.</h2>
+
+    <div class="item" style="margin-top:0">
+      <div class="item-label"><span class="item-n">11</span><h3>Capture-channel honesty</h3>
+        <p>Which channels actually had data.</p></div>
+      <div class="item-body">
+        <div class="evidence">transcripts: <span class="v">partial</span> — 3,970 turns; 350 dangling parent(s)<br>hooks / events / spans / requests: <span class="k">not_recorded</span> — no rows in this store<br>provider_cost_usd: <span class="k">not_recorded</span> — no authoritative per-token USD available</div>
+        <p>Five of six channels read <code>not_recorded</code> here because this capture was a
+        transcript-only ingest — no hooks, proxy, or OTLP were running. That's disclosed plainly
+        rather than left for a reader to assume from silence.</p>
+      </div>
+    </div>
+
+    <div class="item">
+      <div class="item-label"><span class="item-n">12</span><h3>Integrity</h3>
+        <p>What actually makes "byte-identical" a checkable claim, not a slogan.</p></div>
+      <div class="item-body">
+        <div class="evidence">source_db_hash: blake3:557f024108c3ecef…<br>template_hash: blake3:b8bcf83ef579efa1…<br>deterministic_render: <span class="v">true</span> · llm_in_render_path: <span class="v">false</span></div>
+        <p>The report's own hash of the database it came from, plus a hash of the template that
+        rendered it. Re-render the same database with the same template version and these two
+        values — and every fact above them — come out identical. That's what "same database in,
+        byte-identical report out" cashes out to at the field level.</p>
+      </div>
+    </div>
+
+    <div class="note green">
+      <b>Why this order.</b> Sections 11 and 12 are placed last on this page but exist first in
+      practice — they're what tells you whether to trust sections 1 through 10 at all.
+      <code>bar doctor</code> surfaces the same capture-honesty information before you even open a
+      report. See <a href="../human-md/architecture.md">wiki/architecture.md</a> for the full absence-semantics
+      and determinism-contract writeup.
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap narrow">
+    <p><a href="../../index.html">← Back to the BAR Observatory site</a> ·
+    <a href="../../README.md">README</a> · <a href="documentation-layers.html">Documentation layers</a> ·
+    <a href="../human-md/architecture.md">Architecture</a></p>
+    <p class="disclaim">BAR Observatory is an independent open-source project by Bradley Ross
+    (Bradley.Academy) and is not affiliated with or endorsed by Anthropic. Every quoted value on
+    this page is copied verbatim from <code>examples/deterministic/real-session.report.json</code>
+    at the time this page was written — re-render that database yourself to confirm it still
+    matches, since the whole point of a deterministic report is that you don't have to take
+    anyone's word for it.</p>
+  </div>
+</footer>
+
+</body>
+</html>

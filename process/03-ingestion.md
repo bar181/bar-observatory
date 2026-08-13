@@ -13,17 +13,19 @@ bar ingest .bar/ambient.sqlite ~/.claude/projects/<project>/<session>.jsonl
 ```
 
 Because the transcript is local, ingestion makes **zero API calls**. This is the path most
-people will use every time: no proxy to configure, no collector to run, just a `.jsonl` file you
-already have.
+people will use every time: no proxy to configure, no collector to run, just a `.jsonl` file
+(JSON Lines — a plain-text file with one JSON record per line) you already have.
 
 ## Optional: opt-in capture channels
 
 If you want more than what's in the transcript, three capture modules add richer channels —
 each one is opt-in, and none of them is required for a report:
 
-- **Proxy capture** — route `ANTHROPIC_BASE_URL` through the capture proxy to record real
-  request/response bodies, which adds the token/cost channel to your report.
-- **OTLP** — a native span/metrics receiver for live latency and span data.
+- **Proxy capture** — point the `ANTHROPIC_BASE_URL` environment variable (the address Claude
+  Code sends its API requests to) at the capture proxy to record real request/response bodies,
+  which adds the token/cost channel to your report.
+- **OTLP** (OpenTelemetry Protocol — an open standard for exporting traces and metrics) — a
+  native receiver for live latency data and "spans" (timed records of individual operations).
 - **Hooks** — Claude Code lifecycle hooks that spool events straight into the store as they
   happen.
 

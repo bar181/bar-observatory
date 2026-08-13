@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Examples — BAR Observatory</title>
+<meta name="description" content="One example per report type, real data, clearly named — a guide to this folder's deterministic and interpreted report examples.">
+<style>
+:root{
+  --paper:#E4E6E1; --card:#F3F4F1; --ink:#14181C; --ink-2:#4A5158;
+  --stamp:#8C2F2A; --verified:#1F5C4A; --absent:#8A8F8B;
+  --rule:#C8CCC5; --rule-2:#D9DCD6;
+  --display:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --body:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --mono:ui-monospace,"SFMono-Regular",Menlo,Consolas,monospace;
+  --wrap:860px;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--body);
+  font-size:17px;line-height:1.62;-webkit-font-smoothing:antialiased}
+.wrap{max-width:var(--wrap);margin:0 auto;padding:48px 24px 64px}
+h1,h2{font-family:var(--display);font-weight:800;letter-spacing:-.02em;margin:0}
+h1{font-size:clamp(30px,4.4vw,42px);margin-bottom:16px}
+h2{font-size:21px;margin:36px 0 14px}
+p{margin:0 0 1em;color:var(--ink-2)}
+a{color:var(--stamp)}
+code{font-family:var(--mono);font-size:.9em;background:var(--card);border:1px solid var(--rule-2);
+  padding:1px 5px;border-radius:2px}
+table{width:100%;border-collapse:collapse;margin-top:18px;font-size:15px;background:var(--card)}
+th,td{text-align:left;padding:11px 13px;border-bottom:1px solid var(--rule-2);vertical-align:top}
+thead th{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--ink-2);border-bottom:1.5px solid var(--ink)}
+.scroll-x{overflow-x:auto}
+.note{border-left:3px solid var(--stamp);background:var(--card);padding:14px 18px;margin:20px 0;
+  font-size:15px;color:var(--ink-2)}
+.note b{color:var(--ink)}
+footer{margin-top:44px;padding-top:22px;border-top:1px solid var(--rule);font-size:14px;color:var(--ink-2)}
+footer a{color:var(--ink-2)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Examples</h1>
+  <p>One example per report type, real data, clearly named. Earlier drafts had ten-plus files
+  mixing a real capture, a seeded fixture, and a hand-authored mock — confusing to tell apart.
+  It's now nine files across two report types.</p>
+
+  <div class="scroll-x">
+  <table>
+    <thead><tr><th>File(s)</th><th>What it is</th></tr></thead>
+    <tbody>
+      <tr><td><a href="deterministic/">deterministic/real-session.report.{json,html,md}</a></td>
+      <td>The calculated report (<code>bar report</code>) — no AI, $0.00, byte-identical every
+      time. Rendered by the real <code>bar</code> CLI from a genuine, multi-thousand-turn Claude
+      Code transcript.</td></tr>
+      <tr><td><a href="deterministic/real-session.report.png">deterministic/real-session.report.png</a></td>
+      <td>A screenshot of the <code>.html</code> version above, used in the README and wiki.</td></tr>
+      <tr><td><a href="interpreted/interpreted-executive.html">interpreted/interpreted-executive.html</a></td>
+      <td>The optional interpreted report (<code>bar interpret --audience executive</code>) —
+      plain-language, value/cost/risk framing. LLM-written, clearly labeled.</td></tr>
+      <tr><td><a href="interpreted/interpreted-executive.png">interpreted/interpreted-executive.png</a></td>
+      <td>A screenshot of the interpreted-executive page above, used in the README.</td></tr>
+      <tr><td><a href="interpreted/interpreted-engineering.html">interpreted/interpreted-engineering.html</a></td>
+      <td>The same optional layer, <code>--audience engineering</code> — precise, technical,
+      actionable.</td></tr>
+      <tr><td><a href="interpreted/interpret-brief.executive.md">interpret-brief.executive.md</a>,
+      <a href="interpreted/interpret-brief.engineering.md">interpret-brief.engineering.md</a></td>
+      <td>The real, deterministic briefs <code>bar interpret</code> generated — the exact facts
+      each interpreted report was written from.</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h2>Two different real sessions, on purpose</h2>
+  <p>The deterministic example and the interpreted pair come from <b>different</b> real captured
+  sessions, not the same one split two ways — the deterministic example is a substantial coding
+  session; the interpreted pair is from a live capture of the documentation session that built
+  these example pages. Both are real and reproducible; mixing origins here is disclosed rather
+  than implied to be one continuous story.</p>
+
+  <h2>How to read them</h2>
+  <p>Open any <code>.html</code> file for the human view, the <code>.md</code> for a terminal- or
+  diff-friendly view, or the <code>.json</code> for the machine-readable form.</p>
+  <div class="note">
+    <b>One known gap, disclosed.</b> <code>deterministic/real-session.report.json</code> does not
+    currently validate against <code>schemas/report.schema.json</code> — that schema describes an
+    earlier report shape than what <code>bar report</code> produces today. Same story for
+    <code>schemas/interpretation.schema.json</code> against the interpreted layer, which now ships
+    as a brief-plus-prose pair rather than the richer JSON structure that schema describes. Both
+    are pending a schema regeneration in the private working repo.
+  </div>
+
+  <h2>Why the deterministic layer only has one example</h2>
+  <p>Earlier drafts also shipped a seeded fixture and a hand-authored "fully populated" mock, on
+  the theory that showing every possible section at once had more reference value. It didn't hold
+  up: the mock was built against the same earlier schema, and would have shown detectors this
+  version of the product doesn't actually run yet (<code>human_ai_recovery</code>,
+  <code>micro_observations</code>) as if they were live — exactly the kind of overclaiming this
+  project's <code>not_observed</code> discipline exists to prevent. One real example, honestly
+  incomplete in the same ways your own reports will be, is more useful than a synthetic one that
+  quietly promises more than the tool delivers.</p>
+
+  <footer>
+    <a href="../wiki/human-md/README.md">wiki/human-md/README.md</a> — a section-by-section guide to
+    reading a report · <a href="../wiki/human-html/report-guide.html">wiki/report-guide.html</a> — a fully
+    annotated walkthrough of the deterministic example above.
+  </footer>
+</div>
+</body>
+</html>

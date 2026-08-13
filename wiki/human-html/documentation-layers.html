@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Documentation layers and residual ambiguity — BAR Observatory</title>
+<meta name="description" content="Why BAR Observatory writes its documentation in three registers — human prose, structured agent-facing docs, and AISP symbolic specs — what the residual ambiguity in a symbolic spec actually consists of, and how to measure any of it properly.">
+<!-- No external font CDN by design, matching ../index.html -- this project's own pitch is
+     "nothing leaves your machine"; loading fonts.googleapis.com would quietly contradict that.
+     System font stacks only. -->
+<style>
+:root{
+  --paper:#E4E6E1; --card:#F3F4F1; --ink:#14181C; --ink-2:#4A5158;
+  --stamp:#8C2F2A; --verified:#1F5C4A; --absent:#8A8F8B;
+  --rule:#C8CCC5; --rule-2:#D9DCD6;
+  --display:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --body:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --mono:ui-monospace,"SFMono-Regular",Menlo,Consolas,monospace;
+  --wrap:1180px; --gap:clamp(52px,6.5vw,96px);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--body);
+  font-size:17px;line-height:1.62;-webkit-font-smoothing:antialiased}
+a{color:var(--stamp);text-decoration-thickness:1px;text-underline-offset:3px}
+a:focus-visible{outline:2.5px solid var(--stamp);outline-offset:3px}
+.wrap{max-width:var(--wrap);margin:0 auto;padding:0 24px}
+.narrow{max-width:800px;margin:0 auto}
+h1,h2,h3{font-family:var(--display);font-weight:800;letter-spacing:-.025em;line-height:1.05;margin:0}
+h1{font-size:clamp(36px,5.6vw,66px);margin-bottom:22px}
+h2{font-size:clamp(27px,3.8vw,42px)}
+h3{font-size:clamp(19px,2.1vw,24px);letter-spacing:-.015em;line-height:1.2}
+h4{font-family:var(--display);font-weight:700;font-size:17.5px;margin:0 0 8px;letter-spacing:-.01em}
+p{margin:0 0 1em}
+section{padding:var(--gap) 0;border-top:1px solid var(--rule)}
+.eyebrow{font-family:var(--mono);font-size:11.5px;font-weight:600;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--ink-2);margin:0 0 18px;display:flex;align-items:center;gap:10px}
+.eyebrow::after{content:"";height:1px;flex:1;background:var(--rule)}
+.lede{font-size:clamp(18px,2vw,21px);color:var(--ink-2);max-width:66ch}
+.muted{color:var(--ink-2)}
+.fine{font-size:13.5px;color:var(--absent);margin-top:16px}
+
+.topbar{position:sticky;top:0;z-index:60;background:rgba(228,230,225,.93);
+  backdrop-filter:blur(9px);border-bottom:1px solid var(--rule)}
+.topbar-in{display:flex;align-items:center;gap:18px;min-height:60px;flex-wrap:wrap}
+.mark{font-family:var(--display);font-weight:800;font-size:17px;letter-spacing:-.02em;
+  text-decoration:none;color:var(--ink)}
+.mark span{color:var(--stamp)}
+.crumb{font-family:var(--mono);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--absent);margin-right:auto}
+.topnav{display:flex;gap:18px;font-size:14px}
+.topnav a{color:var(--ink-2);text-decoration:none}
+.topnav a:hover{color:var(--ink);text-decoration:underline}
+@media(max-width:900px){.topnav{display:none}}
+
+.hero{border-top:0;padding-top:clamp(44px,5.5vw,76px)}
+.tagline{font-family:var(--mono);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--ink-2);margin-bottom:20px}
+
+.grade{display:grid;grid-template-columns:repeat(2,1fr);border:1.5px solid var(--ink);
+  background:var(--card);margin-top:38px}
+@media(max-width:800px){.grade{grid-template-columns:1fr}}
+.grade div{padding:20px 22px;border-right:1px solid var(--rule-2)}
+.grade div:last-child{border-right:0}
+@media(max-width:800px){.grade div{border-right:0;border-bottom:1px solid var(--rule-2)}
+  .grade div:last-child{border-bottom:0}}
+.g-tag{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+  display:inline-block;padding:3px 7px;border-radius:2px;margin-bottom:11px}
+.g-measured{border:1px solid var(--verified);color:var(--verified)}
+.g-modelled{border:1px solid var(--stamp);color:var(--stamp)}
+.g-external{border:1px solid var(--absent);color:var(--absent)}
+.grade p{margin:0;font-size:14.5px;color:var(--ink-2)}
+.grade b{color:var(--ink)}
+
+.two{display:grid;grid-template-columns:1fr 1fr;gap:clamp(28px,4vw,56px);align-items:start}
+@media(max-width:860px){.two{grid-template-columns:1fr}}
+
+.layers{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:40px}
+@media(max-width:900px){.layers{grid-template-columns:1fr}}
+.ly{background:var(--card);border:1px solid var(--rule-2);border-radius:3px;padding:26px 24px;
+  display:flex;flex-direction:column}
+.ly-n{font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--stamp);display:block;margin-bottom:8px}
+.ly h3{font-size:22px}
+.ly-path{font-family:var(--mono);font-size:11px;color:var(--absent);display:block;margin:5px 0 14px}
+.ly p{font-size:15px;color:var(--ink-2)}
+.ly-eg{font-family:var(--mono);font-size:11.5px;line-height:1.7;background:var(--paper);
+  border:1px solid var(--rule-2);border-radius:2px;padding:12px 14px;margin:16px 0 18px;overflow-x:auto}
+.ly-bar{height:7px;background:var(--rule);border-radius:1px;overflow:hidden;margin-top:auto}
+.ly-bar span{display:block;height:100%;background:var(--stamp);min-width:3px}
+.ly.best .ly-bar span{background:var(--verified)}
+.ly-score{font-family:var(--mono);font-size:11.5px;color:var(--ink-2);margin-top:10px}
+.ly-score b{color:var(--ink);font-size:14px}
+.ly-score i{font-style:normal;color:var(--absent)}
+
+.resid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:38px}
+@media(max-width:860px){.resid{grid-template-columns:1fr}}
+.rz{background:var(--card);border:1px solid var(--rule-2);border-left:3px solid var(--stamp);
+  border-radius:3px;padding:26px 24px}
+.rz-n{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--stamp);display:block;margin-bottom:10px}
+.rz-w{font-family:var(--display);font-weight:800;font-size:34px;line-height:1;margin:14px 0 6px}
+.rz-w small{font-family:var(--mono);font-size:11px;font-weight:500;color:var(--absent);
+  letter-spacing:.1em;display:block;margin-top:7px}
+.rz p{font-size:15px;color:var(--ink-2)}
+
+table{width:100%;border-collapse:collapse;margin-top:32px;font-size:15px;background:var(--card)}
+th,td{text-align:left;padding:13px 14px;border-bottom:1px solid var(--rule-2);vertical-align:top}
+thead th{font-family:var(--mono);font-size:11px;letter-spacing:.11em;text-transform:uppercase;
+  color:var(--ink-2);border-bottom:1.5px solid var(--ink)}
+tbody th{font-weight:600;width:210px}
+td.yes{color:var(--verified);font-weight:600}
+td.no{color:var(--absent)}
+.scroll-x{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.scroll-x table{min-width:760px}
+
+pre{font-family:var(--mono);font-size:13px;line-height:1.62;background:var(--ink);color:#DFE3DE;
+  padding:20px 22px;border-radius:3px;overflow-x:auto;margin:22px 0}
+pre .c{color:#8FA39B} pre .p{color:#D8A38F} pre .g{color:#9FC4AE}
+code{font-family:var(--mono)}
+p code,li code,td code{font-size:.9em;background:var(--card);border:1px solid var(--rule-2);
+  padding:1px 5px;border-radius:2px}
+.formula{font-family:var(--mono);font-size:15px;background:var(--card);border:1px solid var(--rule-2);
+  border-radius:3px;padding:20px 22px;margin:22px 0;text-align:center;overflow-x:auto}
+
+ul.plain{list-style:none;padding:0;margin:18px 0}
+ul.plain li{padding:11px 0 11px 26px;border-bottom:1px solid var(--rule-2);position:relative;color:var(--ink-2)}
+ul.plain li::before{content:"→";position:absolute;left:0;color:var(--stamp);font-family:var(--mono)}
+ul.plain li b{color:var(--ink)}
+ol.steps-n{counter-reset:s;list-style:none;padding:0;margin:22px 0}
+ol.steps-n li{counter-increment:s;position:relative;padding:16px 0 16px 48px;
+  border-bottom:1px solid var(--rule-2);color:var(--ink-2)}
+ol.steps-n li::before{content:counter(s,decimal-leading-zero);position:absolute;left:0;top:16px;
+  font-family:var(--mono);font-size:12px;color:var(--stamp);letter-spacing:.06em}
+ol.steps-n li b{color:var(--ink)}
+
+.note{border-left:3px solid var(--stamp);background:var(--card);padding:18px 22px;margin:26px 0;
+  font-size:15.5px;color:var(--ink-2)}
+.note b{color:var(--ink)}
+.note.green{border-left-color:var(--verified)}
+
+footer{border-top:1px solid var(--rule);padding:40px 0 60px;font-size:14px;color:var(--ink-2)}
+footer a{color:var(--ink-2)}
+.disclaim{font-size:12.5px;margin-top:22px;color:var(--absent);max-width:74ch}
+.refs{font-size:14px;color:var(--ink-2)}
+.refs li{margin-bottom:10px}
+
+/* try-it: live human/AI/AISP register switcher — CSS-only, no JavaScript.
+   Radio inputs + the general sibling combinator drive visibility, so this
+   works in any renderer that applies CSS, including preview panes that
+   don't execute <script>. Structure: the three radios are direct children
+   of .reg-wrap, followed by .reg-tabs-ui (the visible label row) and
+   .reg-content (the panels) as later siblings -- `~` reaches both. */
+.try-it{margin-top:52px}
+.reg-wrap input[type="radio"]{position:absolute;opacity:0;width:1px;height:1px;
+  pointer-events:none}
+.reg-tabs-ui{display:inline-flex;border:1.5px solid var(--ink);border-radius:2px;
+  overflow:hidden;background:var(--card);margin:18px 0 28px}
+.reg-tabs-ui label{font-family:var(--mono);font-size:12px;font-weight:600;letter-spacing:.08em;
+  text-transform:uppercase;padding:9px 20px;color:var(--ink-2);cursor:pointer;user-select:none}
+#reg-human:checked ~ .reg-tabs-ui label[for="reg-human"],
+#reg-ai:checked ~ .reg-tabs-ui label[for="reg-ai"],
+#reg-aisp:checked ~ .reg-tabs-ui label[for="reg-aisp"]{background:var(--ink);color:var(--paper)}
+.reg-ex{background:var(--card);border:1px solid var(--rule-2);border-radius:3px;
+  padding:22px 24px;margin-bottom:16px}
+.reg-ex-title{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--stamp);display:block;margin-bottom:14px}
+.reg-panel{display:none}
+.reg-panel p{margin:0;color:var(--ink-2);font-size:15.5px}
+#reg-human:checked ~ .reg-content .reg-panel[data-reg="human"],
+#reg-ai:checked ~ .reg-content .reg-panel[data-reg="ai"],
+#reg-aisp:checked ~ .reg-content .reg-panel[data-reg="aisp"]{display:block}
+.reg-code{font-family:var(--mono);font-size:13px;line-height:1.7;background:var(--ink);
+  color:#DFE3DE;padding:14px 16px;border-radius:3px;overflow-x:auto;white-space:pre;margin:0}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wrap topbar-in">
+    <a class="mark" href="../../index.html">BAR <span>Observatory</span></a>
+    <span class="crumb">/ wiki / documentation layers</span>
+    <nav class="topnav">
+      <a href="#why">Why three</a>
+      <a href="#layers">The layers</a>
+      <a href="#residual">The residual</a>
+      <a href="#measure">How to measure it</a>
+      <a href="#refs">References</a>
+    </nav>
+  </div>
+</div>
+
+<section class="hero">
+  <div class="wrap">
+    <div class="narrow">
+      <p class="tagline">Wiki · documentation architecture · AISP</p>
+      <h1>Written three times, on purpose.</h1>
+      <p class="lede">The words that make a sentence clear to a person are the same words that make it
+      ambiguous to a model. BAR Observatory's documentation therefore exists in three registers —
+      human prose, structured agent-facing docs, and AISP symbolic specifications — describing one set
+      of facts so they don't drift apart in meaning, even though today they're written by hand rather
+      than generated from a single source.</p>
+      <p class="lede">This page explains why, what each layer costs and buys, what the residual
+      ambiguity in a symbolic specification actually consists of, and — the part usually skipped — how
+      you would measure any of it rather than assert it.</p>
+    </div>
+
+    <div class="grade">
+      <div>
+        <span class="g-tag g-modelled">Modelled</span>
+        <p>The per-layer scores on this page (<b>58 / 20 / 1.8</b>) are a working estimate for
+        <i>this repository's</i> documentation. They are an analytical model, <b>not a
+        measurement</b>, and are labelled as such throughout.</p>
+      </div>
+      <div>
+        <span class="g-tag g-external">External</span>
+        <p>The residual decomposition draws on published work on inference determinism, cited by name
+        and linked in the References section below.</p>
+      </div>
+    </div>
+    <p class="fine">AISP has separately measured results for its own specification language, from the
+    author's own AISP research program — see
+    <a href="https://github.com/bar181/aisp-open-core">aisp-open-core</a> for that evidence; no figure
+    from that program is reproduced on this page. Distinguishing a modelled estimate from an
+    externally-sourced claim is the same discipline the product applies to its own reports: a number
+    you measured and a number you modelled are different objects, and collapsing them is how a claim
+    quietly becomes a lie.</p>
+  </div>
+</section>
+
+<!-- ================= WHY THREE ================= -->
+<section id="why">
+  <div class="wrap">
+    <div class="narrow">
+      <p class="eyebrow">Why three</p>
+      <h2>"Initialise the database cleanly."</h2>
+      <p class="lede" style="margin-top:18px">That sentence is good human writing. It is also close to
+      useless as an instruction to a machine, and the reason is worth being precise about.</p>
+      <p class="muted">A person resolves "cleanly" from context in about a tenth of a second. A model
+      has to choose between at least three functionally different behaviours: delete the existing file
+      and start fresh, apply pending migrations to what's there, or leave the data alone and set the
+      journal mode. Each is a defensible reading. Each produces a different program. And crucially,
+      <b>the same model asked twice may choose differently</b> — so the failure isn't a
+      misunderstanding you can correct once, it's a variance you inherit forever.</p>
+      <p class="muted">This is a well-studied phenomenon in requirements engineering, not a novel
+      claim. The field's formal definition is exactly the one that matters here: a requirement
+      <i>R</i> is ambiguous for code generation when two valid interpretations of it produce
+      functionally different programs.</p>
+      <div class="formula">R is ambiguous &nbsp;⟺&nbsp; ∃ I, I′ ∈ 𝕀(R) &nbsp;such that&nbsp; F<sub>I</sub> ≠ F<sub>I′</sub></div>
+      <p class="muted">Recent benchmark work confirms the practical cost: ambiguity degrades code
+      generation across every model tested, <b>with the most pronounced effects on the most capable
+      models</b>, and models largely fail to notice or resolve the ambiguity on their own. Capability
+      does not rescue you from an under-specified instruction — if anything, a stronger model fills
+      the gap more confidently.</p>
+      <div class="note">
+        <b>The design consequence.</b> You cannot fix this by writing better prose, because the
+        properties that make prose good for humans — economy, implication, adjectives that compress
+        context — are the properties that create interpretive fan-out. The fix is to write a
+        <i>different artefact</i> for the machine, describing the same facts. Not a translation. Not
+        a summary. A different register of the same truth.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= THE LAYERS ================= -->
+<section id="layers">
+  <div class="wrap">
+    <p class="eyebrow">The layers</p>
+    <h2>Three registers, one set of facts.</h2>
+    <p class="lede" style="margin-top:18px">The same instruction, expressed for each reader. Note that
+    the layers get <em>longer and less pleasant to read</em> as they get less ambiguous. That trade is
+    the whole point, and it's why you keep all three rather than picking one.</p>
+
+    <div class="layers">
+      <div class="ly">
+        <span class="ly-n">Layer 1</span>
+        <h3>Human</h3>
+        <span class="ly-path">wiki/human/ · README.md</span>
+        <p>Prose, analogy, worked examples. Written for someone who may never open a terminal. Allowed
+        to use words like "cleanly," because a person knows what you mean.</p>
+        <div class="ly-eg">Initialize the flight recorder<br>database cleanly.</div>
+        <div class="ly-bar"><span style="width:58%"></span></div>
+        <div class="ly-score">est. ambiguity <b>58</b> / 100 · <i>to a machine reader</i></div>
+      </div>
+
+      <div class="ly">
+        <span class="ly-n">Layer 2</span>
+        <h3>AI</h3>
+        <span class="ly-path">wiki/agent/AI-CONTEXT.md · process/</span>
+        <p>Structured preconditions, actions, and postconditions. The adjectives are gone. What remains
+        are named keys a single agent can act on without inventing an interpretation.</p>
+        <div class="ly-eg">PRECONDITION:<br>&nbsp;&nbsp;db == ".bar/ambient.sqlite"<br>ACTION:<br>&nbsp;&nbsp;bar init --db-root .bar<br>POSTCONDITION:<br>&nbsp;&nbsp;table_exists("telemetry_events")</div>
+        <div class="ly-bar"><span style="width:20%"></span></div>
+        <div class="ly-score">est. ambiguity <b>20</b> / 100 · <i>keys are still English</i></div>
+      </div>
+
+      <div class="ly best">
+        <span class="ly-n">Layer 3</span>
+        <h3>AISP</h3>
+        <span class="ly-path">wiki/aisp/HUB.aisp</span>
+        <p>A symbolic state transition with an entailment predicate. Nothing is left to interpret: the
+        postcondition either holds or it doesn't, and that is checkable rather than persuadable.</p>
+        <div class="ly-eg">Spec(DB_Init):<br>&nbsp;&nbsp;S₀ —bar init→ S₁<br>&nbsp;&nbsp;where S₁ ⊢ ∃ Table("telemetry_events")</div>
+        <div class="ly-bar"><span style="width:1.8%"></span></div>
+        <div class="ly-score">est. ambiguity <b>1.8</b> / 100 · <i>residual is not semantic</i></div>
+      </div>
+    </div>
+
+    <div class="scroll-x">
+    <table>
+      <thead><tr><th></th><th>Human</th><th>AI</th><th>AISP</th></tr></thead>
+      <tbody>
+        <tr><th>Primary reader</th><td>A person</td><td>A single agent</td><td>A coordinating swarm</td></tr>
+        <tr><th>Dominant ambiguity source</th><td>Polysemy, vague adjectives, unstated assumptions</td><td>English keywords inside the structure</td><td>The machine underneath, not the language</td></tr>
+        <tr><th>Verifiable postconditions</th><td class="no">No</td><td>Stated, not enforced</td><td class="yes">Yes — entailment predicate</td></tr>
+        <tr><th>Readable without training</th><td class="yes">Yes</td><td class="yes">Mostly</td><td class="no">No — and isn't meant to be</td></tr>
+        <tr><th>Token cost</th><td>Highest</td><td>Moderate</td><td class="yes">Lowest per unit of meaning</td></tr>
+        <tr><th>Survives paraphrase</th><td class="no">No</td><td>Partly</td><td class="yes">Yes — substitution-invariant</td></tr>
+        <tr><th>Fails how</th><td>Silently, as a wrong interpretation</td><td>Silently, on keyword drift</td><td class="yes">Loudly — the predicate doesn't hold</td></tr>
+      </tbody>
+    </table>
+    </div>
+
+    <div class="note">
+      <b>Hand-maintained today, not generated.</b> Unlike this project's reports — which are a pure
+      function of a capture database and cannot drift by construction — these three documentation
+      layers are currently written and kept in sync by hand. That's a real difference worth stating
+      plainly rather than implying otherwise: hand-maintained parallel documentation can drift, and a
+      drifted machine-facing layer is worse than no machine-facing layer, because an agent will follow
+      it confidently. There is no generation pipeline or drift gate wired up for these three layers
+      today. If one gets added, this note is exactly where that would be disclosed.
+    </div>
+
+    <div class="try-it reg-wrap">
+      <h3>Try it: switch the register</h3>
+      <p class="lede" style="margin-top:10px;font-size:16px">Two real BAR Observatory behaviors,
+      shown in each of the three registers below. Click a tab — both examples switch together,
+      since the point is the register, not the specific instruction. (CSS-only — no JavaScript,
+      works in a static preview too.)</p>
+
+      <input type="radio" name="reg" id="reg-human" checked>
+      <input type="radio" name="reg" id="reg-ai">
+      <input type="radio" name="reg" id="reg-aisp">
+
+      <div class="reg-tabs-ui">
+        <label for="reg-human">Human</label>
+        <label for="reg-ai">AI</label>
+        <label for="reg-aisp">AISP</label>
+      </div>
+
+      <div class="reg-content">
+        <div class="reg-ex">
+          <span class="reg-ex-title">Example 1 — Initializing the database (real: <code>bar init</code>)</span>
+          <div class="reg-panel" data-reg="human">
+            <p>Set up <code>.bar/</code> for this project. Safe to run again — it will never erase
+            anything that's already there.</p>
+          </div>
+          <div class="reg-panel" data-reg="ai">
+<pre class="reg-code">PRECONDITION:
+  db == ".bar/ambient.sqlite"
+ACTION:
+  bar init --db-root .bar
+POSTCONDITION:
+  table_exists("telemetry_events")</pre>
+          </div>
+          <div class="reg-panel" data-reg="aisp">
+<pre class="reg-code">Spec(DB_Init):
+  S₀ —bar init→ S₁
+  where S₁ ⊢ ∃ Table("telemetry_events")</pre>
+          </div>
+        </div>
+
+        <div class="reg-ex">
+          <span class="reg-ex-title">Example 2 — Reporting a channel that wasn't captured (real: the <code>not_observed</code> rule)</span>
+          <div class="reg-panel" data-reg="human">
+            <p>If BAR didn't record a channel, it says so plainly — never a fake zero you might
+            mistake for a real measurement.</p>
+          </div>
+          <div class="reg-panel" data-reg="ai">
+<pre class="reg-code">PRECONDITION:
+  ¬observed(channel c)
+ACTION:
+  emit Fact for c
+POSTCONDITION:
+  Fact.absence == not_observed
+  Fact.value  == null   // never 0</pre>
+          </div>
+          <div class="reg-panel" data-reg="aisp">
+<pre class="reg-code">Absence≜{observed,not_observed}
+Fact≜Σ(v:Value)(a:Absence).(a≡not_observed⇒v≡∅)
+⊢∀f:Fact. f.a≡not_observed ⇒ f.v≢0
+;; 0 is unrepresentable under absence</pre>
+          </div>
+        </div>
+      </div>
+      <p class="fine">The AISP fragments above are illustrative, in the same notation style as
+      <a href="../aisp/HUB.aisp">wiki/aisp/HUB.aisp</a> — they demonstrate the register, they are not
+      themselves an entry in that file.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= THE RESIDUAL ================= -->
+<section id="residual">
+  <div class="wrap">
+    <p class="eyebrow">The residual</p>
+    <h2>What the last two points actually are.</h2>
+    <p class="lede" style="margin-top:18px">At the symbolic layer the semantic ambiguity approaches
+    zero — <code>∃</code>, <code>⊢</code>, and a state mapping have single non-subjective definitions,
+    and there is no adjective left to interpret. So what's left?</p>
+    <p class="lede">Not language. The residual comes from the machine the language runs on, and it
+    splits into two unrelated causes with very different outlooks.</p>
+
+    <div class="resid">
+      <div class="rz">
+        <span class="rz-n">Residual 01</span>
+        <h3>Inference non-determinism</h3>
+        <div class="rz-w">~1.0<small>OF 100 · ESTIMATED SHARE</small></div>
+        <p>Identical inputs to an identical model can produce different outputs, even at temperature
+        zero. Where the specification's meaning is fixed, the <i>generation</i> of a response to it
+        still varies at the systems level — token ordering around operators, whitespace, incidental
+        syntax.</p>
+      </div>
+      <div class="rz">
+        <span class="rz-n">Residual 02</span>
+        <h3>Environment boundary faults</h3>
+        <div class="rz-w">~0.8<small>OF 100 · ESTIMATED SHARE</small></div>
+        <p>A specification bounds a state transition, <code>S₀ → S₁ | S₁ ⊢ P</code>. It cannot bound
+        what happens <i>outside</i> its predicate space. An out-of-memory kill, a disk write timeout, a
+        kernel permission error — the agent meets a condition the spec never described, and must
+        improvise a fallback.</p>
+      </div>
+    </div>
+    <p class="fine">The 1.0 / 0.8 split is a modelled attribution, not a measured decomposition. It
+    apportions an observed total; it does not derive from separate experiments on each cause. Treat the
+    <i>ratio</i> as an argument about which cause dominates, not as a result.</p>
+
+    <h3 style="margin-top:56px">Residual 01, corrected: it isn't what most people think</h3>
+    <p class="muted" style="max-width:74ch">The standard explanation for temperature-zero
+    non-determinism is "floating-point addition isn't associative, and GPU threads finish in
+    non-deterministic order." That explanation is intuitive, widely repeated — and, as of the current
+    literature, <b>largely wrong</b>. It's worth stating correctly here, because getting it right makes
+    the AISP position <em>stronger</em>, not weaker.</p>
+    <p class="muted" style="max-width:74ch">The forward-pass kernels are in fact reproducible run to
+    run. You can check this yourself: multiply the same two matrices a thousand times on a GPU and the
+    results are bit-identical every time.</p>
+<pre><span class="c"># the "GPU concurrency causes chaos" hypothesis, tested directly</span>
+A = torch.randn(2048, 2048, device='cuda', dtype=torch.bfloat16)
+B = torch.randn(2048, 2048, device='cuda', dtype=torch.bfloat16)
+ref = torch.mm(A, B)
+for _ in range(1000):
+    assert (torch.mm(A, B) - ref).abs().max().item() == 0   <span class="g"># passes, 1000/1000</span></pre>
+    <p class="muted" style="max-width:74ch">The actual cause is <b>batch invariance failure</b>. A
+    serving engine continuously rebatches incoming requests: your prompt might run alone in one step
+    and alongside two others in the next. Reduction kernels tile their work according to the current
+    batch size, so a different batch means a different reduction tree, which means the same
+    floating-point values get summed in a different order. Your output depends on <i>who else was
+    querying the server at that moment</i> — which is why it looks random and isn't.</p>
+    <p class="muted" style="max-width:74ch">The measured effects are not marginal. A thousand identical
+    temperature-zero requests to a large open-weights model produced <b>80 distinct completions</b>,
+    diverging at around the hundredth token. Related work has documented accuracy swings of several
+    percent and large output-length gaps purely from changing GPU count or batch size.</p>
+
+    <div class="note green">
+      <b>Why this correction strengthens the argument.</b> If the residual were floating-point physics,
+      it would be a floor — irreducible, and a permanent ceiling on any claim of specification
+      determinism. It isn't. Batch invariance is a <b>missing property of kernels</b>, and it has been
+      fixed: batch-invariant implementations of matmul, RMSNorm, and attention produce bit-identical
+      outputs across a thousand repeated runs, and now ship as an open-source reference implementation
+      (linked below). The reported cost is throughput — roughly 61% overhead in the original
+      implementation, cut to about 34% once integrated with CUDA graphs.
+      <br><br>
+      So Residual 01 is not a law of nature. It is <b>a purchasable property</b>. On a deterministic
+      serving stack it approaches zero, and the honest form of the AISP claim becomes: <i>semantic
+      ambiguity is eliminated by the specification; generation variance is eliminated by the serving
+      configuration; what remains is Residual 02 alone.</i>
+    </div>
+
+    <h3 style="margin-top:56px">Residual 02: the part that stays</h3>
+    <p class="muted" style="max-width:74ch">Environment faults are a genuine boundary, and no
+    specification language closes them, because the fault occurs in a space the specification does not
+    describe. A predicate over database state says nothing about what to do when the kernel kills the
+    process mid-write.</p>
+    <p class="muted" style="max-width:74ch">What a good specification <em>can</em> do is make the
+    boundary explicit rather than implicit — declare the fault classes it does not cover, so that an
+    agent meeting one knows it has left the specified region instead of improvising inside it and
+    believing it complied. That converts an unbounded failure into a <b>detected</b> one.</p>
+    <p class="muted" style="max-width:74ch">This is precisely the same discipline as
+    <code>not_observed</code> in <a href="../../README.md#what-does-bar-observatory-not-see">BAR
+    Observatory's reporting layer</a>. In both cases the design rule is: <b>an unrepresented
+    condition must be visibly unrepresented</b>,
+    never silently filled in. A spec that quietly covers a fault it cannot really handle is the
+    documentation equivalent of reporting <code>$0.00</code> for a channel you never captured.</p>
+  </div>
+</section>
+
+<!-- ================= MEASUREMENT ================= -->
+<section id="measure">
+  <div class="wrap">
+    <p class="eyebrow">How to measure it</p>
+    <h2>Turning the estimate into a result.</h2>
+    <p class="lede" style="margin-top:18px">The 58 / 20 / 1.8 figures above are an analytical model.
+    They're defensible as a model — the ordering is certainly right and the magnitudes are plausible —
+    but they are not a measurement, and this section exists so that nobody has to take them as one.</p>
+    <p class="lede">The good news is that the measurement is well-defined and the literature has already
+    settled the metric. It is a run, not a research programme.</p>
+
+    <h3 style="margin-top:44px">The metric: semantic entropy over functional clusters</h3>
+    <p class="muted" style="max-width:74ch">Do not try to score ambiguity by inspecting the text.
+    Score it by <b>what the text causes</b>. Generate many implementations from the same instruction,
+    cluster them by functional equivalence rather than surface form, and take the entropy of the
+    cluster distribution. A single cluster means one interpretation: zero ambiguity. Many clusters of
+    similar mass means the instruction genuinely fans out.</p>
+    <div class="formula">SE(R) = − Σ<sub>y</sub> m<sub>≡</sub>(y | R) · log m<sub>≡</sub>(y | R) &nbsp;&nbsp;;&nbsp;&nbsp; ambiguous(R) ⟺ SE(R) &gt; 0</div>
+    <p class="muted" style="max-width:74ch">This follows the semantic-entropy family of uncertainty
+    metrics — scoring a generator by the entropy of <em>meaning clusters</em> in its outputs rather than
+    surface text — adapted here to code: an instruction counts as ambiguous when it yields more than
+    one functional-equivalence cluster of programs. It has the property you want: it is
+    <b>behavioural</b>, so it cannot be gamed by writing text that merely looks precise, and it produces
+    a continuous score rather than a verdict.</p>
+
+    <h3 style="margin-top:48px">The protocol</h3>
+    <ol class="steps-n">
+      <li><b>Fix a task set.</b> Draw <i>N</i> real instructions from this repository's own
+      documentation — ones that already exist in all three layers. Twenty is enough to be indicative;
+      a hundred is enough to publish.</li>
+      <li><b>Hold everything constant but the layer.</b> Same task, same model, same serving
+      configuration, same generation settings. The layer is the only independent variable. This is the
+      step most comparisons get wrong.</li>
+      <li><b>Generate <i>k</i> implementations per instruction per layer.</b> k = 20 is the common
+      choice; more is better and the cost is linear.</li>
+      <li><b>Cluster by functional equivalence, not text.</b> Run the generated programs against a
+      differential test suite; two outputs are the same cluster when no input distinguishes them.
+      Never cluster on string similarity — that measures phrasing, not meaning.</li>
+      <li><b>Compute semantic entropy per instruction, then aggregate per layer.</b> The result is
+      three distributions, which is a far stronger claim than three point scores.</li>
+      <li><b>Report the residual separately.</b> Run the same protocol on a batch-invariant serving
+      stack. The difference between the two runs <i>is</i> Residual 01, measured rather than
+      apportioned — which also settles the 1.0 / 0.8 split honestly.</li>
+      <li><b>Cross-vendor replication.</b> Repeat on three model families — see
+      <a href="https://github.com/bar181/aisp-open-core">aisp-open-core</a> for the author's
+      separate AISP research program, which follows the same cross-vendor discipline.</li>
+    </ol>
+
+    <div class="note">
+      <b>Off-the-shelf control.</b> A published benchmark of function-level tasks paired with
+      deliberately ambiguous requirement variants — covering lexical, syntactic, semantic, and vagueness
+      ambiguity — already exists, at roughly 1,300 tasks and 5,200 variants (linked below). Running
+      AISP-specified versions of those same tasks against the natural-language originals would produce
+      a comparison against an <b>independent, externally constructed</b> baseline rather than one of
+      your own design. That is the single highest-credibility experiment available here, and it is a
+      weekend of compute.
+    </div>
+
+    <h3 style="margin-top:48px">What a fair result would look like</h3>
+    <p class="muted" style="max-width:74ch">Stated in advance, because pre-registering the expectation
+    is what separates a measurement from a demonstration:</p>
+    <ul class="plain">
+      <li><b>Expected:</b> semantic entropy strictly ordered Human &gt; AI &gt; AISP across the task set, on every model family tested.</li>
+      <li><b>Expected:</b> AISP entropy at or near zero on a batch-invariant serving stack, and non-zero but small on a standard one.</li>
+      <li><b>Would falsify the strong claim:</b> AISP entropy indistinguishable from the AI layer — which would mean the structure, not the symbols, is doing the work.</li>
+      <li><b>Would falsify the residual model:</b> AISP entropy unchanged between standard and batch-invariant stacks — which would mean Residual 01 is misattributed.</li>
+      <li><b>Known confound:</b> models may have seen more prose than symbolic specs in training. Report per-family results; do not average the confound away.</li>
+    </ul>
+
+    <div class="note">
+      <b>Say the grade out loud.</b> Until that run exists, every per-layer number on this page should
+      carry the word <i>estimated</i>. Publishing a modelled figure as a measured one is the fastest way
+      to lose the argument to the first reader who asks how it was obtained — and the AISP result is
+      strong enough on its measured evidence that it does not need the borrowed authority.
+    </div>
+  </div>
+</section>
+
+<!-- ================= REFERENCES ================= -->
+<section id="refs">
+  <div class="wrap narrow">
+    <p class="eyebrow">References and provenance</p>
+    <h2>Where these claims come from.</h2>
+    <ul class="plain refs">
+      <li><b>Inference non-determinism and batch invariance</b> — Thinking Machines Lab,
+      <a href="https://thinkingmachines.ai/blog/defeating-nondeterminism-in-llm-inference/">"Defeating
+      Nondeterminism in LLM Inference"</a> (2025), and the accompanying
+      <a href="https://github.com/thinking-machines-lab/batch_invariant_ops">batch_invariant_ops</a>
+      reference implementation. Source of the 80-distinct-completions result, the
+      bit-identical-across-1,000-runs result, and the ~61% / ~34% overhead figures.</li>
+      <li><b>Ambiguity in requirements and its effect on code generation</b> — the four-type ambiguity
+      taxonomy (lexical, syntactic, semantic, vagueness) and the ~1,300-task / ~5,200-variant benchmark:
+      <a href="https://arxiv.org/html/2604.21505v1">"Assessing the Impact of Requirement Ambiguity on
+      LLM-based Function-Level Code Generation"</a>. The formal definition of ambiguity via functionally
+      divergent interpretations, and the finding that ambiguity degrades performance most on the most
+      capable models, follow the same line of work.</li>
+      <li><b>Semantic entropy as an uncertainty metric</b> — the general semantic-entropy family of
+      metrics that score a generator by the entropy of meaning-equivalence clusters rather than surface
+      text, adapted here from natural-language uncertainty estimation to functional-cluster entropy over
+      generated code. Cited by concept rather than a single paper; the protocol above is this
+      repository's own adaptation, not a reproduction of a specific published pipeline.</li>
+      <li><b>AISP's own measured results</b> — a separate, author-run research program has its own
+      measured evidence for its symbolic specification language. Not reproduced here, and no figure
+      from that program appears on this page — see
+      <a href="https://github.com/bar181/aisp-open-core">aisp-open-core</a> for the evidence itself.</li>
+      <li><b>Modelled, not measured</b> — the 58 / 20 / 1.8 per-layer scores and the 1.0 / 0.8 residual
+      split. Analytical estimates for this repository's documentation, pending the protocol in the
+      previous section.</li>
+    </ul>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap narrow">
+    <p><a href="../../index.html">← Back to the BAR Observatory site</a> ·
+    <a href="../agent/AI-CONTEXT.md">AI agent guide</a> · <a href="../human-md/architecture.md">Architecture</a> ·
+    <a href="report-guide.html">What's in a report</a></p>
+    <p class="disclaim">BAR Observatory is an independent open-source project by Bradley Ross
+    (Bradley.Academy) and is not affiliated with or endorsed by Anthropic. AISP is an AI-to-AI
+    symbolic protocol developed by the same author; within BAR Observatory it is a bounded annotation
+    layer on agent-facing surfaces and is never a runtime dependency. Figures on this page are labelled
+    as modelled or external, and should not be requoted without that label. AISP's own measured
+    results live in a separate program (aisp-open-core) and are not reproduced on this page.</p>
+  </div>
+</footer>
+
+</body>
+</html>

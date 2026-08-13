@@ -869,7 +869,7 @@
         "tool": "AskUserQuestion"
       }
     ],
-    "note": "Real failures captured from tool outputs: 25 error result(s) across 5 distinct tool(s), categorized (mcp / tool / unknown). Remediation: 1 MCP tool(s) failed (worst: search_ruvnet (MCP) ×9). A repeatedly-failing MCP server (e.g. a timing-out one) should be reached through its alternative front door — its CLI/RVF path — instead of the MCP (BAR ADR-021). This section surfaces both system failures (a tool or MCP not working) and coded errors so they are recorded, not silently dropped."
+    "note": "Real failures captured from tool outputs: 25 error result(s) across 5 distinct tool(s), categorized (mcp / tool / unknown). Remediation: 1 MCP tool(s) failed (worst: search_ruvnet (MCP) ×9). If a non-MCP path exists for a repeatedly-failing MCP server (e.g. a timing-out one), prefer it over retrying the same MCP call. This section surfaces both system failures (a tool or MCP not working) and coded errors so they are recorded, not silently dropped."
   },
   "observations": {
     "status": "not_observed",

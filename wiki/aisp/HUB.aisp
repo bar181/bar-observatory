@@ -4,6 +4,8 @@ BAR_OBSERVATORY{
  WHAT=local_only_deterministic_flight_recorder_for_claude_code_agent_sessions;
  DISTRIBUTION=crates_io_primary;
  INSTALL=cargo_install_bar-observatory;
+ PLUGIN=plugin_marketplace_add_bar181/bar-observatory_then_plugin_install_bar-observatory@bar-observatory;
+ SLASH_CMDS=[bar-init,bar-report,bar-interpret,bar-doctor,bar-query];
  CLI=bar;
  CLI_CMDS=[init,ingest,report,doctor,interpret,query];
  MCP=bar-mcp;
@@ -18,4 +20,7 @@ BAR_OBSERVATORY{
  CORE=[Task,Attempt,Loop,CompletionEvidence,Agent,Skill,HumanEvent,Validation,Rework,Observation,SilentSignal];
  INV=[missing!=0,claim!=correctness,interpretation!=fact,same_db-\>byte_identical_report];
  DOCS=github.com/bar181/bar-observatory;
+ WIKI=[README.md:nav_index,README.html:single_page_human_advanced_aisp,human-md/README.md:layer_1_human_tutorial,agent/AI-CONTEXT.md:layer_2_ai,aisp/HUB.aisp:layer_3_aisp_self,human-md/comparison.md,human-md/enterprise.md,human-md/architecture.md,human-html/documentation-layers.html:why_three_layers_plus_tab_switcher,human-html/report-guide.html:annotated_report_walkthrough,human-html/guides/guide-executive.html,human-html/guides/guide-junior-dev.html];
+ DOC_LAYERS_GENERATED=false;
+ DOC_LAYERS_NOTE=hand_maintained_today_not_generated_see_documentation-layers.html;
 }

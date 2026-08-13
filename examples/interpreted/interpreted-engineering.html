@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Interpreted report — engineering audience — BAR Observatory</title>
+<meta name="description" content="A real example of BAR Observatory's optional interpreted report, engineering audience: written from a deterministic brief, grounded only in captured facts.">
+<style>
+:root{
+  --paper:#E4E6E1; --card:#F3F4F1; --ink:#14181C; --ink-2:#4A5158;
+  --stamp:#8C2F2A; --verified:#1F5C4A; --absent:#8A8F8B;
+  --rule:#C8CCC5; --rule-2:#D9DCD6;
+  --display:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --body:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --mono:ui-monospace,"SFMono-Regular",Menlo,Consolas,monospace;
+  --wrap:820px;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--body);
+  font-size:17px;line-height:1.62;-webkit-font-smoothing:antialiased}
+.wrap{max-width:var(--wrap);margin:0 auto;padding:48px 24px 64px}
+h1,h2{font-family:var(--display);font-weight:800;letter-spacing:-.02em;margin:0}
+h1{font-size:clamp(28px,4vw,38px);margin-bottom:6px}
+h2{font-size:20px;margin:36px 0 14px}
+p{margin:0 0 1em;color:var(--ink-2)}
+a{color:var(--stamp)}
+code{font-family:var(--mono);font-size:.92em;background:var(--card);border:1px solid var(--rule-2);
+  padding:1px 5px;border-radius:2px}
+.tag{display:inline-block;font-family:var(--mono);font-size:11px;letter-spacing:.1em;
+  text-transform:uppercase;padding:4px 10px;border:1px solid var(--stamp);color:var(--stamp);
+  border-radius:2px;margin-bottom:16px}
+.disclaimer{background:var(--card);border-left:3px solid var(--stamp);padding:14px 18px;
+  font-size:14.5px;color:var(--ink-2);margin:20px 0 36px}
+.facts{background:var(--card);border:1px solid var(--rule-2);border-radius:3px;padding:18px 22px;
+  margin:18px 0;font-family:var(--mono);font-size:14px}
+.facts div{display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid var(--rule-2)}
+.facts div:last-child{border-bottom:0}
+.absent{color:var(--absent)}
+ul,ol{padding-left:22px;color:var(--ink-2)}
+li{margin-bottom:8px}
+footer{margin-top:48px;padding-top:24px;border-top:1px solid var(--rule);font-size:13.5px;color:var(--absent)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <span class="tag">Interpreted · Engineering audience</span>
+  <h1>Session summary</h1>
+  <p style="color:var(--absent);font-size:14px">bar interpret --audience engineering</p>
+
+  <div class="disclaimer">
+    This is the optional, LLM-written layer, written from the same underlying facts as the
+    executive version — different tone and depth, not different numbers. See
+    <a href="../../process/04-optional-modules.md">process/04</a> for the workflow. Nothing below
+    was invented beyond what the brief provided.
+  </div>
+
+  <h2>Executive synthesis</h2>
+  <p>413 tool calls across 1,153 transcript turns, 3 sub-agent dispatches, 18/22 tasks completed,
+  5 tool errors captured. Token and cost channels were not recorded — this was a transcript-only
+  ingest, no proxy capture running.</p>
+
+  <h2>What happened</h2>
+  <p>The session's shape: a moderate tool-call volume (413) relative to transcript length (1,153
+  turns), with work partially delegated (3 sub-agent dispatches rather than 0). 18 of 22 tracked
+  tasks reached a completed state; the deterministic layer doesn't further break down why the
+  remaining 4 didn't — that's a question for <code>bar query &lt;db&gt; --sql "SELECT title, state
+  FROM tasks WHERE state != 'completed'"</code> against the real database, not something this
+  brief's fact set answers.</p>
+
+  <h2>Failures &amp; remediation</h2>
+  <p>Real failures captured from tool outputs: 5 error result(s) across 2 distinct tool(s),
+  categorized (mcp / tool / unknown). This section surfaces both system failures (a tool or MCP
+  not working) and coded errors so they are recorded, not silently dropped.</p>
+
+  <h2>Rework hotspots</h2>
+  <p>Not available in this session's captured facts — the interpretation brief only carries the
+  seven top-line numbers below. For rework hotspots and per-file edit counts, read the
+  deterministic <code>report.json</code>'s own <code>rework</code> section directly rather than
+  the interpreted layer; that's where per-file detail actually lives.</p>
+
+  <h2>Validation</h2>
+  <p>Not in this brief's fact set either. <code>bar doctor &lt;db&gt;</code> and the deterministic
+  report's <code>validation</code> section are the source for test-pass/fail counts — the
+  interpreted layer summarizes, it doesn't duplicate every deterministic field.</p>
+
+  <h2>Concrete next steps</h2>
+  <ol>
+    <li>Query the 4 non-completed tasks directly: <code>bar query &lt;db&gt; --sql "SELECT title,
+    state FROM tasks WHERE state != 'completed'"</code> — confirm whether they're genuinely open
+    or safely superseded.</li>
+    <li>Pull the 5 error rows with <code>bar query &lt;db&gt; errors</code> and check whether any
+    share a root cause.</li>
+    <li>If cost/token accountability matters for sessions like this one going forward, enable the
+    proxy capture module so the next report doesn't read "not recorded" for both channels.</li>
+  </ol>
+
+  <h2>Confidence / caveats</h2>
+  <div class="facts">
+    <div><span>Transcript turns</span><span>1,153</span></div>
+    <div><span>Tool calls</span><span>413</span></div>
+    <div><span>Tasks (total / completed)</span><span>22 / 18</span></div>
+    <div><span>Sub-agent dispatches</span><span>3</span></div>
+    <div><span>Errors</span><span>5</span></div>
+    <div><span>Tokens total</span><span class="absent">not recorded</span></div>
+    <div><span>API-cost equivalent</span><span class="absent">not recorded</span></div>
+  </div>
+  <p style="margin-top:14px">This is the complete fact set the brief provided — the interpreted
+  layer is deliberately narrower than the full deterministic report. For rework hotspots,
+  per-tool breakdowns, and validation detail, read <code>report.json</code> directly.</p>
+
+  <footer>
+    Real brief this report was written from: <a href="interpret-brief.engineering.md">interpret-brief.engineering.md</a>.
+    Deterministic report with the full field-level detail this brief deliberately omits:
+    <a href="../deterministic/real-session.report.html">examples/deterministic/</a>.
+  </footer>
+</div>
+</body>
+</html>

@@ -166,14 +166,10 @@ product_expansion = "Base Agentic Reporter"
 creator_name = "Bradley Ross"
 studio_name = "Bradley.Academy"
 repository_url = "https://github.com/bar181/bar-observatory"
-# Fixes D-13 (human-specs/01-inital-plan-review.md): these three were unresolved
-# "<...>" placeholders inside a file this same phase declares frozen. linkedin_url is
-# now a verified fact (matches upstream/aisp's own README byline, cross-checked live
-# against github.com/bar181/aisp-open-core, 2026-07-30). documentation_url and
-# personal_website_url are genuinely undecided (docs.rs vs repo README; no confirmed
-# personal/studio site URL) — flagged "TBD" rather than invented, and verify.sh's
-# placeholder check now only fails on literal "<...>" so these no longer trip it
-# while staying visibly unresolved. See bar-obs-private/OPEN-QUESTIONS-AND-ASSUMPTIONS-2026-07-30.md.
+# linkedin_url is a verified, live fact (cross-checked against the author's public GitHub
+# profile). documentation_url and personal_website_url are genuinely undecided (docs.rs vs repo
+# README; no confirmed personal/studio site URL yet) — flagged "TBD" rather than invented, and
+# left visibly unresolved rather than silently filled in.
 documentation_url = "TBD"
 linkedin_url = "https://linkedin.com/in/bradaross"
 personal_website_url = "TBD"

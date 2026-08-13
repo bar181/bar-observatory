@@ -1,0 +1,18 @@
+{
+  "name": "bar-observatory",
+  "owner": { "name": "bar181", "email": "bar181@yahoo.com" },
+  "metadata": {
+    "description": "BAR Observatory — a local-only, deterministic flight recorder for Claude Code agent sessions."
+  },
+  "plugins": [
+    {
+      "name": "bar-observatory",
+      "source": "./",
+      "description": "Wires all 21 lifecycle hooks and the read-only bar-mcp query server automatically, and adds five slash commands (/bar-init, /bar-report, /bar-interpret, /bar-doctor, /bar-query).",
+      "version": "0.1.0",
+      "author": { "name": "bar181", "email": "bar181@yahoo.com" },
+      "homepage": "https://github.com/bar181/bar-observatory",
+      "license": "MIT"
+    }
+  ]
+}

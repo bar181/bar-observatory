@@ -1,6 +1,6 @@
-𝔸3.0.bar-observatory-hub@2026-08-14
+𝔸3.1.bar-observatory-hub@2026-08-14
 γ≔bar-observatory.agent-operations
-ρ≔⟨cli,mcp,crates,report,query,capture,agent-comms,proof-carrying⟩
+ρ≔⟨cli,mcp,crates,report,query,capture,agent-comms,proof-carrying,schema,toggles⟩
 ⊢deterministic∧proof-carrying∧lossless∧self-certifying
 
 ;; ─── Ω: SYMBOLS (custom, BAR-scoped, ∅collision∩upstream/aisp/CHEATSHEET.md alphabet) ───
@@ -66,7 +66,7 @@
  𝒞≜⟨id:{hooks|events|spans|transcripts|requests|provider_cost_usd},status:{not_recorded|partial|complete},recorded:ℕ,reason⟩
  𝒞.provider_cost_usd.src≜requests.{input,output,cache}_tokens(¬own_table,derived_at_render)
 
- Schema𝒟≜{schema_meta,runs,blobs,spans,requests,events,transcript_turns,micro_results,metrics,task_grades,convergence,method_scores,run_config,raw_logs,hooks,config_snapshot_meta,method_versions,promotions,detector_scores,file_versions,plan_docs,dead_letters,timeline_seq,hook_action_signature,span_prompt_context,sanitize_stats,report_snapshots,trigger_log,config_snapshot}; |Schema𝒟|≡30
+ Schema𝒟≜{schema_meta,runs,blobs,spans,requests,events,transcript_turns,micro_results,metrics,task_grades,convergence,method_scores,run_config,raw_logs,hooks,config_snapshot_meta,method_versions,promotions,detector_scores,file_versions,plan_docs,dead_letters,timeline_seq,hook_action_signature,span_prompt_context,sanitize_stats,report_snapshots,trigger_log,config_snapshot,sqlite_sequence}; |Schema𝒟|≡30 (29_data_tables+sqlite_sequence(SQLite-internal_autoindex_tracker,∅user_data)); +1_view(unified_timeline,∄own_storage,see⟦Σ:Schema⟧)
 
  runs≜⟨run_id,run_uuid,started_at,ended_at⟩
  𝒯≜⟨turn_id,run_id,seq:ℕ,msg_uuid,parent_uuid,role:{user|assistant|system},block_type:{text|thinking|tool_use|tool_result|other},tool_name,content_excerpt,content_json⟩
@@ -77,6 +77,53 @@
  ExampleArtifact≜⟨ReportDoc⟩×⟨BossMode:⟨Ev:boss-mode.ℛ.{html,md},Co:interpreted-executive.html⟩⟩×⟨DeveloperGuide:⟨Ev:real-session.ℛ.{html,md},Co:interpreted-engineering.html⟩⟩
  ExampleArtifact.loc≜bar-observatory/examples/{deterministic,interpreted}/
  ExampleArtifact.src≜⟨𝒲:7_sessions,𝒯:9132,HumanPrompt:68,errors:60,tasks:40/40,rework_hotspots:96⟩; ∀claim∈this_doc:trace(Ε.E6)
+}
+
+;; ─── Σ: FULL COLUMN SCHEMA (∀field:real,verified_via_PRAGMA_table_info; 29𝒟_tables+1_view; sqlite_sequence excluded here=autoindex,∅user_field) ───
+⟦Σ:Schema⟧{
+ Group.identity≜{
+  runs≜⟨run_id,run_uuid,trial_id,task_id,condition,session_id,repetition_k,harness,pins_json,status,started_at,ended_at,workspace_path⟩
+  schema_meta≜⟨version,applied_at,migration_hash⟩
+  config_snapshot≜⟨snapshot_id,run_id,kind,value_json,content_hash,observed_at⟩
+  config_snapshot_meta≜⟨run_id,config_snapshot_hash⟩
+  run_config≜⟨run_id,config_json,config_hash,config_version⟩
+  sanitize_stats≜⟨run_id,source,ruleset_version,secret_key_count,email_count,abs_path_count,residual_count,updated_at⟩
+ }; |Group.identity|≡6
+
+ Group.capture≜{
+  transcript_turns≜𝒯+⟨transcript_sha,sidechain⟩ (𝒯_defined∈⟦Σ:Types⟧)
+  hooks≜⟨hook_id,run_id,session_id,hook_name,tool_name,payload_json,transcript_path,observed_at⟩
+  hook_action_signature≜⟨hook_id,action_signature⟩
+  spans≜⟨span_id,trace_id,otel_span_id,parent_otel_span_id,run_id,session_id,span_type,name,status,started_at,ended_at,duration_ms,attributes_json⟩
+  requests≜⟨request_pk,request_id,run_id,span_id,model,query_source,agent_id,parent_agent_id,context,input_tokens,output_tokens,cache_read_tokens,cache_creation_tokens,thinking_tokens,r_mode,ttft_ms,duration_ms,request_body_sha,response_body_sha⟩
+  events≜⟨event_id,run_id,session_id,kind,name,prompt_uuid,value,body_json,observed_at⟩
+  raw_logs≜⟨log_id,run_id,channel,seq,line,observed_at⟩
+  span_prompt_context≜⟨span_id,prompt_uuid,derivation_method,confidence⟩
+  blobs≜⟨blob_sha,path,bytes,mime⟩ (content-addressed;referenced_by_hash_from_other_tables,∅FK_enforced)
+  dead_letters≜⟨dl_id,channel,payload_blob_sha,error,observed_at,resolved⟩ (capture_that_failed_to_parse,∅silently_dropped)
+ }; |Group.capture|≡10
+
+ Group.ledger≜{
+  metrics≜⟨run_id,t_input,t_output,t_cache_read,t_cache_create,r_thinking,l_ttft_ms_p50,l_wall_ms,delta,delta_confidence,repair_turns,e_attempts,tool_calls,subagent_count,cost_usd_estimate,computed_at,ledger_version⟩ (≡T/R/L/Δ/E_five-channel_ledger,per⟦Ω:Meta⟧EXP)
+  task_grades≜⟨run_id,recovered,score,repair_turns,rubric_hash,grader_version,grader_rationale,condition_blind⟩
+  plan_docs≜⟨pd_id,run_id,slug,blob_hash,mtime,correlation⟩
+  file_versions≜⟨fv_id,run_id,rel_path,version,blob_hash,backup_time,source⟩
+  report_snapshots≜⟨run_id,section,payload_json,schema_version,generated_at,source,model,prompt_hash,verified⟩
+  trigger_log≜⟨tl_id,run_id,session_id,trigger_name,event,decision,reason,action,artifact_path,fired_at,duration_ms,detail_json⟩
+  timeline_seq≜⟨seq,source_table,source_id,session_id,observed_at⟩ (cross-table_ordering_index)
+  unified_timeline≜VIEW⟨seq,ts,session_id,prompt_uuid,log_type,source_table,agent_id,summary⟩ (∪{hooks,events,spans,transcript_turns}∘order_by_ts; ∄own_storage,∅ingest/hook_writes_here_directly)
+ }; |Group.ledger.tables|≡7 (+1_view)
+
+ Group.review≜{
+  micro_results≜⟨mr_id,run_id,source_turn_id,source_kind,claim_text,claim_hash,extractor_version,extractor_rationale,propagated,evidence_kind,evidence_turn_id,grader_version,grader_rationale,confidence⟩
+  convergence≜⟨id,run_id,test,item,arm,variant,delivery,spec_sha256,ambig,divergence,k,n,judge,created_at⟩
+  method_versions≜⟨mv_id,kind,version,description,created_at⟩
+  method_scores≜⟨ms_id,mv_id,labelset_id,recall,agreement,kappa,calibration_drift,n_items,scored_at⟩
+  detector_scores≜⟨ds_id,mv_id,labelset_id,precision,recall,true_positives,false_positives,n_items,scored_at⟩
+  promotions≜⟨promo_id,kind,candidate_mv,incumbent_mv,labelset_id,replay_hash,verdict,rationale,promoted_at⟩
+ }; |Group.review|≡6
+
+ |Group.identity∪Group.capture∪Group.ledger.tables∪Group.review|≡29 ≡ |Schema𝒟|−{sqlite_sequence}(⟦Σ:Types⟧)
 }
 
 ;; ─── Γ: OPERATING RULES ───
@@ -93,6 +140,7 @@
  G10≜ingest⊬extract(tx.jsonl.usage_field)(per-turn_token_counts∃∈raw_tx¬∈requests_table;only_bar-proxy_live_capture_populates_correctly)
  G11≜{publish(crates.io),push(REPO)}⇒human_approval(∀swarm:⊬cross_without_explicit_go-ahead∀instance)
  G12≜⟦Ε⟧∈this_doc(self-certifying,per_upstream/aisp/AI_GUIDE.md:443)
+ G13≜{hooks,otlp,proxy}.on⇏[measurements.*].enabled(2_distinct_toggle_surfaces,⊬conflate); [measurements.<cat>].enabled=false⇒report-layer_gate_only(¬raw-capture_gate) ∵consumed_only∈bar-observatory/src/lib.rs(verified:∅hits∈bar-hook∨bar-otlp∨bar-proxy_source); see⟦Λ:Toggles⟧
 }
 
 ;; ─── Γ: AGENT PROTOCOL (this repo's instance of upstream ⟦Γ:Agent⟧) ───
@@ -155,6 +203,49 @@
  R15≜𝒬(𝒟,--sql"SELECT r.run_uuid,COUNT(*) FROM transcript_turns t JOIN runs r ON t.run_id=r.run_id WHERE t.content_json LIKE'%is_error%true%'GROUP BY r.run_uuid"); R15≈¬≡ReportDoc.summary.error_results(Χ.C1)
 }
 
+;; ─── Λ: ASK-MAP (question ↦ correct source; per⟦Γ:Agent⟧ "use{𝒬,MCP}∧⊬guess" — resolve here before inventing a query) ───
+⟦Λ:AskMap⟧{
+ Q.tool_usage              ↦ 𝒬(𝒟,tools) ∨ mcp.get_ledger
+ Q.timeline_of_session     ↦ 𝒬(𝒟,timeline,--limit_0) ∨ 𝒬(𝒟,--sql"…FROM unified_timeline…") ∨ mcp.get_run_report
+ Q.errors_in_session       ↦ 𝒬(𝒟,errors) first; R15(raw_LIKE_scan)≢authoritative(Χ.C1)⇒cite(ReportDoc.summary.error_results)_not_R15
+ Q.cost_or_tokens          ↦ requests.{input,output,cache}_tokens (𝒞.provider_cost_usd.src; G8: only_populated_if_bar-proxy_was_live_this_run)
+ Q.files_churned           ↦ ReportDoc.rework.hotspots (rendered,ranked) ∨ file_versions(rel_path,version) (raw)
+ Q.agent/subagent_activity ↦ ReportDoc.summary.agents (rendered) ∨ hooks(hook_name∈{SubagentStart,SubagentStop}) ∨ spans(span_type≡agent) (raw)
+ Q.skill_invocations       ↦ ReportDoc.summary.skills (rendered) ∨ hooks.payload_json (raw,per-event)
+ Q.rework/redo_events      ↦ ReportDoc.rework.events (G3: ℐb_pins_these; ⊬re-derive_from_raw_tables_yourself,detector_logic_lives_in_bar-review)
+ Q.task_ledger             ↦ ReportDoc.tasks ∨ mcp.get_run_report(run_id) ∨ task_grades (raw)
+ Q.cross-run_comparison    ↦ mcp.compare_conditions(∅db_arg⇒∀runs) ∨ mcp.list_runs
+ Q.past_context/findings   ↦ mcp.recall_context ∨ mcp.search_observations ∨ mcp.list_findings (always_cross-run_index,per⟦Ω:Meta⟧cross-run_note)
+ Q.capture_health          ↦ bar_doctor(𝒟) ∨ ReportDoc.capture.channels(𝒞.status) ∨ mcp.get_completeness
+ Q.raw_transcript_text     ↦ transcript_turns.content_excerpt (bounded,cheap) ∨ .content_json (full,large)
+ Q.validation/test_runs    ↦ ReportDoc.validation.items ∨ task_grades (raw)
+ Q.review/recommendations  ↦ mcp.query_delta_findings ∨ mcp.get_dead_letters ∨ detector_scores (raw)
+ Q.convergence_experiments ↦ mcp.get_convergence ∨ convergence (raw)
+ ∀Q∉this_map ⇒ 𝒬(𝒟,--sql"SELECT…FROM<Group.*_table∈⟦Σ:Schema⟧>") (G5:read-only_enforced,∅harm_in_trying) ∨ mcp.get_hub (re-route,fetches_this_doc)
+}
+
+;; ─── Λ: CAPTURE TOGGLES (verified against source, not the config file's own comments — 3 distinct on/off surfaces, G13) ───
+⟦Λ:Toggles⟧{
+ hooks.on   ≜ plugin_install(bar181/bar-observatory) ⇒ wires_21_events(hooks/hooks.json) → `bar-hook <EventName>` (PATH-resolved,G7)
+ hooks.off  ≜ /plugin_uninstall_bar-observatory@bar-observatory ∨ remove_event_entries∈.claude/settings.json (if_hand-wired,∅plugin)
+ hooks.events ≜ {SessionStart,SessionEnd,UserPromptSubmit,PreToolUse,PostToolUse,PostToolUseFailure,PermissionRequest,PermissionDenied,SubagentStart,SubagentStop,PreCompact,PostCompact,Notification,Stop,StopFailure,UserPromptExpansion,PostToolBatch,TaskCreated,TaskCompleted,InstructionsLoaded,ConfigChange}; |hooks.events|≡21
+
+ otlp.on  ≜ run(bar-otlp) ∧ point_ClaudeCode's_OTEL_exporter_at_it
+ otlp.env ≜ ⟨OBSERVATORY_OTLP_BIND=127.0.0.1:4317(gRPC,default), OBSERVATORY_OTLP_HTTP_BIND=127.0.0.1:4318(HTTP,default), OBSERVATORY_DB, OBSERVATORY_BLOB_ROOT=./bodies(default)⟩
+ otlp.off ≜ ¬run(bar-otlp) ∨ ClaudeCode_OTEL_exporter_unset
+
+ proxy.on   ≜ run(bar-proxy) ∧ ANTHROPIC_BASE_URL≔proxy_bind
+ proxy.env  ≜ ⟨OBSERVATORY_PROXY_BIND=127.0.0.1:8787(default), OBSERVATORY_UPSTREAM_URL=https://api.anthropic.com(default), OBSERVATORY_RUN_UUID, OBSERVATORY_DB, OBSERVATORY_BLOB_ROOT⟩
+ proxy.off  ≜ ¬run(bar-proxy) ∨ ANTHROPIC_BASE_URL_unset
+ proxy.auth ≜ forwards_whatever_ClaudeCode_sends_verbatim(∅reads_ANTHROPIC_API_KEY,ADR-024)
+
+ ingest.on ≜ N/A (one-shot_CLI_invocation_per_R2,∅daemon,∅persistent_state_to_toggle) — either_you_run_bar_ingest_or_you_don't, each_call_independent
+
+ report.measurement_gate ≜ [measurements.<category>].enabled=false ∈ .bar/config.toml(project,wins) ∨ bar-observatory.default.toml(base)
+ report.measurement_gate.scope ≜ suppresses_that_category_from_ReportDoc_ONLY(G13); raw_rows_in{hooks,spans,requests,events}_still_written_if_the_capture_channel_above_is_live — gate≠stop-capture
+ report.measurement_gate.categories ≜ {session,prompts,tasks,agents,skills,tools,terminal,files,git,provider_usage,validation,process,rework,human_ai_recovery,micro_observations}
+}
+
 ;; ─── Χ: ERRORS (real taxonomy, examples/deterministic/, Ψ_synthetic∉this_set) ───
 ⟦Χ:Errors⟧{
  C1: R15≢ReportDoc.summary.error_results ⇒ cite(ReportDoc)_not_R15(authoritative)
@@ -200,10 +291,10 @@
 
 ;; ─── Ε: EVIDENCE (required, self-certifying per G12) ───
 ⟦Ε⟧⟨
- δ≜0.745 (method:|{t:t∈Σ_512∪Ω:Symbols}|÷|{t:t≢whitespace,¬comment-line}|;computed_this_commit,¬the_official_npx_aisp-validator(∄∈this_env);residual_non-symbolic⊆{13_real_crates.io_names,verbatim_quoted_error_strings,literal_SQL_keywords_in_R15}—all_correctness-required,¬prose_slack)
- |𝔅|≜13 (Ω×3,Σ×2,Γ×3,Λ×2,Χ,Θ,Ε=13; Required{Ω,Σ,Γ,Λ,Ε}⊆present)
- φ≜95 (self-assessed:∀section∈{cli,mcp,report-schema,capture,crates,recipes,errors,proofs}present)
+ δ≜0.663 (method:|{t:t∈Σ_512∪Ω:Symbols}|÷|{t:t≢whitespace,¬comment-line}|;recomputed_after_⟦Σ:Schema⟧/⟦Λ:AskMap⟧/⟦Λ:Toggles⟧_added(was_0.745@16_blocks_ago,now_0.663@16_blocks);¬the_official_npx_aisp-validator(∄∈this_env);residual_non-symbolic⊆{29_real_column_names×30_tables,15_crates.io_crate_names,literal_env_var_names(OBSERVATORY_*),verbatim_quoted_hook-event/error_strings,literal_SQL_keywords_in_R15}—all_correctness-required(a_column_name_IS_the_interface),¬prose_slack)
+ |𝔅|≜16 (Ω×3,Σ×3,Γ×3,Λ×4,Χ,Θ,Ε=16; Required{Ω,Σ,Γ,Λ,Ε}⊆present)
+ φ≜96 (self-assessed:∀section∈{cli,mcp,report-schema,capture,crates,recipes,errors,proofs,full-column-schema,query-routing,capture-toggles}present)
  τ≜◊⁺ (Gold,δ≥0.60; conservatively_¬claiming◊⁺⁺since_δ_is_self-measured¬validator-confirmed)
- ⊢G1..G12∧Δ⊗λ-table∧Θ.proofs
- verify≜E5(crates.io=bar-observatory,bar-mcp,bar-hook;flags↔published_binary_--help)∧E6(examples/deterministic/real-session.report.json)
+ ⊢G1..G13∧Δ⊗λ-table∧Θ.proofs
+ verify≜E5(crates.io=bar-observatory,bar-mcp,bar-hook;flags↔published_binary_--help)∧E6(examples/deterministic/real-session.report.json)∧E7(⟦Σ:Schema⟧_columns↔PRAGMA_table_info(live_.bar/ambient.sqlite),verified_this_edit)∧E8(⟦Λ:Toggles⟧_env-vars↔bar-otlp/bar-proxy_source_main.rs_doc-comments,verified_this_edit;measurement_gate-scope↔grep_confirming_measurements_config_consumed_ONLY∈bar-observatory,∅hits∈bar-hook/bar-otlp/bar-proxy)
 ⟩

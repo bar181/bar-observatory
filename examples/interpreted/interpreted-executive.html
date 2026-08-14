@@ -8,42 +8,42 @@
 <style>
 :root{
   --bg:#E4E6E1; --paper:#F3F4F1; --card:#F3F4F1; --ink:#14181C; --ink-2:#4A5158; --muted:#8A8F8B;
-  --line:#C8CCC5; --line-2:#D9DCD6; --brand:#8C2F2A; --brand2:#6b2420;
+  --line:#C8CCC5; --line-2:#D9DCD6; --brand:#8C2F2A; --brand2:#6b2420; --llm:#6847e8;
   --good:#1F5C4A; --warn:#8a5a1f; --absent:#8A8F8B;
   --shadow:0 16px 40px rgba(29,24,20,.08);
   --body:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
 }
 [data-theme=dark]{
   --bg:#14181a; --paper:#1c2124; --card:#20262a; --ink:#e8e6e1; --ink-2:#cfd4dd; --muted:#8f897f;
-  --line:#33322e; --line-2:#2a2824; --brand:#c9615a; --brand2:#a51c30;
+  --line:#33322e; --line-2:#2a2824; --brand:#c9615a; --brand2:#a51c30; --llm:#aa94ff;
   --good:#4fae8c; --warn:#c99a5a; --absent:#8f897f;
   --shadow:0 16px 40px rgba(0,0,0,.3);
 }
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.62;-webkit-font-smoothing:antialiased}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.62;-webkit-font-smoothing:antialiased;border-top:6px solid var(--llm)}
 .wrap{max-width:900px;margin:0 auto;padding:44px 24px 72px}
 h1{font-weight:800;letter-spacing:-.01em;margin:0;font-size:clamp(28px,4.4vw,40px);margin-bottom:6px}
-h2{font-weight:900;letter-spacing:-.015em;margin:46px 0 6px;font-size:clamp(24px,3.4vw,30px);color:var(--brand);
-   padding-bottom:10px;border-bottom:3px solid var(--brand)}
+h2{font-weight:900;letter-spacing:-.015em;margin:46px 0 6px;font-size:clamp(24px,3.4vw,30px);color:var(--llm);
+   padding-bottom:10px;border-bottom:3px solid var(--llm)}
 .explainer{font-size:14.5px;color:var(--muted);margin:0 0 16px;max-width:64ch}
 p{margin:0 0 1em;color:var(--ink-2)}
-a{color:var(--brand)}
+a{color:var(--llm)}
 .tags{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
 .tag{display:inline-block;font-family:ui-monospace,monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;padding:4px 10px;border-radius:2px}
 .tag.who{border:1px solid var(--brand);color:var(--brand)}
-.tag.mode{background:color-mix(in srgb,var(--brand) 12%,transparent);color:var(--brand);border:1px solid var(--brand)}
+.tag.mode{background:color-mix(in srgb,var(--llm) 14%,transparent);color:var(--llm);border:1px solid var(--llm)}
 .controls{position:fixed;right:16px;top:16px}
 .controls button{border:1px solid var(--line);background:var(--paper);color:var(--ink);padding:7px 11px;border-radius:9px;cursor:pointer;font-size:12px}
-.disclaimer{background:var(--card);border-left:3px solid var(--brand);padding:14px 18px;font-size:14px;color:var(--ink-2);margin:18px 0 8px;border-radius:0 8px 8px 0}
-.hero{background:var(--paper);border:1px solid var(--line-2);border-radius:16px;box-shadow:var(--shadow);padding:26px 28px;margin:18px 0 8px}
+.disclaimer{background:var(--card);border-left:3px solid var(--llm);padding:14px 18px;font-size:14px;color:var(--ink-2);margin:18px 0 8px;border-radius:0 8px 8px 0}
+.hero{background:var(--paper);border:1px solid var(--line-2);border-left:4px solid var(--llm);border-radius:16px;box-shadow:var(--shadow);padding:26px 28px;margin:18px 0 8px}
 .hero p{font-size:17px;color:var(--ink);margin:0}
 .card{background:var(--paper);border:1px solid var(--line-2);border-radius:14px;padding:18px 20px;box-shadow:var(--shadow);margin:10px 0}
 ul,ol{padding-left:20px;color:var(--ink-2);margin:0}
 li{margin-bottom:9px}
 .decide{border-left:4px solid var(--warn);background:var(--card);padding:14px 18px;border-radius:0 8px 8px 0;margin:12px 0}
-.watch{border-left:4px solid var(--brand);background:var(--card);padding:14px 18px;border-radius:0 8px 8px 0;margin:12px 0}
+.watch{border-left:4px solid var(--llm);background:var(--card);padding:14px 18px;border-radius:0 8px 8px 0;margin:12px 0}
 footer{margin-top:44px;padding-top:20px;border-top:1px solid var(--line);font-size:13px;color:var(--muted)}
-.eyebrow{font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--brand);margin:3rem 0 2px;display:flex;align-items:center;gap:10px}
+.eyebrow{font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--llm);margin:3rem 0 2px;display:flex;align-items:center;gap:10px}
 .eyebrow::after{content:"";height:1px;flex:1;background:var(--line)}
 .eyebrow + h2{margin-top:4px}
 </style>
@@ -53,14 +53,16 @@ footer{margin-top:44px;padding-top:20px;border-top:1px solid var(--line);font-si
 <div class="wrap">
   <div class="tags"><span class="tag who">Boss Mode · Executive / client</span><span class="tag mode">Commentary · optional LLM synthesis</span></div>
   <h1>Management summary</h1>
-  <p style="color:var(--absent);font-size:13.5px">7 sessions · 2026-07-31 → 2026-08-13</p>
+  <p style="color:var(--absent);font-size:13.5px">7 sessions · 2026-08-01 → 2026-08-14</p>
 
   <div class="disclaimer">
     This is narrative <b>commentary on</b> the evidence in
     <a href="../deterministic/boss-mode.report.html">boss-mode.report.html</a> — an LLM's reading of what the
     numbers mean, not a new source of numbers. Every figure below traces to that page (and, behind
     it, to <a href="../deterministic/real-session.report.json">real-session.report.json</a>); nothing here is invented. Switch the LLM off
-    and the evidence page is untouched.
+    and the evidence page is untouched. <b>Every heading and link on this page is violet, not
+    crimson</b> — that color carries through the whole page as a reminder you're reading AI prose,
+    not the deterministic Evidence page it's built from.
   </div>
 
   <div class="hero">

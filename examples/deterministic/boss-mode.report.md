@@ -1,11 +1,11 @@
 # Boss Mode — Evidence
 
-**Executive / client · deterministic · $0.00** · 7 sessions · 2026-07-31 → 2026-08-13 · report `barobs-96ad36b19f55`
+**Executive / client · deterministic · cost not tracked** · 7 sessions · 2026-08-01 → 2026-08-14 · report `barobs-96ad36b19f55`
 
 > This page is not written by an AI. It is a mechanical extraction of the fields in `real-session.report.json`
 > (plus raw transcript queries for commits/prompts/language breakdown — all mechanical, zero LLM)
 > — no wording is composed, no judgment is applied, no number is estimated. For the narrative read
-> on these same numbers, see `boss-mode-commentary.md`.
+> on these same numbers, see [interpreted-executive.html](../interpreted/interpreted-executive.html).
 
 ## What was delivered
 
@@ -15,7 +15,7 @@
 |---|---:|
 | Tasks completed | 40 / 40 (100%) |
 | Sessions covered | 7 |
-| Date range | 2026-07-31 → 2026-08-13 |
+| Date range | 2026-08-01 → 2026-08-14 |
 | Human prompts sent | 68 |
 | Real commits landed | 47 |
 | Work items delegated to sub-agents | 40 |

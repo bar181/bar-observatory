@@ -21,24 +21,24 @@
   --shadow:0 16px 40px rgba(0,0,0,.32);
 }
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15.5px;line-height:1.6;-webkit-font-smoothing:antialiased}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15.5px;line-height:1.6;-webkit-font-smoothing:antialiased;border-top:6px solid var(--violet)}
 .wrap{max-width:980px;margin:0 auto;padding:40px 24px 72px}
 h1,h2,h3{font-weight:800;letter-spacing:-.01em;margin:0}
 h1{font-size:clamp(26px,4vw,36px);margin-bottom:6px}
-h2{font-size:1.7rem;font-weight:900;letter-spacing:-.01em;margin:46px 0 6px;padding-bottom:10px;border-bottom:3px solid var(--crimson)}
+h2{font-size:1.7rem;font-weight:900;letter-spacing:-.01em;margin:46px 0 6px;padding-bottom:10px;border-bottom:3px solid var(--violet)}
 h2:first-of-type{margin-top:0}
 .explainer{font-size:.92rem;color:var(--muted);margin:0 0 14px;max-width:66ch}
 h3{font-size:14.5px;margin:16px 0 6px;color:var(--ink-2)}
 p{margin:0 0 1em;color:var(--ink-2)}
-a{color:var(--crimson)}
+a{color:var(--violet)}
 code{font-family:var(--mono);font-size:.9em;background:var(--card);border:1px solid var(--line-2);padding:1px 5px;border-radius:3px}
 .tags{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
 .tag{display:inline-block;font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;padding:4px 10px;border-radius:2px}
 .tag.who{border:1px solid var(--crimson);color:var(--crimson)}
-.tag.mode{background:color-mix(in srgb,var(--crimson) 12%,transparent);color:var(--crimson);border:1px solid var(--crimson)}
+.tag.mode{background:color-mix(in srgb,var(--violet) 14%,transparent);color:var(--violet);border:1px solid var(--violet)}
 .controls{position:fixed;right:16px;top:16px}
 .controls button{border:1px solid var(--line);background:var(--paper);color:var(--ink);padding:7px 11px;border-radius:9px;cursor:pointer;font-size:12px}
-.disclaimer{background:var(--card);border-left:3px solid var(--crimson);padding:14px 18px;font-size:14px;color:var(--ink-2);margin:18px 0 10px;border-radius:0 8px 8px 0}
+.disclaimer{background:var(--card);border-left:3px solid var(--violet);padding:14px 18px;font-size:14px;color:var(--ink-2);margin:18px 0 10px;border-radius:0 8px 8px 0}
 table{width:100%;border-collapse:collapse;font-size:14px;margin:10px 0}
 th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line-2);vertical-align:top}
 th{font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
@@ -58,7 +58,7 @@ li{margin-bottom:7px}
 .pill{display:inline-block;font-size:11px;padding:2px 8px;border-radius:999px;background:color-mix(in srgb,var(--crimson) 10%,transparent);color:var(--crimson);font-weight:700}
 footer{margin-top:44px;padding-top:20px;border-top:1px solid var(--line);font-size:13px;color:var(--muted)}
 @media(max-width:700px){table{font-size:13px}}
-.eyebrow{font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--crimson);margin:3rem 0 2px;display:flex;align-items:center;gap:10px}
+.eyebrow{font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--violet);margin:3rem 0 2px;display:flex;align-items:center;gap:10px}
 .eyebrow::after{content:"";height:1px;flex:1;background:var(--line)}
 .eyebrow + h2{margin-top:4px}
 </style>
@@ -68,7 +68,7 @@ footer{margin-top:44px;padding-top:20px;border-top:1px solid var(--line);font-si
 <div class="wrap">
   <div class="tags"><span class="tag who">Developer Guide · Engineering / debug</span><span class="tag mode">Commentary · optional LLM synthesis</span></div>
   <h1>Diagnostic narrative</h1>
-  <p style="color:var(--absent);font-size:13.5px">7 sessions · 2026-07-31 → 2026-08-13 · 9,132 transcript turns · report <code>barobs-96ad36b19f55</code></p>
+  <p style="color:var(--absent);font-size:13.5px">7 sessions · 2026-08-01 → 2026-08-14 · 9,132 transcript turns · report <code>barobs-96ad36b19f55</code></p>
 
   <div class="disclaimer">
     This is narrative <b>commentary on</b> the evidence in
@@ -77,7 +77,9 @@ footer{margin-top:44px;padding-top:20px;border-top:1px solid var(--line);font-si
     <code>bar query &lt;db&gt; errors --limit 0</code> appendix). Everything below is analysis —
     grouping, causal reasoning, and recommendations — clearly separated from the facts it's built
     on. The 60-item failure taxonomy in this page was derived by pattern-matching the same 60 real
-    error excerpts in the evidence appendix, not sampled or invented.
+    error excerpts in the evidence appendix, not sampled or invented. <b>Every heading and link on
+    this page is violet, not crimson</b> — that color carries through the whole page as a reminder
+    you're reading AI prose, not the deterministic Evidence page it's built from.
   </div>
 
   <div class="eyebrow">The short version</div><h2>Executive synthesis</h2><p class="explainer">The one-paragraph version of everything below, for a reader who stops here.</p>
@@ -308,7 +310,7 @@ footer{margin-top:44px;padding-top:20px;border-top:1px solid var(--line);font-si
   commentary does not paper over that gap with invented findings in those categories.</p>
 
   <footer>
-    Evidence this was written from: <a href="../deterministic/real-session.report.html">real-session.report.html</a> — now also carrying a session-by-session summary, a capture-channels diagram, and a full 69-prompt token/LOC ledger (<a href="../deterministic/real-session.report.html#prompt-ledger">jump there</a>)
+    Evidence this was written from: <a href="../deterministic/real-session.report.html">real-session.report.html</a> — now also carrying a session-by-session summary, a capture-channels diagram, and a full 68-prompt token/LOC ledger (<a href="../deterministic/real-session.report.html#prompt-ledger">jump there</a>)
     / <a href="../deterministic/real-session.report.json">real-session.report.json</a>. Raw failure rows: same evidence page, appendix.
     Executive-audience counterpart: <a href="interpreted-executive.html">interpreted-executive.html</a>.
   </footer>

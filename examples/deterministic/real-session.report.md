@@ -65,6 +65,18 @@ Each of the 7 real sessions in this window, ranked by lines changed. "Rework" he
 
 Showing top 5 of 7. Remaining 2: 2026-08-11 (5 prompts), 2026-08-14 (7 prompts). *Error counts are a raw-SQL approximation (matching `is_error` per run), close to but not guaranteed identical to the report-wide official count of 60 above.
 
+## Top 5 prompts (of 68, by lines changed)
+
+The 5 real human prompts that drove the most code/doc change — title is Claude Code's own auto-generated summary, not the verbatim prompt text. Full per-prompt detail for all 68: see the [appendix ledger](#appendix-prompt-by-prompt-ledger-all-68-prompts) below.
+
+| # | Session | Title | Lines Δ | Files | Tokens in/out | Cache read/create | Agents | Skills |
+|---|---|---|---:|---:|---:|---:|---|---|
+| 1 | 2026-08-01 #9 | continue - and identify the steps with data to be added to t | +3410 -258 | 37 | 476/179.1K | 91.8M/399.6K | reviewer×2 | — |
+| 2 | 2026-08-13a #13 | Init grounding and outstanding fixes checklist | +1503 -156 | 7 | 314/102.2K | 113.1M/196.7K | claude-code-guide×2, general-purpose×5 | — |
+| 3 | 2026-08-13b #6 | Initialize public repo status and documentation enhancement  | +1255 -199 | 17 | 274/126.8K | 81.6M/200.5K | — | — |
+| 4 | 2026-08-10 #4 | fix-pr-review-findings | +997 -430 | 9 | 469/83.5K | 33.4M/166.6K | — | — |
+| 5 | 2026-08-01 #8 | for the weaknesses - 1) this is the last step for the specs  | +1076 -188 | 21 | 202/74.0K | 78.0M/137.5K | reviewer | — |
+
 ## Top 5 languages (by edit volume)
 
 Every one of the 96 rework-hotspot files, grouped by extension — a purely mechanical grouping (no LLM).
@@ -377,17 +389,6 @@ Deterministic render — the same database renders byte-identically; no LLM and 
 _Independent open-source project by Bradley Ross / Bradley.Academy. Academic crimson palette; no Harvard University marks are used and no endorsement is implied._
 
 Report barobs-96ad36b19f55 · template bar-observatory-engineering-1.0 · Bradley.Academy
-## Top 5 prompts (of 68, by lines changed)
-
-The 5 real human prompts that drove the most code/doc change — title is Claude Code's own auto-generated summary, not the verbatim prompt text.
-
-| # | Session | Title | Lines Δ | Files | Tokens in/out | Cache read/create | Agents | Skills |
-|---|---|---|---:|---:|---:|---:|---|---|
-| 1 | 2026-08-01 #9 | continue - and identify the steps with data to be added to t | +3410 -258 | 37 | 476/179.1K | 91.8M/399.6K | reviewer×2 | — |
-| 2 | 2026-08-13a #13 | Init grounding and outstanding fixes checklist | +1503 -156 | 7 | 314/102.2K | 113.1M/196.7K | claude-code-guide×2, general-purpose×5 | — |
-| 3 | 2026-08-13b #6 | Initialize public repo status and documentation enhancement  | +1255 -199 | 17 | 274/126.8K | 81.6M/200.5K | — | — |
-| 4 | 2026-08-10 #4 | fix-pr-review-findings | +997 -430 | 9 | 469/83.5K | 33.4M/166.6K | — | — |
-| 5 | 2026-08-01 #8 | for the weaknesses - 1) this is the last step for the specs  | +1076 -188 | 21 | 202/74.0K | 78.0M/137.5K | reviewer | — |
 
 ## Appendix — prompt-by-prompt ledger, all 68 prompts
 

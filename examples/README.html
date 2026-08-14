@@ -44,7 +44,7 @@ footer a{color:var(--ink-2)}
   <p>Two audiences (<b>Boss Mode</b> for executive/client readers, <b>Developer Guide</b> for
   engineering), two ways of generating (<b>Evidence</b> = deterministic, no LLM, byte-identical;
   <b>Commentary</b> = optional LLM synthesis) — five report artifacts, all real, all rendered from
-  <b>the same 7-session capture store</b> (2026-07-31 → 2026-08-13, 9,132 transcript turns, 40/40
+  <b>the same 7-session capture store</b> (2026-08-01 → 2026-08-14, 9,132 transcript turns, 40/40
   tasks completed). "Boss Mode" / "Developer Guide" are this project's settled public names for the
   two audiences — the CLI itself still says <code>bar interpret --audience
   executive|engineering</code>.</p>
@@ -58,7 +58,7 @@ footer a{color:var(--ink-2)}
       <td>The shared machine contract every report below renders from.</td></tr>
       <tr><td><a href="deterministic/boss-mode.report.html">boss-mode.report.{html,md}</a></td>
       <td>Boss Mode · Evidence</td>
-      <td>A consulting-register memo: task completion, cost, risk flags. No AI, $0.00,
+      <td>A consulting-register memo: task completion, cost, risk flags. No AI, cost not tracked,
       byte-identical.</td></tr>
       <tr><td><a href="interpreted/interpreted-executive.html">interpreted-executive.html</a></td>
       <td>Boss Mode · Commentary</td>
@@ -69,7 +69,7 @@ footer a{color:var(--ink-2)}
       <td>A technical post-mortem: session-by-session breakdown (top 5 of 7), a top-5-languages
       chart, a 6-channel capture-flow diagram with per-channel verify commands, top-5-prompts
       cards, rework hotspots enriched with language/location/tier, plus full appendices (a
-      68-prompt token/LOC ledger and the 60-row raw failure list). No AI, $0.00, byte-identical —
+      68-prompt token/LOC ledger and the 60-row raw failure list). No AI, cost not tracked, byte-identical —
       about 3x the length of the plain deterministic render.</td></tr>
       <tr><td><a href="interpreted/interpreted-engineering.html">interpreted-engineering.html</a></td>
       <td>Developer Guide · Commentary</td>
@@ -90,7 +90,7 @@ footer a{color:var(--ink-2)}
   <h2>One real, multi-session capture store, on purpose</h2>
   <p>All five reports above come from <b>the same store</b>: 7 real Claude Code sessions ingested
   end-to-end (<code>bar init</code> → <code>bar ingest</code> ×7 → <code>bar report</code> →
-  <code>bar interpret</code> ×2), spanning 2026-07-31 to 2026-08-13. Earlier drafts of this folder
+  <code>bar interpret</code> ×2), spanning 2026-08-01 to 2026-08-14. Earlier drafts of this folder
   mixed two different single sessions across the deterministic and interpreted examples — fixed
   now: one store, one set of facts, all five reports agree with each other because they're the
   same data read five ways.</p>

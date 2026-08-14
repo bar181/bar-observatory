@@ -288,6 +288,61 @@ above, which uses the same detector code as the CLI. Verify directly: <code>bar 
 --sql "SELECT r.run_uuid, COUNT(*) FROM transcript_turns t JOIN runs r ON t.run_id=r.run_id WHERE
 t.content_json LIKE '%is_error%true%' GROUP BY r.run_uuid"</code></p>
 
+<div class="eyebrow">Highest-impact requests</div>
+<h2>Top 5 prompts <span style="font-weight:700;color:var(--absent);font-size:15px">of 68, by lines changed</span></h2>
+<p class="explainer">The 5 real human prompts that drove the most code/doc change this window —
+title is Claude Code's own auto-generated summary of the request (captured at the time, not
+written by this report), not the verbatim prompt text. Full per-prompt detail for all
+68, including the ones not shown here: see the <a href="#prompt-ledger">appendix ledger</a>.</p>
+<div class="cards2">
+<div class="card2 rank1">
+  <div class="c2-head"><span class="c2-title">continue - and identify the steps with data to be added to the reports - this includes the reports as outlined</span><span class="c2-rank">#1 · 2026-08-01 #9 · 332m</span></div>
+  <div class="c2-stats">
+    <div><span>Lines Δ</span><b>+3,410 -258</b></div>
+    <div><span>Files touched</span><b>37</b></div>
+    <div><span>Tokens in / out</span><b>476 / 179.1K</b></div>
+    <div><span>Cache read / create</span><b>91.8M / 399.6K</b></div>
+  </div>
+  <div class="chips"><span class="chip">reviewer×2</span></div>
+</div><div class="card2">
+  <div class="c2-head"><span class="c2-title">Init grounding and outstanding fixes checklist</span><span class="c2-rank">#2 · 2026-08-13a #13 · 290m</span></div>
+  <div class="c2-stats">
+    <div><span>Lines Δ</span><b>+1,503 -156</b></div>
+    <div><span>Files touched</span><b>7</b></div>
+    <div><span>Tokens in / out</span><b>314 / 102.2K</b></div>
+    <div><span>Cache read / create</span><b>113.1M / 196.7K</b></div>
+  </div>
+  <div class="chips"><span class="chip">claude-code-guide×2</span><span class="chip">general-purpose×5</span></div>
+</div><div class="card2">
+  <div class="c2-head"><span class="c2-title">Initialize public repo status and documentation enhancement plans</span><span class="c2-rank">#3 · 2026-08-13b #6 · 165m</span></div>
+  <div class="c2-stats">
+    <div><span>Lines Δ</span><b>+1,255 -199</b></div>
+    <div><span>Files touched</span><b>17</b></div>
+    <div><span>Tokens in / out</span><b>274 / 126.8K</b></div>
+    <div><span>Cache read / create</span><b>81.6M / 200.5K</b></div>
+  </div>
+  <div class="chips"><span class="chip fl">no agent/skill dispatch</span></div>
+</div><div class="card2">
+  <div class="c2-head"><span class="c2-title">fix-pr-review-findings</span><span class="c2-rank">#4 · 2026-08-10 #4 · 34m</span></div>
+  <div class="c2-stats">
+    <div><span>Lines Δ</span><b>+997 -430</b></div>
+    <div><span>Files touched</span><b>9</b></div>
+    <div><span>Tokens in / out</span><b>469 / 83.5K</b></div>
+    <div><span>Cache read / create</span><b>33.4M / 166.6K</b></div>
+  </div>
+  <div class="chips"><span class="chip fl">no agent/skill dispatch</span></div>
+</div><div class="card2">
+  <div class="c2-head"><span class="c2-title">for the weaknesses - 1) this is the last step for the specs and we are moving on to the next phase - complete </span><span class="c2-rank">#5 · 2026-08-01 #8 · 254m</span></div>
+  <div class="c2-stats">
+    <div><span>Lines Δ</span><b>+1,076 -188</b></div>
+    <div><span>Files touched</span><b>21</b></div>
+    <div><span>Tokens in / out</span><b>202 / 74.0K</b></div>
+    <div><span>Cache read / create</span><b>78.0M / 137.5K</b></div>
+  </div>
+  <div class="chips"><span class="chip">reviewer</span></div>
+</div>
+</div>
+
 <div class="eyebrow">What kind of files absorbed the work</div>
 <h2>Top 5 languages <span style="font-weight:700;color:var(--absent);font-size:15px">by edit volume</span></h2>
 <p class="explainer">Every one of the 96 rework-hotspot files, grouped by extension — a purely
@@ -632,62 +687,6 @@ network are in the render path. Provenance (for auditors):</p>
 generated_at (from DB): 2026-08-13T23:43:46Z</p>
 
 <footer>Independent open-source project by Bradley Ross / Bradley.Academy. Academic crimson palette; no Harvard University marks are used and no endorsement is implied.<br>Report barobs-96ad36b19f55 · template bar-observatory-engineering-1.0 · Bradley.Academy</footer>
-
-<div class="eyebrow">Highest-impact requests</div>
-<h2>Top 5 prompts <span style="font-weight:700;color:var(--absent);font-size:15px">of 68, by lines changed</span></h2>
-<p class="explainer">The 5 real human prompts that drove the most code/doc change this window —
-title is Claude Code's own auto-generated summary of the request (captured at the time, not
-written by this report), not the verbatim prompt text. Full per-prompt detail for all
-68, including the ones not shown here: see the appendix ledger below.</p>
-<div class="cards2">
-<div class="card2 rank1">
-  <div class="c2-head"><span class="c2-title">continue - and identify the steps with data to be added to the reports - this includes the reports as outlined</span><span class="c2-rank">#1 · 2026-08-01 #9 · 332m</span></div>
-  <div class="c2-stats">
-    <div><span>Lines Δ</span><b>+3,410 -258</b></div>
-    <div><span>Files touched</span><b>37</b></div>
-    <div><span>Tokens in / out</span><b>476 / 179.1K</b></div>
-    <div><span>Cache read / create</span><b>91.8M / 399.6K</b></div>
-  </div>
-  <div class="chips"><span class="chip">reviewer×2</span></div>
-</div><div class="card2">
-  <div class="c2-head"><span class="c2-title">Init grounding and outstanding fixes checklist</span><span class="c2-rank">#2 · 2026-08-13a #13 · 290m</span></div>
-  <div class="c2-stats">
-    <div><span>Lines Δ</span><b>+1,503 -156</b></div>
-    <div><span>Files touched</span><b>7</b></div>
-    <div><span>Tokens in / out</span><b>314 / 102.2K</b></div>
-    <div><span>Cache read / create</span><b>113.1M / 196.7K</b></div>
-  </div>
-  <div class="chips"><span class="chip">claude-code-guide×2</span><span class="chip">general-purpose×5</span></div>
-</div><div class="card2">
-  <div class="c2-head"><span class="c2-title">Initialize public repo status and documentation enhancement plans</span><span class="c2-rank">#3 · 2026-08-13b #6 · 165m</span></div>
-  <div class="c2-stats">
-    <div><span>Lines Δ</span><b>+1,255 -199</b></div>
-    <div><span>Files touched</span><b>17</b></div>
-    <div><span>Tokens in / out</span><b>274 / 126.8K</b></div>
-    <div><span>Cache read / create</span><b>81.6M / 200.5K</b></div>
-  </div>
-  <div class="chips"><span class="chip fl">no agent/skill dispatch</span></div>
-</div><div class="card2">
-  <div class="c2-head"><span class="c2-title">fix-pr-review-findings</span><span class="c2-rank">#4 · 2026-08-10 #4 · 34m</span></div>
-  <div class="c2-stats">
-    <div><span>Lines Δ</span><b>+997 -430</b></div>
-    <div><span>Files touched</span><b>9</b></div>
-    <div><span>Tokens in / out</span><b>469 / 83.5K</b></div>
-    <div><span>Cache read / create</span><b>33.4M / 166.6K</b></div>
-  </div>
-  <div class="chips"><span class="chip fl">no agent/skill dispatch</span></div>
-</div><div class="card2">
-  <div class="c2-head"><span class="c2-title">for the weaknesses - 1) this is the last step for the specs and we are moving on to the next phase - complete </span><span class="c2-rank">#5 · 2026-08-01 #8 · 254m</span></div>
-  <div class="c2-stats">
-    <div><span>Lines Δ</span><b>+1,076 -188</b></div>
-    <div><span>Files touched</span><b>21</b></div>
-    <div><span>Tokens in / out</span><b>202 / 74.0K</b></div>
-    <div><span>Cache read / create</span><b>78.0M / 137.5K</b></div>
-  </div>
-  <div class="chips"><span class="chip">reviewer</span></div>
-</div>
-</div>
-
 
 <div class="eyebrow">Full detail, no truncation</div>
 <h2 id="prompt-ledger">Appendix — prompt-by-prompt ledger, all 68 prompts</h2>

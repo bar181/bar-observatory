@@ -3,14 +3,14 @@
 Two audiences (**Boss Mode** for executive/client readers, **Developer Guide** for engineering),
 two ways of generating (**Evidence** = deterministic, no LLM, byte-identical; **Commentary** =
 optional LLM synthesis) — five report artifacts, all real, all rendered from **the same 7-session
-capture store** (2026-07-31 → 2026-08-13, 9,132 transcript turns, 40/40 tasks completed):
+capture store** (2026-08-01 → 2026-08-14, 9,132 transcript turns, 40/40 tasks completed):
 
 | File(s) | Register | What it is |
 | --- | --- | --- |
 | [`deterministic/real-session.report.json`](deterministic/real-session.report.json) | — | The shared machine contract every report below renders from. Structured, typed, feeds a dashboard/pipeline/agent. |
-| [`deterministic/boss-mode.report.{html,md}`](deterministic/boss-mode.report.html) | Boss Mode · Evidence | A consulting-register memo: task completion, cost, risk flags. Every figure resolves to a row in `report.json`. No AI, $0.00, byte-identical. |
+| [`deterministic/boss-mode.report.{html,md}`](deterministic/boss-mode.report.html) | Boss Mode · Evidence | A consulting-register memo: task completion, cost, risk flags. Every figure resolves to a row in `report.json`. No AI, cost not tracked, byte-identical. |
 | [`interpreted/interpreted-executive.html`](interpreted/interpreted-executive.html) | Boss Mode · Commentary | A narrative management summary: what the numbers mean, what needs deciding, what to watch. LLM-written, clearly labeled, from `interpret-brief.executive.md`. |
-| [`deterministic/real-session.report.{html,md}`](deterministic/real-session.report.html) | Developer Guide · Evidence | A technical post-mortem: session-by-session breakdown (top 5 of 7, with rework/LOC/agents/skills per session), a top-5-languages chart, a 6-channel capture-flow diagram with per-channel `bar query`/SQL verify commands, top-5-prompts cards, rework hotspots enriched with language/location/tier, plus full appendices (a 68-prompt token/LOC ledger and the 60-row raw failure list). No AI, $0.00, byte-identical — about 3x the length of the plain deterministic render. |
+| [`deterministic/real-session.report.{html,md}`](deterministic/real-session.report.html) | Developer Guide · Evidence | A technical post-mortem: session-by-session breakdown (top 5 of 7, with rework/LOC/agents/skills per session), a top-5-languages chart, a 6-channel capture-flow diagram with per-channel `bar query`/SQL verify commands, top-5-prompts cards, rework hotspots enriched with language/location/tier, plus full appendices (a 68-prompt token/LOC ledger and the 60-row raw failure list). No AI, cost not tracked, byte-identical — about 3x the length of the plain deterministic render. |
 | [`interpreted/interpreted-engineering.html`](interpreted/interpreted-engineering.html) | Developer Guide · Commentary | A diagnostic narrative: why the run went the way it did, root-cause-grouped failures, and concrete prompt/spec/context changes for next time. LLM-written, from `interpret-brief.engineering.md`. |
 | [`deterministic/real-session.report.png`](deterministic/real-session.report.png), [`interpreted/interpreted-executive.png`](interpreted/interpreted-executive.png) | — | Screenshots used in the README and wiki. |
 | [`interpreted/interpret-brief.executive.md`](interpreted/interpret-brief.executive.md), [`interpret-brief.engineering.md`](interpreted/interpret-brief.engineering.md) | — | The real, deterministic briefs `bar interpret` generated — the exact facts each Commentary report was written from. Nothing in either Commentary report exists that isn't in its brief. |
@@ -23,7 +23,7 @@ same two registers.
 
 All five reports above come from **the same store**: 7 real Claude Code sessions ingested
 end-to-end (`bar init` → `bar ingest` ×7 → `bar report` → `bar interpret` ×2), spanning
-2026-07-31 to 2026-08-13. Earlier drafts of this folder mixed two different single sessions across
+2026-08-01 to 2026-08-14. Earlier drafts of this folder mixed two different single sessions across
 the deterministic and interpreted examples — that's fixed now: one store, one set of facts, all
 five reports agree with each other because they're the same data read five ways.
 

@@ -1,26 +1,166 @@
-BAR_OBSERVATORY{
+⟦Ω⟧META{
  ID=bar-observatory;
  EXPANSION=Base_Agentic_Reporter;
+ TAGLINE=observe_how_agentic_work_actually_gets_done;
  WHAT=local_only_deterministic_flight_recorder_for_claude_code_agent_sessions;
+ AUDIENCE_THIS_FILE=ai_agent_or_agent_swarm_that_must_operate_bar_observatory_without_reading_prose_docs;
+ SPEC_FORMAT=AISP≜Σ_512_symbol_glossary+Crystal_Atom_blocks⟦Ω,Σ,Γ,Λ,Χ,Ε⟧;
+ SPEC_SOURCE=upstream/aisp/CHEATSHEET.md+upstream/aisp/AI_GUIDE.md(pinned_submodule,this_repo_only);
  DISTRIBUTION=crates_io_primary;
  INSTALL=cargo_install_bar-observatory;
- PLUGIN=plugin_marketplace_add_bar181/bar-observatory_then_plugin_install_bar-observatory@bar-observatory;
- SLASH_CMDS=[bar-init,bar-report,bar-interpret,bar-doctor,bar-query];
+ INSTALL_ALT=cargo_install_bar-mcp∧cargo_install_bar-hook(if_MCP_or_plugin_hooks_needed);
+ PLUGIN=claude_/plugin_marketplace_add_bar181/bar-observatory→/plugin_install_bar-observatory@bar-observatory;
+ PLUGIN_RESOLVES_BINARIES_VIA=PATH¬bundled(disclosed_gap,see_Γ.G7);
  CLI=bar;
- CLI_CMDS=[init,ingest,report,doctor,interpret,query];
- MCP=bar-mcp;
- MCP_CONNECT=claude_mcp_add_bar-observatory_--_bar-mcp_--db-root_<dir>;
- MCP_TOOLS=[list_runs,get_ledger,get_run_report,query_delta_findings,get_convergence,compare_conditions,get_dead_letters,get_completeness,search_observations,list_findings,recall_context,get_hub];
- MCP_READ_ONLY=true;
- CFG=TOML;
- CONTRACT=report.json;
- SCHEMA_V=bar-observatory-report-1.0;
- FACT_ID_RULE=fact-id.assign.v1;
- REPORTS=[engineering:deterministic,self_improvement:LLM_optional_off];
- CORE=[Task,Attempt,Loop,CompletionEvidence,Agent,Skill,HumanEvent,Validation,Rework,Observation,SilentSignal];
- INV=[missing!=0,claim!=correctness,interpretation!=fact,same_db-\>byte_identical_report];
- DOCS=github.com/bar181/bar-observatory;
- WIKI=[README.md:nav_index,README.html:single_page_human_advanced_aisp,human-md/README.md:layer_1_human_tutorial,agent/AI-CONTEXT.md:layer_2_ai,aisp/HUB.aisp:layer_3_aisp_self,human-md/comparison.md,human-md/enterprise.md,human-md/architecture.md,human-html/documentation-layers.html:why_three_layers_plus_tab_switcher,human-html/report-guide.html:annotated_report_walkthrough,human-html/guides/guide-executive.html,human-html/guides/guide-junior-dev.html];
+ REPO_PRIVATE_SOURCE=bar-obs-private/crates/(15_crates,not_public);
+ REPO_PUBLIC=bar-observatory/(front_door+docs+examples,zero_crate_source_by_design);
+ DOCS_ROOT=github.com/bar181/bar-observatory;
+ NAMING_SETTLED=BossMode≜executive_client_register∧DeveloperGuide≜engineering_register(CLI_flag_still_says_--audience_executive|engineering);
+}
+
+⟦Λ⟧FUNCTIONS{
+ // ---- bootstrap: run once per target directory ----
+ init≜bar_init[--dir<d>]⟶creates<d>/.bar/{config.toml,ambient.sqlite,index.sqlite,bodies/};
+ init.idempotent=⊤;
+ init.no_arg_defaults_to=cwd;
+
+ // ---- ingest: retroactive, transcript-only (see Γ.G8 for what this does NOT capture) ----
+ ingest≜bar_ingest<db><transcript.jsonl>[--run-uuid<uuid>]⟶stdout(N_turns_ingested);
+ ingest.repeatable=⊤(∀session∈window:ingest_once_with_distinct_run-uuid⟹multi-session_store);
+ ingest.run_uuid_default=bar-ingest(collides_if_omitted_twice⟹always_pass_explicit_uuid);
+ ingest.source=real_claude_code_transcript_jsonl(~/.claude/projects/<proj-slug>/<session-uuid>.jsonl);
+
+ // ---- render: the ONE deterministic artifact, byte-identical for a given db ----
+ report≜bar_report<db>[--out<d>]⟶writes<d>/<dbstem>.report.{json,html,md};
+ report.audience=none(single_shape,"Developer_Guide_Evidence"_in_public_naming);
+ report.cost=$0.00∧llm_in_render_path=⊥;
+ report.determinism=∀run:same_db⟹byte_identical_output(verify_via_Ε.E1);
+ report.NOTE_no_--view_flag_exists=⊤(boss-mode.report.*_in_examples/_is_hand-assembled,see_Γ.G9);
+
+ // ---- health check: env + optional store validity ----
+ doctor≜bar_doctor[<db>]⟶stdout(checks_table)∧exit≠0_iff(db_given∧store_invalid);
+ doctor.no_db_arg=env-only_checks(cli_version,binary_present);
+
+ // ---- interpret: emits a FACT-ONLY BRIEF, not prose (LLM writes the prose, separately) ----
+ interpret≜bar_interpret<db>--audience{executive|engineering}[--out<d>]⟶writes<d>/interpret-brief.{audience}.md;
+ interpret.brief_facts=⟨transcript_turns,tool_calls,tasks_total,tasks_completed,sub-agent_dispatches,error_results,tokens_total,api_cost_cents⟩(7_numbers_only);
+ interpret.brief_invariant=only_these_7_may_appear_in_written_prose(¬invent,¬round);
+ interpret.next_step=hand_brief_to_any_LLM_session→writes_audience-toned_prose→that_prose=Commentary(labeled_optional,non-deterministic);
+ interpret.NOTE_brief≠full_report=⊤(richer_sections_e.g._rework_hotspots_top-N_prompts_require_reading_report.json_directly,not_the_brief);
+
+ // ---- query: read-only direct DB access, the general-purpose fetch primitive ----
+ query≜bar_query<db>{<named>|--sql"SELECT…"|--list}[--format{table|json|csv}][--limit<N>];
+ query.named=⟨tools:(tool,calls),timeline:(seq,role,block,tool),errors:(seq,tool,excerpt)⟩;
+ query.limit_default=50∧--limit_0=∀rows;
+ query.sql_constraint=∀stmt:stmt.starts_with(SELECT∨WITH)(write_attempts_refused_by_SQLITE_OPEN_READ_ONLY¬by_regex);
+ query.list=bar_query<db>--list⟶prints_named_query_catalog+usage;
+
+ // ---- MCP surface: same reads as CLI query, exposed as tools for an agent that can't shell out ----
+ mcp.binary=bar-mcp;
+ mcp.connect≜claude_mcp_add_bar-observatory_--_bar-mcp_--db-root<dir>;
+ mcp.tools=[list_runs,get_ledger,get_run_report,query_delta_findings,get_convergence,compare_conditions,get_dead_letters,get_completeness,search_observations,list_findings,recall_context,get_hub];
+ mcp.read_only=⊤(mutation_is_CLI_only,ADR-049);
+ mcp.get_hub≜returns_this_file's_content(self-referential,keep_in_sync_manually_today);
+
+ // ---- plugin slash commands (Claude Code session, no shell needed) ----
+ slash_cmds=[/bar-init,/bar-report,/bar-interpret,/bar-doctor,/bar-query];
+ slash_cmds.map_1:1_to=CLI_cmds_of_same_name(minus_/bar-ingest,not_yet_a_slash_cmd);
+}
+
+⟦Σ⟧TYPES{
+ // ---- report.json: the ONE machine contract every rendered view (html/md) agrees with ----
+ ReportDoc≜⟨schema_version:𝕊="bar-observatory-report-1.0",
+   report:⟨id,title,generated_at,template_version,deterministic:𝔹,interpretation⟩,
+   branding,
+   scope:⟨type,session_count:ℕ,started_at,ended_at,note⟩,
+   summary:⟨runs:ℕ,hooks_recorded,events_recorded,spans_recorded,transcript_turns:ℕ,timeline_events,requests,tokens_in,tokens_out,tokens_total,capture_losses:ℕ,elapsed_ms:ℕ,tool_calls:ℕ,tools:[⟨tool,calls⟩],tasks_total:ℕ,tasks_completed:ℕ,tasks_in_progress:ℕ,tasks_pending:ℕ,tasks_other:ℕ,error_results:ℕ,redacted_edits:ℕ,cost_estimate_usd_cents,cost_pricing_version,agent_runs:ℕ,agents:[⟨subagent_type,count⟩],skills:[⟨skill,count⟩]⟩,
+   tasks:⟨status:{observed|not_observed},items:[⟨task_id,title,state,completion_evidence,evidence_refs,attempts,loops,rework_events⟩],note⟩,
+   agents:⟨status,items:[⟨subagent_type,count⟩],note⟩,
+   skills:⟨status,items,note⟩,
+   rework:⟨status,events:[⟨rework_id,type,confidence,detail,evidence_refs,task_id⟩],hotspots:[⟨path,edits⟩],note⟩,
+   human_ai_recovery:⟨status=not_observed(¬built_yet),items:∅,note⟩,
+   validation:⟨status,items:[⟨runs,passed,failed,last_ok:𝔹⟩],note⟩,
+   flaky:⟨status,items:[⟨test,passes,fails⟩],note⟩,
+   failures:⟨status,items:[⟨tool,kind:{mcp|tool|unknown},count⟩],note⟩,
+   observations:⟨status=not_observed(¬built_yet),featured:∅,note⟩,
+   capture:⟨channels:[⟨id,status:{not_recorded|partial|complete},coverage,recorded:ℕ,reason⟩],health_note⟩,
+   integrity:⟨source_db_hash,template_hash,renderer_version,deterministic_render:𝔹,llm_in_render_path:𝔹⟩⟩;
+
+ // ---- capture channels: exactly 6, each independently on/off ----
+ Channel≜hooks|events|spans|transcripts|requests|provider_cost_usd;
+ Channel.provider_cost_usd.NOTE=¬own_table(derived_from_requests_token_columns_at_render_time);
+ Channel.status_semantics=not_recorded(0_rows,¬a_finding)|partial(measured_gap,e.g._dangling_parents)|complete(no_loss);
+
+ // ---- SQLite schema: 30 tables in ambient.sqlite (per-run store) ----
+ SchemaTables=[schema_meta,runs,blobs,spans,requests,events,transcript_turns,micro_results,metrics,task_grades,convergence,method_scores,run_config,raw_logs,hooks,config_snapshot_meta,method_versions,promotions,detector_scores,file_versions,plan_docs,dead_letters,timeline_seq,hook_action_signature,span_prompt_context,sanitize_stats,report_snapshots,trigger_log,config_snapshot];
+ runs≜⟨run_id,run_uuid,started_at,ended_at⟩;
+ transcript_turns≜⟨turn_id,run_id,transcript_sha,sidechain:𝔹,seq:ℕ,msg_uuid,parent_uuid,role:{user|assistant|system},block_type:{text|thinking|tool_use|tool_result|other},tool_name,content_hash,content_excerpt,content_json⟩;
+ transcript_turns.human_prompt_filter=role=user∧block_type=text∧tool_name=∅∧content∉SYNTHETIC_PREFIXES;
+ SYNTHETIC_PREFIXES=["<task-notification>","[Your previous response had no visible output","This session is being continued from a previous conversation"](¬human-authored,exclude_from_prompt_counts);
+
+ // ---- the 5 public example artifacts, all rendered from ONE multi-session store ----
+ ExampleArtifact≜⟨report.json:machine_contract⟩
+   ×⟨BossMode:⟨Evidence:boss-mode.report.{html,md}(deterministic,hand-assembled_from_report.json,¬native_CLI_output,disclosed_gap),Commentary:interpreted-executive.html(LLM,from_interpret-brief.executive.md)⟩⟩
+   ×⟨DeveloperGuide:⟨Evidence:real-session.report.{html,md}(native_bar_report_output+hand-appended_appendices:session-summary,top5-languages,capture-channels-flow,top5-prompts,68-prompt-ledger,60-row-failure-list),Commentary:interpreted-engineering.html(LLM,from_interpret-brief.engineering.md)⟩⟩;
+ ExampleArtifact.location=bar-observatory/examples/{deterministic,interpreted}/;
+ ExampleArtifact.source_store=7_real_sessions,2026-07-31→2026-08-13,9132_turns,68_real_human_prompts;
+}
+
+⟦Γ⟧RULES{
+ G1.determinism≜∀db,∀t∈{json,html,md}:bar_report(db)_at_t1≡bar_report(db)_at_t2(byte-identical,no_LLM_no_network_in_render_path);
+ G2.honesty≜missing_channel⇒render("not_recorded")¬render(0)(never_fabricate_a_measured_zero);
+ G3.evidence_vs_commentary≜deterministic_layer⊥LLM_layer(interpret_brief_pins_every_number;prose_written_from_it_may_not_add_new_numbers);
+ G4.mutation_boundary≜write_ops∈{CLI}∧read_ops∈{CLI,MCP}(MCP_never_mutates,ADR-049);
+ G5.sql_safety≜query.--sql_opened_SQLITE_OPEN_READ_ONLY(refused_at_the_engine,not_a_string_filter);
+ G6.privacy≜captured_data(.bar/*.sqlite,.bar/bodies/)∉git(ADR-005,only_rendered_report_artifacts_are_committed);
+ G7.plugin_binaries≜bar-hook∧bar-mcp_resolved_via_PATH(no_bundled_per-platform_binary_yet,install_via_cargo_first);
+ G8.retroactive_ingest_limits≜bar_ingest(transcript.jsonl)⇏populates{hooks,events,spans,requests,provider_cost_usd}(those_5_channels_need_a_LIVE_bar-hook∧bar-otlp∧bar-proxy_running_DURING_the_session,not_after);
+ G9.boss_mode_report_is_not_native≜bar_report_has_no_--view_flag(boss-mode.report.*_and_the_Commentary_layer's_root-cause_grouping_are_hand-built_from_report.json+bar_query,disclosed_in_examples/README.md,candidate_future_CLI_work=bar_report_--view_summary);
+ G10.token_usage_gap≜bar-ingest_discards_the_raw_transcript's_own_usage_field(input/output/cache_tokens_ARE_present_per-assistant-turn_in_the_.jsonl_but_not_extracted_into_requests;only_bar-proxy_live_capture_populates_requests_properly;a_disclosed_product_gap,not_a_bug);
+ G11.human_gates≜publish_to_crates.io∧push_to_github.com/bar181/bar-observatory=human-approval-required(never_a_swarm's_call_to_cross_without_explicit_go-ahead_each_time);
+}
+
+⟦Ε⟧EVIDENCE{
+ E1.verify_determinism≜bar_report<db>--out/tmp/a∧bar_report<db>--out/tmp/b∧diff_-r_/tmp/a_/tmp/b⟹∅(no_diff);
+ E2.verify_error_list≜bar_query<db>errors_--limit_0_--format_csv⟹every_row_has_real_seq∈transcript_turns.seq;
+ E3.verify_rework_hotspots≜cat_report.json_|_jq'.rework.hotspots'⟹[⟨path,edits⟩]_sorted_desc(cross-check_against_bar_query<db>--sql"SELECT COUNT(*) FROM transcript_turns WHERE tool_name='Edit'AND content_json LIKE'%<path>%'");
+ E4.verify_capture_channel_counts≜∀c∈Channel:bar_query<db>--sql"SELECT COUNT(*) FROM {c}"⟹matches_report.json.capture.channels[id=c].recorded;
+ E5.verify_this_file≜this_document's_own_claims_should_resolve_against_bar-obs-private/crates/bar-observatory/src/{lib.rs,main.rs}(source_of_truth_for_CLI_flags)∧a_real_report.json(source_of_truth_for_schema);
+ E6.real_worked_example=bar-observatory/examples/deterministic/real-session.report.json(7_sessions,9132_turns,60_errors,40/40_tasks,96_rework_hotspots — every_number_in_⟦Σ⟧_traces_here);
+}
+
+⟦Λ⟧RECIPES{
+ R1.bootstrap_new_store≜bar_init_--dir<d>;
+ R2.ingest_one_session≜bar_ingest<d>/.bar/ambient.sqlite<tx.jsonl>_--run-uuid<label>;
+ R3.ingest_multi_session_window≜∀tx∈sessions:R2(tx,distinct_label)(accumulates_into_ONE_store,report.json.summary.runs=count);
+ R4.render_deterministic_report≜bar_report<db>_--out<d>⟶<d>/<dbstem>.report.{json,html,md};
+ R5.health_check≜bar_doctor<db>;
+ R6.get_executive_brief≜bar_interpret<db>_--audience_executive_--out<d>→hand_<d>/interpret-brief.executive.md_to_an_LLM→ask_for_audience-toned_prose;
+ R7.get_engineering_brief≜bar_interpret<db>_--audience_engineering_--out<d>(same_pattern_as_R6);
+ R8.pull_raw_errors≜bar_query<db>_errors_--limit_0_--format_csv;
+ R9.pull_tool_breakdown≜bar_query<db>_tools;
+ R10.pull_chronological_timeline≜bar_query<db>_timeline_--limit_0;
+ R11.custom_slice_via_sql≜bar_query<db>_--sql"SELECT…FROM transcript_turns WHERE…"(SELECT|WITH_only);
+ R12.list_available_named_queries≜bar_query<db>_--list;
+ R13.agent_side_via_MCP≜connect_bar-mcp_--db-root<dir>→call_list_runs→get_run_report(run_id)→list_findings|search_observations_as_needed(no_shell_required);
+ R14.full_pipeline_from_scratch≜R1∘R2∘R4∘R5(init→ingest→report→doctor,minimal_viable_session);
+ R15.per_session_error_count≜bar_query<db>_--sql"SELECT r.run_uuid,COUNT(*) FROM transcript_turns t JOIN runs r ON t.run_id=r.run_id WHERE t.content_json LIKE'%is_error%true%'GROUP BY r.run_uuid"(approximation,¬identical_to_report.json's_own_detector,see_Γ.G9_class_of_caveat);
+}
+
+⟦Ω⟧WIKI_INDEX{
+ README.md=nav_index;
+ README.html=single_page_human_advanced_aisp_reading-mode_switch;
+ human-md/README.md=layer_1_human_tutorial;
+ agent/AI-CONTEXT.md=layer_2_ai(prose,narrower_than_this_file);
+ aisp/HUB.aisp=layer_3_aisp_self(this_file,densest_layer,ground_here_first);
+ human-md/comparison.md;
+ human-md/enterprise.md;
+ human-md/architecture.md;
+ human-html/documentation-layers.html=why_three_layers_plus_tab_switcher;
+ human-html/report-guide.html=annotated_report_walkthrough(real_numbers,kept_in_sync_with_examples/);
+ human-html/guides/guide-executive.html;
+ human-html/guides/guide-junior-dev.html;
+ examples/README.md=the_5_artifacts_table(start_here_for_report_format_questions);
  DOC_LAYERS_GENERATED=false;
- DOC_LAYERS_NOTE=hand_maintained_today_not_generated_see_documentation-layers.html;
+ DOC_LAYERS_NOTE=hand_maintained_today_not_generated,see_documentation-layers.html;
 }

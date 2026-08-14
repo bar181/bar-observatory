@@ -146,11 +146,11 @@ footer a{color:var(--ink-2)}
     </div>
 
     <div class="note">
-      <b>Real example from this project's own captured session.</b> 119 <code>cargo test</code>
-      result lines were captured — 99 passed, 20 failed, and the run's last line was a pass. That
-      "20 failed" is <em>measured</em>: it comes from the test runner's own output, not from the
-      agent summarizing its own work. Two tests even flipped between pass and fail across the same
-      session — a real signal worth a second look, not necessarily a bug.
+      <b>Real example from this project's own captured window.</b> 373 <code>cargo test</code>
+      result lines were captured — 344 passed, 29 failed, and the run's last line was a pass. That
+      "29 failed" is <em>measured</em>: it comes from the test runner's own output, not from the
+      agent summarizing its own work. Three tests even flipped between pass and fail across the
+      window — a real signal worth a second look, not necessarily a bug.
     </div>
   </div>
 </section>
@@ -197,16 +197,17 @@ seq   excerpt
     <p class="eyebrow">The other thing worth checking</p>
     <h2>Where the agent circled back — and why that's not automatically bad.</h2>
     <p class="lede" style="margin-top:16px">A "rework hotspot" is a file the agent edited far more
-    than the rest. In one real captured session, <b>157 of 293</b> total edits — more than half —
-    landed in a single file. That's not automatically a problem with the agent. It's frequently a
-    sign that the task or the spec for that one file was underspecified, and the agent kept
-    guessing until something stuck.</p>
+    than the rest. In one real captured window, <b>77 of 496</b> total edits — more than the next
+    four files combined — landed in a single file. That's not automatically a problem with the
+    agent. It's frequently a sign that the task or the spec for that one file was underspecified,
+    and the agent kept guessing until something stuck (though here it traced to a deliberate
+    multi-persona review pass, not a spec gap — always check which it is before assuming).</p>
 
     <div class="cards">
       <div class="card">
         <span class="tag">Read it as</span>
         <h3>A question, not a verdict</h3>
-        <p>"Why did this file take 157 edits?" is worth asking before you review the diff — it
+        <p>"Why did this file take 77 edits?" is worth asking before you review the diff — it
         tells you where to look closest, not that the code is necessarily wrong.</p>
       </div>
       <div class="card">

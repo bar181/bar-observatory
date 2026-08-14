@@ -348,17 +348,17 @@ footer a{color:var(--ink-2)}
           <div class="r-rule print-row" style="animation-delay:.18s"></div>
           <div class="print-row" style="animation-delay:.24s">
             <div class="r-key">tool calls</div>
-            <div class="r-line"><span>Bash</span><span>600+</span></div>
-            <div class="r-line"><span>Edit</span><span>290+</span></div>
-            <div class="r-line"><span>Read</span><span>90+</span></div>
+            <div class="r-line"><span>Bash</span><span>1,700+</span></div>
+            <div class="r-line"><span>Edit</span><span>490+</span></div>
+            <div class="r-line"><span>Read</span><span>410+</span></div>
           </div>
           <div class="r-rule print-row" style="animation-delay:.30s"></div>
           <div class="print-row" style="animation-delay:.36s">
-            <div class="r-line r-total"><span>errors observed</span><span>25</span></div>
-            <div class="r-sub">seq 308 · MCP tool timed out 60s</div>
-            <div class="r-sub">seq 316 · worker timeout 240s</div>
-            <div class="r-sub">seq 436 · exit code 143</div>
-            <div class="r-sub">seq 1391 · guardrail refusal</div>
+            <div class="r-line r-total"><span>errors observed</span><span>60</span></div>
+            <div class="r-sub">seq 150 · guardrail refusal (rm -rf)</div>
+            <div class="r-sub">seq 438 · sub-agent not found</div>
+            <div class="r-sub">seq 603 · exit code 143</div>
+            <div class="r-sub">seq 1490 · ambiguous edit match</div>
           </div>
           <div class="r-rule print-row" style="animation-delay:.42s"></div>
           <div class="print-row" style="animation-delay:.48s">
@@ -427,21 +427,21 @@ footer a{color:var(--ink-2)}
 <section id="outcomes">
   <div class="wrap">
     <p class="eyebrow">What you get out of it</p>
-    <h2>What one session actually revealed.</h2>
+    <h2>What one captured window actually revealed.</h2>
     <p class="lede" style="margin-top:18px">Reconstructed from captured evidence — not from the
-    agent's account of its own work.</p>
+    agent's account of its own work. 7 real sessions, ingested and queried together.</p>
 
     <div class="outcomes">
-      <div class="oc"><b>27</b><small>tasks (12 completed)</small></div>
-      <div class="oc"><b>25</b><small>tool errors, every one surfaced</small></div>
-      <div class="oc"><b>603</b><small>Bash calls</small></div>
-      <div class="oc"><b>157<span>/293</span></b><small>edits in one problem file</small></div>
+      <div class="oc"><b>40<span>/40</span></b><small>tasks completed</small></div>
+      <div class="oc"><b>60</b><small>tool errors, every one surfaced</small></div>
+      <div class="oc"><b>1,706</b><small>Bash calls</small></div>
+      <div class="oc"><b>77<span>/496</span></b><small>edits in one file</small></div>
       <div class="oc absent-oc"><b>gaps</b><small>named, never zeroed</small></div>
     </div>
-    <p class="fine">That fourth figure is the sort of thing you'd never find by scrolling: more than half
-    the session's edits went into a single file. That's a signal about the specification, not about the
-    agent. (Two figures deliberately don't appear here — a commit count and a sleep-cycle count.
-    Neither is a channel this report captures today; see
+    <p class="fine">That fourth figure is the sort of thing you'd never find by scrolling: one file
+    absorbed more edit churn than the next four combined. That's a signal worth a look — here, it
+    traces to a multi-persona review pass, not a defect. (Two figures deliberately don't appear here
+    — a commit count and a sleep-cycle count. Neither is a channel this report captures today; see
     <a href="../README.md#what-does-bar-observatory-not-see">what BAR Observatory doesn't see</a>.)</p>
 
     <div class="two" style="margin-top:52px">
@@ -821,7 +821,7 @@ seq   excerpt
       <div>
         <h3>"What did it lean on, and is the recorder working?"</h3>
 <pre><span class="c">$ bar query &lt;session&gt;.sqlite tools</span>
-Bash 600+ · Edit 290+ · Read 90+ · …
+Bash 1,700+ · Edit 490+ · Read 410+ · …
 
 <span class="c">$ bar report &lt;session&gt;.sqlite</span>
 <span class="p">wrote</span> report.json report.html report.md

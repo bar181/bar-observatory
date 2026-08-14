@@ -6,7 +6,7 @@
 [![Primary path — zero egress](https://img.shields.io/badge/network%20calls-0-brightgreen.svg)](#does-bar-observatory-send-my-code-anywhere)
 [![MCP server](https://img.shields.io/badge/MCP-12%20read--only%20tools-blueviolet.svg)](#for-ai-agents-read-your-own-session-over-mcp)
 
-![BAR Observatory's landing page: "Your AI agent tells you what it meant to do. This tells you what it did." next to a torn-paper session receipt showing real tool-call counts, 25 errors observed, and a REPRODUCIBLE / NO MODEL IN PATH stamp.](assets/site-hero.png)
+![BAR Observatory's landing page: "Your AI agent tells you what it meant to do. This tells you what it did." next to a torn-paper session receipt showing real tool-call counts, 60 errors observed, and a REPRODUCIBLE / NO MODEL IN PATH stamp.](assets/site-hero.png)
 
 **BAR Observatory (Base Agentic Reporter) is a free, open-source, local-only flight recorder and
 audit tool for Claude Code sessions.** It reads what your AI coding agent actually did — every
@@ -214,30 +214,33 @@ evolves, so they can't drift from what the code actually does.
 | **Cost estimate** | Token-equivalent cost — or an honest *"cost not recorded"* if that channel wasn't captured |
 | **Capture-channel honesty** | Which channels had data and which were blind spots |
 
-A trimmed excerpt from a real captured session:
+A trimmed excerpt from a real captured window (7 real sessions, ingested and queried together):
 
 ```
-$ bar query <session>.sqlite errors
+$ bar query <db> errors --limit 0
 seq   tool  excerpt
 ----  ----  -----------------------------------------------------------------
-308         MCP server "…brain…" tool "search" timed out after 60s
-316         search error: worker timed out after 240s on tools/call
-389         MCP server "…brain…" tool "search" timed out after 60s
-436         Exit code 143 … (a killed long-running command)
-1391        <tool_use_error> Blocked: sleep 90 … (a guardrail refusal)
+150         Permission to use Bash with command rm -rf … has been denied. (a guardrail refusal)
+438         Agent type 'qe-requirements-validator' not found. Available agents: …
+603         Exit code 143 Command timed out after 2m 0s … (a killed long-running command)
+1490        <tool_use_error> Found 2 matches of the string to replace, but replace_all is false.
+1851        <tool_use_error> InputValidationError: Read was called with input that could not …
 ```
 
-**25 error results** surfaced in that one session — timeouts, a killed command, a guardrail
-refusal — each still queryable months later. Nothing was swallowed.
+**60 error results** surfaced across that window — guardrail refusals, a missing sub-agent, a
+killed command, ambiguous edits — each still queryable months later. Nothing was swallowed. (A
+meaningful share of these, like the guardrail refusal above, are the safety system working as
+intended, not defects — the interpreted commentary layer breaks that down; the deterministic
+layer just records every one, without judging.)
 
-The same session, in `report.md` — rendered, not written by hand:
+The same window, in `report.md` — rendered, not written by hand:
 
 ```markdown
 ### Key findings
 
-- **25 tool error(s) were captured — the failures are recorded, not swallowed.**
-- **One file absorbed the most churn: 157 edits.**
-- **Validation was not fully green at capture end: 20 failing vs 99 passing.**
+- **60 tool error(s) were captured — the failures are recorded, not swallowed.**
+- **One file absorbed the most churn: 77 edits.**
+- **Validation was not fully green at capture end: 29 failing vs 344 passing.**
   - From real `test result:` lines in the tool outputs (measured, not self-reported).
 - **5 of 6 capture channels were not recorded this session.**
   - Uncaptured channels read "not recorded" (never a fabricated 0) — this is a transcript-only ingest.
@@ -251,8 +254,8 @@ And the same fact pair in `report.json` — the machine contract behind both:
     "events": [{
       "type": "repeated_edit",
       "confidence": "exact",
-      "detail": "./…/report.rs edited 157 times",
-      "evidence_refs": ["transcript:edit:./…/report.rs"]
+      "detail": "./…/bar-observatory/README.md edited 77 times",
+      "evidence_refs": ["transcript:edit:./…/bar-observatory/README.md"]
     }]
   },
   "capture": {
@@ -269,16 +272,16 @@ And the same fact pair in `report.json` — the machine contract behind both:
 Three formats, one database, same facts — that `not_recorded` status with its own stated reason
 is the JSON version of the `not_observed` rule running through every other format.
 
-That same session, in numbers — all from the one real report in
+That same window, in numbers — all from the one real report in
 [`examples/deterministic/real-session.report.json`](examples/deterministic/real-session.report.json),
 nothing rounded up:
 
 | Metric | What it means |
 | --- | --- |
-| **27** | tasks in the session (12 completed, 15 still open or superseded) |
-| **25** | tool error results — every one surfaced, not just the ones that got fixed |
-| **603 / 293 / 98** | calls to the agent's Bash / Edit / Read tools — the raw shape of the work |
-| **157 of 293** | edits landed in a single file (`report.rs`) — a signal about the spec, not the agent |
+| **40 / 40** | tasks completed this window (100%, self-reported — claim≠evidence linkage is a disclosed future capability) |
+| **60** | tool error results — every one surfaced, not just the ones that got fixed |
+| **1,706 / 496 / 410** | calls to the agent's Bash / Edit / Read tools — the raw shape of the work |
+| **77 of 496** | edits landed in a single file (`README.md`) — a signal about review intensity, not a defect |
 
 Two things this table deliberately does *not* claim: a commit count, and a count of unnecessary
 wait/sleep cycles. Neither is a channel this report captures yet — see
@@ -286,7 +289,7 @@ wait/sleep cycles. Neither is a channel this report captures yet — see
 
 The `.html` view of that same report — this is what opens when you run `bar report`:
 
-![A BAR Observatory report open in a browser, showing the executive summary, key findings, and prioritized recommendations for one real captured session.](examples/deterministic/real-session.report.png)
+![A BAR Observatory report open in a browser, showing the executive summary, key findings, and prioritized recommendations across 7 real captured sessions.](examples/deterministic/real-session.report.png)
 
 *Full file: [`examples/deterministic/real-session.report.html`](examples/deterministic/real-session.report.html) — open it yourself, no setup needed. Section-by-section annotated walkthrough of what's in it and why: [wiki/human-html/report-guide.html](wiki/human-html/report-guide.html).*
 
@@ -358,8 +361,12 @@ reader is exactly the kind of judgment call the deterministic layer refuses to m
 
 |  | **Calculated** (`bar report` — one report, no AI, $0.00, byte-identical every time) | **Interpreted** (`bar interpret --audience …` — optional, LLM-written) |
 | --- | --- | --- |
-| **Read by a client or manager** | A consulting-style memo: what was delivered, what it cost, what risks surfaced | `--audience executive`: what the numbers mean and what needs deciding |
-| **Read by you or whoever maintains this** | The technical record: chronological timeline, every failure with its position, rework hotspots | `--audience engineering`: why the run went the way it did, and what to change next time |
+| **Boss Mode** — read by a client or manager | A consulting-style memo: what was delivered, what it cost, what risks surfaced | `--audience executive`: what the numbers mean and what needs deciding |
+| **Developer Guide** — read by you or whoever maintains this | The technical record: chronological timeline, every failure with its position, rework hotspots | `--audience engineering`: why the run went the way it did, and what to change next time |
+
+"Boss Mode" and "Developer Guide" are this project's settled public names for the two audiences —
+the CLI itself still says `bar interpret --audience executive|engineering`; see
+[`examples/README.md`](examples/README.md) for all five report artifacts named this way.
 
 The calculated column is the same document in both rows — it's the *reading*, not the report,
 that changes. The interpreted column is commentary *on* that evidence, always labeled as such, and

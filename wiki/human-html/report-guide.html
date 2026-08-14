@@ -120,7 +120,7 @@ footer a{color:var(--ink-2)}
       <div class="item-body">
         <p>Elapsed time, tool-call count, sub-agent-type count, transcript turns captured — the
         numbers a reader needs before anything else. The real bar for this session:</p>
-        <div class="evidence"><span class="k">30h 58m</span> · <span class="v">1,145 tool calls</span> · 4 sub-agent type(s)<br>3,970 transcript turns captured · 0 fabricated numbers</div>
+        <div class="evidence"><span class="k">316h 46m</span> · <span class="v">3,171 tool calls</span> · 8 sub-agent type(s)<br>9,132 transcript turns captured · 0 fabricated numbers</div>
         <p>"0 fabricated numbers" isn't a slogan here — it's the schema's own absence rule, visible
         as the first thing you read.</p>
       </div>
@@ -131,7 +131,7 @@ footer a{color:var(--ink-2)}
         <p>One paragraph, assembled from fields — never composed by a model.</p></div>
       <div class="item-body">
         <p>A single sentence stitched from real counters, not written prose:</p>
-        <div class="evidence">Over 30h 58m, the session made 1,145 tool calls across 3,970<br>transcript turns, dispatched 22 sub-agent run(s), and captured<br>25 error result(s).</div>
+        <div class="evidence">Over 316h 46m, the session made 3,171 tool calls across 9,132<br>transcript turns, dispatched 40 sub-agent run(s), and captured<br>60 error result(s).</div>
         <p>Compare this to <code>bar interpret</code>'s output: that one <em>is</em> LLM-written
         prose, and is labeled as such wherever it appears. This one is template substitution over
         typed fields — swap the database, the sentence updates itself; nothing here was composed.</p>
@@ -144,9 +144,9 @@ footer a{color:var(--ink-2)}
       <div class="item-body">
         <p>Four findings, each a plain claim with a supporting detail underneath it — not a single
         undifferentiated wall of text:</p>
-        <div class="evidence">25 tool error(s) were captured — the failures are recorded, not swallowed.<br>&nbsp;&nbsp;Worst: <span class="k">search_ruvnet (MCP)</span> ×9.
-One file absorbed the most churn: 157 edits.<br>&nbsp;&nbsp;<span class="k">report.rs</span> — a refactor / test-coverage candidate.
-Validation was not fully green at capture end: 20 failing vs 99 passing.<br>&nbsp;&nbsp;From real `test result:` lines (measured, not self-reported).
+        <div class="evidence">60 tool error(s) were captured — the failures are recorded, not swallowed.<br>&nbsp;&nbsp;Worst: <span class="k">Bash</span> ×45.
+One file absorbed the most churn: 77 edits.<br>&nbsp;&nbsp;<span class="k">README.md</span> — a multi-persona review pass, not a defect.
+Validation was not fully green at capture end: 29 failing vs 344 passing.<br>&nbsp;&nbsp;From real `test result:` lines (measured, not self-reported).
 5 of 6 capture channels were not recorded this session.<br>&nbsp;&nbsp;Uncaptured channels read "not recorded" — this is a transcript-only ingest.</div>
         <p>Each of these traces to a section further down this page — the findings aren't a
         separate narrative, they're a summary of facts that are also shown in full.</p>
@@ -161,7 +161,7 @@ Validation was not fully green at capture end: 20 failing vs 99 passing.<br>&nbs
         evidence — not a generic best-practices list:</p>
         <div class="evidence"><span class="v">P1</span> A failing MCP tool may have a non-MCP path available — prefer it<br>&nbsp;&nbsp;over retrying the same MCP call.
 <span class="v">P1</span> Resolve the remaining failing tests before relying on the session's<br>&nbsp;&nbsp;completion claims.
-<span class="k">P2</span> Review report.rs (highest edit churn) for a refactor or missing<br>&nbsp;&nbsp;test coverage.
+<span class="k">P2</span> Review README.md (highest edit churn) for a refactor or missing<br>&nbsp;&nbsp;test coverage.
 <span class="k">P3</span> Enable OTEL telemetry + hooks to capture tokens/cost, timeline,<br>&nbsp;&nbsp;and coverage.</div>
       </div>
     </div>
@@ -170,7 +170,7 @@ Validation was not fully green at capture end: 20 failing vs 99 passing.<br>&nbs
       <div class="item-label"><span class="item-n">05</span><h3>Task ledger</h3>
         <p>What was attempted, and how each item's state was determined.</p></div>
       <div class="item-body">
-        <p>27 tasks total this session — 12 completed, 15 in other states (created, superseded).
+        <p>40 tasks total this window — all 40 completed (100%, self-reported).
         Every row carries its own evidence type rather than a bare status:</p>
         <div class="evidence">state: completed<br>completion_evidence: <span class="k">self_reported</span><br>evidence_refs: [transcript:task-tool-calls]</div>
         <p><code>self_reported</code> is disclosed as exactly that — the task tool said "done,"
@@ -183,7 +183,7 @@ Validation was not fully green at capture end: 20 failing vs 99 passing.<br>&nbs
       <div class="item-label"><span class="item-n">06</span><h3>Tool usage</h3>
         <p>Which tools, and how hard, ranked by real call counts.</p></div>
       <div class="item-body">
-        <div class="evidence">Bash 603 · Edit 293 · Read 98 · Write 43 · TaskUpdate 30<br>TaskCreate 27 · Agent 22 · ToolSearch 7 · AskUserQuestion 4 · …</div>
+        <div class="evidence">Bash 1,706 · Edit 496 · Read 410 · Write 97 · TaskUpdate 209<br>TaskCreate 132 · Agent 40 · ToolSearch 19 · AskUserQuestion 11 · …</div>
         <p>Fifteen distinct tools appear in the full record; this is the ranked head of that list,
         exactly as captured — nothing rounded, nothing merged.</p>
       </div>
@@ -204,10 +204,10 @@ Validation was not fully green at capture end: 20 failing vs 99 passing.<br>&nbs
       <div class="item-label"><span class="item-n">08</span><h3>Rework hotspots</h3>
         <p>Where effort concentrated — a signal about the work, not a score.</p></div>
       <div class="item-body">
-        <div class="evidence">./…/bar-observatory/src/report.rs — edited 157 times<br>./…/bar-observatory/src/lib.rs — edited 24 times<br>./…/bar-observatory/src/detectors.rs — edited 22 times</div>
-        <p>157 of that session's 293 total edits — more than half — landed in one file. The report
-        doesn't editorialize about why; it just makes the concentration impossible to miss, which is
-        usually enough to prompt the right question.</p>
+        <div class="evidence">./…/bar-observatory/README.md — edited 77 times<br>./…/bar-observatory/index.html — edited 22 times<br>./…/bar-observatory/provenance/PROVENANCE.json — edited 16 times</div>
+        <p>77 of that window's 496 total edits — more than the next four files combined — landed in one
+        file. The report doesn't editorialize about why; it just makes the concentration impossible
+        to miss, which is usually enough to prompt the right question.</p>
       </div>
     </div>
 
@@ -215,9 +215,9 @@ Validation was not fully green at capture end: 20 failing vs 99 passing.<br>&nbs
       <div class="item-label"><span class="item-n">09</span><h3>Validation &amp; flaky signals</h3>
         <p>Measured from real test output — not a self-reported "tests pass."</p></div>
       <div class="item-body">
-        <div class="evidence">119 cargo `test result:` line(s) — 99 passed, 20 failed<br>last line: PASSED (measured, not self-reported)
+        <div class="evidence">373 cargo `test result:` line(s) — 344 passed, 29 failed<br>last line: PASSED (measured, not self-reported)
 
-flaky: 2 test(s) both passed AND failed this session<br>&nbsp;&nbsp;migration_files_are_byte_frozen — 2 fails / 1 pass<br>&nbsp;&nbsp;report::tests::p5_empty_store_honest_absent — 1 fail / 1 pass</div>
+flaky: 3 test(s) both passed AND failed this window<br>&nbsp;&nbsp;round_trips_losslessly — 3 fails / 5 passes<br>&nbsp;&nbsp;pr2_review_list_query_failures_are_disclosed_not_silent — 2 fails / 3 passes<br>&nbsp;&nbsp;a2c_f1_committed_plugin_hooks_match_generator — 1 fail / 2 passes</div>
         <p>A test that flips between pass and fail across the same session is a real signal — could
         be a fix landing mid-session, could be a regression, could be flakiness. The report doesn't
         guess which; it surfaces the flip and lets a human or agent decide.</p>
@@ -251,7 +251,7 @@ observations: "Not observed — micro-observation extraction and<br>silent-signa
       <div class="item-label"><span class="item-n">11</span><h3>Capture-channel honesty</h3>
         <p>Which channels actually had data.</p></div>
       <div class="item-body">
-        <div class="evidence">transcripts: <span class="v">partial</span> — 3,970 turns; 350 dangling parent(s)<br>hooks / events / spans / requests: <span class="k">not_recorded</span> — no rows in this store<br>provider_cost_usd: <span class="k">not_recorded</span> — no authoritative per-token USD available</div>
+        <div class="evidence">transcripts: <span class="v">partial</span> — 9,132 turns; 629 dangling parent(s), 139 unpaired tool_use/tool_result<br>hooks / events / spans / requests: <span class="k">not_recorded</span> — no rows in this store<br>provider_cost_usd: <span class="k">not_recorded</span> — no authoritative per-token USD available</div>
         <p>Five of six channels read <code>not_recorded</code> here because this capture was a
         transcript-only ingest — no hooks, proxy, or OTLP were running. That's disclosed plainly
         rather than left for a reader to assume from silence.</p>

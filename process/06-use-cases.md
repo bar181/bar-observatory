@@ -12,25 +12,27 @@ and are easy to forget by the time you're debugging something else. BAR Observat
 every tool result and lets you surface the errors on demand:
 
 ```
-$ bar query <session>.sqlite errors
+$ bar query <db> errors --limit 0
 seq   tool  excerpt
 ----  ----  -----------------------------------------------------------------
-308         MCP server "…brain…" tool "search" timed out after 60s
-316         search error: worker timed out after 240s on tools/call
-389         MCP server "…brain…" tool "search" timed out after 60s
-436         Exit code 143 … (a killed long-running command)
-1391        <tool_use_error> Blocked: sleep 90 … (a guardrail refusal)
+150         Permission to use Bash with command rm -rf … has been denied. (a guardrail refusal)
+438         Agent type 'qe-requirements-validator' not found. Available agents: …
+603         Exit code 143 Command timed out after 2m 0s … (a killed long-running command)
+1490        <tool_use_error> Found 2 matches of the string to replace, but replace_all is false.
 ```
 
-**25 error results** turned up across this one real session — MCP timeouts, a killed command,
-guardrail refusals — each one with its exact seq and text, still queryable months later. Nothing
-was swallowed.
+**60 error results** turned up across a real 7-session window — guardrail refusals, a missing
+sub-agent, a killed command, ambiguous edits — each one with its exact seq and text, still
+queryable months later. Nothing was swallowed. (Guardrail refusals like the first one above are
+the safety system working as intended, not a defect — see
+[`examples/interpreted/interpreted-engineering.html`](../examples/interpreted/interpreted-engineering.html)
+for the root-cause breakdown.)
 
 ## "Which tools did this session lean on, and what did it cost?"
 
 ```
-$ bar query <session>.sqlite tools      # Bash 600+, Edit 290+, Read 90+, …
-$ bar report <session>.sqlite           # deterministic json/html/md: tasks, rework, cost-equiv
+$ bar query <db> tools                  # Bash 1,700+, Edit 490+, Read 410+, …
+$ bar report <db>                       # deterministic json/html/md: tasks, rework, cost-equiv
 ```
 
 Same database in, byte-identical report out — a shareable receipt of an agent run, with no LLM

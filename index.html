@@ -325,17 +325,17 @@ footer a{color:var(--ink-2)}
           <div class="r-rule print-row" style="animation-delay:.18s"></div>
           <div class="print-row" style="animation-delay:.24s">
             <div class="r-key">tool calls</div>
-            <div class="r-line"><span>Bash</span><span>600+</span></div>
-            <div class="r-line"><span>Edit</span><span>290+</span></div>
-            <div class="r-line"><span>Read</span><span>90+</span></div>
+            <div class="r-line"><span>Bash</span><span>1,700+</span></div>
+            <div class="r-line"><span>Edit</span><span>490+</span></div>
+            <div class="r-line"><span>Read</span><span>410+</span></div>
           </div>
           <div class="r-rule print-row" style="animation-delay:.30s"></div>
           <div class="print-row" style="animation-delay:.36s">
-            <div class="r-line r-total"><span>errors observed</span><span>25</span></div>
-            <div class="r-sub">seq 308 · MCP tool timed out 60s</div>
-            <div class="r-sub">seq 316 · worker timeout 240s</div>
-            <div class="r-sub">seq 436 · exit code 143</div>
-            <div class="r-sub">seq 1391 · guardrail refusal</div>
+            <div class="r-line r-total"><span>errors observed</span><span>60</span></div>
+            <div class="r-sub">seq 150 · guardrail refusal (rm -rf)</div>
+            <div class="r-sub">seq 438 · sub-agent not found</div>
+            <div class="r-sub">seq 603 · exit code 143</div>
+            <div class="r-sub">seq 1490 · ambiguous edit match</div>
           </div>
           <div class="r-rule print-row" style="animation-delay:.42s"></div>
           <div class="print-row" style="animation-delay:.48s">
@@ -541,22 +541,22 @@ footer a{color:var(--ink-2)}
     <div class="two" style="margin-top:34px">
       <div>
         <h3>"What silently failed?"</h3>
-<pre><span class="c">$ bar query &lt;session&gt;.sqlite errors</span>
+<pre><span class="c">$ bar query &lt;db&gt; errors --limit 0</span>
 seq   excerpt
 ----  ------------------------------------------
-308   MCP tool timed out after 60s
-316   search error: worker timed out after 240s
-389   MCP tool timed out after 60s
-436   Exit code 143 <span class="c">(killed long-running command)</span>
-1391  Blocked: sleep 90 <span class="c">(guardrail refusal)</span></pre>
-        <p style="color:var(--ink-2);font-size:15.5px">Timeouts, a killed command, a guardrail refusal.
-        Each with its exact position in the session and its original text. Nothing swallowed, nothing
-        rounded away.</p>
+150   Bash rm -rf <span class="c">(guardrail refusal)</span>
+438   Agent type not found <span class="c">(sub-agent unavailable)</span>
+603   Exit code 143 <span class="c">(killed long-running command)</span>
+1490  2 matches, replace_all false <span class="c">(ambiguous edit)</span>
+1851  Read input not valid JSON <span class="c">(malformed tool call)</span></pre>
+        <p style="color:var(--ink-2);font-size:15.5px">Guardrail refusals, a missing sub-agent, a
+        killed command, ambiguous edits. Each with its exact position in the session and its original
+        text. Nothing swallowed, nothing rounded away.</p>
       </div>
       <div>
         <h3>"What did it lean on, and is the recorder even working?"</h3>
-<pre><span class="c">$ bar query &lt;session&gt;.sqlite tools</span>
-Bash 600+ · Edit 290+ · Read 90+ · …
+<pre><span class="c">$ bar query &lt;db&gt; tools</span>
+Bash 1,700+ · Edit 490+ · Read 410+ · …
 
 <span class="c">$ bar report &lt;session&gt;.sqlite</span>
 <span class="p">wrote</span> report.json report.html report.md

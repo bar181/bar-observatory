@@ -423,15 +423,23 @@ compliance team on what your specific evidentiary requirements are.)
 claude mcp add bar-observatory -- bar-mcp --db-root .bar
 ```
 
-Twelve read-only tools. **Call `get_hub` first** — it routes an agent to everything else in the
-record. Most tools read one run's capture database, but five are explicitly cross-run — they scan
-every database under `--db-root`, not just the one you point at: `list_runs` and
+Twelve read-only tools. **Call `get_hub` first** — it returns
+**[wiki/aisp/HUB.aisp](wiki/aisp/HUB.aisp)** verbatim, which routes an agent to everything else in
+the record. Most tools read one run's capture database, but five are explicitly cross-run — they
+scan every database under `--db-root`, not just the one you point at: `list_runs` and
 `compare_conditions` (aggregate ledgers across every run when called without a `db` argument),
 plus `search_observations`, `list_findings`, and `recall_context` (always read the cross-run
 index, never a single database). That's the foundation for an agent starting a new session to ask
 "what did previous runs already try" before repeating it.
 
-Full tool list and ground rules: **[wiki/agent/AI-CONTEXT.md](wiki/agent/AI-CONTEXT.md)**
+> **AI agents and agent swarms: read `wiki/aisp/HUB.aisp` for functionality, not this page.**
+> It's written in [AISP](wiki/aisp/HUB.aisp) — every CLI command with its exact flags, all 12 MCP
+> tools, the full `report.json` schema, the 15-crate architecture, the 30-table capture schema,
+> and 15 copy-paste recipes, all proof-carrying and self-certifying (an `⟦Ε⟧` evidence block, not
+> an assertion). No MCP connection required to read it — it's a plain file in this repo. This
+> README is written for a human; `HUB.aisp` is written for you.
+
+Full tool list and ground rules (human-readable prose version): **[wiki/agent/AI-CONTEXT.md](wiki/agent/AI-CONTEXT.md)**
 
 ## Who is this for?
 

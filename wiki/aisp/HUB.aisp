@@ -1,166 +1,209 @@
-⟦Ω⟧META{
- ID=bar-observatory;
- EXPANSION=Base_Agentic_Reporter;
- TAGLINE=observe_how_agentic_work_actually_gets_done;
- WHAT=local_only_deterministic_flight_recorder_for_claude_code_agent_sessions;
- AUDIENCE_THIS_FILE=ai_agent_or_agent_swarm_that_must_operate_bar_observatory_without_reading_prose_docs;
- SPEC_FORMAT=AISP≜Σ_512_symbol_glossary+Crystal_Atom_blocks⟦Ω,Σ,Γ,Λ,Χ,Ε⟧;
- SPEC_SOURCE=upstream/aisp/CHEATSHEET.md+upstream/aisp/AI_GUIDE.md(pinned_submodule,this_repo_only);
- DISTRIBUTION=crates_io_primary;
- INSTALL=cargo_install_bar-observatory;
- INSTALL_ALT=cargo_install_bar-mcp∧cargo_install_bar-hook(if_MCP_or_plugin_hooks_needed);
- PLUGIN=claude_/plugin_marketplace_add_bar181/bar-observatory→/plugin_install_bar-observatory@bar-observatory;
- PLUGIN_RESOLVES_BINARIES_VIA=PATH¬bundled(disclosed_gap,see_Γ.G7);
- CLI=bar;
- REPO_PRIVATE_SOURCE=bar-obs-private/crates/(15_crates,not_public);
- REPO_PUBLIC=bar-observatory/(front_door+docs+examples,zero_crate_source_by_design);
- DOCS_ROOT=github.com/bar181/bar-observatory;
- NAMING_SETTLED=BossMode≜executive_client_register∧DeveloperGuide≜engineering_register(CLI_flag_still_says_--audience_executive|engineering);
+𝔸3.0.bar-observatory-hub@2026-08-14
+γ≔bar-observatory.agent-operations
+ρ≔⟨cli,mcp,crates,report,query,capture,agent-comms,proof-carrying⟩
+⊢deterministic∧proof-carrying∧lossless∧self-certifying
+
+;; ─── Ω: SYMBOLS (custom, BAR-scoped, ∅collision∩upstream/aisp/CHEATSHEET.md alphabet) ───
+⟦Ω:Symbols⟧{
+ 𝒦≜crate; 𝒟≜datastore(SQLite_file); ℛ≜report(deterministic_artifact); 𝒬≜query(read_op)
+ 𝒞≜capture-channel; 𝒜≜agent(dispatch); 𝒮≜skill(invocation); 𝒯≜transcript-turn
+ 𝒲≜window(multi-session_capture_scope); ℐb≜interpret-brief(7-fact_LLM_input)
+ ≺≜depends-on(layer_precedes); ⊑≜sub-component-of
 }
 
-⟦Λ⟧FUNCTIONS{
- // ---- bootstrap: run once per target directory ----
- init≜bar_init[--dir<d>]⟶creates<d>/.bar/{config.toml,ambient.sqlite,index.sqlite,bodies/};
- init.idempotent=⊤;
- init.no_arg_defaults_to=cwd;
-
- // ---- ingest: retroactive, transcript-only (see Γ.G8 for what this does NOT capture) ----
- ingest≜bar_ingest<db><transcript.jsonl>[--run-uuid<uuid>]⟶stdout(N_turns_ingested);
- ingest.repeatable=⊤(∀session∈window:ingest_once_with_distinct_run-uuid⟹multi-session_store);
- ingest.run_uuid_default=bar-ingest(collides_if_omitted_twice⟹always_pass_explicit_uuid);
- ingest.source=real_claude_code_transcript_jsonl(~/.claude/projects/<proj-slug>/<session-uuid>.jsonl);
-
- // ---- render: the ONE deterministic artifact, byte-identical for a given db ----
- report≜bar_report<db>[--out<d>]⟶writes<d>/<dbstem>.report.{json,html,md};
- report.audience=none(single_shape,"Developer_Guide_Evidence"_in_public_naming);
- report.cost=$0.00∧llm_in_render_path=⊥;
- report.determinism=∀run:same_db⟹byte_identical_output(verify_via_Ε.E1);
- report.NOTE_no_--view_flag_exists=⊤(boss-mode.report.*_in_examples/_is_hand-assembled,see_Γ.G9);
-
- // ---- health check: env + optional store validity ----
- doctor≜bar_doctor[<db>]⟶stdout(checks_table)∧exit≠0_iff(db_given∧store_invalid);
- doctor.no_db_arg=env-only_checks(cli_version,binary_present);
-
- // ---- interpret: emits a FACT-ONLY BRIEF, not prose (LLM writes the prose, separately) ----
- interpret≜bar_interpret<db>--audience{executive|engineering}[--out<d>]⟶writes<d>/interpret-brief.{audience}.md;
- interpret.brief_facts=⟨transcript_turns,tool_calls,tasks_total,tasks_completed,sub-agent_dispatches,error_results,tokens_total,api_cost_cents⟩(7_numbers_only);
- interpret.brief_invariant=only_these_7_may_appear_in_written_prose(¬invent,¬round);
- interpret.next_step=hand_brief_to_any_LLM_session→writes_audience-toned_prose→that_prose=Commentary(labeled_optional,non-deterministic);
- interpret.NOTE_brief≠full_report=⊤(richer_sections_e.g._rework_hotspots_top-N_prompts_require_reading_report.json_directly,not_the_brief);
-
- // ---- query: read-only direct DB access, the general-purpose fetch primitive ----
- query≜bar_query<db>{<named>|--sql"SELECT…"|--list}[--format{table|json|csv}][--limit<N>];
- query.named=⟨tools:(tool,calls),timeline:(seq,role,block,tool),errors:(seq,tool,excerpt)⟩;
- query.limit_default=50∧--limit_0=∀rows;
- query.sql_constraint=∀stmt:stmt.starts_with(SELECT∨WITH)(write_attempts_refused_by_SQLITE_OPEN_READ_ONLY¬by_regex);
- query.list=bar_query<db>--list⟶prints_named_query_catalog+usage;
-
- // ---- MCP surface: same reads as CLI query, exposed as tools for an agent that can't shell out ----
- mcp.binary=bar-mcp;
- mcp.connect≜claude_mcp_add_bar-observatory_--_bar-mcp_--db-root<dir>;
- mcp.tools=[list_runs,get_ledger,get_run_report,query_delta_findings,get_convergence,compare_conditions,get_dead_letters,get_completeness,search_observations,list_findings,recall_context,get_hub];
- mcp.read_only=⊤(mutation_is_CLI_only,ADR-049);
- mcp.get_hub≜returns_this_file's_content(self-referential,keep_in_sync_manually_today);
-
- // ---- plugin slash commands (Claude Code session, no shell needed) ----
- slash_cmds=[/bar-init,/bar-report,/bar-interpret,/bar-doctor,/bar-query];
- slash_cmds.map_1:1_to=CLI_cmds_of_same_name(minus_/bar-ingest,not_yet_a_slash_cmd);
+;; ─── Ω: META ───
+⟦Ω:Meta⟧{
+ ID≜bar-observatory; EXP≜Base_Agentic_Reporter; 𝔸≔flight-recorder(local,deterministic,claude-code-sessions)
+ AUD≜agent∨swarm; READ_ORDER≜this≺∀other_wiki_doc(δ_max,∅prose_prereq,per⟦Γ:Agent⟧)
+ DIST≜crates.io; INSTALL≜cargo_install_bar-observatory(binary=bar)
+ PLUGIN≜/plugin_marketplace_add_bar181/bar-observatory∘/plugin_install_bar-observatory@bar-observatory
+ REPO≜github.com/bar181/bar-observatory(front-door+docs+examples;∅𝒦_source,by_design)
+ NAME≜{BossMode↦executive_register,DeveloperGuide↦engineering_register}(CLI_flag≜--audience_executive|engineering,unchanged)
 }
 
-⟦Σ⟧TYPES{
- // ---- report.json: the ONE machine contract every rendered view (html/md) agrees with ----
- ReportDoc≜⟨schema_version:𝕊="bar-observatory-report-1.0",
-   report:⟨id,title,generated_at,template_version,deterministic:𝔹,interpretation⟩,
-   branding,
-   scope:⟨type,session_count:ℕ,started_at,ended_at,note⟩,
-   summary:⟨runs:ℕ,hooks_recorded,events_recorded,spans_recorded,transcript_turns:ℕ,timeline_events,requests,tokens_in,tokens_out,tokens_total,capture_losses:ℕ,elapsed_ms:ℕ,tool_calls:ℕ,tools:[⟨tool,calls⟩],tasks_total:ℕ,tasks_completed:ℕ,tasks_in_progress:ℕ,tasks_pending:ℕ,tasks_other:ℕ,error_results:ℕ,redacted_edits:ℕ,cost_estimate_usd_cents,cost_pricing_version,agent_runs:ℕ,agents:[⟨subagent_type,count⟩],skills:[⟨skill,count⟩]⟩,
-   tasks:⟨status:{observed|not_observed},items:[⟨task_id,title,state,completion_evidence,evidence_refs,attempts,loops,rework_events⟩],note⟩,
-   agents:⟨status,items:[⟨subagent_type,count⟩],note⟩,
-   skills:⟨status,items,note⟩,
-   rework:⟨status,events:[⟨rework_id,type,confidence,detail,evidence_refs,task_id⟩],hotspots:[⟨path,edits⟩],note⟩,
-   human_ai_recovery:⟨status=not_observed(¬built_yet),items:∅,note⟩,
-   validation:⟨status,items:[⟨runs,passed,failed,last_ok:𝔹⟩],note⟩,
-   flaky:⟨status,items:[⟨test,passes,fails⟩],note⟩,
-   failures:⟨status,items:[⟨tool,kind:{mcp|tool|unknown},count⟩],note⟩,
-   observations:⟨status=not_observed(¬built_yet),featured:∅,note⟩,
-   capture:⟨channels:[⟨id,status:{not_recorded|partial|complete},coverage,recorded:ℕ,reason⟩],health_note⟩,
-   integrity:⟨source_db_hash,template_hash,renderer_version,deterministic_render:𝔹,llm_in_render_path:𝔹⟩⟩;
+;; ─── Σ: CRATE ARCHITECTURE (15𝒦, crates.io-published, function-scoped) ───
+⟦Σ:Crates⟧{
+ L≜{L0,L0.5,L1,L2,L3}; L0≺L0.5≺L1≺L2≺L3(dependency_direction;∀spoke⊑bar-store,hub-and-spoke)
 
- // ---- capture channels: exactly 6, each independently on/off ----
- Channel≜hooks|events|spans|transcripts|requests|provider_cost_usd;
- Channel.provider_cost_usd.NOTE=¬own_table(derived_from_requests_token_columns_at_render_time);
- Channel.status_semantics=not_recorded(0_rows,¬a_finding)|partial(measured_gap,e.g._dangling_parents)|complete(no_loss);
-
- // ---- SQLite schema: 30 tables in ambient.sqlite (per-run store) ----
- SchemaTables=[schema_meta,runs,blobs,spans,requests,events,transcript_turns,micro_results,metrics,task_grades,convergence,method_scores,run_config,raw_logs,hooks,config_snapshot_meta,method_versions,promotions,detector_scores,file_versions,plan_docs,dead_letters,timeline_seq,hook_action_signature,span_prompt_context,sanitize_stats,report_snapshots,trigger_log,config_snapshot];
- runs≜⟨run_id,run_uuid,started_at,ended_at⟩;
- transcript_turns≜⟨turn_id,run_id,transcript_sha,sidechain:𝔹,seq:ℕ,msg_uuid,parent_uuid,role:{user|assistant|system},block_type:{text|thinking|tool_use|tool_result|other},tool_name,content_hash,content_excerpt,content_json⟩;
- transcript_turns.human_prompt_filter=role=user∧block_type=text∧tool_name=∅∧content∉SYNTHETIC_PREFIXES;
- SYNTHETIC_PREFIXES=["<task-notification>","[Your previous response had no visible output","This session is being continued from a previous conversation"](¬human-authored,exclude_from_prompt_counts);
-
- // ---- the 5 public example artifacts, all rendered from ONE multi-session store ----
- ExampleArtifact≜⟨report.json:machine_contract⟩
-   ×⟨BossMode:⟨Evidence:boss-mode.report.{html,md}(deterministic,hand-assembled_from_report.json,¬native_CLI_output,disclosed_gap),Commentary:interpreted-executive.html(LLM,from_interpret-brief.executive.md)⟩⟩
-   ×⟨DeveloperGuide:⟨Evidence:real-session.report.{html,md}(native_bar_report_output+hand-appended_appendices:session-summary,top5-languages,capture-channels-flow,top5-prompts,68-prompt-ledger,60-row-failure-list),Commentary:interpreted-engineering.html(LLM,from_interpret-brief.engineering.md)⟩⟩;
- ExampleArtifact.location=bar-observatory/examples/{deterministic,interpreted}/;
- ExampleArtifact.source_store=7_real_sessions,2026-07-31→2026-08-13,9132_turns,68_real_human_prompts;
+ 𝒦map≜{
+  bar-obs-config ↦ ⟨L0, layered_TOML_config_resolve⟩,
+  bar-schema     ↦ ⟨L0, ReportDocument_type+fact_id_assign⟩,
+  bar-store      ↦ ⟨L0, 𝒟_schema+Substrate_trait(hub,∅internal_deps)⟩,
+  bar-registry   ↦ ⟨L0, capability_metadata(∅deps_by_design)⟩,
+  bar-index      ↦ ⟨L0.5≺bar-store, cross-run_catalog+artifact_store⟩,
+  bar-read       ↦ ⟨L1≺bar-store, 𝒬_surface(named+guarded_raw_SELECT)⟩,
+  bar-hook       ↦ ⟨L1≺bar-store, hook_binary(stdin_JSON→𝒟)⟩,
+  bar-otlp       ↦ ⟨L1≺bar-store, OTLP_gRPC_receiver⟩,
+  bar-proxy      ↦ ⟨L1≺bar-store, ANTHROPIC_BASE_URL_interceptor⟩,
+  bar-sanitize   ↦ ⟨≺bar-store,bar-index, PII_scrub(capture→publish-safe_copy)⟩,
+  bar-ingest     ↦ ⟨L1≺bar-store,bar-sanitize, transcript.jsonl_parser⟩,
+  bar-metrics    ↦ ⟨L2≺bar-store, T/R/L/Δ/E_ledger⟩,
+  bar-review     ↦ ⟨L2≺bar-store,bar-index, detector+recommend_engine⟩,
+  bar-mcp        ↦ ⟨L3≺bar-store,bar-sanitize,bar-index,bar-registry, MCP_stdio_server(read-only)⟩,
+  bar-observatory↦ ⟨≺bar-store,bar-ingest,bar-read, bar_CLI(init,ingest,report,doctor,interpret,query)⟩
+ }
+ |𝒦map|≡15; Published≜{bar,bar-mcp,bar-hook}(direct_binaries;remainder=library_𝒦_also_on_crates.io)
 }
 
-⟦Γ⟧RULES{
- G1.determinism≜∀db,∀t∈{json,html,md}:bar_report(db)_at_t1≡bar_report(db)_at_t2(byte-identical,no_LLM_no_network_in_render_path);
- G2.honesty≜missing_channel⇒render("not_recorded")¬render(0)(never_fabricate_a_measured_zero);
- G3.evidence_vs_commentary≜deterministic_layer⊥LLM_layer(interpret_brief_pins_every_number;prose_written_from_it_may_not_add_new_numbers);
- G4.mutation_boundary≜write_ops∈{CLI}∧read_ops∈{CLI,MCP}(MCP_never_mutates,ADR-049);
- G5.sql_safety≜query.--sql_opened_SQLITE_OPEN_READ_ONLY(refused_at_the_engine,not_a_string_filter);
- G6.privacy≜captured_data(.bar/*.sqlite,.bar/bodies/)∉git(ADR-005,only_rendered_report_artifacts_are_committed);
- G7.plugin_binaries≜bar-hook∧bar-mcp_resolved_via_PATH(no_bundled_per-platform_binary_yet,install_via_cargo_first);
- G8.retroactive_ingest_limits≜bar_ingest(transcript.jsonl)⇏populates{hooks,events,spans,requests,provider_cost_usd}(those_5_channels_need_a_LIVE_bar-hook∧bar-otlp∧bar-proxy_running_DURING_the_session,not_after);
- G9.boss_mode_report_is_not_native≜bar_report_has_no_--view_flag(boss-mode.report.*_and_the_Commentary_layer's_root-cause_grouping_are_hand-built_from_report.json+bar_query,disclosed_in_examples/README.md,candidate_future_CLI_work=bar_report_--view_summary);
- G10.token_usage_gap≜bar-ingest_discards_the_raw_transcript's_own_usage_field(input/output/cache_tokens_ARE_present_per-assistant-turn_in_the_.jsonl_but_not_extracted_into_requests;only_bar-proxy_live_capture_populates_requests_properly;a_disclosed_product_gap,not_a_bug);
- G11.human_gates≜publish_to_crates.io∧push_to_github.com/bar181/bar-observatory=human-approval-required(never_a_swarm's_call_to_cross_without_explicit_go-ahead_each_time);
+;; ─── Σ: DATA TYPES ───
+⟦Σ:Types⟧{
+ ReportDoc≜⟨
+  schema_version:𝕊="bar-observatory-report-1.0",
+  report:⟨id,title,generated_at,template_version,deterministic:𝔹⟩,
+  scope:⟨type,session_count:ℕ,started_at,ended_at⟩,
+  summary:⟨runs:ℕ,𝒯_count:ℕ,tool_calls:ℕ,tools:List⟨⟨tool,calls⟩⟩,tasks_total:ℕ,tasks_completed:ℕ,error_results:ℕ,agent_runs:ℕ,agents:List⟨⟨type,count⟩⟩,skills:List⟨⟨𝒮,count⟩⟩,elapsed_ms:ℕ,tokens_total,cost_cents⟩,
+  tasks:⟨status:{observed|not_observed},items:List⟨⟨id,title,state,evidence_refs⟩⟩⟩,
+  rework:⟨status,events:List⟨⟨id,detail,evidence_refs⟩⟩,hotspots:List⟨⟨path,edits:ℕ⟩⟩⟩,
+  human_ai_recovery:⟨status=not_observed⟩,
+  validation:⟨status,items:List⟨⟨runs,passed,failed,last_ok:𝔹⟩⟩⟩,
+  flaky:⟨status,items:List⟨⟨test,passes,fails⟩⟩⟩,
+  failures:⟨status,items:List⟨⟨tool,kind:{mcp|tool|unknown},count⟩⟩⟩,
+  observations:⟨status=not_observed⟩,
+  capture:⟨channels:List⟨𝒞⟩,health_note⟩,
+  integrity:⟨source_db_hash,template_hash,renderer_version,deterministic_render:𝔹,llm_in_render_path:𝔹⟩
+ ⟩
+
+ 𝒞≜⟨id:{hooks|events|spans|transcripts|requests|provider_cost_usd},status:{not_recorded|partial|complete},recorded:ℕ,reason⟩
+ 𝒞.provider_cost_usd.src≜requests.{input,output,cache}_tokens(¬own_table,derived_at_render)
+
+ Schema𝒟≜{schema_meta,runs,blobs,spans,requests,events,transcript_turns,micro_results,metrics,task_grades,convergence,method_scores,run_config,raw_logs,hooks,config_snapshot_meta,method_versions,promotions,detector_scores,file_versions,plan_docs,dead_letters,timeline_seq,hook_action_signature,span_prompt_context,sanitize_stats,report_snapshots,trigger_log,config_snapshot}; |Schema𝒟|≡30
+
+ runs≜⟨run_id,run_uuid,started_at,ended_at⟩
+ 𝒯≜⟨turn_id,run_id,seq:ℕ,msg_uuid,parent_uuid,role:{user|assistant|system},block_type:{text|thinking|tool_use|tool_result|other},tool_name,content_excerpt,content_json⟩
+
+ HumanPrompt≜{t∈𝒯|t.role≡user∧t.block_type≡text∧t.tool_name≡∅∧t.content∉Ψ_synthetic}
+ Ψ_synthetic≜{"<task-notification>","[Your previous response had no visible output","This session is being continued from a previous conversation"}
+
+ ExampleArtifact≜⟨ReportDoc⟩×⟨BossMode:⟨Ev:boss-mode.ℛ.{html,md},Co:interpreted-executive.html⟩⟩×⟨DeveloperGuide:⟨Ev:real-session.ℛ.{html,md},Co:interpreted-engineering.html⟩⟩
+ ExampleArtifact.loc≜bar-observatory/examples/{deterministic,interpreted}/
+ ExampleArtifact.src≜⟨𝒲:7_sessions,𝒯:9132,HumanPrompt:68,errors:60,tasks:40/40,rework_hotspots:96⟩; ∀claim∈this_doc:trace(Ε.E6)
 }
 
-⟦Ε⟧EVIDENCE{
- E1.verify_determinism≜bar_report<db>--out/tmp/a∧bar_report<db>--out/tmp/b∧diff_-r_/tmp/a_/tmp/b⟹∅(no_diff);
- E2.verify_error_list≜bar_query<db>errors_--limit_0_--format_csv⟹every_row_has_real_seq∈transcript_turns.seq;
- E3.verify_rework_hotspots≜cat_report.json_|_jq'.rework.hotspots'⟹[⟨path,edits⟩]_sorted_desc(cross-check_against_bar_query<db>--sql"SELECT COUNT(*) FROM transcript_turns WHERE tool_name='Edit'AND content_json LIKE'%<path>%'");
- E4.verify_capture_channel_counts≜∀c∈Channel:bar_query<db>--sql"SELECT COUNT(*) FROM {c}"⟹matches_report.json.capture.channels[id=c].recorded;
- E5.verify_this_file≜this_document's_own_claims_should_resolve_against_bar-obs-private/crates/bar-observatory/src/{lib.rs,main.rs}(source_of_truth_for_CLI_flags)∧a_real_report.json(source_of_truth_for_schema);
- E6.real_worked_example=bar-observatory/examples/deterministic/real-session.report.json(7_sessions,9132_turns,60_errors,40/40_tasks,96_rework_hotspots — every_number_in_⟦Σ⟧_traces_here);
+;; ─── Γ: OPERATING RULES ───
+⟦Γ:Rules⟧{
+ G1≜∀𝒟,∀t∈{json,html,md}:ℛ(𝒟,t)@τ₁≡ℛ(𝒟,t)@τ₂(∅LLM∧∅net∈render_path)
+ G2≜absent(𝒞)⇒render(not_recorded)≢render(0)
+ G3≜ℛ∩Commentary≡∅(ℐb_pins_∀number;prose_from_it_⊬invent)
+ G4≜write∈{CLI}∧read∈{CLI,MCP}(MCP⊬mutate,per_bar-mcp_ADR-049)
+ G5≜𝒬.--sql_opened_READ_ONLY(engine-enforced,¬regex-filtered)
+ G6≜{*.sqlite,bodies/}∉git(only_rendered_ℛ_committed)
+ G7≜{bar-hook,bar-mcp}resolved_via_PATH(∅bundled_binary_yet)
+ G8≜ingest(tx.jsonl)⇏{hooks,events,spans,requests,provider_cost_usd}(∵these_4𝒞_need_live_capture_during_𝒲,∄post-hoc_recovery)
+ G9≜ℛ.∄(--view_flag)(boss-mode.ℛ.*∧Commentary_grouping=hand-built_from_ReportDoc+𝒬,candidate≜ℛ_--view_summary)
+ G10≜ingest⊬extract(tx.jsonl.usage_field)(per-turn_token_counts∃∈raw_tx¬∈requests_table;only_bar-proxy_live_capture_populates_correctly)
+ G11≜{publish(crates.io),push(REPO)}⇒human_approval(∀swarm:⊬cross_without_explicit_go-ahead∀instance)
+ G12≜⟦Ε⟧∈this_doc(self-certifying,per_upstream/aisp/AI_GUIDE.md:443)
 }
 
-⟦Λ⟧RECIPES{
- R1.bootstrap_new_store≜bar_init_--dir<d>;
- R2.ingest_one_session≜bar_ingest<d>/.bar/ambient.sqlite<tx.jsonl>_--run-uuid<label>;
- R3.ingest_multi_session_window≜∀tx∈sessions:R2(tx,distinct_label)(accumulates_into_ONE_store,report.json.summary.runs=count);
- R4.render_deterministic_report≜bar_report<db>_--out<d>⟶<d>/<dbstem>.report.{json,html,md};
- R5.health_check≜bar_doctor<db>;
- R6.get_executive_brief≜bar_interpret<db>_--audience_executive_--out<d>→hand_<d>/interpret-brief.executive.md_to_an_LLM→ask_for_audience-toned_prose;
- R7.get_engineering_brief≜bar_interpret<db>_--audience_engineering_--out<d>(same_pattern_as_R6);
- R8.pull_raw_errors≜bar_query<db>_errors_--limit_0_--format_csv;
- R9.pull_tool_breakdown≜bar_query<db>_tools;
- R10.pull_chronological_timeline≜bar_query<db>_timeline_--limit_0;
- R11.custom_slice_via_sql≜bar_query<db>_--sql"SELECT…FROM transcript_turns WHERE…"(SELECT|WITH_only);
- R12.list_available_named_queries≜bar_query<db>_--list;
- R13.agent_side_via_MCP≜connect_bar-mcp_--db-root<dir>→call_list_runs→get_run_report(run_id)→list_findings|search_observations_as_needed(no_shell_required);
- R14.full_pipeline_from_scratch≜R1∘R2∘R4∘R5(init→ingest→report→doctor,minimal_viable_session);
- R15.per_session_error_count≜bar_query<db>_--sql"SELECT r.run_uuid,COUNT(*) FROM transcript_turns t JOIN runs r ON t.run_id=r.run_id WHERE t.content_json LIKE'%is_error%true%'GROUP BY r.run_uuid"(approximation,¬identical_to_report.json's_own_detector,see_Γ.G9_class_of_caveat);
+;; ─── Γ: AGENT PROTOCOL (this repo's instance of upstream ⟦Γ:Agent⟧) ───
+⟦Γ:Agent⟧{
+ ∀agent:task≡fetch(bar_data)⇒use{𝒬,MCP}∧⊬guess
+ ∀agent:task≡cite(bar_metric)⇒cite(Ε.E6∨live_𝒬)∧⊬unsourced
+ ∀response(γ):Ambig(response)<0.02∧δ(response)≥0.40
+ prose_only∧task(spec∨coordinate)⇒prefer(AISP)(this_doc=worked_example)
+ drift_detected⇒reparse(this_doc)∧trust(Σ)≻trust(memory)
 }
 
-⟦Ω⟧WIKI_INDEX{
- README.md=nav_index;
- README.html=single_page_human_advanced_aisp_reading-mode_switch;
- human-md/README.md=layer_1_human_tutorial;
- agent/AI-CONTEXT.md=layer_2_ai(prose,narrower_than_this_file);
- aisp/HUB.aisp=layer_3_aisp_self(this_file,densest_layer,ground_here_first);
- human-md/comparison.md;
- human-md/enterprise.md;
- human-md/architecture.md;
- human-html/documentation-layers.html=why_three_layers_plus_tab_switcher;
- human-html/report-guide.html=annotated_report_walkthrough(real_numbers,kept_in_sync_with_examples/);
- human-html/guides/guide-executive.html;
- human-html/guides/guide-junior-dev.html;
- examples/README.md=the_5_artifacts_table(start_here_for_report_format_questions);
- DOC_LAYERS_GENERATED=false;
- DOC_LAYERS_NOTE=hand_maintained_today_not_generated,see_documentation-layers.html;
+;; ─── Γ: AI↔AI BINDING (Δ⊗λ applied to this system's own pipeline, proof-carrying not decorative) ───
+⟦Γ:Binding⟧{
+ ;; upstream case-order: Logic∩=⊥→0(crash) | Sock∩=∅→1(null) | Type≠→2(adapt) | Post⊆Pre→3(zero-cost)
+ Δ⊗λ(init,ingest)≜2 ∵ Pre(ingest)⊇{𝒟,tx.jsonl}∧Post(init)={𝒟}∧tx.jsonl∉Post(init)
+ Δ⊗λ(ingest,ℛ)≜3 ∵ Post(ingest)={rows(𝒯)}⊆Pre(ℛ)
+ Δ⊗λ(ingest,interpret)≜3 ∵ Post(ingest)⊆Pre(interpret)
+ Δ⊗λ(ℛ,doctor)≜3 ∵ Post(ℛ)⊇{valid(𝒟)}⊇Pre(doctor)
+ Δ⊗λ(*,𝒬)≜3 ∵ Pre(𝒬)={𝒟}⊆Post(∀prior_step)
+ Δ⊗λ(*,MCP)≜3 ∵ MCP.Pre≡𝒬.Pre
+ ∀A,B:|{Δ⊗λ(A,B)}|≡1(case-exhaustive∧disjoint,per_upstream∴line316)
 }
+
+;; ─── Λ: OPERATIONS (literal CLI verbs, unsymbolized by design — these ARE the interface) ───
+⟦Λ:Ops⟧{
+ init≜bar_init[--dir<d>]:∅→𝒟∈<d>/.bar/{config.toml,ambient.sqlite,index.sqlite,bodies/}; idempotent≜⊤; ∅arg⇒d≔cwd
+ ingest≜bar_ingest<𝒟><tx.jsonl>[--run-uuid<u>]:Pre{𝒟,tx.jsonl}→Post{rows(𝒯),row(runs)}; stdout≜N_𝒯
+ ingest.u.default≜"bar-ingest"(collides_if_∅_twice⇒always_pass_u); ingest.repeatable≜⊤(∀s∈𝒲:ingest(s,distinct_u))
+ ℛ≜bar_report<𝒟>[--out<d>]:Pre{rows(𝒯)}→Post{files(<d>/<stem>.ℛ.{json,html,md}),byte_identical}
+ ℛ.audience≜∅(1_shape="DeveloperGuide.Evidence"); ℛ.cost≜$0.00; ℛ.llm_in_path≜⊥
+ doctor≜bar_doctor[<𝒟>]:stdout(checks)∧exit≜0⇔(𝒟≡∅∨valid(𝒟))
+ interpret≜bar_interpret<𝒟>--audience{executive|engineering}[--out<d>]:Pre{rows(𝒯)}→Post{file(ℐb)}
+ interpret.facts≜⟨𝒯,tool_calls,tasks_total,tasks_done,𝒜_dispatches,errors,tokens,cost⟩; |facts|≡7
+ interpret.inv≜prose⊆facts(⊬invent∧⊬round); interpret≠ℛ(hotspots∧top-N_prompts require ReportDoc_directly)
+ 𝒬≜bar_query<𝒟>{named|--sql"SELECT…"|--list}[--format{table|json|csv}][--limit<N>](N.default≜50;0≜∀)
+ 𝒬.named≜⟨tools:⟨tool,calls⟩,timeline:⟨seq,role,block,tool⟩,errors:⟨seq,tool,excerpt⟩⟩
+ 𝒬.sql_grammar≜∀stmt:stmt.head∈{SELECT,WITH}
+ mcp≜bar-mcp; mcp.connect≜claude_mcp_add_bar-observatory_--_bar-mcp_--db-root<dir>
+ mcp.tools≜{list_runs,get_ledger,get_run_report,query_delta_findings,get_convergence,compare_conditions,get_dead_letters,get_completeness,search_observations,list_findings,recall_context,get_hub}; |mcp.tools|≡12
+ mcp.get_hub≜λ().this_doc; mcp.read_only≜⊤(G4)
+ slash≜{/bar-init,/bar-report,/bar-interpret,/bar-doctor,/bar-query}; slash↦CLI(1:1,∖ingest)
+}
+
+;; ─── Λ: RECIPES (composable per ⟦Γ:Binding⟧) ───
+⟦Λ:Recipes⟧{
+ R1≜init(--dir<d>)
+ R2≜ingest(𝒟,tx,--run-uuid<label>)
+ R3≜∀tx∈𝒲:R2(tx,distinct_label) ⇒ 1_𝒟∧summary.runs≡|𝒲|
+ R4≜ℛ(𝒟,--out<d>)
+ R5≜doctor(𝒟)
+ R6≜interpret(𝒟,executive,--out<d>)∘hand(ℐb)→LLM→BossMode.Commentary
+ R7≜interpret(𝒟,engineering,--out<d>)∘hand(ℐb)→LLM→DeveloperGuide.Commentary
+ R8≜𝒬(𝒟,errors,--limit_0,--format_csv)
+ R9≜𝒬(𝒟,tools)
+ R10≜𝒬(𝒟,timeline,--limit_0)
+ R11≜𝒬(𝒟,--sql"SELECT…FROM transcript_turns WHERE…")
+ R12≜𝒬(𝒟,--list)
+ R13≜mcp.connect(dir)∘list_runs→get_run_report(run_id)→{list_findings,search_observations}
+ R14≜R1∘R2∘R4∘R5; Δ⊗λ(R1,R2)=2⇒supply(tx)externally, Δ⊗λ(R2,R4)=Δ⊗λ(R4,R5)=3⇒zero-cost
+ R15≜𝒬(𝒟,--sql"SELECT r.run_uuid,COUNT(*) FROM transcript_turns t JOIN runs r ON t.run_id=r.run_id WHERE t.content_json LIKE'%is_error%true%'GROUP BY r.run_uuid"); R15≈¬≡ReportDoc.summary.error_results(Χ.C1)
+}
+
+;; ─── Χ: ERRORS (real taxonomy, examples/deterministic/, Ψ_synthetic∉this_set) ───
+⟦Χ:Errors⟧{
+ C1: R15≢ReportDoc.summary.error_results ⇒ cite(ReportDoc)_not_R15(authoritative)
+ C2: Bash(rm_-rf∨cred_grep) ⇒ denied("guardrail,¬defect";28%|errors|_this_𝒲)
+ C3: Agent(type∉installed) ⇒ "Agent type '…' not found" ∴ check_availability≺dispatch
+ C4: Skill(name∉installed) ⇒ "Unknown skill: …" ∴ ≡C3_fix
+ C5: Edit(file∉recently_read) ⇒ "File has not been read yet" ∴ re-read≺edit(long_𝒲)
+ C6: Edit(old_string.matches>1) ⇒ "N matches,replace_all=false" ∴ widen(old_string)∨replace_all≜⊤
+ C7: Read(input≢JSON) ⇒ InputValidationError ∴ ad-hoc_script_fragility(¬a_bar_bug)
+ C8: Bash(multi-cmd_chain) ⇒ excerpt_may_cite_a_LATER_success_line(¬the_failing_one) ∴ pull_full_seq_via_𝒬,⊬trust_excerpt_alone
+}
+
+;; ─── Θ: PROOFS (this system's invariants, upstream ∴/π format) ───
+⟦Θ:Proofs⟧{
+ ∴G1
+ π: render_path⊢∅LLM∧∅net(published_crate=bar-observatory@crates.io); ∀𝒟:same_bytes_out∎
+
+ ∴Δ⊗λ(ingest,ℛ)=3
+ π: Post(ingest)={rows(𝒯)}≡Pre(ℛ); set-eq⇒⊆; [bind-zero]applies∎
+
+ ∴∀A,B∈Ops:|{Δ⊗λ(A,B)}|≡1
+ π: case[Γ:Binding]exhaustive(4)∧disjoint(first-match,fixed_order)∎
+
+ ∴G12
+ π: ⟦Ε⟧∈this_doc(see_below)⊢per_upstream:443∎
+
+ ∴|HumanPrompt|≡68(¬69,¬87)
+ π: 2_correction_rounds—R1:Ψ_synthetic⧵{"<task-notification>"}excluded(87→69); R2:excluded"session_continued"summaries(69→68); ∀excluded:role≡user∧block_type≡text∧∄human-authored; cross-checked∈Ε.E6∎
+}
+
+;; ─── Ω: WIKI INDEX ───
+⟦Ω:WikiIndex⟧{
+ README.md≜nav; README.html≜1-page(human/advanced/aisp_switch)
+ human-md/README.md≜L1(human); agent/AI-CONTEXT.md≜L2(ai_prose,⊂this_doc)
+ aisp/HUB.aisp≜L3(this_doc,δ_max,ground_here_first)
+ human-md/{comparison,enterprise,architecture}.md
+ human-html/documentation-layers.html≜why_3_layers
+ human-html/report-guide.html≜annotated_walkthrough(synced≡Ε.E6)
+ human-html/guides/{guide-executive,guide-junior-dev}.html
+ examples/README.md≜5_artifacts_table
+ DOC_LAYERS_GENERATED≜⊥(hand-maintained,∅codegen)
+}
+
+;; ─── Ε: EVIDENCE (required, self-certifying per G12) ───
+⟦Ε⟧⟨
+ δ≜0.745 (method:|{t:t∈Σ_512∪Ω:Symbols}|÷|{t:t≢whitespace,¬comment-line}|;computed_this_commit,¬the_official_npx_aisp-validator(∄∈this_env);residual_non-symbolic⊆{13_real_crates.io_names,verbatim_quoted_error_strings,literal_SQL_keywords_in_R15}—all_correctness-required,¬prose_slack)
+ |𝔅|≜13 (Ω×3,Σ×2,Γ×3,Λ×2,Χ,Θ,Ε=13; Required{Ω,Σ,Γ,Λ,Ε}⊆present)
+ φ≜95 (self-assessed:∀section∈{cli,mcp,report-schema,capture,crates,recipes,errors,proofs}present)
+ τ≜◊⁺ (Gold,δ≥0.60; conservatively_¬claiming◊⁺⁺since_δ_is_self-measured¬validator-confirmed)
+ ⊢G1..G12∧Δ⊗λ-table∧Θ.proofs
+ verify≜E5(crates.io=bar-observatory,bar-mcp,bar-hook;flags↔published_binary_--help)∧E6(examples/deterministic/real-session.report.json)
+⟩

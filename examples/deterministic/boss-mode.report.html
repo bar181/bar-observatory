@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Boss Mode — Evidence — BAR Observatory (live)</title>
+<meta name="description" content="Deterministic, no-LLM, byte-identical consulting-register memo: what was delivered, cost, and risk flags, over 7 real captured sessions.">
+<style>
+:root{
+  --bg:#E4E6E1; --paper:#F3F4F1; --card:#F3F4F1; --ink:#14181C; --ink-2:#4A5158; --muted:#8A8F8B;
+  --line:#C8CCC5; --line-2:#D9DCD6; --brand:#8C2F2A; --brand2:#6b2420;
+  --good:#1F5C4A; --warn:#8a5a1f; --absent:#8A8F8B;
+  --shadow:0 16px 40px rgba(29,24,20,.08);
+  --body:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --mono:ui-monospace,"SFMono-Regular",Menlo,Consolas,monospace;
+}
+[data-theme=dark]{
+  --bg:#14181a; --paper:#1c2124; --card:#20262a; --ink:#e8e6e1; --ink-2:#cfd4dd; --muted:#8f897f;
+  --line:#33322e; --line-2:#2a2824; --brand:#c9615a; --brand2:#a51c30;
+  --good:#4fae8c; --warn:#c99a5a; --absent:#8f897f;
+  --shadow:0 16px 40px rgba(0,0,0,.3);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+.wrap{max-width:900px;margin:0 auto;padding:44px 24px 72px}
+h1{font-weight:800;letter-spacing:-.01em;margin:0;font-size:clamp(28px,4.4vw,40px);margin-bottom:6px}
+h2{font-weight:900;letter-spacing:-.015em;margin:0;font-size:clamp(24px,3.4vw,30px);color:var(--brand);
+   margin:46px 0 6px;padding-bottom:10px;border-bottom:3px solid var(--brand)}
+h2 .n{color:var(--muted);font-weight:700;font-size:15px;letter-spacing:0;margin-left:10px}
+.explainer{font-size:14.5px;color:var(--muted);margin:0 0 16px;max-width:64ch}
+p{margin:0 0 1em;color:var(--ink-2)}
+a{color:var(--brand)}
+.tags{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.tag{display:inline-block;font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;padding:4px 10px;border-radius:2px}
+.tag.who{border:1px solid var(--brand);color:var(--brand)}
+.tag.mode{background:var(--good);color:#fff;border:1px solid var(--good)}
+.controls{position:fixed;right:16px;top:16px}
+.controls button{border:1px solid var(--line);background:var(--paper);color:var(--ink);padding:7px 11px;border-radius:9px;cursor:pointer;font-size:12px}
+.disclaimer{background:var(--card);border-left:3px solid var(--good);padding:14px 18px;font-size:14px;color:var(--ink-2);margin:18px 0 8px;border-radius:0 8px 8px 0}
+table{width:100%;border-collapse:collapse;font-size:15px;margin:8px 0}
+th,td{text-align:left;padding:9px 10px;border-bottom:1px solid var(--line-2);vertical-align:top}
+th{font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+.num{font-family:var(--mono);text-align:right}
+.card{background:var(--paper);border:1px solid var(--line-2);border-radius:14px;padding:18px 20px;box-shadow:var(--shadow);margin:10px 0}
+.flag{display:inline-block;font-size:11px;padding:3px 9px;border-radius:999px;font-weight:700}
+.flag.ok{background:color-mix(in srgb,var(--good) 14%,transparent);color:var(--good)}
+.flag.watch{background:color-mix(in srgb,var(--warn) 16%,transparent);color:var(--warn)}
+.flag.absent{background:color-mix(in srgb,var(--absent) 16%,transparent);color:var(--absent)}
+.absent{color:var(--absent)}
+.more{margin-top:8px;padding:9px 13px;background:var(--card);border:1px dashed var(--line);border-radius:9px;font-size:13px;color:var(--muted)}
+.more code{background:var(--paper);border:1px solid var(--line-2);padding:1px 6px;border-radius:4px;font-family:var(--mono);font-size:12px;color:var(--ink)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:640px){table{font-size:13.5px}.grid2{grid-template-columns:1fr}}
+footer{margin-top:44px;padding-top:20px;border-top:1px solid var(--line);font-size:13px;color:var(--muted)}
+.eyebrow{font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--brand);margin:3rem 0 2px;display:flex;align-items:center;gap:10px}
+.eyebrow::after{content:"";height:1px;flex:1;background:var(--line)}
+.eyebrow + h2{margin-top:4px}
+</style>
+</head>
+<body>
+<div class="controls"><button id="themeBtn">Theme</button></div>
+<div class="wrap">
+  <div class="tags"><span class="tag who">Boss Mode · Executive / client</span><span class="tag mode">Evidence · deterministic · $0.00</span></div>
+  <h1>Delivery memo</h1>
+  <p style="color:var(--absent);font-size:13.5px">7 sessions · 2026-07-31 → 2026-08-13 · report <code>barobs-96ad36b19f55</code></p>
+
+  <div class="disclaimer">
+    <b>This page is not written by an AI.</b> It is a mechanical extraction of the fields in
+    <a href="real-session.report.json">real-session.report.json</a> — no wording is composed, no judgment is applied, no
+    number is estimated. Same database in, same numbers out, every time. For the narrative
+    read on these same numbers ("what does this mean, what needs deciding"), see
+    <a href="../interpreted/interpreted-executive.html">interpreted-executive.html</a>.
+  </div>
+
+  <div class="eyebrow">Delivery</div><h2>What was delivered</h2>
+  <p class="explainer">The headline delivery facts: how much got done, over how long, by how many hands.</p>
+  <table>
+    <tbody>
+      <tr><td>Tasks completed</td><td class="num">40 / 40 (100%)</td></tr>
+      <tr><td>Sessions covered</td><td class="num">7</td></tr>
+      <tr><td>Date range</td><td class="num">2026-07-31 → 2026-08-13</td></tr>
+      <tr><td>Human prompts sent</td><td class="num">68</td></tr>
+      <tr><td>Real commits landed</td><td class="num">47</td></tr>
+      <tr><td>Work items delegated to sub-agents</td><td class="num">40</td></tr>
+    </tbody>
+  </table>
+
+  <div class="eyebrow">Spend</div><h2>Cost</h2>
+  <p class="explainer">What this delivery cost, or why that figure isn't available yet.</p>
+  <table>
+    <tbody>
+      <tr><td>Token spend</td><td class="num absent">not recorded</td></tr>
+      <tr><td>API-cost equivalent</td><td class="num absent">not recorded</td></tr>
+      <tr><td>Billing basis</td><td class="num">subscription (no per-token metering channel active)</td></tr>
+    </tbody>
+  </table>
+  <p><span class="flag absent">not recorded</span> stated plainly rather than implied as $0 —
+  no cost-tracking proxy was running during any of these 7 sessions.</p>
+
+  <div class="eyebrow">Worth a second look</div><h2>Risk flags</h2>
+  <p class="explainer">The numbers most worth a second look before signing off on this window of work.</p>
+  <table>
+    <thead><tr><th>Flag</th><th>Value</th><th></th></tr></thead>
+    <tbody>
+      <tr><td>Error results captured</td><td class="num">60</td><td><span class="flag watch">review</span></td></tr>
+      <tr><td>Error rate (of 3,171 tool calls)</td><td class="num">1.9%</td><td><span class="flag ok">low</span></td></tr>
+      <tr><td>Test results captured</td><td class="num">373 (344 passed / 29 failed)</td><td><span class="flag ok">92% pass, last run green</span></td></tr>
+      <tr><td>Tests that flipped pass↔fail mid-window</td><td class="num">3</td><td><span class="flag watch">review</span></td></tr>
+      <tr><td>Files with concentrated repeat edits (churn)</td><td class="num">96</td><td><span class="flag watch">see below</span></td></tr>
+      <tr><td>Capture-integrity losses</td><td class="num">0</td><td><span class="flag ok">clean</span></td></tr>
+    </tbody>
+  </table>
+
+  <div class="eyebrow">Delegation</div><h2>Top agents dispatched <span class="n">5 of 8 roles</span></h2>
+  <p class="explainer">Who the work was delegated to, and how much of the 40 hand-offs each one carried.</p>
+  <table>
+    <tbody>
+      <tr><td>general-purpose</td><td class="num">17 dispatches</td></tr>
+      <tr><td>reviewer</td><td class="num">10 dispatches</td></tr>
+      <tr><td>claude-code-guide</td><td class="num">5 dispatches</td></tr>
+      <tr><td>qe-requirements-validator</td><td class="num">3 dispatches</td></tr>
+      <tr><td>bar-docs-curator</td><td class="num">2 dispatches</td></tr>
+    </tbody>
+  </table>
+  <div class="more">Showing top 5 of 8 roles (40 dispatches total). For the remaining 3 (1 dispatch
+  each — <code>bar-release-verifier</code>, <code>bar-skeptic-reviewer</code>, <code>unspecified</code>)
+  and full detail per dispatch: ask your agent — <i>"list every sub-agent dispatch in
+  bar-obs-private/live-reports/report.json with its role and task"</i> — or see the
+  <a href="real-session.report.html">Developer Guide</a>.</div>
+
+  <div class="eyebrow">Packaged capabilities</div><h2>Skills invoked <span class="n">5 of 5</span></h2>
+  <p class="explainer">Named, packaged capabilities the session pulled in beyond default tool use.</p>
+  <table>
+    <tbody>
+      <tr><td>review</td><td class="num">2 invocations</td></tr>
+      <tr><td>bar-phase-protocol</td><td class="num">1 invocation</td></tr>
+      <tr><td>loop</td><td class="num">1 invocation</td></tr>
+      <tr><td>qe-court</td><td class="num">1 invocation</td></tr>
+      <tr><td>qe-quality-assessment</td><td class="num">1 invocation</td></tr>
+    </tbody>
+  </table>
+
+  <div class="eyebrow">Churn</div><h2>Where effort concentrated <span class="n">top 5 of 96 files</span></h2>
+  <p class="explainer">Files touched two or more times this window — where the real editing effort landed.</p>
+  <table>
+    <tbody>
+      <tr><td>bar-observatory/README.md</td><td class="num">77 edits</td></tr>
+      <tr><td>bar-observatory/index.html</td><td class="num">22 edits</td></tr>
+      <tr><td>bar-observatory/provenance/PROVENANCE.json</td><td class="num">16 edits</td></tr>
+      <tr><td>bar-observatory/wiki/human/README.md</td><td class="num">16 edits</td></tr>
+      <tr><td>bar-observatory/CHANGELOG.md</td><td class="num">15 edits</td></tr>
+    </tbody>
+  </table>
+  <div class="more">Showing top 5 of 96 files (482 edits total). Full ranked list, with language and
+  location breakdown: <a href="real-session.report.html">real-session.report.html</a>. Or
+  ask — <i>"show me all 96 rework hotspots from report.json, sorted by edit count."</i></div>
+
+  <div class="eyebrow">What kind of files</div><h2>Languages touched <span class="n">top 5</span></h2>
+  <p class="explainer">What kind of files absorbed the edits — derived from the same 96-file rework list, grouped by extension.</p>
+  <table>
+    <tbody>
+      <tr><td>Markdown (docs)</td><td class="num">226 edits · 36 files</td></tr>
+      <tr><td>Rust (code)</td><td class="num">92 edits · 26 files</td></tr>
+      <tr><td>HTML (reports/wiki)</td><td class="num">57 edits · 6 files</td></tr>
+      <tr><td>TOML (config/manifests)</td><td class="num">31 edits · 9 files</td></tr>
+      <tr><td>JSON (data/schema)</td><td class="num">30 edits · 6 files</td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:13px;color:var(--absent)">Docs (Markdown+HTML) outweigh code (Rust) roughly
+  3:1 by edit volume this window — consistent with the public-repo/wiki polish work these 7
+  sessions were doing.</p>
+
+  <div class="eyebrow">Shipped</div><h2>Real commits landed <span class="n">5 of 47</span></h2>
+  <p class="explainer">Git commits captured directly from real <code>git commit</code> output in the transcripts — not self-reported, the actual command result.</p>
+  <table>
+    <tbody>
+      <tr><td><code>7c2e027a</code></td><td>docs(human-specs): add doc 16 — brutal review consultant report</td></tr>
+      <tr><td><code>da7cd526</code></td><td>fix(bar-observatory): version bump to 0.1.1 for the RVF/ADR-021 report fix</td></tr>
+      <tr><td><code>2a2024e0</code></td><td>fix(bar-observatory): plugin load bug, figure reconciliation, missing wiki pages</td></tr>
+      <tr><td><code>38d60ec4</code></td><td>feat(bar-observatory): port 15 gold-standard crates, archive build process</td></tr>
+      <tr><td><code>8a87f5b5</code></td><td>docs(bar-observatory): cross-link the new wiki pages, add a trust section</td></tr>
+    </tbody>
+  </table>
+  <div class="more">Showing 5 of 47 distinct commits captured this window, in transcript order. Full
+  list: <a href="real-session.report.html">real-session.report.html</a> appendix, or ask
+  — <i>"list all 47 commit hashes and messages captured in this session's transcripts."</i></div>
+
+  <footer>
+    Source: <a href="real-session.report.json">real-session.report.json</a> plus raw transcript queries (commits, prompt
+    count, language breakdown — all mechanical, zero LLM). Engineering-audience sibling with full
+    detail: <a href="real-session.report.html">real-session.report.html</a>. Narrative
+    companion: <a href="../interpreted/interpreted-executive.html">interpreted-executive.html</a>.
+  </footer>
+</div>
+<script>
+document.getElementById("themeBtn").addEventListener("click",function(){
+  var r=document.documentElement;
+  r.dataset.theme=r.dataset.theme==="dark"?"light":"dark";
+});
+</script>
+</body>
+</html>

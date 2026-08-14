@@ -4,14 +4,12 @@ You don't have to take any of the previous steps on faith — a real, determinis
 ships right in this repo under `examples/`, and it's **re-rendered from a real Claude Code
 session each phase**. It's never a hand-authored mock.
 
-- `examples/deterministic/real-session.report.{json,html,md}` — rendered from a real,
-  multi-thousand-turn Claude Code transcript (no API calls involved). It shows real tool usage, a
-  real task ledger, sub-agent dispatches, rework hotspots, validation runs, and an honest "cost
-  not recorded" wherever the token channel wasn't captured. One example, kept deliberately —
-  see [`examples/README.md`](../examples/README.md) for why there's only one.
-- `examples/interpreted/*` — the optional interpreted layer from
-  [04 — Optional modules](04-optional-modules.md), one example per audience (executive,
-  engineering).
+- `examples/` — five report artifacts, all rendered from **the same 7-session real capture store**
+  (2026-07-31 → 2026-08-13, 9,132 transcript turns, 40/40 tasks completed): two audiences (**Boss
+  Mode** = executive/client, **Developer Guide** = engineering) × two registers (**Evidence** =
+  deterministic/no LLM, **Commentary** = optional LLM synthesis), plus the shared
+  `real-session.report.json` machine contract. See [`examples/README.md`](../examples/README.md)
+  for the full table and what's disclosed as not-yet-CLI-native.
 
 ## Which file should you open?
 

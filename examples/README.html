@@ -41,64 +41,88 @@ footer a{color:var(--ink-2)}
 <body>
 <div class="wrap">
   <h1>Examples</h1>
-  <p>One example per report type, real data, clearly named. Earlier drafts had ten-plus files
-  mixing a real capture, a seeded fixture, and a hand-authored mock — confusing to tell apart.
-  It's now nine files across two report types.</p>
+  <p>Two audiences (<b>Boss Mode</b> for executive/client readers, <b>Developer Guide</b> for
+  engineering), two ways of generating (<b>Evidence</b> = deterministic, no LLM, byte-identical;
+  <b>Commentary</b> = optional LLM synthesis) — five report artifacts, all real, all rendered from
+  <b>the same 7-session capture store</b> (2026-07-31 → 2026-08-13, 9,132 transcript turns, 40/40
+  tasks completed). "Boss Mode" / "Developer Guide" are this project's settled public names for the
+  two audiences — the CLI itself still says <code>bar interpret --audience
+  executive|engineering</code>.</p>
 
   <div class="scroll-x">
   <table>
-    <thead><tr><th>File(s)</th><th>What it is</th></tr></thead>
+    <thead><tr><th>File(s)</th><th>Register</th><th>What it is</th></tr></thead>
     <tbody>
-      <tr><td><a href="deterministic/">deterministic/real-session.report.{json,html,md}</a></td>
-      <td>The calculated report (<code>bar report</code>) — no AI, $0.00, byte-identical every
-      time. Rendered by the real <code>bar</code> CLI from a genuine, multi-thousand-turn Claude
-      Code transcript.</td></tr>
-      <tr><td><a href="deterministic/real-session.report.png">deterministic/real-session.report.png</a></td>
-      <td>A screenshot of the <code>.html</code> version above, used in the README and wiki.</td></tr>
-      <tr><td><a href="interpreted/interpreted-executive.html">interpreted/interpreted-executive.html</a></td>
-      <td>The optional interpreted report (<code>bar interpret --audience executive</code>) —
-      plain-language, value/cost/risk framing. LLM-written, clearly labeled.</td></tr>
-      <tr><td><a href="interpreted/interpreted-executive.png">interpreted/interpreted-executive.png</a></td>
-      <td>A screenshot of the interpreted-executive page above, used in the README.</td></tr>
-      <tr><td><a href="interpreted/interpreted-engineering.html">interpreted/interpreted-engineering.html</a></td>
-      <td>The same optional layer, <code>--audience engineering</code> — precise, technical,
-      actionable.</td></tr>
+      <tr><td><a href="deterministic/real-session.report.json">real-session.report.json</a></td>
+      <td>—</td>
+      <td>The shared machine contract every report below renders from.</td></tr>
+      <tr><td><a href="deterministic/boss-mode.report.html">boss-mode.report.{html,md}</a></td>
+      <td>Boss Mode · Evidence</td>
+      <td>A consulting-register memo: task completion, cost, risk flags. No AI, $0.00,
+      byte-identical.</td></tr>
+      <tr><td><a href="interpreted/interpreted-executive.html">interpreted-executive.html</a></td>
+      <td>Boss Mode · Commentary</td>
+      <td>A narrative management summary: what the numbers mean, what needs deciding, what to
+      watch. LLM-written, clearly labeled.</td></tr>
+      <tr><td><a href="deterministic/real-session.report.html">real-session.report.{html,md}</a></td>
+      <td>Developer Guide · Evidence</td>
+      <td>A technical post-mortem: session-by-session breakdown (top 5 of 7), a top-5-languages
+      chart, a 6-channel capture-flow diagram with per-channel verify commands, top-5-prompts
+      cards, rework hotspots enriched with language/location/tier, plus full appendices (a
+      68-prompt token/LOC ledger and the 60-row raw failure list). No AI, $0.00, byte-identical —
+      about 3x the length of the plain deterministic render.</td></tr>
+      <tr><td><a href="interpreted/interpreted-engineering.html">interpreted-engineering.html</a></td>
+      <td>Developer Guide · Commentary</td>
+      <td>A diagnostic narrative: root-cause-grouped failures and concrete prompt/spec/context
+      changes for next time. LLM-written.</td></tr>
+      <tr><td><a href="deterministic/real-session.report.png">real-session.report.png</a>,
+      <a href="interpreted/interpreted-executive.png">interpreted-executive.png</a></td>
+      <td>—</td><td>Screenshots used in the README and wiki.</td></tr>
       <tr><td><a href="interpreted/interpret-brief.executive.md">interpret-brief.executive.md</a>,
       <a href="interpreted/interpret-brief.engineering.md">interpret-brief.engineering.md</a></td>
+      <td>—</td>
       <td>The real, deterministic briefs <code>bar interpret</code> generated — the exact facts
-      each interpreted report was written from.</td></tr>
+      each Commentary report was written from.</td></tr>
     </tbody>
   </table>
   </div>
 
-  <h2>Two different real sessions, on purpose</h2>
-  <p>The deterministic example and the interpreted pair come from <b>different</b> real captured
-  sessions, not the same one split two ways — the deterministic example is a substantial coding
-  session; the interpreted pair is from a live capture of the documentation session that built
-  these example pages. Both are real and reproducible; mixing origins here is disclosed rather
-  than implied to be one continuous story.</p>
+  <h2>One real, multi-session capture store, on purpose</h2>
+  <p>All five reports above come from <b>the same store</b>: 7 real Claude Code sessions ingested
+  end-to-end (<code>bar init</code> → <code>bar ingest</code> ×7 → <code>bar report</code> →
+  <code>bar interpret</code> ×2), spanning 2026-07-31 to 2026-08-13. Earlier drafts of this folder
+  mixed two different single sessions across the deterministic and interpreted examples — fixed
+  now: one store, one set of facts, all five reports agree with each other because they're the
+  same data read five ways.</p>
 
   <h2>How to read them</h2>
   <p>Open any <code>.html</code> file for the human view, the <code>.md</code> for a terminal- or
-  diff-friendly view, or the <code>.json</code> for the machine-readable form.</p>
+  diff-friendly view, or <code>real-session.report.json</code> for the machine-readable form
+  (shared by all five).</p>
   <div class="note">
-    <b>One known gap, disclosed.</b> <code>deterministic/real-session.report.json</code> does not
-    currently validate against <code>schemas/report.schema.json</code> — that schema describes an
-    earlier report shape than what <code>bar report</code> produces today. Same story for
+    <b>Known gaps, disclosed.</b> <code>real-session.report.json</code> does not currently validate
+    against <code>schemas/report.schema.json</code> — that schema describes an earlier report shape
+    than what <code>bar report</code> produces today. Same story for
     <code>schemas/interpretation.schema.json</code> against the interpreted layer, which now ships
     as a brief-plus-prose pair rather than the richer JSON structure that schema describes. Both
-    are pending a schema regeneration in the private working repo.
+    are pending a schema regeneration in the private working repo.<br><br>
+    <b>Also disclosed:</b> <code>boss-mode.report.{html,md}</code> and the Commentary layer's
+    root-cause failure grouping are hand-assembled from <code>real-session.report.json</code> and a
+    real <code>bar query &lt;db&gt; errors</code> export, not yet a dedicated <code>bar report
+    --view summary</code> CLI mode — a genuine product gap, not a silent one. The underlying facts
+    are 100% real either way.
   </div>
 
-  <h2>Why the deterministic layer only has one example</h2>
+  <h2>Why the deterministic layer only had one example, historically</h2>
   <p>Earlier drafts also shipped a seeded fixture and a hand-authored "fully populated" mock, on
   the theory that showing every possible section at once had more reference value. It didn't hold
   up: the mock was built against the same earlier schema, and would have shown detectors this
   version of the product doesn't actually run yet (<code>human_ai_recovery</code>,
   <code>micro_observations</code>) as if they were live — exactly the kind of overclaiming this
-  project's <code>not_observed</code> discipline exists to prevent. One real example, honestly
-  incomplete in the same ways your own reports will be, is more useful than a synthetic one that
-  quietly promises more than the tool delivers.</p>
+  project's <code>not_observed</code> discipline exists to prevent. Two real examples now (Boss
+  Mode + Developer Guide, both Evidence), each honestly incomplete in the same ways your own
+  reports will be, is more useful than a synthetic one that quietly promises more than the tool
+  delivers.</p>
 
   <footer>
     <a href="../wiki/human-md/README.md">wiki/human-md/README.md</a> — a section-by-section guide to

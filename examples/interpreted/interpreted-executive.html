@@ -3,109 +3,146 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Interpreted report — executive audience — BAR Observatory</title>
-<meta name="description" content="A real example of BAR Observatory's optional interpreted report, executive audience: written from a deterministic brief, grounded only in captured facts.">
+<title>Boss Mode — Commentary — BAR Observatory (live)</title>
+<meta name="description" content="LLM narrative management summary over 7 real captured sessions: what the numbers mean, what needs deciding, what to keep an eye on.">
 <style>
 :root{
-  --paper:#E4E6E1; --card:#F3F4F1; --ink:#14181C; --ink-2:#4A5158;
-  --stamp:#8C2F2A; --verified:#1F5C4A; --absent:#8A8F8B;
-  --rule:#C8CCC5; --rule-2:#D9DCD6;
-  --display:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --bg:#E4E6E1; --paper:#F3F4F1; --card:#F3F4F1; --ink:#14181C; --ink-2:#4A5158; --muted:#8A8F8B;
+  --line:#C8CCC5; --line-2:#D9DCD6; --brand:#8C2F2A; --brand2:#6b2420;
+  --good:#1F5C4A; --warn:#8a5a1f; --absent:#8A8F8B;
+  --shadow:0 16px 40px rgba(29,24,20,.08);
   --body:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
-  --mono:ui-monospace,"SFMono-Regular",Menlo,Consolas,monospace;
-  --wrap:820px;
+}
+[data-theme=dark]{
+  --bg:#14181a; --paper:#1c2124; --card:#20262a; --ink:#e8e6e1; --ink-2:#cfd4dd; --muted:#8f897f;
+  --line:#33322e; --line-2:#2a2824; --brand:#c9615a; --brand2:#a51c30;
+  --good:#4fae8c; --warn:#c99a5a; --absent:#8f897f;
+  --shadow:0 16px 40px rgba(0,0,0,.3);
 }
 *{box-sizing:border-box}
-body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--body);
-  font-size:17px;line-height:1.62;-webkit-font-smoothing:antialiased}
-.wrap{max-width:var(--wrap);margin:0 auto;padding:48px 24px 64px}
-h1,h2{font-family:var(--display);font-weight:800;letter-spacing:-.02em;margin:0}
-h1{font-size:clamp(28px,4vw,38px);margin-bottom:6px}
-h2{font-size:20px;margin:36px 0 14px}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.62;-webkit-font-smoothing:antialiased}
+.wrap{max-width:900px;margin:0 auto;padding:44px 24px 72px}
+h1{font-weight:800;letter-spacing:-.01em;margin:0;font-size:clamp(28px,4.4vw,40px);margin-bottom:6px}
+h2{font-weight:900;letter-spacing:-.015em;margin:46px 0 6px;font-size:clamp(24px,3.4vw,30px);color:var(--brand);
+   padding-bottom:10px;border-bottom:3px solid var(--brand)}
+.explainer{font-size:14.5px;color:var(--muted);margin:0 0 16px;max-width:64ch}
 p{margin:0 0 1em;color:var(--ink-2)}
-a{color:var(--stamp)}
-.tag{display:inline-block;font-family:var(--mono);font-size:11px;letter-spacing:.1em;
-  text-transform:uppercase;padding:4px 10px;border:1px solid var(--stamp);color:var(--stamp);
-  border-radius:2px;margin-bottom:16px}
-.disclaimer{background:var(--card);border-left:3px solid var(--stamp);padding:14px 18px;
-  font-size:14.5px;color:var(--ink-2);margin:20px 0 36px}
-.facts{background:var(--card);border:1px solid var(--rule-2);border-radius:3px;padding:18px 22px;
-  margin:18px 0;font-family:var(--mono);font-size:14px}
-.facts div{display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid var(--rule-2)}
-.facts div:last-child{border-bottom:0}
-.absent{color:var(--absent)}
-ul{padding-left:22px;color:var(--ink-2)}
-li{margin-bottom:8px}
-footer{margin-top:48px;padding-top:24px;border-top:1px solid var(--rule);font-size:13.5px;color:var(--absent)}
+a{color:var(--brand)}
+.tags{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.tag{display:inline-block;font-family:ui-monospace,monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;padding:4px 10px;border-radius:2px}
+.tag.who{border:1px solid var(--brand);color:var(--brand)}
+.tag.mode{background:color-mix(in srgb,var(--brand) 12%,transparent);color:var(--brand);border:1px solid var(--brand)}
+.controls{position:fixed;right:16px;top:16px}
+.controls button{border:1px solid var(--line);background:var(--paper);color:var(--ink);padding:7px 11px;border-radius:9px;cursor:pointer;font-size:12px}
+.disclaimer{background:var(--card);border-left:3px solid var(--brand);padding:14px 18px;font-size:14px;color:var(--ink-2);margin:18px 0 8px;border-radius:0 8px 8px 0}
+.hero{background:var(--paper);border:1px solid var(--line-2);border-radius:16px;box-shadow:var(--shadow);padding:26px 28px;margin:18px 0 8px}
+.hero p{font-size:17px;color:var(--ink);margin:0}
+.card{background:var(--paper);border:1px solid var(--line-2);border-radius:14px;padding:18px 20px;box-shadow:var(--shadow);margin:10px 0}
+ul,ol{padding-left:20px;color:var(--ink-2);margin:0}
+li{margin-bottom:9px}
+.decide{border-left:4px solid var(--warn);background:var(--card);padding:14px 18px;border-radius:0 8px 8px 0;margin:12px 0}
+.watch{border-left:4px solid var(--brand);background:var(--card);padding:14px 18px;border-radius:0 8px 8px 0;margin:12px 0}
+footer{margin-top:44px;padding-top:20px;border-top:1px solid var(--line);font-size:13px;color:var(--muted)}
+.eyebrow{font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--brand);margin:3rem 0 2px;display:flex;align-items:center;gap:10px}
+.eyebrow::after{content:"";height:1px;flex:1;background:var(--line)}
+.eyebrow + h2{margin-top:4px}
 </style>
 </head>
 <body>
+<div class="controls"><button id="themeBtn">Theme</button></div>
 <div class="wrap">
-  <span class="tag">Interpreted · Executive audience</span>
-  <h1>Session summary</h1>
-  <p style="color:var(--absent);font-size:14px">bar interpret --audience executive</p>
+  <div class="tags"><span class="tag who">Boss Mode · Executive / client</span><span class="tag mode">Commentary · optional LLM synthesis</span></div>
+  <h1>Management summary</h1>
+  <p style="color:var(--absent);font-size:13.5px">7 sessions · 2026-07-31 → 2026-08-13</p>
 
   <div class="disclaimer">
-    This is the optional, LLM-written layer. It was produced by handing the deterministic brief
-    below to a Claude Code session and asking it to write plain-language prose — the same
-    workflow documented in <a href="../../process/04-optional-modules.md">process/04</a>. Every
-    number here is copied from that brief verbatim; nothing was invented or adjusted.
+    This is narrative <b>commentary on</b> the evidence in
+    <a href="../deterministic/boss-mode.report.html">boss-mode.report.html</a> — an LLM's reading of what the
+    numbers mean, not a new source of numbers. Every figure below traces to that page (and, behind
+    it, to <a href="../deterministic/real-session.report.json">real-session.report.json</a>); nothing here is invented. Switch the LLM off
+    and the evidence page is untouched.
   </div>
 
-  <h2>Executive synthesis</h2>
-  <p>This session ran a substantial, mostly successful body of work: 18 of 22 tracked tasks
-  reached completion, with a small number of tool errors along the way and no evidence of
-  work stalling out. Cost tracking wasn't active for this particular session, so there's no
-  dollar figure to report — that's stated plainly below rather than implied as zero.</p>
-
-  <h2>What happened</h2>
-  <p>Across the session, 413 tool calls were made over 1,153 recorded transcript turns. Three
-  pieces of work were delegated to sub-agents rather than handled directly. Of the 22 tasks
-  tracked, 18 reached a completed state by the end of the session; the remainder were still
-  open or superseded, not abandoned.</p>
-
-  <h2>Failures &amp; remediation</h2>
-  <p>Real failures captured from tool outputs: 5 error result(s) across 2 distinct tool(s),
-  categorized (mcp / tool / unknown). This section surfaces both system failures (a tool or MCP
-  not working) and coded errors so they are recorded, not silently dropped.</p>
-
-  <h2>Cost / value</h2>
-  <p>Token/cost not recorded this session (transcript-only ingest) — stated plainly, not implied
-  as $0. If cost tracking matters for future sessions like this one, enabling the optional proxy
-  capture module adds that channel.</p>
-
-  <h2>Recommendations</h2>
-  <ul>
-    <li>18 of 22 tasks completing is a reasonable outcome to sign off on, but the 4 that didn't
-    reach completion are worth a direct follow-up rather than assuming they're minor.</li>
-    <li>5 error results across the session is low relative to 413 tool calls, but each is
-    queryable with its exact position — worth a quick review before treating the session as
-    clean.</li>
-    <li>If cost accountability matters going forward, turn on the proxy capture module so future
-    reports carry a real cost figure instead of "not recorded."</li>
-  </ul>
-
-  <h2>Confidence / caveats</h2>
-  <div class="facts">
-    <div><span>Transcript turns</span><span>1,153</span></div>
-    <div><span>Tool calls</span><span>413</span></div>
-    <div><span>Tasks (total / completed)</span><span>22 / 18</span></div>
-    <div><span>Sub-agent dispatches</span><span>3</span></div>
-    <div><span>Errors</span><span>5</span></div>
-    <div><span>Tokens total</span><span class="absent">not recorded</span></div>
-    <div><span>API-cost equivalent</span><span class="absent">not recorded</span></div>
+  <div class="hero">
+    <p><b>Bottom line:</b> a 2-week build push closed 40 of 40 tracked work items across 7 real
+    sessions (68 human prompts, 47 real commits landed) with a low, non-blocking error rate (1.9%)
+    and a clean capture-integrity record (zero losses). The one thing worth your attention isn't a
+    defect — it's concentration: one document (the public README) absorbed 77 of this window's
+    edits, more than the next four files combined.</p>
   </div>
-  <p style="margin-top:14px">These are every fact the deterministic layer captured for this
-  session — nothing above this line was inferred beyond what's stated. Two channels (tokens,
-  cost) were not recorded because this was a transcript-only ingest with no proxy running.</p>
+
+  <div class="eyebrow">Reading the evidence</div><h2>What the numbers mean</h2>
+  <p class="explainer">Reading the headline figures together, not in isolation.</p>
+  <p>100% task completion across two weeks of real work is a strong signal on its own, but it's
+  worth reading alongside the test evidence rather than in isolation: 373 test-result lines were
+  captured over the window, 344 passing (92%), and the window's <i>last</i> captured test run was
+  green. 29 failures inside that count aren't a red flag by themselves — that's what iterative,
+  test-driven work looks like mid-stream — the number that would actually matter is whether the
+  <i>final</i> state was clean, and it was.</p>
+  <p>The 60 error results (1.9% of 3,171 tool actions) merit one clarifying note: a meaningful
+  share of these are the safety system doing its job — commands like <code>rm -rf</code> and
+  credential-scanning greps being blocked before they ran, not things going wrong. The
+  engineering-audience commentary breaks this down precisely; the short version for you is that
+  the "60 errors" headline number overstates real risk on its own.</p>
+  <p>The 47 real commits against 68 human prompts is roughly 2 commits for every 3 prompts —
+  a healthy cadence for iterative, reviewed work, not a sign of either stalling (too few commits)
+  or unreviewed rubber-stamping (too many).</p>
+
+  <div class="eyebrow">Delegation</div><h2>Who did the work</h2>
+  <p class="explainer">How delegation broke down, and why that split is a good sign here.</p>
+  <p>A quarter of all 40 sub-agent dispatches (10 of 40) went to an independent
+  <code>reviewer</code> role — meaning a substantial share of delegated work was someone checking
+  someone else's work, not new production. Combined with the 373-line test evidence, this points
+  to a genuinely reviewed process, not a single agent working unchecked for two weeks.</p>
+
+  <div class="eyebrow">Your call</div><h2>Decisions to make</h2>
+  <p class="explainer">Two items where your call is needed — not because something is wrong, but because only you have the context to close them.</p>
+  <div class="decide">
+    <b>1. Is 77 edits to one file, in one window, expected?</b> It maps to a known multi-persona
+    review pass on the public README (novice / executive / fact-checker / SEO reviewers, each
+    finding and fixing real issues) — a defensible, high-scrutiny process, not churn. If that
+    review process isn't documented as standard practice going forward, decide now whether it
+    should be, since this pattern will otherwise look identical to instability the next time it
+    appears without that context.
+  </div>
+  <div class="decide">
+    <b>2. Cost tracking is off.</b> Every dollar/token figure in this report reads "not recorded,"
+    not "zero." If cost accountability for sessions like this one matters for budgeting or client
+    billing, that requires turning on a capture module that wasn't active for any of these 7
+    sessions — a one-time setup decision, not a data gap that fixes itself.
+  </div>
+
+  <div class="eyebrow">Watch list</div><h2>What to keep an eye on</h2>
+  <p class="explainer">Not a problem yet — a specific, small, checkable list worth not losing track of.</p>
+  <div class="watch">
+    <b>3 tests flipped between pass and fail</b> within the captured window (not just failed once
+    — they went pass→fail→pass or similar across different runs). That's a legitimate
+    "watch" item: on actively-changing code, a flip can be a fix landing or a regression
+    reappearing, and only a look at the actual runs tells you which. It's flagged here so it
+    doesn't get lost, not because it's already a problem.
+  </div>
+
+  <div class="eyebrow">How much to trust this</div><h2>Confidence</h2>
+  <p class="explainer">How much to trust this page, and the one real soft spot in the underlying capture.</p>
+  <p>High on everything above — every number traces to a database row across 7 independently
+  captured, real Claude Code sessions, not a summary of a summary. The one soft spot: capture
+  itself is <i>partial</i> (real transcript gaps were measured, not estimated — 629 dangling
+  parents and 139 unpaired tool call/result pairs out of 9,132 turns), and only the transcript
+  channel was active — no live cost, hook, or telemetry capture ran alongside any of these 7
+  sessions. None of that changes the headline number (40/40 complete), but it's why some rows on
+  the evidence page read "not recorded" instead of a number.</p>
 
   <footer>
-    Real brief this report was written from: <a href="interpret-brief.executive.md">interpret-brief.executive.md</a>.
-    Deterministic report this session would also produce: <a href="../deterministic/real-session.report.html">examples/deterministic/</a>.
-    Not the same session — this interpreted pair is from a live capture of the documentation
-    session that built these example pages, kept separate from the deterministic example
-    intentionally (see <a href="../README.md">examples/README.md</a>).
+    Evidence this was written from: <a href="../deterministic/boss-mode.report.html">boss-mode.report.html</a>.
+    Engineering-audience counterpart (why, not just what):
+    <a href="interpreted-engineering.html">interpreted-engineering.html</a>.
   </footer>
 </div>
+<script>
+document.getElementById("themeBtn").addEventListener("click",function(){
+  var r=document.documentElement;
+  r.dataset.theme=r.dataset.theme==="dark"?"light":"dark";
+});
+</script>
 </body>
 </html>

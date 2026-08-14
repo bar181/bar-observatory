@@ -3,11 +3,11 @@
 > Write the interpreted report from the FACTS below. Tone: precise, technical, actionable; cite file/detector facts. Cover: what changed, failures + remediation, rework hotspots, validation, concrete next steps. Avoid: hype, vague praise. **Do not invent or change any number** — only the facts here may appear; wording and order are yours.
 
 ## FACTS (do not change)
-- transcript turns: 1153
-- tool calls: 413
-- tasks: 22 total / 18 completed
-- sub-agent dispatches: 3
-- errors: 5
+- transcript turns: 9132
+- tool calls: 3171
+- tasks: 40 total / 40 completed
+- sub-agent dispatches: 40
+- errors: 60
 - tokens total: not recorded
 - API-cost-equivalent (cents): not recorded
 
@@ -15,7 +15,7 @@
 1. **Executive synthesis** — *guideline*: 2–3 sentences in the audience tone.
 2. **What happened** — *guideline*: narrate the activity from the FACTS.
 3. **Failures & remediation** — *example (use this, smoothing language only):*
-   > Real failures captured from tool outputs: 5 error result(s) across 2 distinct tool(s), categorized (mcp / tool / unknown). This section surfaces both system failures (a tool or MCP not working) and coded errors so they are recorded, not silently dropped.
+   > Real failures captured from tool outputs: 60 error result(s) across 7 distinct tool(s), categorized (mcp / tool / unknown). This section surfaces both system failures (a tool or MCP not working) and coded errors so they are recorded, not silently dropped.
 4. **Cost / value** — *example (use this):*
    > Token/cost not recorded this session (transcript-only ingest) — state that, do not imply $0.
 5. **Recommendations** — *guideline*: each recommendation must cite a fact above.

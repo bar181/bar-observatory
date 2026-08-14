@@ -13,7 +13,7 @@
 - **60 tool error(s) were captured — the failures are recorded, not swallowed.**
   - Worst: Bash ×45. See the Failures section for the per-tool breakdown.
 - **One file absorbed the most churn: 77 edits.**
-  - `/workspaces/aisp-observatory/bar-observatory/README.md` — a refactor / test-coverage candidate.
+  - `bar-observatory/README.md` — a refactor / test-coverage candidate.
 - **Validation was not fully green at capture end: 29 failing vs 344 passing.**
   - From real `test result:` lines in the tool outputs (measured, not self-reported).
 - **5 of 6 capture channels were not recorded this session.**
@@ -22,7 +22,7 @@
 ### Recommendations (resolution-first)
 
 - **P1** — Resolve the remaining failing tests before relying on the session's completion claims.
-- **P2** — Review `/workspaces/aisp-observatory/bar-observatory/README.md` (highest edit churn) for a refactor or missing test coverage.
+- **P2** — Review `bar-observatory/README.md` (highest edit churn) for a refactor or missing test coverage.
 - **P3** — Enable OTEL telemetry + hooks to capture tokens/cost, timeline, and coverage (see the process docs).
 
 In a recorded window of 316h 46m, the recorder captured 9,132 transcript turns (hook, log/metric, and span channels were not recorded in this transcript-only ingest); hook-lifecycle coverage is unverified; a TRANSCRIPT coverage gap was detected (see capture quality — a dead-letter count of 0 is not the whole completeness story), and 0 dead-letter loss(es) were detected. The agent made 3,171 tool calls; the task ledger shows 40 task(s) (40 completed, 0 in-progress, 0 other), and 96 attributable file(s) show repeated-edit churn.
@@ -180,17 +180,17 @@ Real ledger from the ingested transcript: 40 task(s) — 40 completed, 0 in-prog
 | Reconstruct Phase 1's RED receipt honestly and seal Phase 1 | completed |
 | Fix Step 9 raw_logs citation staleness and reconcile plan doc self-contradiction | completed |
 | Finalize QE Fleet next-session plan (both surfaces + plain adversarial subagent) | completed |
-| Update human-specs/06: QE Court primary at band gates, subagent fallback | completed |
-| Update human-specs/13 §4 and §9: full-fleet plan, not disclosed substitute | completed |
+| Update docs/specs/06: QE Court primary at band gates, subagent fallback | completed |
+| Update docs/specs/13 §4 and §9: full-fleet plan, not disclosed substitute | completed |
 | Fix Phase 1 count contradiction and relabel status OPEN 11/12 | completed |
-| Correct human-specs/11 QE guide install section | completed |
+| Correct docs/specs/11 QE guide install section | completed |
 | New ADR: QE Fleet adopted as dev tooling | completed |
 | Fix Steps 15/17/18/02 bugs found by the fallback review | completed |
 | Research: Claude Code's full data-capture surface (SOTA flight recorder) | completed |
 | Research: competitive SOTA landscape for agent observability | completed |
 | Mine agentic-qe repo for agent-to-agent capture insights + new metrics | completed |
 | Enhance BAR specs significantly based on all research | completed |
-| Write end-of-phase retrospective for the specs-enhancement work, save in phases/ | completed |
+| Write end-of-phase retrospective for the specs-enhancement work, save in docs/status/ | completed |
 | Read Phase 2 step file in full, scope real implementation | completed |
 | Implement Phase 2 for real: crate(s), RED tests, GREEN, real data | completed |
 | Resolve enhance-and-refactor vs new-product/read-only framing conflict | completed |
@@ -249,102 +249,102 @@ Real deterministic rework signals from the transcript: 96 attributable file(s) e
 
 | File (edited ≥2×) | Edits | Language | Location | Tier |
 |---|---:|---|---|---|
-| /workspaces/aisp-observatory/bar-observatory/README.md | 77 | Markdown | bar-observatory/ | Heavy |
-| /workspaces/aisp-observatory/bar-observatory/index.html | 22 | HTML | bar-observatory/ | Heavy |
-| /workspaces/aisp-observatory/bar-observatory/provenance/PROVENANCE.json | 16 | JSON | bar-observatory/ | Heavy |
-| /workspaces/aisp-observatory/bar-observatory/wiki/human/README.md | 16 | Markdown | bar-observatory/ | Heavy |
-| /workspaces/aisp-observatory/bar-observatory/CHANGELOG.md | 15 | Markdown | bar-observatory/ | Heavy |
-| /workspaces/aisp-observatory/bar-observatory/wiki/master-guide.html | 15 | HTML | bar-observatory/ | Heavy |
-| /workspaces/aisp-observatory/.gitignore | 12 | other | repo root | Heavy |
-| /workspaces/aisp-observatory/bar-obs-private/docs/bar-observatory/human-specs/10-capabilities-adr-and-per-phase-dod-review.md | 9 | Markdown | bar-obs-private/ | Moderate |
-| /workspaces/aisp-observatory/bar-obs-private/docs/bar-observatory/human-specs/13-pre-seal-plan-and-phase-dod-checklist-2026-07-31.md | 9 | Markdown | bar-obs-private/ | Moderate |
-| /workspaces/aisp-observatory/bar-observatory/RUN.md | 9 | Markdown | bar-observatory/ | Moderate |
-| /workspaces/aisp-observatory/bar-observatory/wiki/documentation-layers.html | 9 | HTML | bar-observatory/ | Moderate |
-| /tmp/claude-1000/-workspaces-aisp-observatory/e6ede2e6-6d76-4b48-903c-039b259c628f/scratchpad/crate-verify/src/main.rs | 7 | Rust | scratchpad | Moderate |
-| /workspaces/aisp-observatory/bar-obs-private/README.md | 7 | Markdown | bar-obs-private/ | Moderate |
-| /tmp/claude-1000/-workspaces-aisp-observatory/ab1b6a92-ecd8-4e9c-a609-fd1a3bd8fe6a/scratchpad/pr1-worktree/observatory/crates/bar-observatory/src/detectors.rs | 6 | Rust | scratchpad | Moderate |
-| /workspaces/aisp-observatory/CLAUDE.md | 6 | Markdown | repo root | Moderate |
-| /workspaces/aisp-observatory/bar-obs-private/NEXT-SESSION.md | 6 | Markdown | bar-obs-private/ | Moderate |
-| /workspaces/aisp-observatory/bar-obs-private/crates/bar-config/src/lib.rs | 6 | Rust | bar-obs-private/ | Moderate |
-| /workspaces/aisp-observatory/bar-observatory/wiki/aisp/HUB.aisp | 6 | AISP | bar-observatory/ | Moderate |
-| /tmp/claude-1000/-workspaces-aisp-observatory/7d344fb0-f1c6-40d9-bf6b-09b3a29a6bf7/scratchpad/pr2-review/observatory/crates/bar-observatory/src/compare.rs | 5 | Rust | scratchpad | Moderate |
-| /tmp/claude-1000/-workspaces-aisp-observatory/7d344fb0-f1c6-40d9-bf6b-09b3a29a6bf7/scratchpad/pr2-review/observatory/crates/bar-observatory/src/report.rs | 5 | Rust | scratchpad | Moderate |
-| /tmp/claude-1000/-workspaces-aisp-observatory/7d344fb0-f1c6-40d9-bf6b-09b3a29a6bf7/scratchpad/pr2-review/observatory/crates/bar-observatory/src/share_safe.rs | 5 | Rust | scratchpad | Moderate |
-| /tmp/claude-1000/-workspaces-aisp-observatory/ab1b6a92-ecd8-4e9c-a609-fd1a3bd8fe6a/scratchpad/pr1-worktree/observatory/crates/bar-observatory/src/report.rs | 5 | Rust | scratchpad | Moderate |
-| /workspaces/aisp-observatory/bar-observatory/wiki/agent/AI-CONTEXT.md | 5 | Markdown | bar-observatory/ | Moderate |
-| /workspaces/aisp-observatory/bar-observatory/wiki/human-html/documentation-layers.html | 5 | HTML | bar-observatory/ | Moderate |
-| /tmp/claude-1000/-workspaces-aisp-observatory/7d344fb0-f1c6-40d9-bf6b-09b3a29a6bf7/scratchpad/pr2-review/observatory/crates/bar-observatory/src/report_tests.rs | 4 | Rust | scratchpad | Moderate |
-| /tmp/claude-1000/-workspaces-aisp-observatory/7d344fb0-f1c6-40d9-bf6b-09b3a29a6bf7/scratchpad/pr2-review/observatory/crates/bar-observatory/tests/capture.rs | 4 | Rust | scratchpad | Moderate |
-| /workspaces/aisp-observatory/bar-obs-private/crates/bar-mcp/Cargo.toml | 4 | TOML | bar-obs-private/ | Moderate |
-| /workspaces/aisp-observatory/bar-obs-private/crates/bar-mcp/src/tools.rs | 4 | Rust | bar-obs-private/ | Moderate |
-| /workspaces/aisp-observatory/bar-obs-private/crates/bar-observatory/Cargo.toml | 4 | TOML | bar-obs-private/ | Moderate |
-| /workspaces/aisp-observatory/bar-obs-private/crates/bar-observatory/src/report.rs | 4 | Rust | bar-obs-private/ | Moderate |
-| /workspaces/aisp-observatory/bar-obs-private/crates/bar-observatory/tests/resolved_config_schema_parity.rs | 4 | Rust | bar-obs-private/ | Moderate |
-| /workspaces/aisp-observatory/bar-obs-private/crates/bar-schema/Cargo.toml | 4 | TOML | bar-obs-private/ | Moderate |
-| /workspaces/aisp-observatory/bar-obs-private/docs/bar-observatory/config/bar-observatory.default.toml | 4 | TOML | bar-obs-private/ | Moderate |
-| /workspaces/aisp-observatory/bar-obs-private/docs/bar-observatory/docs/04_ADR_CATALOG.md | 4 | Markdown | bar-obs-private/ | Moderate |
-| /workspaces/aisp-observatory/bar-obs-private/docs/bar-observatory/examples/deterministic/example.report.json | 4 | JSON | bar-obs-private/ | Moderate |
-| /workspaces/aisp-observatory/bar-obs-private/docs/bar-observatory/human-specs/06-simplified-build-loop.md | 4 | Markdown | bar-obs-private/ | Moderate |
-| /workspaces/aisp-observatory/bar-obs-private/docs/bar-observatory/human-specs/09-session-grounding-2026-07-31.md | 4 | Markdown | bar-obs-private/ | Moderate |
-| /workspaces/aisp-observatory/bar-obs-private/docs/bar-observatory/human-specs/14-flight-recorder-sota-enhancement-2026-07-31.md | 4 | Markdown | bar-obs-private/ | Moderate |
-| /workspaces/aisp-observatory/bar-observatory/config/bar-observatory.default.toml | 4 | TOML | bar-observatory/ | Moderate |
-| /workspaces/aisp-observatory/bar-observatory/wiki/architecture.md | 4 | Markdown | bar-observatory/ | Moderate |
-| /workspaces/aisp-observatory/bar-observatory/wiki/human/md/architecture.md | 4 | Markdown | bar-observatory/ | Moderate |
-| /workspaces/aisp-observatory/scripts/public-export.sh | 4 | Shell | scripts/ | Moderate |
-| /tmp/claude-1000/-workspaces-aisp-observatory/1b5a097f-0d97-481b-a8f4-adec1259e5ec/scratchpad/build_report.py | 3 | Python | scratchpad | Light |
-| /tmp/claude-1000/-workspaces-aisp-observatory/7d344fb0-f1c6-40d9-bf6b-09b3a29a6bf7/scratchpad/pr2-review/observatory/crates/bar-observatory/src/detectors.rs | 3 | Rust | scratchpad | Light |
-| /tmp/claude-1000/-workspaces-aisp-observatory/ab1b6a92-ecd8-4e9c-a609-fd1a3bd8fe6a/scratchpad/pr1-worktree/observatory/crates/bar-read/src/lib.rs | 3 | Rust | scratchpad | Light |
-| /tmp/claude-1000/-workspaces-aisp-observatory/ab1b6a92-ecd8-4e9c-a609-fd1a3bd8fe6a/scratchpad/pr1-worktree/scripts/public-export.sh | 3 | Shell | scratchpad | Light |
-| /tmp/claude-1000/-workspaces-aisp-observatory/e6ede2e6-6d76-4b48-903c-039b259c628f/scratchpad/crate-verify/Cargo.toml | 3 | TOML | scratchpad | Light |
-| /workspaces/aisp-observatory/bar-obs-private/crates/Cargo.toml | 3 | TOML | bar-obs-private/ | Light |
-| /workspaces/aisp-observatory/bar-obs-private/crates/bar-config/Cargo.toml | 3 | TOML | bar-obs-private/ | Light |
-| /workspaces/aisp-observatory/bar-obs-private/crates/bar-schema/src/lib.rs | 3 | Rust | bar-obs-private/ | Light |
-| /workspaces/aisp-observatory/bar-obs-private/crates/bar-schema/tests/branding_from_toml.rs | 3 | Rust | bar-obs-private/ | Light |
-| /workspaces/aisp-observatory/bar-obs-private/crates/bar-schema/tests/fact_id_assign.rs | 3 | Rust | bar-obs-private/ | Light |
-| /workspaces/aisp-observatory/bar-obs-private/docs/bar-observatory/human-specs/11-qe-fleet-understanding-guide.md | 3 | Markdown | bar-obs-private/ | Light |
-| /workspaces/aisp-observatory/bar-obs-private/docs/bar-observatory/schemas/report.schema.json | 3 | JSON | bar-obs-private/ | Light |
-| /workspaces/aisp-observatory/bar-obs-private/docs/bar-observatory/tests/resolver_test.py | 3 | Python | bar-obs-private/ | Light |
-| /workspaces/aisp-observatory/bar-obs-private/phases/01-existing-factory-audit/STATUS.md | 3 | Markdown | bar-obs-private/ | Light |
-| /workspaces/aisp-observatory/bar-observatory/examples/README.html | 3 | HTML | bar-observatory/ | Light |
-| /workspaces/aisp-observatory/bar-observatory/examples/README.md | 3 | Markdown | bar-observatory/ | Light |
-| /workspaces/aisp-observatory/bar-observatory/llms.txt | 3 | Text | bar-observatory/ | Light |
-| /workspaces/aisp-observatory/bar-observatory/schemas/interpretation.schema.json | 3 | JSON | bar-observatory/ | Light |
-| /workspaces/aisp-observatory/bar-observatory/wiki/README.html | 3 | HTML | bar-observatory/ | Light |
-| /tmp/claude-1000/-workspaces-aisp-observatory/7d344fb0-f1c6-40d9-bf6b-09b3a29a6bf7/scratchpad/pr2-review/observatory/crates/bar-observatory/src/lib.rs | 2 | Rust | scratchpad | Light |
-| /tmp/claude-1000/-workspaces-aisp-observatory/ab1b6a92-ecd8-4e9c-a609-fd1a3bd8fe6a/scratchpad/pr1-worktree/observatory/crates/bar-observatory/src/lib.rs | 2 | Rust | scratchpad | Light |
-| /workspaces/aisp-observatory/.agentic-qe/witness-keys/b0df0a17e79a269d.key.pem | 2 | PEM | .agentic-qe/ | Light |
-| /workspaces/aisp-observatory/bar-obs-private/crates/bar-config/examples/print_hash.rs | 2 | Rust | bar-obs-private/ | Light |
-| /workspaces/aisp-observatory/bar-obs-private/crates/bar-review/Cargo.toml | 2 | TOML | bar-obs-private/ | Light |
-| /workspaces/aisp-observatory/bar-obs-private/crates/bar-schema/src/fact_id.rs | 2 | Rust | bar-obs-private/ | Light |
-| /workspaces/aisp-observatory/bar-obs-private/crates/bar-schema/tests/absence_state_serde.rs | 2 | Rust | bar-obs-private/ | Light |
-| /workspaces/aisp-observatory/bar-obs-private/crates/bar-schema/tests/roundtrip_report_example.rs | 2 | Rust | bar-obs-private/ | Light |
-| /workspaces/aisp-observatory/bar-obs-private/crates/bar-schema/tests/schema_field_parity.rs | 2 | Rust | bar-obs-private/ | Light |
-| /workspaces/aisp-observatory/bar-obs-private/dist/plugin/README.md | 2 | Markdown | bar-obs-private/ | Light |
-| /workspaces/aisp-observatory/bar-obs-private/docs/bar-observatory/docs/17_FACT_ID_NAMESPACE_SPEC.md | 2 | Markdown | bar-obs-private/ | Light |
-| /workspaces/aisp-observatory/bar-obs-private/docs/bar-observatory/docs/steps/02-base-materials-and-golden-contracts.md | 2 | Markdown | bar-obs-private/ | Light |
-| /workspaces/aisp-observatory/bar-obs-private/docs/bar-observatory/docs/steps/15-evidence-package-and-provenance.md | 2 | Markdown | bar-obs-private/ | Light |
-| /workspaces/aisp-observatory/bar-obs-private/docs/bar-observatory/tests/csp_regression.sh | 2 | Shell | bar-obs-private/ | Light |
-| /workspaces/aisp-observatory/bar-obs-private/docs/bar-observatory/tests/schema_validate.sh | 2 | Shell | bar-obs-private/ | Light |
-| /workspaces/aisp-observatory/bar-obs-private/docs/bar-observatory/tests/toml_parse.sh | 2 | Shell | bar-obs-private/ | Light |
-| /workspaces/aisp-observatory/bar-obs-private/docs/bar-observatory/tools/render-live-report/src/main.rs | 2 | Rust | bar-obs-private/ | Light |
-| /workspaces/aisp-observatory/bar-obs-private/docs/bar-observatory/tools/tera-render-check/src/main.rs | 2 | Rust | bar-obs-private/ | Light |
-| /workspaces/aisp-observatory/bar-obs-private/docs/bar-observatory/wiki/agent/AI-CONTEXT.md | 2 | Markdown | bar-obs-private/ | Light |
-| /workspaces/aisp-observatory/bar-obs-private/docs/bar-observatory/wiki/aisp/HUB.aisp | 2 | AISP | bar-obs-private/ | Light |
-| /workspaces/aisp-observatory/bar-obs-private/docs/bar-observatory/wiki/human/README.md | 2 | Markdown | bar-obs-private/ | Light |
-| /workspaces/aisp-observatory/bar-obs-private/reports/01-existing-factory-audit-report.md | 2 | Markdown | bar-obs-private/ | Light |
-| /workspaces/aisp-observatory/bar-observatory/.claude-plugin/plugin.json | 2 | JSON | bar-observatory/ | Light |
-| /workspaces/aisp-observatory/bar-observatory/CONTRIBUTING.md | 2 | Markdown | bar-observatory/ | Light |
-| /workspaces/aisp-observatory/bar-observatory/CRATES.md | 2 | Markdown | bar-observatory/ | Light |
-| /workspaces/aisp-observatory/bar-observatory/process/00-init.md | 2 | Markdown | bar-observatory/ | Light |
-| /workspaces/aisp-observatory/bar-observatory/process/04-optional-modules.md | 2 | Markdown | bar-observatory/ | Light |
-| /workspaces/aisp-observatory/bar-observatory/process/05-sample-report.md | 2 | Markdown | bar-observatory/ | Light |
-| /workspaces/aisp-observatory/bar-observatory/process/06-use-cases.md | 2 | Markdown | bar-observatory/ | Light |
-| /workspaces/aisp-observatory/bar-observatory/run.sh | 2 | Shell | bar-observatory/ | Light |
-| /workspaces/aisp-observatory/bar-observatory/schemas/report.schema.json | 2 | JSON | bar-observatory/ | Light |
-| /workspaces/aisp-observatory/bar-observatory/wiki/README.md | 2 | Markdown | bar-observatory/ | Light |
-| /workspaces/aisp-observatory/bar-observatory/wiki/enterprise.md | 2 | Markdown | bar-observatory/ | Light |
-| /workspaces/aisp-observatory/observatory/CLAUDE.md | 2 | Markdown | observatory/ | Light |
-| /workspaces/aisp-observatory/observatory/crates/README.md | 2 | Markdown | observatory/ | Light |
+| bar-observatory/README.md | 77 | Markdown | bar-observatory/ | Heavy |
+| bar-observatory/index.html | 22 | HTML | bar-observatory/ | Heavy |
+| bar-observatory/provenance/PROVENANCE.json | 16 | JSON | bar-observatory/ | Heavy |
+| bar-observatory/wiki/human/README.md | 16 | Markdown | bar-observatory/ | Heavy |
+| bar-observatory/CHANGELOG.md | 15 | Markdown | bar-observatory/ | Heavy |
+| bar-observatory/wiki/master-guide.html | 15 | HTML | bar-observatory/ | Heavy |
+| .gitignore | 12 | other | repo root | Heavy |
+| docs/specs/10-capabilities-review.md | 9 | Markdown | docs/ | Moderate |
+| docs/specs/13-pre-seal-checklist.md | 9 | Markdown | docs/ | Moderate |
+| bar-observatory/RUN.md | 9 | Markdown | bar-observatory/ | Moderate |
+| bar-observatory/wiki/documentation-layers.html | 9 | HTML | bar-observatory/ | Moderate |
+| review/verify/src/main.rs | 7 | Rust | scratchpad | Moderate |
+| NOTES.md | 7 | Markdown | repo root | Moderate |
+| review/pr-a/crates/bar-observatory/src/detectors.rs | 6 | Rust | scratchpad | Moderate |
+| CLAUDE.md | 6 | Markdown | repo root | Moderate |
+| TODO.md | 6 | Markdown | repo root | Moderate |
+| crates/bar-config/src/lib.rs | 6 | Rust | crates/ | Moderate |
+| bar-observatory/wiki/aisp/HUB.aisp | 6 | AISP | bar-observatory/ | Moderate |
+| review/pr-b/crates/bar-observatory/src/compare.rs | 5 | Rust | scratchpad | Moderate |
+| review/pr-b/crates/bar-observatory/src/report.rs | 5 | Rust | scratchpad | Moderate |
+| review/pr-b/crates/bar-observatory/src/share_safe.rs | 5 | Rust | scratchpad | Moderate |
+| review/pr-a/crates/bar-observatory/src/report.rs | 5 | Rust | scratchpad | Moderate |
+| bar-observatory/wiki/agent/AI-CONTEXT.md | 5 | Markdown | bar-observatory/ | Moderate |
+| bar-observatory/wiki/human-html/documentation-layers.html | 5 | HTML | bar-observatory/ | Moderate |
+| review/pr-b/crates/bar-observatory/src/report_tests.rs | 4 | Rust | scratchpad | Moderate |
+| review/pr-b/crates/bar-observatory/tests/capture.rs | 4 | Rust | scratchpad | Moderate |
+| crates/bar-mcp/Cargo.toml | 4 | TOML | crates/ | Moderate |
+| crates/bar-mcp/src/tools.rs | 4 | Rust | crates/ | Moderate |
+| crates/bar-observatory/Cargo.toml | 4 | TOML | crates/ | Moderate |
+| crates/bar-observatory/src/report.rs | 4 | Rust | crates/ | Moderate |
+| crates/bar-observatory/tests/resolved_config_schema_parity.rs | 4 | Rust | crates/ | Moderate |
+| crates/bar-schema/Cargo.toml | 4 | TOML | crates/ | Moderate |
+| docs/reference/bar-observatory.default.toml | 4 | TOML | docs/ | Moderate |
+| docs/adr/0004-caching-strategy.md | 4 | Markdown | docs/ | Moderate |
+| examples/deterministic/sample.report.json | 4 | JSON | examples/ | Moderate |
+| docs/specs/06-build-loop.md | 4 | Markdown | docs/ | Moderate |
+| docs/specs/09-session-grounding.md | 4 | Markdown | docs/ | Moderate |
+| docs/specs/14-flight-recorder-enhancement.md | 4 | Markdown | docs/ | Moderate |
+| bar-observatory/config/bar-observatory.default.toml | 4 | TOML | bar-observatory/ | Moderate |
+| bar-observatory/wiki/architecture.md | 4 | Markdown | bar-observatory/ | Moderate |
+| bar-observatory/wiki/human/md/architecture.md | 4 | Markdown | bar-observatory/ | Moderate |
+| scripts/public-export.sh | 4 | Shell | scripts/ | Moderate |
+| review/build_report.py | 3 | Python | scratchpad | Light |
+| review/pr-b/crates/bar-observatory/src/detectors.rs | 3 | Rust | scratchpad | Light |
+| review/pr-a/crates/bar-read/src/lib.rs | 3 | Rust | scratchpad | Light |
+| review/pr-a/scripts/public-export.sh | 3 | Shell | scratchpad | Light |
+| review/verify/Cargo.toml | 3 | TOML | scratchpad | Light |
+| crates/Cargo.toml | 3 | TOML | crates/ | Light |
+| crates/bar-config/Cargo.toml | 3 | TOML | crates/ | Light |
+| crates/bar-schema/src/lib.rs | 3 | Rust | crates/ | Light |
+| crates/bar-schema/tests/branding_from_toml.rs | 3 | Rust | crates/ | Light |
+| crates/bar-schema/tests/fact_id_assign.rs | 3 | Rust | crates/ | Light |
+| docs/specs/11-qe-fleet-guide.md | 3 | Markdown | docs/ | Light |
+| schemas/report.schema.internal.json | 3 | JSON | schemas/ | Light |
+| tests/integration/resolver_test.py | 3 | Python | tests/ | Light |
+| docs/status/audit-status.md | 3 | Markdown | docs/ | Light |
+| bar-observatory/examples/README.html | 3 | HTML | bar-observatory/ | Light |
+| bar-observatory/examples/README.md | 3 | Markdown | bar-observatory/ | Light |
+| bar-observatory/llms.txt | 3 | Text | bar-observatory/ | Light |
+| bar-observatory/schemas/interpretation.schema.json | 3 | JSON | bar-observatory/ | Light |
+| bar-observatory/wiki/README.html | 3 | HTML | bar-observatory/ | Light |
+| review/pr-b/crates/bar-observatory/src/lib.rs | 2 | Rust | scratchpad | Light |
+| review/pr-a/crates/bar-observatory/src/lib.rs | 2 | Rust | scratchpad | Light |
+| secrets/deploy-key.pem | 2 | PEM | secrets/ | Light |
+| crates/bar-config/examples/print_hash.rs | 2 | Rust | crates/ | Light |
+| crates/bar-review/Cargo.toml | 2 | TOML | crates/ | Light |
+| crates/bar-schema/src/fact_id.rs | 2 | Rust | crates/ | Light |
+| crates/bar-schema/tests/absence_state_serde.rs | 2 | Rust | crates/ | Light |
+| crates/bar-schema/tests/roundtrip_report_example.rs | 2 | Rust | crates/ | Light |
+| crates/bar-schema/tests/schema_field_parity.rs | 2 | Rust | crates/ | Light |
+| dist/plugin/README.md | 2 | Markdown | dist/ | Light |
+| docs/architecture.md | 2 | Markdown | docs/ | Light |
+| docs/steps/02-base-materials.md | 2 | Markdown | docs/ | Light |
+| docs/steps/15-evidence-package.md | 2 | Markdown | docs/ | Light |
+| tests/integration/csp_regression.sh | 2 | Shell | tests/ | Light |
+| tests/integration/schema_validate.sh | 2 | Shell | tests/ | Light |
+| tests/integration/toml_parse.sh | 2 | Shell | tests/ | Light |
+| tools/render-check/src/main.rs | 2 | Rust | tools/ | Light |
+| tools/template-check/src/main.rs | 2 | Rust | tools/ | Light |
+| docs/wiki/agent/AI-CONTEXT.md | 2 | Markdown | docs/ | Light |
+| docs/wiki/aisp/HUB.aisp | 2 | AISP | docs/ | Light |
+| docs/wiki/human/README.md | 2 | Markdown | docs/ | Light |
+| reports/audit-report.md | 2 | Markdown | reports/ | Light |
+| bar-observatory/.claude-plugin/plugin.json | 2 | JSON | bar-observatory/ | Light |
+| bar-observatory/CONTRIBUTING.md | 2 | Markdown | bar-observatory/ | Light |
+| bar-observatory/CRATES.md | 2 | Markdown | bar-observatory/ | Light |
+| bar-observatory/process/00-init.md | 2 | Markdown | bar-observatory/ | Light |
+| bar-observatory/process/04-optional-modules.md | 2 | Markdown | bar-observatory/ | Light |
+| bar-observatory/process/05-sample-report.md | 2 | Markdown | bar-observatory/ | Light |
+| bar-observatory/process/06-use-cases.md | 2 | Markdown | bar-observatory/ | Light |
+| bar-observatory/run.sh | 2 | Shell | bar-observatory/ | Light |
+| bar-observatory/schemas/report.schema.json | 2 | JSON | bar-observatory/ | Light |
+| bar-observatory/wiki/README.md | 2 | Markdown | bar-observatory/ | Light |
+| bar-observatory/wiki/enterprise.md | 2 | Markdown | bar-observatory/ | Light |
+| observatory/CLAUDE.md | 2 | Markdown | observatory/ | Light |
+| observatory/crates/README.md | 2 | Markdown | observatory/ | Light |
 
 ## Cost (list-price estimate)
 
@@ -396,7 +396,7 @@ Every real human prompt across all 7 sessions, in order — synthetic system mes
 | Session / # | Elapsed | Prompt | Lines Δ | Tokens in/out | Cache read/create | Activity |
 |---|---:|---|---:|---:|---:|---|
 | 2026-08-01 #1 | 2m | Complete grounding and initialization with modular data reports | +0 -0 | 6.2K/4.0K | 257.1K/45.1K | skills: bar-phase-protocol |
-| 2026-08-01 #2 | 5m | Base directory for this skill: /workspaces/aisp-observatory/bar-obs-pr | +321 -0 | 46/35.8K | 2.7M/107.7K | agents: general-purpose×2; 2 file(s) |
+| 2026-08-01 #2 | 5m | Base directory for this skill: crates/bar-config/src/lib.rs a | +321 -0 | 46/35.8K | 2.7M/107.7K | agents: general-purpose×2; 2 file(s) |
 | 2026-08-01 #3 | 44m | ## Next step — instructions  **A. Close out Phase 1 (blocking, before  | +591 -120 | 210/93.7K | 28.1M/332.9K | agents: claude-code-guide, qe-requirements-validator; skills: qe-quality-assessment; 12 file(s) |
 | 2026-08-01 #4 | 100m | Complete grounding and initialization with modular data reports | +304 -92 | 114/41.5K | 22.1M/69.7K | 13 file(s) |
 | 2026-08-01 #5 | 116m | and the results from the qe fleet - provide the summary report and che | +146 -31 | 74/36.5K | 16.7M/53.2K | agents: qe-requirements-validator, reviewer×3; 6 file(s) |
@@ -439,12 +439,12 @@ Every real human prompt across all 7 sessions, in order — synthetic system mes
 | 2026-08-13a #7 | 182m | fix the low disk space - likely old crates development work that n be  | +0 -0 | 16/3.7K | 4.1M/5.4K | none |
 | 2026-08-13a #8 | 205m | continue - and verify the crates , and make sure the front door (claud | +132 -81 | 128/24.4K | 34.8M/56.0K | 9 file(s) |
 | 2026-08-13a #9 | 249m | Init grounding and outstanding fixes checklist | +19 -8 | 46/9.2K | 13.3M/17.8K | 2 file(s) |
-| 2026-08-13a #10 | 275m | bar181 ➜ /workspaces/aisp-observatory (main) $ gh auth login ? Where d | +0 -0 | 2/1.8K | 587.6K/220 | none |
+| 2026-08-13a #10 | 275m | bar181 ➜ ~/aisp-observatory (main) $ gh auth login ? Where d | +0 -0 | 2/1.8K | 587.6K/220 | none |
 | 2026-08-13a #11 | 276m | Init grounding and outstanding fixes checklist | +0 -0 | 2/1.5K | 589.6K/138 | none |
 | 2026-08-13a #12 | 279m | added to .env GH_TOKEN | +28 -27 | 26/5.0K | 7.7M/11.0K | 1 file(s) |
 | 2026-08-13a #13 | 290m | Init grounding and outstanding fixes checklist | +1503 -156 | 314/102.2K | 113.1M/196.7K | agents: claude-code-guide×2, general-purpose×5; 7 file(s) |
 | 2026-08-13a #14 | 327m | continue to update all wiki and other human focused documents | +61 -38 | 34/10.4K | 13.8M/18.6K | 5 file(s) |
-| 2026-08-13a #15 | 340m | here is a guide for the wiki : /workspaces/aisp-observatory/bar-obs-pr | +33 -25 | 66/13.7K | 28.2M/48.2K | 1 file(s) |
+| 2026-08-13a #15 | 340m | here is a guide for the wiki : docs/wiki/human/README.md and | +33 -25 | 66/13.7K | 28.2M/48.2K | 1 file(s) |
 | 2026-08-13a #16 | 356m | continue and provide the status - we are ending the session - update t | +165 -0 | 18/10.1K | 7.9M/16.4K | 1 file(s) |
 | 2026-08-13b #1 | 6m | complete the init and grounding - provide an outline of the status of  | +2 -3 | 62/28.1K | 3.5M/125.5K | 1 file(s) |
 | 2026-08-13b #2 | 26m | continue - leverage the new sample docs i provided for enhanced readme | +921 -102 | 158/83.7K | 21.6M/168.1K | agents: general-purpose×3; 11 file(s) |
@@ -473,29 +473,29 @@ All 60 error results captured across the 7 ingested sessions, in exact transcrip
 | Seq | Excerpt |
 |---:|---|
 | 36 | Exit code 1 build-test	fail	21s	https://github.com/bar181/aisp-observatory/actions/runs/30871706829/job/91874937824	 build-test	fail	29s	https://github.com/bar1 |
-| 39 | Exit code 1 [path] line 4039: cd: bar-obs-private/docs/bar-observatory: No such file or directory |
-| 73 | Exit code 1 FAIL: docs/bar-observatory/docs/steps/01-existing-factory-audit.md does not exist FAIL: reports/01-existing-factory-audit-report.md does not exist |
+| 39 | Exit code 1 [path] line 4039: cd: docs/legacy-track: No such file or directory |
+| 73 | Exit code 1 FAIL: docs/steps/01-audit.md does not exist FAIL: reports/audit-report.md does not exist |
 | 108 | WorktreeCreate hook failed: hook succeeded but returned no worktree path (command: echo the path to stdout; http/callback: return hookSpecificOutput.worktreePat |
 | 110 | WorktreeCreate hook failed: hook succeeded but returned no worktree path (command: echo the path to stdout; http/callback: return hookSpecificOutput.worktreePat |
-| 111 | Permission to use Bash with command rm -rf /workspaces/aisp-observatory/bar-observatory/_run git status --short 2>&1 has been denied. |
-| 150 | Permission to use Bash with command rm -rf /workspaces/aisp-observatory/bar-obs-private/crates/target df -h /workspaces has been denied. |
-| 168 | Exit code 2 ugrep: warning: /workspaces/aisp-observatory/observatory/scripts/gate.sh: No such file or directory |
+| 111 | Permission to use Bash with command rm -rf bar-observatory/_run git status --short 2>&1 has been denied. |
+| 150 | Permission to use Bash with command rm -rf crates/target df -h /workspaces has been denied. |
+| 168 | Exit code 2 ugrep: warning: observatory/scripts/gate.sh: No such file or directory |
 | 181 | Exit code 2 bar-observatory/src/lib.rs:196:pub fn resolved_json(r: &Resolved) -> String { bar-observatory/src/lib.rs:1225:    fn r12_resolved_json_reproducible( |
 | 233 | <tool_use_error>String to replace not found in file. String: Restructured Quickstart to lead with the Claude Code plugin (matching the standing 'plugin is the f |
 | 249 | <tool_use_error>String to replace not found in file. String: **25 error results** surfaced in that one session — timeouts, a killed command, a guardrail refusal |
-| 277 | Permission to use Bash with command rm -rf /tmp/bar-doc-check && mkdir -p /tmp/bar-doc-check && cd /tmp/bar-doc-check BAR=/workspaces/aisp-observatory/bar-obs-p |
+| 277 | Permission to use Bash with command rm -rf /tmp/bar-doc-check && mkdir -p /tmp/bar-doc-check && cd /tmp/bar-doc-check BAR=crates |
 | 314 | Exit code 1 Traceback (most recent call last):   File "<string>", line 7, in <module> sqlite3.OperationalError: malformed JSON (1,) (0,) (None,) |
 | 345 | Exit code 2 ugrep: warning: observatory/scripts/gate.sh: No such file or directory |
-| 348 | Permission to use Bash with command rm -rf /workspaces/aisp-observatory/bar-observatory/_run /tmp/smoke-session.jsonl 2>&1 cd /workspaces/aisp-observatory/bar-o |
-| 351 | Permission to use Bash with command rm -rf /workspaces/aisp-observatory/bar-observatory/_run has been denied. |
+| 348 | Permission to use Bash with command rm -rf bar-observatory/_run /tmp/smoke-session.jsonl 2>&1 cd bar-o |
+| 351 | Permission to use Bash with command rm -rf bar-observatory/_run has been denied. |
 | 357 | Exit code 123 === all mentions of ruvnet/ruvector/ruflo/agentics/reuven anywhere in tracked files === |
 | 380 | Exit code 128 [main 43afcfc] Catch up public repo to current state: plugin front door, new wiki structure, self-audit fixes  56 files changed, 5853 insertions(+ |
 | 389 | Exit code 1 === terminal activity capture === PreToolUse\|16480 PostToolUse\|16233 PostToolBatch\|13848 MessageDisplay\|511 SubagentStop\|398 SubagentStart\|288 |
-| 401 | Permission to use Bash with command rm -rf /workspaces/aisp-observatory/bar-observatory/_dogfood git status --short bar-observatory/ 2>&1 echo "(clean)" has bee |
-| 407 | Permission to use Bash with command cd /workspaces/aisp-observatory ls -la .env 2>&1 echo "--- keys present (names only, not values) ---" grep -oE '^[A-Z_]+=' . |
-| 410 | Permission to use Bash with command grep -c "TOKEN\\|KEY" /workspaces/aisp-observatory/.env 2>&1 has been denied. |
-| 413 | Permission to use Bash with command grep -iE "GH_\|GITHUB\|TOKEN" /workspaces/aisp-observatory/.env has been denied. |
-| 417 | Permission to use Bash with command cut -d= -f1 /workspaces/aisp-observatory/.env has been denied. |
+| 401 | Permission to use Bash with command rm -rf bar-observatory/_dogfood git status --short bar-observatory/ 2>&1 echo "(clean)" has bee |
+| 407 | Permission to use Bash with command cd ~/aisp-observatory ls -la .env 2>&1 echo "--- keys present (names only, not values) ---" grep -oE '^[A-Z_]+=' . |
+| 410 | Permission to use Bash with command grep -c "TOKEN\\|KEY" .env 2>&1 has been denied. |
+| 413 | Permission to use Bash with command grep -iE "GH_\|GITHUB\|TOKEN" .env has been denied. |
+| 417 | Permission to use Bash with command cut -d= -f1 .env has been denied. |
 | 438 | Agent type 'qe-requirements-validator' not found. Available agents: architect, claude, claude-code-guide, Explore, general-purpose, implementer, Plan, reviewer, |
 | 441 | <tool_use_error>Unknown skill: qe-quality-assessment</tool_use_error> |
 | 499 | Exit code 127 bash: scripts/public-export.sh: No such file or directory |
@@ -503,7 +503,7 @@ All 60 error results captured across the 7 ingested sessions, in exact transcrip
 | 567 | Exit code 128 origin	https://github.com/bar181/bar-observatory.git (fetch) origin	https://github.com/bar181/bar-observatory.git (push) remote: Permission to bar |
 | 581 | Exit code 8 build-test	pending	0	https://github.com/bar181/aisp-observatory/actions/runs/30875727536/job/91886727906	 shell-gates	pending	0	https://github.com/b |
 | 596 | Exit code 8 length: 23597 div open: 102 div close: 102 section open: 6 section close: 6 table open: 1 table close: 1 build-test	pending	0	https://github.com/bar |
-| 603 | Exit code 143 Command timed out after 2m 0s === bar-index dry-run ===    Compiling bar-index v0.1.0 (/workspaces/aisp-observatory/bar-obs-private/crates/target/ |
+| 603 | Exit code 143 Command timed out after 2m 0s === bar-index dry-run ===    Compiling bar-index v0.1.0 (crates/target/ |
 | 608 | Exit code 8 build-test	pending	0	https://github.com/bar181/aisp-observatory/actions/runs/30875727536/job/91886727906	 build-test	pending	0	https://github.com/ba |
 | 618 | Exit code 8 determinism	pending	0	https://github.com/bar181/aisp-observatory/actions/runs/30875727536/job/91887864786	 determinism	pending	0	https://github.com/ |
 | 619 | <tool_use_error>Blocked: sleep 75 followed by: date -u. To wait for a condition, use Monitor with an until-loop (e.g. `until <check>; do sleep 2; done`). To wai |
@@ -515,19 +515,19 @@ All 60 error results captured across the 7 ingested sessions, in exact transcrip
 | 804 | Agent type 'qe-requirements-validator' not found. Available agents: architect, claude, claude-code-guide, Explore, general-purpose, implementer, Plan, reviewer, |
 | 845 | <tool_use_error>Unknown skill: qe-court</tool_use_error> |
 | 868 | <tool_use_error>InputValidationError: Read was called with input that could not be parsed as JSON. You sent (first 113 of 113 bytes): {"file_path": "/workspaces |
-| 947 | Permission to use Bash with command cd /workspaces/aisp-observatory/bar-observatory rm -rf _run cd /workspaces/aisp-observatory/bar-obs-private/crates cargo tes |
+| 947 | Permission to use Bash with command cd bar-observatory rm -rf _run cd crates cargo tes |
 | 1029 | Exit code 1 4:keywords = ["mcp", "model-context-protocol", "bar-observatory", "ai-agent"] --- check all other crates' keywords for length violations too --- "mo |
 | 1032 | Exit code 1 Traceback (most recent call last):   File "<string>", line 4, in <module> KeyError: 'tools' |
 | 1104 | Exit code 1 === README.md === 221:[`examples/deterministic/real-session.report.json`](examples/deterministic/real-session.report.json), 237:![A BAR Observatory  |
 | 1112 | Exit code 1 === distinct tool_name values in PostToolUse payloads (sample check via json_extract) === Error: stepping, malformed JSON |
-| 1174 | Permission to use Bash with command cd /workspaces/aisp-observatory git rm bar-observatory/examples/interpreted/bar_observatory_self_improvement_report.html \   |
+| 1174 | Permission to use Bash with command cd ~/aisp-observatory git rm bar-observatory/examples/interpreted/bar_observatory_self_improvement_report.html \   |
 | 1278 | Exit code 1 Traceback (most recent call last):   File "<string>", line 5, in <module> KeyError: 'synthesis' === SYNTHESIS === |
 | 1477 | Exit code 128 origin	https://github.com/bar181/bar-observatory.git (fetch) origin	https://github.com/bar181/bar-observatory.git (push) eb13517c17265344760378c13 |
 | 1490 | <tool_use_error>Found 2 matches of the string to replace, but replace_all is false. To replace all occurrences, set replace_all to true. To replace only one occ |
 | 1575 | Exit code 1 node:internal/modules/run_main:107     triggerUncaughtException(     ^  locator.evaluate: Error: strict mode violation: locator('.adv') resolved to  |
 | 1644 | <tool_use_error>File has not been read yet. Read it first before writing to it.</tool_use_error> |
 | 1697 | Exit code 1 expected an object but got: array ([{"name":"agent-monitorin ...]) |
-| 1783 | Exit code 1 FAIL: docs/bar-observatory/docs/steps/01-existing-factory-audit.md does not exist FAIL: reports/01-existing-factory-audit-report.md does not exist |
+| 1783 | Exit code 1 FAIL: docs/steps/01-audit.md does not exist FAIL: reports/audit-report.md does not exist |
 | 1837 | Permission to use Bash with command tail -40 && rm -rf /tmp/adversarial_check has been denied. |
 | 1842 | Permission to use Bash with command rm -rf /tmp/adversarial_check /tmp/adversarial_resolve_test.rs has been denied. |
 | 1851 | <tool_use_error>InputValidationError: Read was called with input that could not be parsed as JSON. You sent (first 106 of 106 bytes): {"file_path": "/workspaces |

@@ -300,7 +300,7 @@
         "rework_events": null,
         "state": "completed",
         "task_id": "task-10",
-        "title": "Update human-specs/06: QE Court primary at band gates, subagent fallback"
+        "title": "Update docs/specs/06: QE Court primary at band gates, subagent fallback"
       },
       {
         "attempts": null,
@@ -312,7 +312,7 @@
         "rework_events": null,
         "state": "completed",
         "task_id": "task-11",
-        "title": "Update human-specs/13 §4 and §9: full-fleet plan, not disclosed substitute"
+        "title": "Update docs/specs/13 §4 and §9: full-fleet plan, not disclosed substitute"
       },
       {
         "attempts": null,
@@ -336,7 +336,7 @@
         "rework_events": null,
         "state": "completed",
         "task_id": "task-13",
-        "title": "Correct human-specs/11 QE guide install section"
+        "title": "Correct docs/specs/11 QE guide install section"
       },
       {
         "attempts": null,
@@ -420,7 +420,7 @@
         "rework_events": null,
         "state": "completed",
         "task_id": "task-20",
-        "title": "Write end-of-phase retrospective for the specs-enhancement work, save in phases/"
+        "title": "Write end-of-phase retrospective for the specs-enhancement work, save in docs/status/"
       },
       {
         "attempts": null,
@@ -734,9 +734,9 @@
     "events": [
       {
         "confidence": "exact",
-        "detail": "/workspaces/aisp-observatory/bar-observatory/README.md edited 77 times",
+        "detail": "bar-observatory/README.md edited 77 times",
         "evidence_refs": [
-          "transcript:edit:/workspaces/aisp-observatory/bar-observatory/README.md"
+          "transcript:edit:bar-observatory/README.md"
         ],
         "rework_id": "rw-1",
         "task_id": "session",
@@ -744,9 +744,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "/workspaces/aisp-observatory/bar-observatory/index.html edited 22 times",
+        "detail": "bar-observatory/index.html edited 22 times",
         "evidence_refs": [
-          "transcript:edit:/workspaces/aisp-observatory/bar-observatory/index.html"
+          "transcript:edit:bar-observatory/index.html"
         ],
         "rework_id": "rw-2",
         "task_id": "session",
@@ -754,9 +754,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "/workspaces/aisp-observatory/bar-observatory/provenance/PROVENANCE.json edited 16 times",
+        "detail": "bar-observatory/provenance/PROVENANCE.json edited 16 times",
         "evidence_refs": [
-          "transcript:edit:/workspaces/aisp-observatory/bar-observatory/provenance/PROVENANCE.json"
+          "transcript:edit:bar-observatory/provenance/PROVENANCE.json"
         ],
         "rework_id": "rw-3",
         "task_id": "session",
@@ -764,9 +764,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "/workspaces/aisp-observatory/bar-observatory/wiki/human/README.md edited 16 times",
+        "detail": "bar-observatory/wiki/human/README.md edited 16 times",
         "evidence_refs": [
-          "transcript:edit:/workspaces/aisp-observatory/bar-observatory/wiki/human/README.md"
+          "transcript:edit:bar-observatory/wiki/human/README.md"
         ],
         "rework_id": "rw-4",
         "task_id": "session",
@@ -774,9 +774,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "/workspaces/aisp-observatory/bar-observatory/CHANGELOG.md edited 15 times",
+        "detail": "bar-observatory/CHANGELOG.md edited 15 times",
         "evidence_refs": [
-          "transcript:edit:/workspaces/aisp-observatory/bar-observatory/CHANGELOG.md"
+          "transcript:edit:bar-observatory/CHANGELOG.md"
         ],
         "rework_id": "rw-5",
         "task_id": "session",
@@ -784,9 +784,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "/workspaces/aisp-observatory/bar-observatory/wiki/master-guide.html edited 15 times",
+        "detail": "bar-observatory/wiki/master-guide.html edited 15 times",
         "evidence_refs": [
-          "transcript:edit:/workspaces/aisp-observatory/bar-observatory/wiki/master-guide.html"
+          "transcript:edit:bar-observatory/wiki/master-guide.html"
         ],
         "rework_id": "rw-6",
         "task_id": "session",
@@ -794,9 +794,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "/workspaces/aisp-observatory/.gitignore edited 12 times",
+        "detail": ".gitignore edited 12 times",
         "evidence_refs": [
-          "transcript:edit:/workspaces/aisp-observatory/.gitignore"
+          "transcript:edit:.gitignore"
         ],
         "rework_id": "rw-7",
         "task_id": "session",
@@ -804,9 +804,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "/workspaces/aisp-observatory/bar-obs-private/docs/bar-observatory/human-specs/10-capabilities-adr-and-per-phase-dod-review.md edited 9 times",
+        "detail": "docs/specs/10-capabilities-review.md edited 9 times",
         "evidence_refs": [
-          "transcript:edit:/workspaces/aisp-observatory/bar-obs-private/docs/bar-observatory/human-specs/10-capabilities-adr-and-per-phase-dod-review.md"
+          "transcript:edit:docs/specs/10-capabilities-review.md"
         ],
         "rework_id": "rw-8",
         "task_id": "session",
@@ -814,9 +814,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "/workspaces/aisp-observatory/bar-obs-private/docs/bar-observatory/human-specs/13-pre-seal-plan-and-phase-dod-checklist-2026-07-31.md edited 9 times",
+        "detail": "docs/specs/13-pre-seal-checklist.md edited 9 times",
         "evidence_refs": [
-          "transcript:edit:/workspaces/aisp-observatory/bar-obs-private/docs/bar-observatory/human-specs/13-pre-seal-plan-and-phase-dod-checklist-2026-07-31.md"
+          "transcript:edit:docs/specs/13-pre-seal-checklist.md"
         ],
         "rework_id": "rw-9",
         "task_id": "session",
@@ -824,9 +824,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "/workspaces/aisp-observatory/bar-observatory/RUN.md edited 9 times",
+        "detail": "bar-observatory/RUN.md edited 9 times",
         "evidence_refs": [
-          "transcript:edit:/workspaces/aisp-observatory/bar-observatory/RUN.md"
+          "transcript:edit:bar-observatory/RUN.md"
         ],
         "rework_id": "rw-10",
         "task_id": "session",
@@ -834,9 +834,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "/workspaces/aisp-observatory/bar-observatory/wiki/documentation-layers.html edited 9 times",
+        "detail": "bar-observatory/wiki/documentation-layers.html edited 9 times",
         "evidence_refs": [
-          "transcript:edit:/workspaces/aisp-observatory/bar-observatory/wiki/documentation-layers.html"
+          "transcript:edit:bar-observatory/wiki/documentation-layers.html"
         ],
         "rework_id": "rw-11",
         "task_id": "session",
@@ -844,9 +844,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "/tmp/claude-1000/-workspaces-aisp-observatory/e6ede2e6-6d76-4b48-903c-039b259c628f/scratchpad/crate-verify/src/main.rs edited 7 times",
+        "detail": "review/verify/src/main.rs edited 7 times",
         "evidence_refs": [
-          "transcript:edit:/tmp/claude-1000/-workspaces-aisp-observatory/e6ede2e6-6d76-4b48-903c-039b259c628f/scratchpad/crate-verify/src/main.rs"
+          "transcript:edit:review/verify/src/main.rs"
         ],
         "rework_id": "rw-12",
         "task_id": "session",
@@ -854,9 +854,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "/workspaces/aisp-observatory/bar-obs-private/README.md edited 7 times",
+        "detail": "NOTES.md edited 7 times",
         "evidence_refs": [
-          "transcript:edit:/workspaces/aisp-observatory/bar-obs-private/README.md"
+          "transcript:edit:NOTES.md"
         ],
         "rework_id": "rw-13",
         "task_id": "session",
@@ -864,9 +864,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "/tmp/claude-1000/-workspaces-aisp-observatory/ab1b6a92-ecd8-4e9c-a609-fd1a3bd8fe6a/scratchpad/pr1-worktree/observatory/crates/bar-observatory/src/detectors.rs edited 6 times",
+        "detail": "review/pr-a/crates/bar-observatory/src/detectors.rs edited 6 times",
         "evidence_refs": [
-          "transcript:edit:/tmp/claude-1000/-workspaces-aisp-observatory/ab1b6a92-ecd8-4e9c-a609-fd1a3bd8fe6a/scratchpad/pr1-worktree/observatory/crates/bar-observatory/src/detectors.rs"
+          "transcript:edit:review/pr-a/crates/bar-observatory/src/detectors.rs"
         ],
         "rework_id": "rw-14",
         "task_id": "session",
@@ -874,9 +874,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "/workspaces/aisp-observatory/CLAUDE.md edited 6 times",
+        "detail": "CLAUDE.md edited 6 times",
         "evidence_refs": [
-          "transcript:edit:/workspaces/aisp-observatory/CLAUDE.md"
+          "transcript:edit:CLAUDE.md"
         ],
         "rework_id": "rw-15",
         "task_id": "session",
@@ -884,9 +884,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "/workspaces/aisp-observatory/bar-obs-private/NEXT-SESSION.md edited 6 times",
+        "detail": "TODO.md edited 6 times",
         "evidence_refs": [
-          "transcript:edit:/workspaces/aisp-observatory/bar-obs-private/NEXT-SESSION.md"
+          "transcript:edit:TODO.md"
         ],
         "rework_id": "rw-16",
         "task_id": "session",
@@ -894,9 +894,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "/workspaces/aisp-observatory/bar-obs-private/crates/bar-config/src/lib.rs edited 6 times",
+        "detail": "crates/bar-config/src/lib.rs edited 6 times",
         "evidence_refs": [
-          "transcript:edit:/workspaces/aisp-observatory/bar-obs-private/crates/bar-config/src/lib.rs"
+          "transcript:edit:crates/bar-config/src/lib.rs"
         ],
         "rework_id": "rw-17",
         "task_id": "session",
@@ -904,9 +904,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "/workspaces/aisp-observatory/bar-observatory/wiki/aisp/HUB.aisp edited 6 times",
+        "detail": "bar-observatory/wiki/aisp/HUB.aisp edited 6 times",
         "evidence_refs": [
-          "transcript:edit:/workspaces/aisp-observatory/bar-observatory/wiki/aisp/HUB.aisp"
+          "transcript:edit:bar-observatory/wiki/aisp/HUB.aisp"
         ],
         "rework_id": "rw-18",
         "task_id": "session",
@@ -914,9 +914,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "/tmp/claude-1000/-workspaces-aisp-observatory/7d344fb0-f1c6-40d9-bf6b-09b3a29a6bf7/scratchpad/pr2-review/observatory/crates/bar-observatory/src/compare.rs edited 5 times",
+        "detail": "review/pr-b/crates/bar-observatory/src/compare.rs edited 5 times",
         "evidence_refs": [
-          "transcript:edit:/tmp/claude-1000/-workspaces-aisp-observatory/7d344fb0-f1c6-40d9-bf6b-09b3a29a6bf7/scratchpad/pr2-review/observatory/crates/bar-observatory/src/compare.rs"
+          "transcript:edit:review/pr-b/crates/bar-observatory/src/compare.rs"
         ],
         "rework_id": "rw-19",
         "task_id": "session",
@@ -924,9 +924,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "/tmp/claude-1000/-workspaces-aisp-observatory/7d344fb0-f1c6-40d9-bf6b-09b3a29a6bf7/scratchpad/pr2-review/observatory/crates/bar-observatory/src/report.rs edited 5 times",
+        "detail": "review/pr-b/crates/bar-observatory/src/report.rs edited 5 times",
         "evidence_refs": [
-          "transcript:edit:/tmp/claude-1000/-workspaces-aisp-observatory/7d344fb0-f1c6-40d9-bf6b-09b3a29a6bf7/scratchpad/pr2-review/observatory/crates/bar-observatory/src/report.rs"
+          "transcript:edit:review/pr-b/crates/bar-observatory/src/report.rs"
         ],
         "rework_id": "rw-20",
         "task_id": "session",
@@ -934,9 +934,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "/tmp/claude-1000/-workspaces-aisp-observatory/7d344fb0-f1c6-40d9-bf6b-09b3a29a6bf7/scratchpad/pr2-review/observatory/crates/bar-observatory/src/share_safe.rs edited 5 times",
+        "detail": "review/pr-b/crates/bar-observatory/src/share_safe.rs edited 5 times",
         "evidence_refs": [
-          "transcript:edit:/tmp/claude-1000/-workspaces-aisp-observatory/7d344fb0-f1c6-40d9-bf6b-09b3a29a6bf7/scratchpad/pr2-review/observatory/crates/bar-observatory/src/share_safe.rs"
+          "transcript:edit:review/pr-b/crates/bar-observatory/src/share_safe.rs"
         ],
         "rework_id": "rw-21",
         "task_id": "session",
@@ -944,9 +944,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "/tmp/claude-1000/-workspaces-aisp-observatory/ab1b6a92-ecd8-4e9c-a609-fd1a3bd8fe6a/scratchpad/pr1-worktree/observatory/crates/bar-observatory/src/report.rs edited 5 times",
+        "detail": "review/pr-a/crates/bar-observatory/src/report.rs edited 5 times",
         "evidence_refs": [
-          "transcript:edit:/tmp/claude-1000/-workspaces-aisp-observatory/ab1b6a92-ecd8-4e9c-a609-fd1a3bd8fe6a/scratchpad/pr1-worktree/observatory/crates/bar-observatory/src/report.rs"
+          "transcript:edit:review/pr-a/crates/bar-observatory/src/report.rs"
         ],
         "rework_id": "rw-22",
         "task_id": "session",
@@ -954,9 +954,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "/workspaces/aisp-observatory/bar-observatory/wiki/agent/AI-CONTEXT.md edited 5 times",
+        "detail": "bar-observatory/wiki/agent/AI-CONTEXT.md edited 5 times",
         "evidence_refs": [
-          "transcript:edit:/workspaces/aisp-observatory/bar-observatory/wiki/agent/AI-CONTEXT.md"
+          "transcript:edit:bar-observatory/wiki/agent/AI-CONTEXT.md"
         ],
         "rework_id": "rw-23",
         "task_id": "session",
@@ -964,9 +964,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "/workspaces/aisp-observatory/bar-observatory/wiki/human-html/documentation-layers.html edited 5 times",
+        "detail": "bar-observatory/wiki/human-html/documentation-layers.html edited 5 times",
         "evidence_refs": [
-          "transcript:edit:/workspaces/aisp-observatory/bar-observatory/wiki/human-html/documentation-layers.html"
+          "transcript:edit:bar-observatory/wiki/human-html/documentation-layers.html"
         ],
         "rework_id": "rw-24",
         "task_id": "session",
@@ -974,9 +974,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "/tmp/claude-1000/-workspaces-aisp-observatory/7d344fb0-f1c6-40d9-bf6b-09b3a29a6bf7/scratchpad/pr2-review/observatory/crates/bar-observatory/src/report_tests.rs edited 4 times",
+        "detail": "review/pr-b/crates/bar-observatory/src/report_tests.rs edited 4 times",
         "evidence_refs": [
-          "transcript:edit:/tmp/claude-1000/-workspaces-aisp-observatory/7d344fb0-f1c6-40d9-bf6b-09b3a29a6bf7/scratchpad/pr2-review/observatory/crates/bar-observatory/src/report_tests.rs"
+          "transcript:edit:review/pr-b/crates/bar-observatory/src/report_tests.rs"
         ],
         "rework_id": "rw-25",
         "task_id": "session",
@@ -984,9 +984,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "/tmp/claude-1000/-workspaces-aisp-observatory/7d344fb0-f1c6-40d9-bf6b-09b3a29a6bf7/scratchpad/pr2-review/observatory/crates/bar-observatory/tests/capture.rs edited 4 times",
+        "detail": "review/pr-b/crates/bar-observatory/tests/capture.rs edited 4 times",
         "evidence_refs": [
-          "transcript:edit:/tmp/claude-1000/-workspaces-aisp-observatory/7d344fb0-f1c6-40d9-bf6b-09b3a29a6bf7/scratchpad/pr2-review/observatory/crates/bar-observatory/tests/capture.rs"
+          "transcript:edit:review/pr-b/crates/bar-observatory/tests/capture.rs"
         ],
         "rework_id": "rw-26",
         "task_id": "session",
@@ -994,9 +994,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "/workspaces/aisp-observatory/bar-obs-private/crates/bar-mcp/Cargo.toml edited 4 times",
+        "detail": "crates/bar-mcp/Cargo.toml edited 4 times",
         "evidence_refs": [
-          "transcript:edit:/workspaces/aisp-observatory/bar-obs-private/crates/bar-mcp/Cargo.toml"
+          "transcript:edit:crates/bar-mcp/Cargo.toml"
         ],
         "rework_id": "rw-27",
         "task_id": "session",
@@ -1004,9 +1004,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "/workspaces/aisp-observatory/bar-obs-private/crates/bar-mcp/src/tools.rs edited 4 times",
+        "detail": "crates/bar-mcp/src/tools.rs edited 4 times",
         "evidence_refs": [
-          "transcript:edit:/workspaces/aisp-observatory/bar-obs-private/crates/bar-mcp/src/tools.rs"
+          "transcript:edit:crates/bar-mcp/src/tools.rs"
         ],
         "rework_id": "rw-28",
         "task_id": "session",
@@ -1014,9 +1014,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "/workspaces/aisp-observatory/bar-obs-private/crates/bar-observatory/Cargo.toml edited 4 times",
+        "detail": "crates/bar-observatory/Cargo.toml edited 4 times",
         "evidence_refs": [
-          "transcript:edit:/workspaces/aisp-observatory/bar-obs-private/crates/bar-observatory/Cargo.toml"
+          "transcript:edit:crates/bar-observatory/Cargo.toml"
         ],
         "rework_id": "rw-29",
         "task_id": "session",
@@ -1024,9 +1024,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "/workspaces/aisp-observatory/bar-obs-private/crates/bar-observatory/src/report.rs edited 4 times",
+        "detail": "crates/bar-observatory/src/report.rs edited 4 times",
         "evidence_refs": [
-          "transcript:edit:/workspaces/aisp-observatory/bar-obs-private/crates/bar-observatory/src/report.rs"
+          "transcript:edit:crates/bar-observatory/src/report.rs"
         ],
         "rework_id": "rw-30",
         "task_id": "session",
@@ -1034,9 +1034,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "/workspaces/aisp-observatory/bar-obs-private/crates/bar-observatory/tests/resolved_config_schema_parity.rs edited 4 times",
+        "detail": "crates/bar-observatory/tests/resolved_config_schema_parity.rs edited 4 times",
         "evidence_refs": [
-          "transcript:edit:/workspaces/aisp-observatory/bar-obs-private/crates/bar-observatory/tests/resolved_config_schema_parity.rs"
+          "transcript:edit:crates/bar-observatory/tests/resolved_config_schema_parity.rs"
         ],
         "rework_id": "rw-31",
         "task_id": "session",
@@ -1044,9 +1044,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "/workspaces/aisp-observatory/bar-obs-private/crates/bar-schema/Cargo.toml edited 4 times",
+        "detail": "crates/bar-schema/Cargo.toml edited 4 times",
         "evidence_refs": [
-          "transcript:edit:/workspaces/aisp-observatory/bar-obs-private/crates/bar-schema/Cargo.toml"
+          "transcript:edit:crates/bar-schema/Cargo.toml"
         ],
         "rework_id": "rw-32",
         "task_id": "session",
@@ -1054,9 +1054,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "/workspaces/aisp-observatory/bar-obs-private/docs/bar-observatory/config/bar-observatory.default.toml edited 4 times",
+        "detail": "docs/reference/bar-observatory.default.toml edited 4 times",
         "evidence_refs": [
-          "transcript:edit:/workspaces/aisp-observatory/bar-obs-private/docs/bar-observatory/config/bar-observatory.default.toml"
+          "transcript:edit:docs/reference/bar-observatory.default.toml"
         ],
         "rework_id": "rw-33",
         "task_id": "session",
@@ -1064,9 +1064,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "/workspaces/aisp-observatory/bar-obs-private/docs/bar-observatory/docs/04_ADR_CATALOG.md edited 4 times",
+        "detail": "docs/adr/0004-caching-strategy.md edited 4 times",
         "evidence_refs": [
-          "transcript:edit:/workspaces/aisp-observatory/bar-obs-private/docs/bar-observatory/docs/04_ADR_CATALOG.md"
+          "transcript:edit:docs/adr/0004-caching-strategy.md"
         ],
         "rework_id": "rw-34",
         "task_id": "session",
@@ -1074,9 +1074,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "/workspaces/aisp-observatory/bar-obs-private/docs/bar-observatory/examples/deterministic/example.report.json edited 4 times",
+        "detail": "examples/deterministic/sample.report.json edited 4 times",
         "evidence_refs": [
-          "transcript:edit:/workspaces/aisp-observatory/bar-obs-private/docs/bar-observatory/examples/deterministic/example.report.json"
+          "transcript:edit:examples/deterministic/sample.report.json"
         ],
         "rework_id": "rw-35",
         "task_id": "session",
@@ -1084,9 +1084,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "/workspaces/aisp-observatory/bar-obs-private/docs/bar-observatory/human-specs/06-simplified-build-loop.md edited 4 times",
+        "detail": "docs/specs/06-build-loop.md edited 4 times",
         "evidence_refs": [
-          "transcript:edit:/workspaces/aisp-observatory/bar-obs-private/docs/bar-observatory/human-specs/06-simplified-build-loop.md"
+          "transcript:edit:docs/specs/06-build-loop.md"
         ],
         "rework_id": "rw-36",
         "task_id": "session",
@@ -1094,9 +1094,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "/workspaces/aisp-observatory/bar-obs-private/docs/bar-observatory/human-specs/09-session-grounding-2026-07-31.md edited 4 times",
+        "detail": "docs/specs/09-session-grounding.md edited 4 times",
         "evidence_refs": [
-          "transcript:edit:/workspaces/aisp-observatory/bar-obs-private/docs/bar-observatory/human-specs/09-session-grounding-2026-07-31.md"
+          "transcript:edit:docs/specs/09-session-grounding.md"
         ],
         "rework_id": "rw-37",
         "task_id": "session",
@@ -1104,9 +1104,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "/workspaces/aisp-observatory/bar-obs-private/docs/bar-observatory/human-specs/14-flight-recorder-sota-enhancement-2026-07-31.md edited 4 times",
+        "detail": "docs/specs/14-flight-recorder-enhancement.md edited 4 times",
         "evidence_refs": [
-          "transcript:edit:/workspaces/aisp-observatory/bar-obs-private/docs/bar-observatory/human-specs/14-flight-recorder-sota-enhancement-2026-07-31.md"
+          "transcript:edit:docs/specs/14-flight-recorder-enhancement.md"
         ],
         "rework_id": "rw-38",
         "task_id": "session",
@@ -1114,9 +1114,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "/workspaces/aisp-observatory/bar-observatory/config/bar-observatory.default.toml edited 4 times",
+        "detail": "bar-observatory/config/bar-observatory.default.toml edited 4 times",
         "evidence_refs": [
-          "transcript:edit:/workspaces/aisp-observatory/bar-observatory/config/bar-observatory.default.toml"
+          "transcript:edit:bar-observatory/config/bar-observatory.default.toml"
         ],
         "rework_id": "rw-39",
         "task_id": "session",
@@ -1124,9 +1124,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "/workspaces/aisp-observatory/bar-observatory/wiki/architecture.md edited 4 times",
+        "detail": "bar-observatory/wiki/architecture.md edited 4 times",
         "evidence_refs": [
-          "transcript:edit:/workspaces/aisp-observatory/bar-observatory/wiki/architecture.md"
+          "transcript:edit:bar-observatory/wiki/architecture.md"
         ],
         "rework_id": "rw-40",
         "task_id": "session",
@@ -1134,9 +1134,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "/workspaces/aisp-observatory/bar-observatory/wiki/human/md/architecture.md edited 4 times",
+        "detail": "bar-observatory/wiki/human/md/architecture.md edited 4 times",
         "evidence_refs": [
-          "transcript:edit:/workspaces/aisp-observatory/bar-observatory/wiki/human/md/architecture.md"
+          "transcript:edit:bar-observatory/wiki/human/md/architecture.md"
         ],
         "rework_id": "rw-41",
         "task_id": "session",
@@ -1144,9 +1144,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "/workspaces/aisp-observatory/scripts/public-export.sh edited 4 times",
+        "detail": "scripts/public-export.sh edited 4 times",
         "evidence_refs": [
-          "transcript:edit:/workspaces/aisp-observatory/scripts/public-export.sh"
+          "transcript:edit:scripts/public-export.sh"
         ],
         "rework_id": "rw-42",
         "task_id": "session",
@@ -1154,9 +1154,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "/tmp/claude-1000/-workspaces-aisp-observatory/1b5a097f-0d97-481b-a8f4-adec1259e5ec/scratchpad/build_report.py edited 3 times",
+        "detail": "review/build_report.py edited 3 times",
         "evidence_refs": [
-          "transcript:edit:/tmp/claude-1000/-workspaces-aisp-observatory/1b5a097f-0d97-481b-a8f4-adec1259e5ec/scratchpad/build_report.py"
+          "transcript:edit:review/build_report.py"
         ],
         "rework_id": "rw-43",
         "task_id": "session",
@@ -1164,9 +1164,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "/tmp/claude-1000/-workspaces-aisp-observatory/7d344fb0-f1c6-40d9-bf6b-09b3a29a6bf7/scratchpad/pr2-review/observatory/crates/bar-observatory/src/detectors.rs edited 3 times",
+        "detail": "review/pr-b/crates/bar-observatory/src/detectors.rs edited 3 times",
         "evidence_refs": [
-          "transcript:edit:/tmp/claude-1000/-workspaces-aisp-observatory/7d344fb0-f1c6-40d9-bf6b-09b3a29a6bf7/scratchpad/pr2-review/observatory/crates/bar-observatory/src/detectors.rs"
+          "transcript:edit:review/pr-b/crates/bar-observatory/src/detectors.rs"
         ],
         "rework_id": "rw-44",
         "task_id": "session",
@@ -1174,9 +1174,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "/tmp/claude-1000/-workspaces-aisp-observatory/ab1b6a92-ecd8-4e9c-a609-fd1a3bd8fe6a/scratchpad/pr1-worktree/observatory/crates/bar-read/src/lib.rs edited 3 times",
+        "detail": "review/pr-a/crates/bar-read/src/lib.rs edited 3 times",
         "evidence_refs": [
-          "transcript:edit:/tmp/claude-1000/-workspaces-aisp-observatory/ab1b6a92-ecd8-4e9c-a609-fd1a3bd8fe6a/scratchpad/pr1-worktree/observatory/crates/bar-read/src/lib.rs"
+          "transcript:edit:review/pr-a/crates/bar-read/src/lib.rs"
         ],
         "rework_id": "rw-45",
         "task_id": "session",
@@ -1184,9 +1184,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "/tmp/claude-1000/-workspaces-aisp-observatory/ab1b6a92-ecd8-4e9c-a609-fd1a3bd8fe6a/scratchpad/pr1-worktree/scripts/public-export.sh edited 3 times",
+        "detail": "review/pr-a/scripts/public-export.sh edited 3 times",
         "evidence_refs": [
-          "transcript:edit:/tmp/claude-1000/-workspaces-aisp-observatory/ab1b6a92-ecd8-4e9c-a609-fd1a3bd8fe6a/scratchpad/pr1-worktree/scripts/public-export.sh"
+          "transcript:edit:review/pr-a/scripts/public-export.sh"
         ],
         "rework_id": "rw-46",
         "task_id": "session",
@@ -1194,9 +1194,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "/tmp/claude-1000/-workspaces-aisp-observatory/e6ede2e6-6d76-4b48-903c-039b259c628f/scratchpad/crate-verify/Cargo.toml edited 3 times",
+        "detail": "review/verify/Cargo.toml edited 3 times",
         "evidence_refs": [
-          "transcript:edit:/tmp/claude-1000/-workspaces-aisp-observatory/e6ede2e6-6d76-4b48-903c-039b259c628f/scratchpad/crate-verify/Cargo.toml"
+          "transcript:edit:review/verify/Cargo.toml"
         ],
         "rework_id": "rw-47",
         "task_id": "session",
@@ -1204,9 +1204,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "/workspaces/aisp-observatory/bar-obs-private/crates/Cargo.toml edited 3 times",
+        "detail": "crates/Cargo.toml edited 3 times",
         "evidence_refs": [
-          "transcript:edit:/workspaces/aisp-observatory/bar-obs-private/crates/Cargo.toml"
+          "transcript:edit:crates/Cargo.toml"
         ],
         "rework_id": "rw-48",
         "task_id": "session",
@@ -1214,9 +1214,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "/workspaces/aisp-observatory/bar-obs-private/crates/bar-config/Cargo.toml edited 3 times",
+        "detail": "crates/bar-config/Cargo.toml edited 3 times",
         "evidence_refs": [
-          "transcript:edit:/workspaces/aisp-observatory/bar-obs-private/crates/bar-config/Cargo.toml"
+          "transcript:edit:crates/bar-config/Cargo.toml"
         ],
         "rework_id": "rw-49",
         "task_id": "session",
@@ -1224,9 +1224,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "/workspaces/aisp-observatory/bar-obs-private/crates/bar-schema/src/lib.rs edited 3 times",
+        "detail": "crates/bar-schema/src/lib.rs edited 3 times",
         "evidence_refs": [
-          "transcript:edit:/workspaces/aisp-observatory/bar-obs-private/crates/bar-schema/src/lib.rs"
+          "transcript:edit:crates/bar-schema/src/lib.rs"
         ],
         "rework_id": "rw-50",
         "task_id": "session",
@@ -1234,9 +1234,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "/workspaces/aisp-observatory/bar-obs-private/crates/bar-schema/tests/branding_from_toml.rs edited 3 times",
+        "detail": "crates/bar-schema/tests/branding_from_toml.rs edited 3 times",
         "evidence_refs": [
-          "transcript:edit:/workspaces/aisp-observatory/bar-obs-private/crates/bar-schema/tests/branding_from_toml.rs"
+          "transcript:edit:crates/bar-schema/tests/branding_from_toml.rs"
         ],
         "rework_id": "rw-51",
         "task_id": "session",
@@ -1244,9 +1244,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "/workspaces/aisp-observatory/bar-obs-private/crates/bar-schema/tests/fact_id_assign.rs edited 3 times",
+        "detail": "crates/bar-schema/tests/fact_id_assign.rs edited 3 times",
         "evidence_refs": [
-          "transcript:edit:/workspaces/aisp-observatory/bar-obs-private/crates/bar-schema/tests/fact_id_assign.rs"
+          "transcript:edit:crates/bar-schema/tests/fact_id_assign.rs"
         ],
         "rework_id": "rw-52",
         "task_id": "session",
@@ -1254,9 +1254,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "/workspaces/aisp-observatory/bar-obs-private/docs/bar-observatory/human-specs/11-qe-fleet-understanding-guide.md edited 3 times",
+        "detail": "docs/specs/11-qe-fleet-guide.md edited 3 times",
         "evidence_refs": [
-          "transcript:edit:/workspaces/aisp-observatory/bar-obs-private/docs/bar-observatory/human-specs/11-qe-fleet-understanding-guide.md"
+          "transcript:edit:docs/specs/11-qe-fleet-guide.md"
         ],
         "rework_id": "rw-53",
         "task_id": "session",
@@ -1264,9 +1264,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "/workspaces/aisp-observatory/bar-obs-private/docs/bar-observatory/schemas/report.schema.json edited 3 times",
+        "detail": "schemas/report.schema.internal.json edited 3 times",
         "evidence_refs": [
-          "transcript:edit:/workspaces/aisp-observatory/bar-obs-private/docs/bar-observatory/schemas/report.schema.json"
+          "transcript:edit:schemas/report.schema.internal.json"
         ],
         "rework_id": "rw-54",
         "task_id": "session",
@@ -1274,9 +1274,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "/workspaces/aisp-observatory/bar-obs-private/docs/bar-observatory/tests/resolver_test.py edited 3 times",
+        "detail": "tests/integration/resolver_test.py edited 3 times",
         "evidence_refs": [
-          "transcript:edit:/workspaces/aisp-observatory/bar-obs-private/docs/bar-observatory/tests/resolver_test.py"
+          "transcript:edit:tests/integration/resolver_test.py"
         ],
         "rework_id": "rw-55",
         "task_id": "session",
@@ -1284,9 +1284,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "/workspaces/aisp-observatory/bar-obs-private/phases/01-existing-factory-audit/STATUS.md edited 3 times",
+        "detail": "docs/status/audit-status.md edited 3 times",
         "evidence_refs": [
-          "transcript:edit:/workspaces/aisp-observatory/bar-obs-private/phases/01-existing-factory-audit/STATUS.md"
+          "transcript:edit:docs/status/audit-status.md"
         ],
         "rework_id": "rw-56",
         "task_id": "session",
@@ -1294,9 +1294,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "/workspaces/aisp-observatory/bar-observatory/examples/README.html edited 3 times",
+        "detail": "bar-observatory/examples/README.html edited 3 times",
         "evidence_refs": [
-          "transcript:edit:/workspaces/aisp-observatory/bar-observatory/examples/README.html"
+          "transcript:edit:bar-observatory/examples/README.html"
         ],
         "rework_id": "rw-57",
         "task_id": "session",
@@ -1304,9 +1304,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "/workspaces/aisp-observatory/bar-observatory/examples/README.md edited 3 times",
+        "detail": "bar-observatory/examples/README.md edited 3 times",
         "evidence_refs": [
-          "transcript:edit:/workspaces/aisp-observatory/bar-observatory/examples/README.md"
+          "transcript:edit:bar-observatory/examples/README.md"
         ],
         "rework_id": "rw-58",
         "task_id": "session",
@@ -1314,9 +1314,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "/workspaces/aisp-observatory/bar-observatory/llms.txt edited 3 times",
+        "detail": "bar-observatory/llms.txt edited 3 times",
         "evidence_refs": [
-          "transcript:edit:/workspaces/aisp-observatory/bar-observatory/llms.txt"
+          "transcript:edit:bar-observatory/llms.txt"
         ],
         "rework_id": "rw-59",
         "task_id": "session",
@@ -1324,9 +1324,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "/workspaces/aisp-observatory/bar-observatory/schemas/interpretation.schema.json edited 3 times",
+        "detail": "bar-observatory/schemas/interpretation.schema.json edited 3 times",
         "evidence_refs": [
-          "transcript:edit:/workspaces/aisp-observatory/bar-observatory/schemas/interpretation.schema.json"
+          "transcript:edit:bar-observatory/schemas/interpretation.schema.json"
         ],
         "rework_id": "rw-60",
         "task_id": "session",
@@ -1334,9 +1334,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "/workspaces/aisp-observatory/bar-observatory/wiki/README.html edited 3 times",
+        "detail": "bar-observatory/wiki/README.html edited 3 times",
         "evidence_refs": [
-          "transcript:edit:/workspaces/aisp-observatory/bar-observatory/wiki/README.html"
+          "transcript:edit:bar-observatory/wiki/README.html"
         ],
         "rework_id": "rw-61",
         "task_id": "session",
@@ -1344,9 +1344,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "/tmp/claude-1000/-workspaces-aisp-observatory/7d344fb0-f1c6-40d9-bf6b-09b3a29a6bf7/scratchpad/pr2-review/observatory/crates/bar-observatory/src/lib.rs edited 2 times",
+        "detail": "review/pr-b/crates/bar-observatory/src/lib.rs edited 2 times",
         "evidence_refs": [
-          "transcript:edit:/tmp/claude-1000/-workspaces-aisp-observatory/7d344fb0-f1c6-40d9-bf6b-09b3a29a6bf7/scratchpad/pr2-review/observatory/crates/bar-observatory/src/lib.rs"
+          "transcript:edit:review/pr-b/crates/bar-observatory/src/lib.rs"
         ],
         "rework_id": "rw-62",
         "task_id": "session",
@@ -1354,9 +1354,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "/tmp/claude-1000/-workspaces-aisp-observatory/ab1b6a92-ecd8-4e9c-a609-fd1a3bd8fe6a/scratchpad/pr1-worktree/observatory/crates/bar-observatory/src/lib.rs edited 2 times",
+        "detail": "review/pr-a/crates/bar-observatory/src/lib.rs edited 2 times",
         "evidence_refs": [
-          "transcript:edit:/tmp/claude-1000/-workspaces-aisp-observatory/ab1b6a92-ecd8-4e9c-a609-fd1a3bd8fe6a/scratchpad/pr1-worktree/observatory/crates/bar-observatory/src/lib.rs"
+          "transcript:edit:review/pr-a/crates/bar-observatory/src/lib.rs"
         ],
         "rework_id": "rw-63",
         "task_id": "session",
@@ -1364,9 +1364,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "/workspaces/aisp-observatory/.agentic-qe/witness-keys/b0df0a17e79a269d.key.pem edited 2 times",
+        "detail": "secrets/deploy-key.pem edited 2 times",
         "evidence_refs": [
-          "transcript:edit:/workspaces/aisp-observatory/.agentic-qe/witness-keys/b0df0a17e79a269d.key.pem"
+          "transcript:edit:secrets/deploy-key.pem"
         ],
         "rework_id": "rw-64",
         "task_id": "session",
@@ -1374,9 +1374,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "/workspaces/aisp-observatory/bar-obs-private/crates/bar-config/examples/print_hash.rs edited 2 times",
+        "detail": "crates/bar-config/examples/print_hash.rs edited 2 times",
         "evidence_refs": [
-          "transcript:edit:/workspaces/aisp-observatory/bar-obs-private/crates/bar-config/examples/print_hash.rs"
+          "transcript:edit:crates/bar-config/examples/print_hash.rs"
         ],
         "rework_id": "rw-65",
         "task_id": "session",
@@ -1384,9 +1384,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "/workspaces/aisp-observatory/bar-obs-private/crates/bar-review/Cargo.toml edited 2 times",
+        "detail": "crates/bar-review/Cargo.toml edited 2 times",
         "evidence_refs": [
-          "transcript:edit:/workspaces/aisp-observatory/bar-obs-private/crates/bar-review/Cargo.toml"
+          "transcript:edit:crates/bar-review/Cargo.toml"
         ],
         "rework_id": "rw-66",
         "task_id": "session",
@@ -1394,9 +1394,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "/workspaces/aisp-observatory/bar-obs-private/crates/bar-schema/src/fact_id.rs edited 2 times",
+        "detail": "crates/bar-schema/src/fact_id.rs edited 2 times",
         "evidence_refs": [
-          "transcript:edit:/workspaces/aisp-observatory/bar-obs-private/crates/bar-schema/src/fact_id.rs"
+          "transcript:edit:crates/bar-schema/src/fact_id.rs"
         ],
         "rework_id": "rw-67",
         "task_id": "session",
@@ -1404,9 +1404,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "/workspaces/aisp-observatory/bar-obs-private/crates/bar-schema/tests/absence_state_serde.rs edited 2 times",
+        "detail": "crates/bar-schema/tests/absence_state_serde.rs edited 2 times",
         "evidence_refs": [
-          "transcript:edit:/workspaces/aisp-observatory/bar-obs-private/crates/bar-schema/tests/absence_state_serde.rs"
+          "transcript:edit:crates/bar-schema/tests/absence_state_serde.rs"
         ],
         "rework_id": "rw-68",
         "task_id": "session",
@@ -1414,9 +1414,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "/workspaces/aisp-observatory/bar-obs-private/crates/bar-schema/tests/roundtrip_report_example.rs edited 2 times",
+        "detail": "crates/bar-schema/tests/roundtrip_report_example.rs edited 2 times",
         "evidence_refs": [
-          "transcript:edit:/workspaces/aisp-observatory/bar-obs-private/crates/bar-schema/tests/roundtrip_report_example.rs"
+          "transcript:edit:crates/bar-schema/tests/roundtrip_report_example.rs"
         ],
         "rework_id": "rw-69",
         "task_id": "session",
@@ -1424,9 +1424,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "/workspaces/aisp-observatory/bar-obs-private/crates/bar-schema/tests/schema_field_parity.rs edited 2 times",
+        "detail": "crates/bar-schema/tests/schema_field_parity.rs edited 2 times",
         "evidence_refs": [
-          "transcript:edit:/workspaces/aisp-observatory/bar-obs-private/crates/bar-schema/tests/schema_field_parity.rs"
+          "transcript:edit:crates/bar-schema/tests/schema_field_parity.rs"
         ],
         "rework_id": "rw-70",
         "task_id": "session",
@@ -1434,9 +1434,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "/workspaces/aisp-observatory/bar-obs-private/dist/plugin/README.md edited 2 times",
+        "detail": "dist/plugin/README.md edited 2 times",
         "evidence_refs": [
-          "transcript:edit:/workspaces/aisp-observatory/bar-obs-private/dist/plugin/README.md"
+          "transcript:edit:dist/plugin/README.md"
         ],
         "rework_id": "rw-71",
         "task_id": "session",
@@ -1444,9 +1444,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "/workspaces/aisp-observatory/bar-obs-private/docs/bar-observatory/docs/17_FACT_ID_NAMESPACE_SPEC.md edited 2 times",
+        "detail": "docs/architecture.md edited 2 times",
         "evidence_refs": [
-          "transcript:edit:/workspaces/aisp-observatory/bar-obs-private/docs/bar-observatory/docs/17_FACT_ID_NAMESPACE_SPEC.md"
+          "transcript:edit:docs/architecture.md"
         ],
         "rework_id": "rw-72",
         "task_id": "session",
@@ -1454,9 +1454,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "/workspaces/aisp-observatory/bar-obs-private/docs/bar-observatory/docs/steps/02-base-materials-and-golden-contracts.md edited 2 times",
+        "detail": "docs/steps/02-base-materials.md edited 2 times",
         "evidence_refs": [
-          "transcript:edit:/workspaces/aisp-observatory/bar-obs-private/docs/bar-observatory/docs/steps/02-base-materials-and-golden-contracts.md"
+          "transcript:edit:docs/steps/02-base-materials.md"
         ],
         "rework_id": "rw-73",
         "task_id": "session",
@@ -1464,9 +1464,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "/workspaces/aisp-observatory/bar-obs-private/docs/bar-observatory/docs/steps/15-evidence-package-and-provenance.md edited 2 times",
+        "detail": "docs/steps/15-evidence-package.md edited 2 times",
         "evidence_refs": [
-          "transcript:edit:/workspaces/aisp-observatory/bar-obs-private/docs/bar-observatory/docs/steps/15-evidence-package-and-provenance.md"
+          "transcript:edit:docs/steps/15-evidence-package.md"
         ],
         "rework_id": "rw-74",
         "task_id": "session",
@@ -1474,9 +1474,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "/workspaces/aisp-observatory/bar-obs-private/docs/bar-observatory/tests/csp_regression.sh edited 2 times",
+        "detail": "tests/integration/csp_regression.sh edited 2 times",
         "evidence_refs": [
-          "transcript:edit:/workspaces/aisp-observatory/bar-obs-private/docs/bar-observatory/tests/csp_regression.sh"
+          "transcript:edit:tests/integration/csp_regression.sh"
         ],
         "rework_id": "rw-75",
         "task_id": "session",
@@ -1484,9 +1484,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "/workspaces/aisp-observatory/bar-obs-private/docs/bar-observatory/tests/schema_validate.sh edited 2 times",
+        "detail": "tests/integration/schema_validate.sh edited 2 times",
         "evidence_refs": [
-          "transcript:edit:/workspaces/aisp-observatory/bar-obs-private/docs/bar-observatory/tests/schema_validate.sh"
+          "transcript:edit:tests/integration/schema_validate.sh"
         ],
         "rework_id": "rw-76",
         "task_id": "session",
@@ -1494,9 +1494,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "/workspaces/aisp-observatory/bar-obs-private/docs/bar-observatory/tests/toml_parse.sh edited 2 times",
+        "detail": "tests/integration/toml_parse.sh edited 2 times",
         "evidence_refs": [
-          "transcript:edit:/workspaces/aisp-observatory/bar-obs-private/docs/bar-observatory/tests/toml_parse.sh"
+          "transcript:edit:tests/integration/toml_parse.sh"
         ],
         "rework_id": "rw-77",
         "task_id": "session",
@@ -1504,9 +1504,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "/workspaces/aisp-observatory/bar-obs-private/docs/bar-observatory/tools/render-live-report/src/main.rs edited 2 times",
+        "detail": "tools/render-check/src/main.rs edited 2 times",
         "evidence_refs": [
-          "transcript:edit:/workspaces/aisp-observatory/bar-obs-private/docs/bar-observatory/tools/render-live-report/src/main.rs"
+          "transcript:edit:tools/render-check/src/main.rs"
         ],
         "rework_id": "rw-78",
         "task_id": "session",
@@ -1514,9 +1514,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "/workspaces/aisp-observatory/bar-obs-private/docs/bar-observatory/tools/tera-render-check/src/main.rs edited 2 times",
+        "detail": "tools/template-check/src/main.rs edited 2 times",
         "evidence_refs": [
-          "transcript:edit:/workspaces/aisp-observatory/bar-obs-private/docs/bar-observatory/tools/tera-render-check/src/main.rs"
+          "transcript:edit:tools/template-check/src/main.rs"
         ],
         "rework_id": "rw-79",
         "task_id": "session",
@@ -1524,9 +1524,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "/workspaces/aisp-observatory/bar-obs-private/docs/bar-observatory/wiki/agent/AI-CONTEXT.md edited 2 times",
+        "detail": "docs/wiki/agent/AI-CONTEXT.md edited 2 times",
         "evidence_refs": [
-          "transcript:edit:/workspaces/aisp-observatory/bar-obs-private/docs/bar-observatory/wiki/agent/AI-CONTEXT.md"
+          "transcript:edit:docs/wiki/agent/AI-CONTEXT.md"
         ],
         "rework_id": "rw-80",
         "task_id": "session",
@@ -1534,9 +1534,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "/workspaces/aisp-observatory/bar-obs-private/docs/bar-observatory/wiki/aisp/HUB.aisp edited 2 times",
+        "detail": "docs/wiki/aisp/HUB.aisp edited 2 times",
         "evidence_refs": [
-          "transcript:edit:/workspaces/aisp-observatory/bar-obs-private/docs/bar-observatory/wiki/aisp/HUB.aisp"
+          "transcript:edit:docs/wiki/aisp/HUB.aisp"
         ],
         "rework_id": "rw-81",
         "task_id": "session",
@@ -1544,9 +1544,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "/workspaces/aisp-observatory/bar-obs-private/docs/bar-observatory/wiki/human/README.md edited 2 times",
+        "detail": "docs/wiki/human/README.md edited 2 times",
         "evidence_refs": [
-          "transcript:edit:/workspaces/aisp-observatory/bar-obs-private/docs/bar-observatory/wiki/human/README.md"
+          "transcript:edit:docs/wiki/human/README.md"
         ],
         "rework_id": "rw-82",
         "task_id": "session",
@@ -1554,9 +1554,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "/workspaces/aisp-observatory/bar-obs-private/reports/01-existing-factory-audit-report.md edited 2 times",
+        "detail": "reports/audit-report.md edited 2 times",
         "evidence_refs": [
-          "transcript:edit:/workspaces/aisp-observatory/bar-obs-private/reports/01-existing-factory-audit-report.md"
+          "transcript:edit:reports/audit-report.md"
         ],
         "rework_id": "rw-83",
         "task_id": "session",
@@ -1564,9 +1564,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "/workspaces/aisp-observatory/bar-observatory/.claude-plugin/plugin.json edited 2 times",
+        "detail": "bar-observatory/.claude-plugin/plugin.json edited 2 times",
         "evidence_refs": [
-          "transcript:edit:/workspaces/aisp-observatory/bar-observatory/.claude-plugin/plugin.json"
+          "transcript:edit:bar-observatory/.claude-plugin/plugin.json"
         ],
         "rework_id": "rw-84",
         "task_id": "session",
@@ -1574,9 +1574,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "/workspaces/aisp-observatory/bar-observatory/CONTRIBUTING.md edited 2 times",
+        "detail": "bar-observatory/CONTRIBUTING.md edited 2 times",
         "evidence_refs": [
-          "transcript:edit:/workspaces/aisp-observatory/bar-observatory/CONTRIBUTING.md"
+          "transcript:edit:bar-observatory/CONTRIBUTING.md"
         ],
         "rework_id": "rw-85",
         "task_id": "session",
@@ -1584,9 +1584,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "/workspaces/aisp-observatory/bar-observatory/CRATES.md edited 2 times",
+        "detail": "bar-observatory/CRATES.md edited 2 times",
         "evidence_refs": [
-          "transcript:edit:/workspaces/aisp-observatory/bar-observatory/CRATES.md"
+          "transcript:edit:bar-observatory/CRATES.md"
         ],
         "rework_id": "rw-86",
         "task_id": "session",
@@ -1594,9 +1594,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "/workspaces/aisp-observatory/bar-observatory/process/00-init.md edited 2 times",
+        "detail": "bar-observatory/process/00-init.md edited 2 times",
         "evidence_refs": [
-          "transcript:edit:/workspaces/aisp-observatory/bar-observatory/process/00-init.md"
+          "transcript:edit:bar-observatory/process/00-init.md"
         ],
         "rework_id": "rw-87",
         "task_id": "session",
@@ -1604,9 +1604,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "/workspaces/aisp-observatory/bar-observatory/process/04-optional-modules.md edited 2 times",
+        "detail": "bar-observatory/process/04-optional-modules.md edited 2 times",
         "evidence_refs": [
-          "transcript:edit:/workspaces/aisp-observatory/bar-observatory/process/04-optional-modules.md"
+          "transcript:edit:bar-observatory/process/04-optional-modules.md"
         ],
         "rework_id": "rw-88",
         "task_id": "session",
@@ -1614,9 +1614,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "/workspaces/aisp-observatory/bar-observatory/process/05-sample-report.md edited 2 times",
+        "detail": "bar-observatory/process/05-sample-report.md edited 2 times",
         "evidence_refs": [
-          "transcript:edit:/workspaces/aisp-observatory/bar-observatory/process/05-sample-report.md"
+          "transcript:edit:bar-observatory/process/05-sample-report.md"
         ],
         "rework_id": "rw-89",
         "task_id": "session",
@@ -1624,9 +1624,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "/workspaces/aisp-observatory/bar-observatory/process/06-use-cases.md edited 2 times",
+        "detail": "bar-observatory/process/06-use-cases.md edited 2 times",
         "evidence_refs": [
-          "transcript:edit:/workspaces/aisp-observatory/bar-observatory/process/06-use-cases.md"
+          "transcript:edit:bar-observatory/process/06-use-cases.md"
         ],
         "rework_id": "rw-90",
         "task_id": "session",
@@ -1634,9 +1634,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "/workspaces/aisp-observatory/bar-observatory/run.sh edited 2 times",
+        "detail": "bar-observatory/run.sh edited 2 times",
         "evidence_refs": [
-          "transcript:edit:/workspaces/aisp-observatory/bar-observatory/run.sh"
+          "transcript:edit:bar-observatory/run.sh"
         ],
         "rework_id": "rw-91",
         "task_id": "session",
@@ -1644,9 +1644,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "/workspaces/aisp-observatory/bar-observatory/schemas/report.schema.json edited 2 times",
+        "detail": "bar-observatory/schemas/report.schema.json edited 2 times",
         "evidence_refs": [
-          "transcript:edit:/workspaces/aisp-observatory/bar-observatory/schemas/report.schema.json"
+          "transcript:edit:bar-observatory/schemas/report.schema.json"
         ],
         "rework_id": "rw-92",
         "task_id": "session",
@@ -1654,9 +1654,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "/workspaces/aisp-observatory/bar-observatory/wiki/README.md edited 2 times",
+        "detail": "bar-observatory/wiki/README.md edited 2 times",
         "evidence_refs": [
-          "transcript:edit:/workspaces/aisp-observatory/bar-observatory/wiki/README.md"
+          "transcript:edit:bar-observatory/wiki/README.md"
         ],
         "rework_id": "rw-93",
         "task_id": "session",
@@ -1664,9 +1664,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "/workspaces/aisp-observatory/bar-observatory/wiki/enterprise.md edited 2 times",
+        "detail": "bar-observatory/wiki/enterprise.md edited 2 times",
         "evidence_refs": [
-          "transcript:edit:/workspaces/aisp-observatory/bar-observatory/wiki/enterprise.md"
+          "transcript:edit:bar-observatory/wiki/enterprise.md"
         ],
         "rework_id": "rw-94",
         "task_id": "session",
@@ -1674,9 +1674,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "/workspaces/aisp-observatory/observatory/CLAUDE.md edited 2 times",
+        "detail": "observatory/CLAUDE.md edited 2 times",
         "evidence_refs": [
-          "transcript:edit:/workspaces/aisp-observatory/observatory/CLAUDE.md"
+          "transcript:edit:observatory/CLAUDE.md"
         ],
         "rework_id": "rw-95",
         "task_id": "session",
@@ -1684,9 +1684,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "/workspaces/aisp-observatory/observatory/crates/README.md edited 2 times",
+        "detail": "observatory/crates/README.md edited 2 times",
         "evidence_refs": [
-          "transcript:edit:/workspaces/aisp-observatory/observatory/crates/README.md"
+          "transcript:edit:observatory/crates/README.md"
         ],
         "rework_id": "rw-96",
         "task_id": "session",
@@ -1696,387 +1696,387 @@
     "hotspots": [
       {
         "edits": 77,
-        "path": "/workspaces/aisp-observatory/bar-observatory/README.md"
+        "path": "bar-observatory/README.md"
       },
       {
         "edits": 22,
-        "path": "/workspaces/aisp-observatory/bar-observatory/index.html"
+        "path": "bar-observatory/index.html"
       },
       {
         "edits": 16,
-        "path": "/workspaces/aisp-observatory/bar-observatory/provenance/PROVENANCE.json"
+        "path": "bar-observatory/provenance/PROVENANCE.json"
       },
       {
         "edits": 16,
-        "path": "/workspaces/aisp-observatory/bar-observatory/wiki/human/README.md"
+        "path": "bar-observatory/wiki/human/README.md"
       },
       {
         "edits": 15,
-        "path": "/workspaces/aisp-observatory/bar-observatory/CHANGELOG.md"
+        "path": "bar-observatory/CHANGELOG.md"
       },
       {
         "edits": 15,
-        "path": "/workspaces/aisp-observatory/bar-observatory/wiki/master-guide.html"
+        "path": "bar-observatory/wiki/master-guide.html"
       },
       {
         "edits": 12,
-        "path": "/workspaces/aisp-observatory/.gitignore"
+        "path": ".gitignore"
       },
       {
         "edits": 9,
-        "path": "/workspaces/aisp-observatory/bar-obs-private/docs/bar-observatory/human-specs/10-capabilities-adr-and-per-phase-dod-review.md"
+        "path": "docs/specs/10-capabilities-review.md"
       },
       {
         "edits": 9,
-        "path": "/workspaces/aisp-observatory/bar-obs-private/docs/bar-observatory/human-specs/13-pre-seal-plan-and-phase-dod-checklist-2026-07-31.md"
+        "path": "docs/specs/13-pre-seal-checklist.md"
       },
       {
         "edits": 9,
-        "path": "/workspaces/aisp-observatory/bar-observatory/RUN.md"
+        "path": "bar-observatory/RUN.md"
       },
       {
         "edits": 9,
-        "path": "/workspaces/aisp-observatory/bar-observatory/wiki/documentation-layers.html"
+        "path": "bar-observatory/wiki/documentation-layers.html"
       },
       {
         "edits": 7,
-        "path": "/tmp/claude-1000/-workspaces-aisp-observatory/e6ede2e6-6d76-4b48-903c-039b259c628f/scratchpad/crate-verify/src/main.rs"
+        "path": "review/verify/src/main.rs"
       },
       {
         "edits": 7,
-        "path": "/workspaces/aisp-observatory/bar-obs-private/README.md"
+        "path": "NOTES.md"
       },
       {
         "edits": 6,
-        "path": "/tmp/claude-1000/-workspaces-aisp-observatory/ab1b6a92-ecd8-4e9c-a609-fd1a3bd8fe6a/scratchpad/pr1-worktree/observatory/crates/bar-observatory/src/detectors.rs"
+        "path": "review/pr-a/crates/bar-observatory/src/detectors.rs"
       },
       {
         "edits": 6,
-        "path": "/workspaces/aisp-observatory/CLAUDE.md"
+        "path": "CLAUDE.md"
       },
       {
         "edits": 6,
-        "path": "/workspaces/aisp-observatory/bar-obs-private/NEXT-SESSION.md"
+        "path": "TODO.md"
       },
       {
         "edits": 6,
-        "path": "/workspaces/aisp-observatory/bar-obs-private/crates/bar-config/src/lib.rs"
+        "path": "crates/bar-config/src/lib.rs"
       },
       {
         "edits": 6,
-        "path": "/workspaces/aisp-observatory/bar-observatory/wiki/aisp/HUB.aisp"
+        "path": "bar-observatory/wiki/aisp/HUB.aisp"
       },
       {
         "edits": 5,
-        "path": "/tmp/claude-1000/-workspaces-aisp-observatory/7d344fb0-f1c6-40d9-bf6b-09b3a29a6bf7/scratchpad/pr2-review/observatory/crates/bar-observatory/src/compare.rs"
+        "path": "review/pr-b/crates/bar-observatory/src/compare.rs"
       },
       {
         "edits": 5,
-        "path": "/tmp/claude-1000/-workspaces-aisp-observatory/7d344fb0-f1c6-40d9-bf6b-09b3a29a6bf7/scratchpad/pr2-review/observatory/crates/bar-observatory/src/report.rs"
+        "path": "review/pr-b/crates/bar-observatory/src/report.rs"
       },
       {
         "edits": 5,
-        "path": "/tmp/claude-1000/-workspaces-aisp-observatory/7d344fb0-f1c6-40d9-bf6b-09b3a29a6bf7/scratchpad/pr2-review/observatory/crates/bar-observatory/src/share_safe.rs"
+        "path": "review/pr-b/crates/bar-observatory/src/share_safe.rs"
       },
       {
         "edits": 5,
-        "path": "/tmp/claude-1000/-workspaces-aisp-observatory/ab1b6a92-ecd8-4e9c-a609-fd1a3bd8fe6a/scratchpad/pr1-worktree/observatory/crates/bar-observatory/src/report.rs"
+        "path": "review/pr-a/crates/bar-observatory/src/report.rs"
       },
       {
         "edits": 5,
-        "path": "/workspaces/aisp-observatory/bar-observatory/wiki/agent/AI-CONTEXT.md"
+        "path": "bar-observatory/wiki/agent/AI-CONTEXT.md"
       },
       {
         "edits": 5,
-        "path": "/workspaces/aisp-observatory/bar-observatory/wiki/human-html/documentation-layers.html"
+        "path": "bar-observatory/wiki/human-html/documentation-layers.html"
       },
       {
         "edits": 4,
-        "path": "/tmp/claude-1000/-workspaces-aisp-observatory/7d344fb0-f1c6-40d9-bf6b-09b3a29a6bf7/scratchpad/pr2-review/observatory/crates/bar-observatory/src/report_tests.rs"
+        "path": "review/pr-b/crates/bar-observatory/src/report_tests.rs"
       },
       {
         "edits": 4,
-        "path": "/tmp/claude-1000/-workspaces-aisp-observatory/7d344fb0-f1c6-40d9-bf6b-09b3a29a6bf7/scratchpad/pr2-review/observatory/crates/bar-observatory/tests/capture.rs"
+        "path": "review/pr-b/crates/bar-observatory/tests/capture.rs"
       },
       {
         "edits": 4,
-        "path": "/workspaces/aisp-observatory/bar-obs-private/crates/bar-mcp/Cargo.toml"
+        "path": "crates/bar-mcp/Cargo.toml"
       },
       {
         "edits": 4,
-        "path": "/workspaces/aisp-observatory/bar-obs-private/crates/bar-mcp/src/tools.rs"
+        "path": "crates/bar-mcp/src/tools.rs"
       },
       {
         "edits": 4,
-        "path": "/workspaces/aisp-observatory/bar-obs-private/crates/bar-observatory/Cargo.toml"
+        "path": "crates/bar-observatory/Cargo.toml"
       },
       {
         "edits": 4,
-        "path": "/workspaces/aisp-observatory/bar-obs-private/crates/bar-observatory/src/report.rs"
+        "path": "crates/bar-observatory/src/report.rs"
       },
       {
         "edits": 4,
-        "path": "/workspaces/aisp-observatory/bar-obs-private/crates/bar-observatory/tests/resolved_config_schema_parity.rs"
+        "path": "crates/bar-observatory/tests/resolved_config_schema_parity.rs"
       },
       {
         "edits": 4,
-        "path": "/workspaces/aisp-observatory/bar-obs-private/crates/bar-schema/Cargo.toml"
+        "path": "crates/bar-schema/Cargo.toml"
       },
       {
         "edits": 4,
-        "path": "/workspaces/aisp-observatory/bar-obs-private/docs/bar-observatory/config/bar-observatory.default.toml"
+        "path": "docs/reference/bar-observatory.default.toml"
       },
       {
         "edits": 4,
-        "path": "/workspaces/aisp-observatory/bar-obs-private/docs/bar-observatory/docs/04_ADR_CATALOG.md"
+        "path": "docs/adr/0004-caching-strategy.md"
       },
       {
         "edits": 4,
-        "path": "/workspaces/aisp-observatory/bar-obs-private/docs/bar-observatory/examples/deterministic/example.report.json"
+        "path": "examples/deterministic/sample.report.json"
       },
       {
         "edits": 4,
-        "path": "/workspaces/aisp-observatory/bar-obs-private/docs/bar-observatory/human-specs/06-simplified-build-loop.md"
+        "path": "docs/specs/06-build-loop.md"
       },
       {
         "edits": 4,
-        "path": "/workspaces/aisp-observatory/bar-obs-private/docs/bar-observatory/human-specs/09-session-grounding-2026-07-31.md"
+        "path": "docs/specs/09-session-grounding.md"
       },
       {
         "edits": 4,
-        "path": "/workspaces/aisp-observatory/bar-obs-private/docs/bar-observatory/human-specs/14-flight-recorder-sota-enhancement-2026-07-31.md"
+        "path": "docs/specs/14-flight-recorder-enhancement.md"
       },
       {
         "edits": 4,
-        "path": "/workspaces/aisp-observatory/bar-observatory/config/bar-observatory.default.toml"
+        "path": "bar-observatory/config/bar-observatory.default.toml"
       },
       {
         "edits": 4,
-        "path": "/workspaces/aisp-observatory/bar-observatory/wiki/architecture.md"
+        "path": "bar-observatory/wiki/architecture.md"
       },
       {
         "edits": 4,
-        "path": "/workspaces/aisp-observatory/bar-observatory/wiki/human/md/architecture.md"
+        "path": "bar-observatory/wiki/human/md/architecture.md"
       },
       {
         "edits": 4,
-        "path": "/workspaces/aisp-observatory/scripts/public-export.sh"
+        "path": "scripts/public-export.sh"
       },
       {
         "edits": 3,
-        "path": "/tmp/claude-1000/-workspaces-aisp-observatory/1b5a097f-0d97-481b-a8f4-adec1259e5ec/scratchpad/build_report.py"
+        "path": "review/build_report.py"
       },
       {
         "edits": 3,
-        "path": "/tmp/claude-1000/-workspaces-aisp-observatory/7d344fb0-f1c6-40d9-bf6b-09b3a29a6bf7/scratchpad/pr2-review/observatory/crates/bar-observatory/src/detectors.rs"
+        "path": "review/pr-b/crates/bar-observatory/src/detectors.rs"
       },
       {
         "edits": 3,
-        "path": "/tmp/claude-1000/-workspaces-aisp-observatory/ab1b6a92-ecd8-4e9c-a609-fd1a3bd8fe6a/scratchpad/pr1-worktree/observatory/crates/bar-read/src/lib.rs"
+        "path": "review/pr-a/crates/bar-read/src/lib.rs"
       },
       {
         "edits": 3,
-        "path": "/tmp/claude-1000/-workspaces-aisp-observatory/ab1b6a92-ecd8-4e9c-a609-fd1a3bd8fe6a/scratchpad/pr1-worktree/scripts/public-export.sh"
+        "path": "review/pr-a/scripts/public-export.sh"
       },
       {
         "edits": 3,
-        "path": "/tmp/claude-1000/-workspaces-aisp-observatory/e6ede2e6-6d76-4b48-903c-039b259c628f/scratchpad/crate-verify/Cargo.toml"
+        "path": "review/verify/Cargo.toml"
       },
       {
         "edits": 3,
-        "path": "/workspaces/aisp-observatory/bar-obs-private/crates/Cargo.toml"
+        "path": "crates/Cargo.toml"
       },
       {
         "edits": 3,
-        "path": "/workspaces/aisp-observatory/bar-obs-private/crates/bar-config/Cargo.toml"
+        "path": "crates/bar-config/Cargo.toml"
       },
       {
         "edits": 3,
-        "path": "/workspaces/aisp-observatory/bar-obs-private/crates/bar-schema/src/lib.rs"
+        "path": "crates/bar-schema/src/lib.rs"
       },
       {
         "edits": 3,
-        "path": "/workspaces/aisp-observatory/bar-obs-private/crates/bar-schema/tests/branding_from_toml.rs"
+        "path": "crates/bar-schema/tests/branding_from_toml.rs"
       },
       {
         "edits": 3,
-        "path": "/workspaces/aisp-observatory/bar-obs-private/crates/bar-schema/tests/fact_id_assign.rs"
+        "path": "crates/bar-schema/tests/fact_id_assign.rs"
       },
       {
         "edits": 3,
-        "path": "/workspaces/aisp-observatory/bar-obs-private/docs/bar-observatory/human-specs/11-qe-fleet-understanding-guide.md"
+        "path": "docs/specs/11-qe-fleet-guide.md"
       },
       {
         "edits": 3,
-        "path": "/workspaces/aisp-observatory/bar-obs-private/docs/bar-observatory/schemas/report.schema.json"
+        "path": "schemas/report.schema.internal.json"
       },
       {
         "edits": 3,
-        "path": "/workspaces/aisp-observatory/bar-obs-private/docs/bar-observatory/tests/resolver_test.py"
+        "path": "tests/integration/resolver_test.py"
       },
       {
         "edits": 3,
-        "path": "/workspaces/aisp-observatory/bar-obs-private/phases/01-existing-factory-audit/STATUS.md"
+        "path": "docs/status/audit-status.md"
       },
       {
         "edits": 3,
-        "path": "/workspaces/aisp-observatory/bar-observatory/examples/README.html"
+        "path": "bar-observatory/examples/README.html"
       },
       {
         "edits": 3,
-        "path": "/workspaces/aisp-observatory/bar-observatory/examples/README.md"
+        "path": "bar-observatory/examples/README.md"
       },
       {
         "edits": 3,
-        "path": "/workspaces/aisp-observatory/bar-observatory/llms.txt"
+        "path": "bar-observatory/llms.txt"
       },
       {
         "edits": 3,
-        "path": "/workspaces/aisp-observatory/bar-observatory/schemas/interpretation.schema.json"
+        "path": "bar-observatory/schemas/interpretation.schema.json"
       },
       {
         "edits": 3,
-        "path": "/workspaces/aisp-observatory/bar-observatory/wiki/README.html"
+        "path": "bar-observatory/wiki/README.html"
       },
       {
         "edits": 2,
-        "path": "/tmp/claude-1000/-workspaces-aisp-observatory/7d344fb0-f1c6-40d9-bf6b-09b3a29a6bf7/scratchpad/pr2-review/observatory/crates/bar-observatory/src/lib.rs"
+        "path": "review/pr-b/crates/bar-observatory/src/lib.rs"
       },
       {
         "edits": 2,
-        "path": "/tmp/claude-1000/-workspaces-aisp-observatory/ab1b6a92-ecd8-4e9c-a609-fd1a3bd8fe6a/scratchpad/pr1-worktree/observatory/crates/bar-observatory/src/lib.rs"
+        "path": "review/pr-a/crates/bar-observatory/src/lib.rs"
       },
       {
         "edits": 2,
-        "path": "/workspaces/aisp-observatory/.agentic-qe/witness-keys/b0df0a17e79a269d.key.pem"
+        "path": "secrets/deploy-key.pem"
       },
       {
         "edits": 2,
-        "path": "/workspaces/aisp-observatory/bar-obs-private/crates/bar-config/examples/print_hash.rs"
+        "path": "crates/bar-config/examples/print_hash.rs"
       },
       {
         "edits": 2,
-        "path": "/workspaces/aisp-observatory/bar-obs-private/crates/bar-review/Cargo.toml"
+        "path": "crates/bar-review/Cargo.toml"
       },
       {
         "edits": 2,
-        "path": "/workspaces/aisp-observatory/bar-obs-private/crates/bar-schema/src/fact_id.rs"
+        "path": "crates/bar-schema/src/fact_id.rs"
       },
       {
         "edits": 2,
-        "path": "/workspaces/aisp-observatory/bar-obs-private/crates/bar-schema/tests/absence_state_serde.rs"
+        "path": "crates/bar-schema/tests/absence_state_serde.rs"
       },
       {
         "edits": 2,
-        "path": "/workspaces/aisp-observatory/bar-obs-private/crates/bar-schema/tests/roundtrip_report_example.rs"
+        "path": "crates/bar-schema/tests/roundtrip_report_example.rs"
       },
       {
         "edits": 2,
-        "path": "/workspaces/aisp-observatory/bar-obs-private/crates/bar-schema/tests/schema_field_parity.rs"
+        "path": "crates/bar-schema/tests/schema_field_parity.rs"
       },
       {
         "edits": 2,
-        "path": "/workspaces/aisp-observatory/bar-obs-private/dist/plugin/README.md"
+        "path": "dist/plugin/README.md"
       },
       {
         "edits": 2,
-        "path": "/workspaces/aisp-observatory/bar-obs-private/docs/bar-observatory/docs/17_FACT_ID_NAMESPACE_SPEC.md"
+        "path": "docs/architecture.md"
       },
       {
         "edits": 2,
-        "path": "/workspaces/aisp-observatory/bar-obs-private/docs/bar-observatory/docs/steps/02-base-materials-and-golden-contracts.md"
+        "path": "docs/steps/02-base-materials.md"
       },
       {
         "edits": 2,
-        "path": "/workspaces/aisp-observatory/bar-obs-private/docs/bar-observatory/docs/steps/15-evidence-package-and-provenance.md"
+        "path": "docs/steps/15-evidence-package.md"
       },
       {
         "edits": 2,
-        "path": "/workspaces/aisp-observatory/bar-obs-private/docs/bar-observatory/tests/csp_regression.sh"
+        "path": "tests/integration/csp_regression.sh"
       },
       {
         "edits": 2,
-        "path": "/workspaces/aisp-observatory/bar-obs-private/docs/bar-observatory/tests/schema_validate.sh"
+        "path": "tests/integration/schema_validate.sh"
       },
       {
         "edits": 2,
-        "path": "/workspaces/aisp-observatory/bar-obs-private/docs/bar-observatory/tests/toml_parse.sh"
+        "path": "tests/integration/toml_parse.sh"
       },
       {
         "edits": 2,
-        "path": "/workspaces/aisp-observatory/bar-obs-private/docs/bar-observatory/tools/render-live-report/src/main.rs"
+        "path": "tools/render-check/src/main.rs"
       },
       {
         "edits": 2,
-        "path": "/workspaces/aisp-observatory/bar-obs-private/docs/bar-observatory/tools/tera-render-check/src/main.rs"
+        "path": "tools/template-check/src/main.rs"
       },
       {
         "edits": 2,
-        "path": "/workspaces/aisp-observatory/bar-obs-private/docs/bar-observatory/wiki/agent/AI-CONTEXT.md"
+        "path": "docs/wiki/agent/AI-CONTEXT.md"
       },
       {
         "edits": 2,
-        "path": "/workspaces/aisp-observatory/bar-obs-private/docs/bar-observatory/wiki/aisp/HUB.aisp"
+        "path": "docs/wiki/aisp/HUB.aisp"
       },
       {
         "edits": 2,
-        "path": "/workspaces/aisp-observatory/bar-obs-private/docs/bar-observatory/wiki/human/README.md"
+        "path": "docs/wiki/human/README.md"
       },
       {
         "edits": 2,
-        "path": "/workspaces/aisp-observatory/bar-obs-private/reports/01-existing-factory-audit-report.md"
+        "path": "reports/audit-report.md"
       },
       {
         "edits": 2,
-        "path": "/workspaces/aisp-observatory/bar-observatory/.claude-plugin/plugin.json"
+        "path": "bar-observatory/.claude-plugin/plugin.json"
       },
       {
         "edits": 2,
-        "path": "/workspaces/aisp-observatory/bar-observatory/CONTRIBUTING.md"
+        "path": "bar-observatory/CONTRIBUTING.md"
       },
       {
         "edits": 2,
-        "path": "/workspaces/aisp-observatory/bar-observatory/CRATES.md"
+        "path": "bar-observatory/CRATES.md"
       },
       {
         "edits": 2,
-        "path": "/workspaces/aisp-observatory/bar-observatory/process/00-init.md"
+        "path": "bar-observatory/process/00-init.md"
       },
       {
         "edits": 2,
-        "path": "/workspaces/aisp-observatory/bar-observatory/process/04-optional-modules.md"
+        "path": "bar-observatory/process/04-optional-modules.md"
       },
       {
         "edits": 2,
-        "path": "/workspaces/aisp-observatory/bar-observatory/process/05-sample-report.md"
+        "path": "bar-observatory/process/05-sample-report.md"
       },
       {
         "edits": 2,
-        "path": "/workspaces/aisp-observatory/bar-observatory/process/06-use-cases.md"
+        "path": "bar-observatory/process/06-use-cases.md"
       },
       {
         "edits": 2,
-        "path": "/workspaces/aisp-observatory/bar-observatory/run.sh"
+        "path": "bar-observatory/run.sh"
       },
       {
         "edits": 2,
-        "path": "/workspaces/aisp-observatory/bar-observatory/schemas/report.schema.json"
+        "path": "bar-observatory/schemas/report.schema.json"
       },
       {
         "edits": 2,
-        "path": "/workspaces/aisp-observatory/bar-observatory/wiki/README.md"
+        "path": "bar-observatory/wiki/README.md"
       },
       {
         "edits": 2,
-        "path": "/workspaces/aisp-observatory/bar-observatory/wiki/enterprise.md"
+        "path": "bar-observatory/wiki/enterprise.md"
       },
       {
         "edits": 2,
-        "path": "/workspaces/aisp-observatory/observatory/CLAUDE.md"
+        "path": "observatory/CLAUDE.md"
       },
       {
         "edits": 2,
-        "path": "/workspaces/aisp-observatory/observatory/crates/README.md"
+        "path": "observatory/crates/README.md"
       }
     ],
     "note": "Real deterministic rework signals from the transcript: 96 attributable file(s) edited ≥2× (churn) + 60 error tool_result(s). Structural signals (repeated-edit / error) — NOT hallucination/quality judgment (that is the interpreted report, P10+). Repeated edits are normal in iterative/TDD work; this flags concentration, not failure."

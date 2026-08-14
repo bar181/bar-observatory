@@ -112,7 +112,7 @@ the public-repo/wiki polish work these 7 sessions were doing.
 
 | Hash | Message |
 |---|---|
-| `7c2e027a` | docs(human-specs): add doc 16 — brutal review consultant report |
+| `7c2e027a` | docs(specs): add doc 16 — brutal review consultant report |
 | `da7cd526` | fix(bar-observatory): version bump to 0.1.1 for the RVF/ADR-021 report fix |
 | `2a2024e0` | fix(bar-observatory): plugin load bug, figure reconciliation, missing wiki pages |
 | `38d60ec4` | feat(bar-observatory): port 15 gold-standard crates, archive build process |

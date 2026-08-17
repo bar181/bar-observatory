@@ -1,6 +1,6 @@
 # Architecture
 
-BAR Observatory is a thin `bar` CLI (crate `bar-observatory`) over a 14-crate `bar-*` engine.
+BAR Observatory is a thin `bar` CLI (crate `bar-observatory`) over a 15-crate `bar-*` engine.
 Crate source lives and publishes from a private working repository; this public repository is
 the front door — documentation, plugin assets, schemas, and contracts, no crate source, by
 design. Full crate list with live crates.io links: [CRATES.md](../../CRATES.md).
@@ -10,6 +10,7 @@ design. Full crate list with live crates.io links: [CRATES.md](../../CRATES.md).
 | Crate | Tier | Role |
 | --- | --- | --- |
 | `bar-store` | L0 | SQLite schema and substrate trait. Depends on nothing internal. |
+| `bar-root-resolve` | L0 | Shared, provenance-visible DB-root and workspace-root resolution. Depends on nothing internal. |
 | `bar-index` | L0.5 | The second kernel: cross-run catalog and artifact store. |
 | `bar-hook` | L1 | Hook binary, reads JSON on stdin. |
 | `bar-ingest` | L1 | Transcript JSONL parser — the always-on capture path. |
@@ -25,11 +26,9 @@ design. Full crate list with live crates.io links: [CRATES.md](../../CRATES.md).
 | `bar-sanitize` | — | Publication sanitizer: scrub PII from a capture DB into a publish-safe copy. |
 | `bar-observatory` | facade | The `bar` CLI: init, ingest, report, query, doctor, interpret. |
 
-Fifteen crates published to crates.io; `bar-testenv` is internal/dev-only and unpublished.
-Crates publish incrementally in dependency-tier order — a link in `CRATES.md` means cleared for
-publish, not necessarily live. `bar-engine`, an older internal-only CLI that predates the public
-`bar-observatory` facade, is deliberately not ported — see [CRATES.md](../../CRATES.md) for the
-disclosed rationale.
+Sixteen crates published to crates.io — all live; `bar-testenv` is internal/dev-only and
+unpublished. `bar-engine`, an older internal-only CLI that predates the public `bar-observatory`
+facade, is deliberately not ported — see [CRATES.md](../../CRATES.md) for the disclosed rationale.
 
 ## The determinism contract
 

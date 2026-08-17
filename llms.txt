@@ -17,7 +17,7 @@ tried before repeating it. Built by Bradley Ross; not affiliated with or endorse
 - [Plain-language guide](wiki/human-md/README.md): no assumed background, click-along setup
 - [AI agent guide](wiki/agent/AI-CONTEXT.md): MCP tool reference for an agent consuming this project
 - [RUN.md](RUN.md): the command reference, three ways to install and run it
-- [CRATES.md](CRATES.md): the 15-crate architecture, each crate's role and crates.io link
+- [CRATES.md](CRATES.md): the 16-crate architecture, each crate's role and crates.io link
 
 ## Deeper reference
 

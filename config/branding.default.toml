@@ -6,9 +6,12 @@ tagline = "Observe how agentic work actually gets done."
 creator_name = "Bradley Ross"
 studio_name = "Bradley.Academy"
 repository_url = "https://github.com/bar181/bar-observatory"
-# Note: this file's [branding] table duplicates config/bar-observatory.default.toml's [branding]
-# section verbatim. No precedence rule is defined if the two ever disagree — a known gap, not yet
-# resolved.
+# Note: config/bar-observatory.default.toml's [branding] table no longer duplicates these fields
+# (post-ADR-020, it's just `profile = "bradley-academy"`). But that profile string isn't resolved
+# by any lookup at runtime either — the real values ship hardcoded in the private source
+# (bar-observatory::report::Branding::bradley_academy()), manually kept in sync with this file by
+# convention, not by an automatic mechanism. This file is the intended reference copy, not an
+# active input to the running binary.
 documentation_url = "TBD"
 linkedin_url = "https://linkedin.com/in/bradaross"
 personal_website_url = "TBD"

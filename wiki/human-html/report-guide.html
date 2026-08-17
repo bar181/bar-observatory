@@ -145,7 +145,7 @@ footer a{color:var(--ink-2)}
         <p>Four findings, each a plain claim with a supporting detail underneath it — not a single
         undifferentiated wall of text:</p>
         <div class="evidence">60 tool error(s) were captured — the failures are recorded, not swallowed.<br>&nbsp;&nbsp;Worst: <span class="k">Bash</span> ×45.
-One file absorbed the most churn: 77 edits.<br>&nbsp;&nbsp;<span class="k">README.md</span> — a multi-persona review pass, not a defect.
+One file absorbed the most churn: 77 edits.<br>&nbsp;&nbsp;<span class="k">README.md</span> — a refactor / test-coverage candidate.
 Validation was not fully green at capture end: 29 failing vs 344 passing.<br>&nbsp;&nbsp;From real `test result:` lines (measured, not self-reported).
 5 of 6 capture channels were not recorded this session.<br>&nbsp;&nbsp;Uncaptured channels read "not recorded" — this is a transcript-only ingest.</div>
         <p>Each of these traces to a section further down this page — the findings aren't a
@@ -157,10 +157,9 @@ Validation was not fully green at capture end: 29 failing vs 344 passing.<br>&nb
       <div class="item-label"><span class="item-n">04</span><h3>Recommendations</h3>
         <p>Resolution-first, priority-tagged, grounded in the findings above.</p></div>
       <div class="item-body">
-        <p>Four recommendations, each tagged P1/P2/P3 by how directly it follows from captured
+        <p>Three recommendations, each tagged P1/P2/P3 by how directly it follows from captured
         evidence — not a generic best-practices list:</p>
-        <div class="evidence"><span class="v">P1</span> A failing MCP tool may have a non-MCP path available — prefer it<br>&nbsp;&nbsp;over retrying the same MCP call.
-<span class="v">P1</span> Resolve the remaining failing tests before relying on the session's<br>&nbsp;&nbsp;completion claims.
+        <div class="evidence"><span class="v">P1</span> Resolve the remaining failing tests before relying on the session's<br>&nbsp;&nbsp;completion claims.
 <span class="k">P2</span> Review README.md (highest edit churn) for a refactor or missing<br>&nbsp;&nbsp;test coverage.
 <span class="k">P3</span> Enable OTEL telemetry + hooks to capture tokens/cost, timeline,<br>&nbsp;&nbsp;and coverage.</div>
       </div>
@@ -184,7 +183,7 @@ Validation was not fully green at capture end: 29 failing vs 344 passing.<br>&nb
         <p>Which tools, and how hard, ranked by real call counts.</p></div>
       <div class="item-body">
         <div class="evidence">Bash 1,706 · Edit 496 · Read 410 · Write 97 · TaskUpdate 209<br>TaskCreate 132 · Agent 40 · ToolSearch 19 · AskUserQuestion 11 · …</div>
-        <p>Fifteen distinct tools appear in the full record; this is the ranked head of that list,
+        <p>Seventeen distinct tools appear in the full record; this is the ranked head of that list,
         exactly as captured — nothing rounded, nothing merged.</p>
       </div>
     </div>
@@ -193,7 +192,7 @@ Validation was not fully green at capture end: 29 failing vs 344 passing.<br>&nb
       <div class="item-label"><span class="item-n">07</span><h3>Sub-agent dispatches</h3>
         <p>What got delegated, and to which agent type.</p></div>
       <div class="item-body">
-        <div class="evidence">22 agent run(s) total<br>general-purpose ×15 · bar-skeptic-reviewer ×5<br>bar-repo-archaeologist ×1 · bar-test-architect ×1</div>
+        <div class="evidence">40 agent run(s) total<br>general-purpose ×17 · reviewer ×10 · claude-code-guide ×5<br>qe-requirements-validator ×3 · bar-docs-curator ×2<br>bar-release-verifier ×1 · bar-skeptic-reviewer ×1 · unspecified ×1</div>
         <p>A session that spawns helper agents can hide its real failure surface inside them — this
         section is why that no longer works. Every dispatch is counted by type, whether or not the
         parent session's own summary mentioned it.</p>
@@ -262,7 +261,7 @@ observations: "Not observed — micro-observation extraction and<br>silent-signa
       <div class="item-label"><span class="item-n">12</span><h3>Integrity</h3>
         <p>What actually makes "byte-identical" a checkable claim, not a slogan.</p></div>
       <div class="item-body">
-        <div class="evidence">source_db_hash: blake3:557f024108c3ecef…<br>template_hash: blake3:b8bcf83ef579efa1…<br>deterministic_render: <span class="v">true</span> · llm_in_render_path: <span class="v">false</span></div>
+        <div class="evidence">source_db_hash: blake3:96ad36b19f55b07b…<br>template_hash: blake3:b8bcf83ef579efa1…<br>deterministic_render: <span class="v">true</span> · llm_in_render_path: <span class="v">false</span></div>
         <p>The report's own hash of the database it came from, plus a hash of the template that
         rendered it. Re-render the same database with the same template version and these two
         values — and every fact above them — come out identical. That's what "same database in,

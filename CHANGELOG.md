@@ -2,14 +2,83 @@
 
 All notable changes to BAR Observatory.
 
-## [unreleased] — staging
+## [0.2.0] — published to crates.io, GitHub push still pending
 
-Pre-release staging folder from the private working repo — not yet pushed publicly, pending
-human approval (a standing gate on this repo, ADR-016). Content: the deterministic report
-contract (schemas), the documented process, default configs, real example reports, and a
-generated crate index (`CRATES.md`) pointing at the 15 gold-standard crates — see `CRATES.md`
-itself for each crate's real, current crates.io publish status.
+**Breaking.** All 16 crates are live on crates.io as of 2026-08-17 (human go-ahead given, verified
+via a real `cargo install --locked` from the published registry). Pushing this repository's own
+commits to `github.com/bar181/bar-observatory` is a separate, still-pending human-approval gate —
+crates.io publish and the GitHub push are two independent standing gates on this repo, not one. A
+`[privacy]` config key is removed with no compatibility shim, the capture schema moved six
+migrations (v17 → v23), and stored-data semantics changed — a v17 store from a 0.1.x install
+migrates automatically on the next write (verified against a real v17 store this session, and
+locked in by a regression test so the next migration can't silently break it).
 
+### Six real findings from an external reviewer, fixed
+
+An external reviewer (Piotr) ran BAR Observatory 0.1.1 against real sessions and reported six
+reproducible defects (`bar-obs-private/docs/piotr-feedback-aug15.md`, 2026-08-15). All six are
+closed as of this release:
+
+1. **The `[privacy]` config table was fully decorative** — zero code paths read
+   `redact_home_paths`/`redact_secrets`/etc. Replaced, not deprecated, by a real `[redact]` table
+   (`mode`/`paths`/`secrets`) that every field of which is read by non-test code (ADR-125/ADR-127).
+2. **Archival ingest silently misresolved the workspace root**, masking all 22 edits in his
+   reproduction and rendering a clean, empty report with no indication anything went wrong. Fixed
+   by a disclosed workspace-root precedence chain (`--workspace-root` flag → env → transcript
+   `cwd` → git root → ingest cwd) whose winning rung is now always visible in the report and the
+   stored row (ADR-126).
+3. **Write-seam masking damaged error detection itself** — the scrub ran before the error/pairing
+   detectors ever saw the string, hiding two of four real errors and breaking tool-call pairing in
+   his reproduction. Fixed by moving redaction to the render/export seam only; storage is now
+   always verbatim (ADR-125).
+4. **Masking could produce a "plausible" but silently empty result** with nothing distinguishing
+   "genuinely nothing happened" from "the data was there and got masked away." Every `not_observed`
+   result now carries a reason code (`no_data` / `parser_missing` / `filtered_by_policy`) instead
+   of a bare, unexplained empty.
+5. **The parser catalogue advertised 4 languages, shipped 1** — `["cargo","pytest","npm",
+   "generic-exit"]` was configured, but only cargo's `test result:` line had a real matcher; his
+   own pytest runs (3×) all silently read `not_observed`. pytest/npm/generic-exit matchers are now
+   implemented and covered by fixture tests; the catalogue only ever lists what has a real
+   matcher (`IMPLEMENTED_VALIDATION_PARSERS`), checked against the advertised config at parse time.
+6. **Nothing recorded how any resolved value was derived** — no provenance for workspace root,
+   redaction policy, or config layering. The report now names which layer/rung won for each
+   (config resolution, workspace-root resolution, and the redaction policy in effect when the
+   report was generated).
+
+### Also fixed this release (not from the external report)
+
+- **`bar-proxy`'s `bodies` capture channel** was dead-lettering every `/v1/messages/count_tokens`
+  response with an opaque `"expected value at line 1 column 1"` — the raw bytes carried a
+  deterministic, unexplained 3-byte wrapper around otherwise-valid JSON. `parse_envelope` now
+  strips it; the dead-letter message for anything still unparseable now names the byte count and
+  a hex preview instead of the bare parser error. (Root-cause investigation found these are
+  Anthropic's `/count_tokens` diagnostic responses, not billed completions — so contrary to this
+  release's original severity read, they carried no completion-usage data to lose; a routing fix,
+  `NON_COMPLETION_PATH_SUFFIX`, is what actually stops them from reaching the parser at all.)
+- **`bar --help` and bare `bar` exited 2** with `"unknown command: --help"` instead of printing
+  usage and exiting 0 — the first thing a new user hits.
+- **`bar doctor`** — a real, working self-diagnostic (`init`/`report`/`ingest`/`doctor`/
+  `interpret`/`query`/`dlq`/`reap` — store validity, capture health, lifecycle, DLQ status in one
+  command) so the next silent failure costs a `bar doctor` run, not a source dive across four
+  crates the way this engagement started.
+
+### Documentation and packaging
+
+Content below: the deterministic report contract (schemas), the documented process, default
+configs, real example reports, and a generated crate index (`CRATES.md`) pointing at the 16
+gold-standard crates — see `CRATES.md` itself for each crate's real, current crates.io publish
+status.
+
+- **Corrected a stale crate count found during final pre-publish review**: `bar-root-resolve`
+  (extracted from `bar-mcp` as a shared root-resolution crate, INV-10) was never folded into the
+  "15 crates"/"14-crate engine" figures quoted in README.md and `scripts/public-export.sh`'s own
+  generated prose — it's 16 published crates / a 15-crate engine. The engine-crate count in
+  `CRATES.md`'s header is now computed from the real manifests at generation time instead of
+  hand-typed, so this can't silently drift again the next time a crate is added.
+- **`bar-root-resolve` had no README.md at all** (the only one of the 16 crates missing one —
+  it predates a documentation pass the other 15 crates got). Added, grounded in its actual
+  source (`resolve`/`resolve_or_fallback` for DB-root resolution, `workspace::resolve_workspace_root`
+  for ADR-126 workspace-root resolution), matching the format the other 15 crate READMEs use.
 - Added the Claude Code plugin marketplace manifest (`.claude-plugin/marketplace.json`) so
   `/plugin marketplace add bar181/bar-observatory` works as documented.
 - Added a fifth slash command, `/bar-init`, for project setup (previously only report-generation

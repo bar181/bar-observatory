@@ -500,7 +500,7 @@ footer a{color:var(--ink-2)}
         <ul class="plain">
           <li><b>report.html</b> — the human view. Open this one first.</li>
           <li><b>report.md</b> — plain text, easy to diff or read over a terminal.</li>
-          <li><b>report.json</b> — the machine version, checked against a published schema.</li>
+          <li><b>report.json</b> — the machine version, structured and typed.</li>
         </ul>
         <p style="color:var(--ink-2);font-size:15.5px">All three are rendered from the same database in
         the same pass, so they can't disagree with each other. Working samples ship in the repository
@@ -533,7 +533,7 @@ footer a{color:var(--ink-2)}
 <section id="proof">
   <div class="wrap">
     <p class="eyebrow">Proof</p>
-    <h2>Twenty-five failures, all of them still there months later.</h2>
+    <h2>Sixty failures, all of them still there months later.</h2>
     <p class="lede" style="margin-top:18px">Everything below came out of one genuine Claude Code
     session. Run the same commands against your own and you'll get your own numbers — that's the
     whole point.</p>
@@ -743,7 +743,7 @@ bar report .bar/ambient.sqlite --out .</pre>
     <p class="eyebrow">Advanced</p>
     <h2>Under the hood.</h2>
     <p class="lede" style="margin-top:18px">BAR Observatory is a thin <code>bar</code> CLI (crate
-    <code>bar-observatory</code>) over a fourteen-crate <code>bar-*</code> engine. Crate source lives
+    <code>bar-observatory</code>) over a fifteen-crate <code>bar-*</code> engine. Crate source lives
     and publishes from a private working repository; the public repository is the front door,
     documentation, plugin, and contracts. Full write-up: <a href="wiki/human-md/architecture.md">wiki/human-md/architecture.md</a>.</p>
 
@@ -753,6 +753,7 @@ bar report .bar/ambient.sqlite --out .</pre>
       <thead><tr><th>Crate</th><th>Tier</th><th>Role</th></tr></thead>
       <tbody>
         <tr><th><code>bar-store</code></th><td>L0</td><td>SQLite schema and substrate trait. Depends on nothing internal.</td></tr>
+        <tr><th><code>bar-root-resolve</code></th><td>L0</td><td>Shared, provenance-visible DB-root and workspace-root resolution. Depends on nothing internal.</td></tr>
         <tr><th><code>bar-index</code></th><td>L0.5</td><td>The second kernel: cross-run catalog and artifact store.</td></tr>
         <tr><th><code>bar-hook</code></th><td>L1</td><td>Hook binary, reads JSON on stdin.</td></tr>
         <tr><th><code>bar-ingest</code></th><td>L1</td><td>Transcript JSONL parser — the always-on capture path.</td></tr>
@@ -770,11 +771,10 @@ bar report .bar/ambient.sqlite --out .</pre>
       </tbody>
     </table>
     </div>
-    <p style="font-size:13.5px;color:var(--absent);margin-top:14px">Fifteen crates published to
-    crates.io; <code>bar-testenv</code> is internal/dev-only and unpublished. Crates publish
-    incrementally in dependency-tier order — a link in <code>CRATES.md</code> means cleared for
-    publish, not necessarily live. <code>bar-engine</code>, an older internal-only CLI, is deliberately
-    not ported.</p>
+    <p style="font-size:13.5px;color:var(--absent);margin-top:14px">Sixteen crates published to
+    crates.io — all live; <code>bar-testenv</code> is internal/dev-only and unpublished. See
+    <code>CRATES.md</code> for each crate's real-time status. <code>bar-engine</code>, an older
+    internal-only CLI, is deliberately not ported.</p>
 
     <h3 style="margin-top:52px">The determinism contract</h3>
     <ul class="plain">

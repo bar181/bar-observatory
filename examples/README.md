@@ -3,7 +3,7 @@
 Two audiences (**Boss Mode** for executive/client readers, **Developer Guide** for engineering),
 two ways of generating (**Evidence** = deterministic, no LLM, byte-identical; **Commentary** =
 optional LLM synthesis) — five report artifacts, all real, all rendered from **the same 7-session
-capture store** (2026-08-01 → 2026-08-14, 9,132 transcript turns, 40/40 tasks completed):
+capture store** (2026-07-31 → 2026-08-13, 9,132 transcript turns, 40/40 tasks completed):
 
 | File(s) | Register | What it is |
 | --- | --- | --- |
@@ -23,7 +23,7 @@ same two registers.
 
 All five reports above come from **the same store**: 7 real Claude Code sessions ingested
 end-to-end (`bar init` → `bar ingest` ×7 → `bar report` → `bar interpret` ×2), spanning
-2026-08-01 to 2026-08-14. Earlier drafts of this folder mixed two different single sessions across
+2026-07-31 to 2026-08-13. Earlier drafts of this folder mixed two different single sessions across
 the deterministic and interpreted examples — that's fixed now: one store, one set of facts, all
 five reports agree with each other because they're the same data read five ways.
 

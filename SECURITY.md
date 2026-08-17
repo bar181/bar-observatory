@@ -5,11 +5,13 @@ your machine, with no network in the capture→report path. It never transmits c
 
 - **BYOK / no key required.** Primary use is a Claude Code subscription; no API key is needed.
   When a key is present it is forwarded verbatim by the capture proxy and never logged or persisted.
-- **Redaction.** A narrow, specific set of patterns is redacted automatically on write:
-  secret-shaped API keys (a small set of known vendor prefixes), email-shaped tokens, and the
-  username segment of absolute home-directory paths. This is **not** a general PII or secrets
-  scanner — full message text, the agent's thinking blocks, file contents, and tool output are
-  otherwise stored as captured. Read
+- **Redaction.** Only secret-shaped API keys (a small set of known vendor prefixes) are redacted
+  automatically on write, and that scrub is non-disableable. Email-shaped tokens and
+  home-directory paths are a separate, render/export-time concern controlled by `[redact]`
+  (`mode = "off" | "export" | "strict"`, default `"off"` — fully verbatim, both stored and
+  rendered, out of the box). This is **not** a general PII or secrets scanner — full message
+  text, the agent's thinking blocks, file contents, and tool output are otherwise stored as
+  captured. Read
   [what data actually gets stored](wiki/human-md/enterprise.md#what-data-actually-gets-stored)
   before treating a capture database as safe to hand to someone else as-is; `bar-sanitize` exists
   for exactly that case.

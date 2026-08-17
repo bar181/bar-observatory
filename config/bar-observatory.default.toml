@@ -1,23 +1,11 @@
 version = 1
 enabled = true
 
-# Governs the resolver's own behavior. No [config] "enabled" key exists - resolution cannot be
-# turned off, same precedent as [product]/[storage] carrying no enabled key.
-[config]
-project_config_path = ".bar/config.toml"
-allow_env_overrides = true
-env_prefix = "BAR"
-unknown_key_policy = "warn"
-
-[config.env_allowlist]
-# Explicit allowlist - only these dotted paths may be set via environment. Anything else matching
-# the BAR__ prefix is ignored and recorded as a warning, never silently applied.
-paths = [
-  "storage.directory",
-  "storage.retain_days",
-  "privacy.sanitize",
-  "reports.self_improvement.enabled",
-]
+# Note: the resolver's own behavior (project_config_path, env var allowlist, unknown-key policy)
+# is fixed in code (bar-obs-config::ResolverConfig), not read from this file — there is no
+# [config] table in what `bar init` actually writes or what `bar_observatory::Config` accepts.
+# An earlier draft of this example documented a [config]/[config.env_allowlist] table here that
+# the binary would reject as an unknown top-level key; removed so this file matches reality.
 
 [product]
 name = "BAR Observatory"
@@ -146,34 +134,25 @@ micro_observations = true
 silent_signals = true
 capture_quality = true
 
-[privacy]
-sanitize = true
-redact_home_paths = true
-redact_secrets = true
-store_environment_values = false
-store_network_bodies = false
+# ADR-127: replaces the old, decorative [privacy] table. Secrets are always
+# scrubbed at the write seam (ADR-125 rule 1) regardless of this table —
+# `secrets` here is a locked, non-disableable acknowledgement, not a switch.
+[redact]
+mode    = "off"                 # off | export | strict — off = fully verbatim (local analysis)
+paths   = "verbatim"            # verbatim | home-relative | mask-foreign
+                                 # (home-relative is a display convenience, not a security control)
+secrets = "detect_and_report"   # the only accepted value — not user-disableable
 
 [integrity]
 manifest = true
-hash_algorithm = "sha256"
+hash_algorithm = "blake3"
 sign = false
 provenance = true
 
+# Branding is defined ONCE in branding.default.toml (single source of truth, ADR-020).
+# This table is a POINTER only — it selects the branding profile; identity fields are NOT
+# duplicated here (removed 2026-08-02 to kill the drift the Phase-3 plan flagged). An earlier
+# draft of this example still had the pre-refactor identity fields inline, which the binary
+# would reject as unknown fields; removed so this file matches reality.
 [branding]
 profile = "bradley-academy"
-product_name = "BAR Observatory"
-product_expansion = "Base Agentic Reporter"
-creator_name = "Bradley Ross"
-studio_name = "Bradley.Academy"
-repository_url = "https://github.com/bar181/bar-observatory"
-# linkedin_url is a verified, live fact (cross-checked against the author's public GitHub
-# profile). documentation_url and personal_website_url are genuinely undecided (docs.rs vs repo
-# README; no confirmed personal/studio site URL yet) — flagged "TBD" rather than invented, and
-# left visibly unresolved rather than silently filled in.
-documentation_url = "TBD"
-linkedin_url = "https://linkedin.com/in/bradaross"
-personal_website_url = "TBD"
-report_address = "TBD"
-cta_enabled = true
-palette = "academic-crimson"
-affiliation_disclaimer = "Independent open-source project by Bradley Ross / Bradley.Academy. Academic crimson palette; no Harvard University marks are used and no endorsement is implied."

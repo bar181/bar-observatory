@@ -44,15 +44,22 @@ summary:
 - **Raw process logs** — the harness debug log, stderr, and stdout, line by line, unfiltered.
 
 **What's redacted automatically, on write, before any of the above lands in the database:**
-secret-shaped API keys (a small set of known vendor prefixes), email-shaped tokens, and absolute
-home-directory paths (the username segment). That's a narrow, specific list — it is not a general
-PII or secrets scanner. Anything else in a session's text (business logic, customer data
-mentioned in conversation, proprietary file contents) is captured as-is, locally.
+secret-shaped API keys (a small set of known vendor prefixes). That's it at write time — a
+narrow, specific list, not a general PII or secrets scanner.
+
+**Everything else — including email-shaped tokens and home-directory paths — is a render/export-time
+decision, not a write-time one**, controlled by `[redact]` in `.bar/config.toml`
+(`mode = "off" | "export" | "strict"`, `paths = "verbatim" | "home-relative" | "mask-foreign"`).
+The default is `mode = "off"`: out of the box, both the stored database *and* the rendered report
+show paths and emails verbatim. Set `mode = "export"` to redact the export/publish-safe copy only,
+or `"strict"` to redact rendered reports too. If your policy requires paths/emails masked by
+default, set this explicitly — it is not the shipped default.
 
 The practical takeaway: treat a capture database the way you'd treat the session transcript
 itself, because it substantively *is* that transcript, restructured for querying — not a
 metadata-only summary of it. Full anonymization is a separate, deliberate step (next section),
-not something that happens by default at capture time.
+not something that happens by default at capture time, and applies to storage; the `[redact]`
+config above governs what a *rendered report* shows, which is a separate surface.
 
 ## Sharing a capture database without sharing everything in it
 

@@ -1,8 +1,11 @@
 # Step 2 — Database creation: one local SQLite file, portable by design
 
 Everything a BAR Observatory run produces — every captured tool call, every ingested transcript
-turn — lands in **one local SQLite file** (SQLite is a lightweight, file-based database format —
-no server process, no install step). No server, no separate migration step, nothing to stand up.
+turn — lands in **one local SQLite file**, `.bar/ambient.sqlite` (SQLite is a lightweight,
+file-based database format — no server process, no install step). No server, no separate
+migration step, nothing to stand up. (`bar init` also creates a second, smaller file,
+`.bar/index.sqlite` — a cross-run catalog used by the MCP query tools, not by `bar report`. The
+single-file portability story below is about `ambient.sqlite`, the capture/report store.)
 
 ## How the store comes to exist
 

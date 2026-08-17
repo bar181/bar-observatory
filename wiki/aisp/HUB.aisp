@@ -21,7 +21,7 @@
  NAME≜{BossMode↦executive_register,DeveloperGuide↦engineering_register}(CLI_flag≜--audience_executive|engineering,unchanged)
 }
 
-;; ─── Σ: CRATE ARCHITECTURE (15𝒦, crates.io-published, function-scoped) ───
+;; ─── Σ: CRATE ARCHITECTURE (16𝒦, crates.io-published, function-scoped) ───
 ⟦Σ:Crates⟧{
  L≜{L0,L0.5,L1,L2,L3}; L0≺L0.5≺L1≺L2≺L3(dependency_direction;∀spoke⊑bar-store,hub-and-spoke)
 
@@ -39,10 +39,11 @@
   bar-ingest     ↦ ⟨L1≺bar-store,bar-sanitize, transcript.jsonl_parser⟩,
   bar-metrics    ↦ ⟨L2≺bar-store, T/R/L/Δ/E_ledger⟩,
   bar-review     ↦ ⟨L2≺bar-store,bar-index, detector+recommend_engine⟩,
-  bar-mcp        ↦ ⟨L3≺bar-store,bar-sanitize,bar-index,bar-registry, MCP_stdio_server(read-only)⟩,
-  bar-observatory↦ ⟨≺bar-store,bar-ingest,bar-read, bar_CLI(init,ingest,report,doctor,interpret,query)⟩
+  bar-root-resolve↦ ⟨L0, shared_root-resolution(DB-root+workspace-root,provenance-visible,∅deps_by_design,INV-10)⟩,
+  bar-mcp        ↦ ⟨L3≺bar-store,bar-sanitize,bar-index,bar-registry,bar-root-resolve, MCP_stdio_server(read-only)⟩,
+  bar-observatory↦ ⟨≺bar-store,bar-ingest,bar-read,bar-root-resolve, bar_CLI(init,ingest,report,doctor,interpret,query)⟩
  }
- |𝒦map|≡15; Published≜{bar,bar-mcp,bar-hook}(direct_binaries;remainder=library_𝒦_also_on_crates.io)
+ |𝒦map|≡16; Published≜{bar,bar-mcp,bar-hook,bar-otlp,bar-proxy}(direct_binaries;remainder=library_𝒦_also_on_crates.io)
 }
 
 ;; ─── Σ: DATA TYPES ───
@@ -66,7 +67,7 @@
  𝒞≜⟨id:{hooks|events|spans|transcripts|requests|provider_cost_usd},status:{not_recorded|partial|complete},recorded:ℕ,reason⟩
  𝒞.provider_cost_usd.src≜requests.{input,output,cache}_tokens(¬own_table,derived_at_render)
 
- Schema𝒟≜{schema_meta,runs,blobs,spans,requests,events,transcript_turns,micro_results,metrics,task_grades,convergence,method_scores,run_config,raw_logs,hooks,config_snapshot_meta,method_versions,promotions,detector_scores,file_versions,plan_docs,dead_letters,timeline_seq,hook_action_signature,span_prompt_context,sanitize_stats,report_snapshots,trigger_log,config_snapshot,sqlite_sequence}; |Schema𝒟|≡30 (29_data_tables+sqlite_sequence(SQLite-internal_autoindex_tracker,∅user_data)); +1_view(unified_timeline,∄own_storage,see⟦Σ:Schema⟧)
+ Schema𝒟≜{schema_meta,runs,blobs,spans,requests,events,transcript_turns,micro_results,metrics,task_grades,convergence,method_scores,run_config,raw_logs,hooks,config_snapshot_meta,method_versions,promotions,detector_scores,file_versions,plan_docs,dead_letters,timeline_seq,hook_action_signature,span_prompt_context,sanitize_stats,report_snapshots,trigger_log,config_snapshot,correlation_stats,sqlite_sequence}; |Schema𝒟|≡31 (30_data_tables+sqlite_sequence(SQLite-internal_autoindex_tracker,∅user_data)); +1_view(unified_timeline,∄own_storage,see⟦Σ:Schema⟧)
 
  runs≜⟨run_id,run_uuid,started_at,ended_at⟩
  𝒯≜⟨turn_id,run_id,seq:ℕ,msg_uuid,parent_uuid,role:{user|assistant|system},block_type:{text|thinking|tool_use|tool_result|other},tool_name,content_excerpt,content_json⟩
@@ -79,7 +80,7 @@
  ExampleArtifact.src≜⟨𝒲:7_sessions,𝒯:9132,HumanPrompt:68,errors:60,tasks:40/40,rework_hotspots:96⟩; ∀claim∈this_doc:trace(Ε.E6)
 }
 
-;; ─── Σ: FULL COLUMN SCHEMA (∀field:real,verified_via_PRAGMA_table_info; 29𝒟_tables+1_view; sqlite_sequence excluded here=autoindex,∅user_field) ───
+;; ─── Σ: FULL COLUMN SCHEMA (∀field:real,verified_via_PRAGMA_table_info; 30𝒟_tables+1_view; sqlite_sequence excluded here=autoindex,∅user_field) ───
 ⟦Σ:Schema⟧{
  Group.identity≜{
   runs≜⟨run_id,run_uuid,trial_id,task_id,condition,session_id,repetition_k,harness,pins_json,status,started_at,ended_at,workspace_path⟩
@@ -101,7 +102,8 @@
   span_prompt_context≜⟨span_id,prompt_uuid,derivation_method,confidence⟩
   blobs≜⟨blob_sha,path,bytes,mime⟩ (content-addressed;referenced_by_hash_from_other_tables,∅FK_enforced)
   dead_letters≜⟨dl_id,channel,payload_blob_sha,error,observed_at,resolved⟩ (capture_that_failed_to_parse,∅silently_dropped)
- }; |Group.capture|≡10
+  correlation_stats≜⟨run_id,channel,landed_count,skipped_count,updated_at⟩ (schema_v19,DD-08;absence-not-zero_per-run/channel_landed+skipped_tally,∄row⇒that_channel's_ingest_never_ran_this_run)
+ }; |Group.capture|≡11
 
  Group.ledger≜{
   metrics≜⟨run_id,t_input,t_output,t_cache_read,t_cache_create,r_thinking,l_ttft_ms_p50,l_wall_ms,delta,delta_confidence,repair_turns,e_attempts,tool_calls,subagent_count,cost_usd_estimate,computed_at,ledger_version⟩ (≡T/R/L/Δ/E_five-channel_ledger,per⟦Ω:Meta⟧EXP)
@@ -123,7 +125,7 @@
   promotions≜⟨promo_id,kind,candidate_mv,incumbent_mv,labelset_id,replay_hash,verdict,rationale,promoted_at⟩
  }; |Group.review|≡6
 
- |Group.identity∪Group.capture∪Group.ledger.tables∪Group.review|≡29 ≡ |Schema𝒟|−{sqlite_sequence}(⟦Σ:Types⟧)
+ |Group.identity∪Group.capture∪Group.ledger.tables∪Group.review|≡30 ≡ |Schema𝒟|−{sqlite_sequence}(⟦Σ:Types⟧)
 }
 
 ;; ─── Γ: OPERATING RULES ───
@@ -291,7 +293,7 @@
 
 ;; ─── Ε: EVIDENCE (required, self-certifying per G12) ───
 ⟦Ε⟧⟨
- δ≜0.663 (method:|{t:t∈Σ_512∪Ω:Symbols}|÷|{t:t≢whitespace,¬comment-line}|;recomputed_after_⟦Σ:Schema⟧/⟦Λ:AskMap⟧/⟦Λ:Toggles⟧_added(was_0.745@16_blocks_ago,now_0.663@16_blocks);¬the_official_npx_aisp-validator(∄∈this_env);residual_non-symbolic⊆{29_real_column_names×30_tables,15_crates.io_crate_names,literal_env_var_names(OBSERVATORY_*),verbatim_quoted_hook-event/error_strings,literal_SQL_keywords_in_R15}—all_correctness-required(a_column_name_IS_the_interface),¬prose_slack)
+ δ≜0.663 (method:|{t:t∈Σ_512∪Ω:Symbols}|÷|{t:t≢whitespace,¬comment-line}|;recomputed_after_⟦Σ:Schema⟧/⟦Λ:AskMap⟧/⟦Λ:Toggles⟧_added(was_0.745@16_blocks_ago,now_0.663@16_blocks);¬the_official_npx_aisp-validator(∄∈this_env);residual_non-symbolic⊆{29_real_column_names×30_tables,16_crates.io_crate_names,literal_env_var_names(OBSERVATORY_*),verbatim_quoted_hook-event/error_strings,literal_SQL_keywords_in_R15}—all_correctness-required(a_column_name_IS_the_interface),¬prose_slack; NOTE:bar-root-resolve_added_to_⟦Σ:Crates⟧_post-hoc(15→16),δ_NOT_yet_remeasured_against_this_edit—next_editor_recompute,⊬trust_the_0.663_digit_as_current)
  |𝔅|≜16 (Ω×3,Σ×3,Γ×3,Λ×4,Χ,Θ,Ε=16; Required{Ω,Σ,Γ,Λ,Ε}⊆present)
  φ≜96 (self-assessed:∀section∈{cli,mcp,report-schema,capture,crates,recipes,errors,proofs,full-column-schema,query-routing,capture-toggles}present)
  τ≜◊⁺ (Gold,δ≥0.60; conservatively_¬claiming◊⁺⁺since_δ_is_self-measured¬validator-confirmed)

@@ -8,7 +8,8 @@ Generate the optional, LLM-written self-improvement report — a narrative write
 of the deterministic facts, never mutating them.
 
 1. Determine the audience from `$ARGUMENTS`: `engineering` (technical depth) or `executive`
-   (cost/risk/value framing). Default to `engineering` if not specified.
+   (cost/risk/value framing). `--audience` is required by the CLI — there is no default; ask the
+   user which one they want if `$ARGUMENTS` doesn't say.
 2. Determine the database path the same way as `/bar-report` (default `.bar/ambient.sqlite`,
    confirm it exists first).
 3. Run: `bar interpret <db> --audience <engineering|executive>`

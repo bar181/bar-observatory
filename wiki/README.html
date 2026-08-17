@@ -462,8 +462,10 @@ footer a{color:var(--ink-2)}
         prompts and specs are actually improving, which approach converges faster, and where the same
         tokens get spent again and again.</p>
         <p class="muted">Flight recorder → session observability → longitudinal evidence about how your
-        agentic engineering is going.</p>
-        <!-- VERIFY: name the shipped cross-run commands before strengthening this claim. -->
+        agentic engineering is going. The MCP server's cross-run tools —
+        <code>compare_conditions</code>, <code>search_observations</code>, <code>list_findings</code>,
+        <code>recall_context</code> — read across every run in the index by default, so an agent
+        starting a new session can ask "what did previous runs already try" before repeating it.</p>
       </div>
     </div>
   </div>
@@ -601,9 +603,9 @@ footer a{color:var(--ink-2)}
 
     <p class="fine">Each of the four renders to JSON, HTML, and Markdown from the same database in the
     same pass, so the three formats cannot disagree with each other.</p>
-    <!-- VERIFY: "Boss Mode" / "Developer Guide" are the external review's names; the shipped surface
-         is /bar-interpret with executive and engineering registers. Settle the public naming once
-         and keep it identical across CLI, plugin, docs, and this page. -->
+    <p class="fine">"Boss Mode" and "Developer Guide" are this project's settled public names for the
+    two audiences; the CLI itself still says <code>bar interpret --audience executive|engineering</code>
+    — same two registers, kept identical across CLI, plugin, docs, and this page.</p>
 
     <div class="two" style="margin-top:44px">
       <div>
@@ -708,10 +710,9 @@ footer a{color:var(--ink-2)}
           <b>Two rails, because they're load-bearing.</b> AISP appears on agent-facing surfaces only —
           never in the human documentation path. And AISP is <b>not a runtime dependency</b>: every
           crate, command, and report works entirely without it. It's a bounded annotation layer, not a
-          coupling.
+          coupling. See it for real in <a href="aisp/HUB.aisp">wiki/aisp/HUB.aisp</a>, or the protocol
+          itself at <a href="https://github.com/bar181/aisp-open-core">aisp-open-core</a>.
         </div>
-        <!-- VERIFY: link this to the actual AISP annotation files and to the AISP spec. Asserting the
-             capability without a followable link is the one thing this page shouldn't do. -->
       </div>
     </div>
   </div>
@@ -744,11 +745,11 @@ footer a{color:var(--ink-2)}
         <div class="ly-head">
           <span class="ly-n">Layer 2</span>
           <h3>AI</h3>
-          <small>wiki/ai/ · process/</small>
+          <small>wiki/agent/ · process/</small>
         </div>
         <p class="mx-body">Structured preconditions, actions, and postconditions. The adjectives are
         gone; what remains are named keys a single agent can act on without guessing.</p>
-        <div class="ly-eg">PRECONDITION: db == ".bar/ambient.sqlite"<br>ACTION: bar init --db-root .bar<br>POSTCONDITION: table_exists("telemetry_events")</div>
+        <div class="ly-eg">PRECONDITION: !exists(".bar/config.toml")<br>ACTION: bar init<br>POSTCONDITION: table_exists("runs")</div>
         <div class="ly-bar"><span style="width:20%"></span></div>
         <div class="ly-score">est. ambiguity <b>20</b> / 100 · <i>keys still English</i></div>
       </div>
@@ -762,7 +763,7 @@ footer a{color:var(--ink-2)}
         <p class="mx-body">A symbolic state transition with an entailment predicate. Nothing is left to
         interpret: the postcondition either holds or it doesn't, and that is checkable rather than
         persuadable.</p>
-        <div class="ly-eg">Spec(DB_Init):<br>&nbsp;&nbsp;S₀ —bar init→ S₁<br>&nbsp;&nbsp;where S₁ ⊢ ∃ Table("telemetry_events")</div>
+        <div class="ly-eg">Spec(DB_Init):<br>&nbsp;&nbsp;S₀ —bar init→ S₁<br>&nbsp;&nbsp;where S₁ ⊢ ∃ Table("runs")</div>
         <div class="ly-bar"><span style="width:1.8%"></span></div>
         <div class="ly-score">est. ambiguity <b>1.8</b> / 100 · <i>residual is not semantic</i></div>
       </div>
@@ -970,9 +971,8 @@ Bash 1,700+ · Edit 490+ · Read 410+ · …
         <h3>The easy way — inside Claude Code</h3>
         <p class="muted">The plugin wires everything up and adds five commands you can run without
         leaving your session.</p>
-        <!-- VERIFY: confirm marketplace and plugin names against .claude-plugin/ before publishing -->
 <pre>/plugin marketplace add bar181/bar-observatory
-/plugin install bar-observatory
+/plugin install bar-observatory@bar-observatory
 /bar-init</pre>
         <p class="muted">Then <code>/bar-report</code> for the deterministic report,
         <code>/bar-interpret</code> for the executive or engineering narrative,
@@ -983,7 +983,6 @@ Bash 1,700+ · Edit 490+ · Read 410+ · …
       </div>
       <div>
         <h3>The direct way — a terminal</h3>
-        <!-- VERIFY: confirm transcript path layout on the current Claude Code version -->
 <pre>cargo install bar-observatory
 
 <span class="c"># set up this project (safe to re-run)</span>
@@ -1010,7 +1009,7 @@ bar report .bar/ambient.sqlite --out .</pre>
     <p class="eyebrow">Advanced</p>
     <h2>Under the hood.</h2>
     <p class="lede" style="margin-top:18px">A thin <code>bar</code> CLI (crate
-    <code>bar-observatory</code>) over a fourteen-crate <code>bar-*</code> engine. Crate source lives
+    <code>bar-observatory</code>) over a fifteen-crate <code>bar-*</code> engine. Crate source lives
     and publishes from a private working repository; the public repository is the front door,
     documentation, plugin, and contracts.</p>
 
@@ -1020,6 +1019,7 @@ bar report .bar/ambient.sqlite --out .</pre>
       <thead><tr><th>Crate</th><th>Tier</th><th>Role</th></tr></thead>
       <tbody>
         <tr><th><code>bar-store</code></th><td>L0</td><td>SQLite schema and substrate trait. Depends on nothing internal.</td></tr>
+        <tr><th><code>bar-root-resolve</code></th><td>L0</td><td>Shared, provenance-visible DB-root and workspace-root resolution. Depends on nothing internal.</td></tr>
         <tr><th><code>bar-index</code></th><td>L0.5</td><td>The second kernel: cross-run catalog and artifact store.</td></tr>
         <tr><th><code>bar-hook</code></th><td>L1</td><td>Hook binary, reads JSON on stdin.</td></tr>
         <tr><th><code>bar-ingest</code></th><td>L1</td><td>Transcript JSONL parser — the always-on capture path.</td></tr>
@@ -1037,10 +1037,9 @@ bar report .bar/ambient.sqlite --out .</pre>
       </tbody>
     </table>
     </div>
-    <p class="fine">Fifteen crates published to crates.io; <code>bar-testenv</code> is internal and
-    unpublished. Crates publish incrementally in dependency-tier order — a link in
-    <code>CRATES.md</code> means cleared for publish, not necessarily live. <code>bar-engine</code>, an
-    older internal-only CLI, is deliberately not ported.</p>
+    <p class="fine">Sixteen crates published to crates.io — all live; <code>bar-testenv</code> is
+    internal and unpublished. See <code>CRATES.md</code> for each crate's real-time status.
+    <code>bar-engine</code>, an older internal-only CLI, is deliberately not ported.</p>
 
     <h3 style="margin-top:52px">The determinism contract</h3>
     <ul class="plain">

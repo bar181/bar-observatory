@@ -297,15 +297,15 @@ The `.html` view of that same report — this is what opens when you run `bar re
 
 | Metric | Value |
 | --- | --- |
-| **Engine** | 14 focused `bar-*` crates behind a thin `bar` CLI facade |
-| **Published to crates.io** | 15 crates ([CRATES.md](CRATES.md)) |
+| **Engine** | 15 focused `bar-*` crates behind a thin `bar` CLI facade |
+| **Published to crates.io** | 16 crates ([CRATES.md](CRATES.md)) |
 | **Lifecycle hooks wired** | 21 |
 | **MCP tools for agents** | 12, all read-only |
 | **Slash commands** | 5 |
 | **Output formats** | 3 (JSON · HTML · Markdown) from one database |
 | **Network calls, primary path** | 0 |
 | **LLM calls in the render path** | 0 |
-| **Tests passing** | 543, verified at publish time |
+| **Tests passing** | 645, verified at publish time |
 | **Storage** | One local SQLite file per run — portable, queryable, yours |
 | **Determinism** | Same DB in → byte-identical bytes out, across all three formats |
 | **Report contract** | Typed JSON output (`report.json`); a versioned schema for it ships in `schemas/` but is currently out of sync with the live report shape — disclosed, not silently wrong |
@@ -434,7 +434,7 @@ index, never a single database). That's the foundation for an agent starting a n
 
 > **AI agents and agent swarms: read `wiki/aisp/HUB.aisp` for functionality, not this page.**
 > It's written in [AISP](wiki/aisp/HUB.aisp) — every CLI command with its exact flags, all 12 MCP
-> tools, the full `report.json` schema, the 15-crate architecture, the 30-table capture schema,
+> tools, the full `report.json` schema, the 16-crate architecture, the 30-table capture schema,
 > and 15 copy-paste recipes, all proof-carrying and self-certifying (an `⟦Ε⟧` evidence block, not
 > an assertion). No MCP connection required to read it — it's a plain file in this repo. This
 > README is written for a human; `HUB.aisp` is written for you.
@@ -551,15 +551,14 @@ Open an [issue](https://github.com/bar181/bar-observatory/issues). Security repo
 
 ## Architecture and crates
 
-BAR Observatory is a thin `bar` CLI (crate `bar-observatory`) over a 14-crate `bar-*` engine — a
+BAR Observatory is a thin `bar` CLI (crate `bar-observatory`) over a 15-crate `bar-*` engine — a
 SQLite substrate (`bar-store`), a cross-run index (`bar-index`), a transcript parser
 (`bar-ingest`), a read-only query surface (`bar-read`), the typed report contract (`bar-schema`),
 the metrics ledger (`bar-metrics`), the reflection engine (`bar-review`), the MCP server
 (`bar-mcp`), and more.
 
-**[CRATES.md](CRATES.md)** has the full list, each crate's role, and a live crates.io link.
-Crates publish incrementally in dependency-tier order — a link means cleared for publish, not
-necessarily live yet.
+**[CRATES.md](CRATES.md)** has the full list, each crate's role, and a live crates.io link. All
+16 crates are published and live.
 
 Crate source lives and publishes from a private working repo; **this repository is the front
 door, documentation, and plugin — no crate source here, by design.**
@@ -644,16 +643,20 @@ detour worth taking first.
   ([wiki/aisp/HUB.aisp](wiki/aisp/HUB.aisp)); never a runtime dependency of `bar`. See
   [wiki/human-html/documentation-layers.html](wiki/human-html/documentation-layers.html) for the full explanation.
 
-## Project status
+## Where things stand
 
-**Version 0.1.0** across 14 of the 15 crates (`bar-mcp` is at 0.1.1, one patch ahead after a
-documentation fix) — the first public release. This is an early, actively
-maintained project: the core pipeline (init → ingest → report → doctor → interpret → query) and
-the MCP server are complete, tested (543 tests passing), and verified working end-to-end,
-including a genuine from-scratch install from crates.io. What's still moving: the plugin's
-binaries currently resolve via `PATH` rather than a bundled per-platform download (see the
-[disclosed gap](#quickstart-your-first-report-in-about-60-seconds) above) — packaging that up is
-the next planned release-engineering work, tracked openly rather than silently deferred.
+BAR Observatory is real, working software you can install today — not a prototype, not a demo.
+Version 0.2.0 is live on crates.io right now: the full pipeline (set up → capture → report →
+health-check → plain-English summary → direct query) is built, tested end to end, and verified the
+same way you'd use it — a genuine install from scratch, not just a passing test suite.
+
+If you're coming from an earlier install, your existing data comes with you automatically the next
+time you run a command — nothing to migrate by hand.
+
+The one thing still catching up: the plugin currently finds its two helper programs already on
+your machine rather than carrying them along on install. If either is missing, you'll get a clear
+one-line fix, not a silent failure — see the [quickstart](#quickstart-your-first-report-in-about-60-seconds)
+above. Bundling them in automatically is next.
 
 ## About the author
 

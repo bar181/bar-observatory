@@ -276,7 +276,7 @@ footer a{color:var(--ink-2)}
       <div class="ly">
         <span class="ly-n">Layer 1</span>
         <h3>Human</h3>
-        <span class="ly-path">wiki/human/ · README.md</span>
+        <span class="ly-path">wiki/human-md/ · README.md</span>
         <p>Prose, analogy, worked examples. Written for someone who may never open a terminal. Allowed
         to use words like "cleanly," because a person knows what you mean.</p>
         <div class="ly-eg">Initialize the flight recorder<br>database cleanly.</div>
@@ -290,7 +290,7 @@ footer a{color:var(--ink-2)}
         <span class="ly-path">wiki/agent/AI-CONTEXT.md · process/</span>
         <p>Structured preconditions, actions, and postconditions. The adjectives are gone. What remains
         are named keys a single agent can act on without inventing an interpretation.</p>
-        <div class="ly-eg">PRECONDITION:<br>&nbsp;&nbsp;db == ".bar/ambient.sqlite"<br>ACTION:<br>&nbsp;&nbsp;bar init --db-root .bar<br>POSTCONDITION:<br>&nbsp;&nbsp;table_exists("telemetry_events")</div>
+        <div class="ly-eg">PRECONDITION:<br>&nbsp;&nbsp;!exists(".bar/config.toml")<br>ACTION:<br>&nbsp;&nbsp;bar init<br>POSTCONDITION:<br>&nbsp;&nbsp;table_exists("runs")</div>
         <div class="ly-bar"><span style="width:20%"></span></div>
         <div class="ly-score">est. ambiguity <b>20</b> / 100 · <i>keys are still English</i></div>
       </div>
@@ -301,7 +301,7 @@ footer a{color:var(--ink-2)}
         <span class="ly-path">wiki/aisp/HUB.aisp</span>
         <p>A symbolic state transition with an entailment predicate. Nothing is left to interpret: the
         postcondition either holds or it doesn't, and that is checkable rather than persuadable.</p>
-        <div class="ly-eg">Spec(DB_Init):<br>&nbsp;&nbsp;S₀ —bar init→ S₁<br>&nbsp;&nbsp;where S₁ ⊢ ∃ Table("telemetry_events")</div>
+        <div class="ly-eg">Spec(DB_Init):<br>&nbsp;&nbsp;S₀ —bar init→ S₁<br>&nbsp;&nbsp;where S₁ ⊢ ∃ Table("runs")</div>
         <div class="ly-bar"><span style="width:1.8%"></span></div>
         <div class="ly-score">est. ambiguity <b>1.8</b> / 100 · <i>residual is not semantic</i></div>
       </div>
@@ -358,16 +358,16 @@ footer a{color:var(--ink-2)}
           </div>
           <div class="reg-panel" data-reg="ai">
 <pre class="reg-code">PRECONDITION:
-  db == ".bar/ambient.sqlite"
+  !exists(".bar/config.toml")
 ACTION:
-  bar init --db-root .bar
+  bar init
 POSTCONDITION:
-  table_exists("telemetry_events")</pre>
+  table_exists("runs")</pre>
           </div>
           <div class="reg-panel" data-reg="aisp">
 <pre class="reg-code">Spec(DB_Init):
   S₀ —bar init→ S₁
-  where S₁ ⊢ ∃ Table("telemetry_events")</pre>
+  where S₁ ⊢ ∃ Table("runs")</pre>
           </div>
         </div>
 

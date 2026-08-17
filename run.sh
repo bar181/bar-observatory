@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
-# BAR Observatory — front-door runner. Builds `bar`, ingests a transcript, renders the report.
+# BAR Observatory — front-door runner. Locates (or tells you to install) `bar`, ingests a
+# transcript, renders the report. Never builds anything — bar ships via crates.io.
 # Local-only, no API key. Usage: ./run.sh <session.jsonl> [outdir]
 set -euo pipefail
 HERE="$(cd "$(dirname "$0")" && pwd)"

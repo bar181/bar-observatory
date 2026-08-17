@@ -18,7 +18,7 @@ out to a network or an LLM to produce a report:
    ```bash
    cargo install bar-hook bar-mcp bar-observatory
    ```
-   See the [README](README.md#quickstart-your-first-report-in-about-60-seconds) for the full
+   See the [README](README.md#get-started) for the full
    command table and the disclosed-gap note on why that last step is still needed today.
 2. **The `bar` CLI**, manually — below.
 3. **The `bar-mcp` MCP server**, manually — for an AI agent that wants to query databases

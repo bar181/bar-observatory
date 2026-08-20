@@ -12,7 +12,7 @@ replace them.
 | **Needs a server or daemon** | No | Yes | Yes | Yes | No |
 | **Works on sessions already finished** | **Yes** — parses transcripts on disk | No — must be running | No — must be exporting | No — must be exporting | Yes |
 | **Reproducible artifact** | **Byte-identical, every time** | Ephemeral view | Query-time view | Query-time view | Whatever you wrote |
-| **Absence handled honestly** | **`not_observed`, never a fake zero** | Varies | Typically gaps or zeros | Varies | Up to you |
+| **Absence handled honestly** | **`not_recorded` / `not_observed`, never a fake zero** | Varies | Typically gaps or zeros | Varies | Up to you |
 | **Readable by your AI agent** | **Yes — MCP, 12 read-only tools** | Rarely | Via backend API | Via API | Via shell |
 | **Setup cost** | A few commands, no server to run | Install + run server | Collector + backend config | Account + SDK wiring | Hours of your time |
 | **Best for** | Audit, review, PR evidence, retros, compliance | Watching a run unfold | Fleet-scale metrics across many runs | Model/prompt evaluation | One-off spelunking |
@@ -24,8 +24,9 @@ specific product — individual tools evolve; check their own docs for specifics
 
 1. **Deterministic, not vibes-based.** The render path is a pure function of the database.
    Re-run it a year from now and get the identical bytes.
-2. **Honest about gaps.** An uncaptured channel is reported as `not_observed`, never a fabricated
-   zero. If BAR Observatory doesn't know, it says so.
+2. **Honest about gaps.** An uncaptured channel is reported as `not_recorded`, and a detector that
+   isn't built yet as `not_observed` — never a fabricated zero, and never the same word for two
+   different admissions. If BAR Observatory doesn't know, it says which kind of not-knowing it is.
 3. **Retroactive.** Every other tool on this page requires you to have already been recording.
    BAR Observatory works on the transcript already sitting on your disk.
 4. **Local-only by construction, not by promise.** Zero egress on the primary path, verifiable

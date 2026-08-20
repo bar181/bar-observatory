@@ -1,59 +1,85 @@
 # Examples
 
-Two audiences (**Boss Mode** for executive/client readers, **Developer Guide** for engineering),
-two ways of generating (**Evidence** = deterministic, no LLM, byte-identical; **Commentary** =
-optional LLM synthesis) — five report artifacts, all real, all rendered from **the same 7-session
-capture store** (2026-07-31 → 2026-08-13, 9,132 transcript turns, 40/40 tasks completed):
+Four reports, one record. Two audiences (**Boss Mode** for executive/client readers, **Developer
+Guide** for engineering) × two layers (**Evidence** = deterministic, no LLM; **Commentary** =
+optional LLM synthesis), each in HTML and Markdown — plus the machine contract they all read, and
+**the seven transcripts they were all measured from**, so you can run the tool and get these exact
+numbers back.
 
-| File(s) | Register | What it is |
+| Report | Layer | Files |
 | --- | --- | --- |
-| [`deterministic/real-session.report.json`](deterministic/real-session.report.json) | — | The shared machine contract every report below renders from. Structured, typed, feeds a dashboard/pipeline/agent. |
-| [`deterministic/boss-mode.report.{html,md}`](deterministic/boss-mode.report.html) | Boss Mode · Evidence | A consulting-register memo: task completion, cost, risk flags. Every figure resolves to a row in `report.json`. No AI, cost not tracked, byte-identical. |
-| [`interpreted/interpreted-executive.html`](interpreted/interpreted-executive.html) | Boss Mode · Commentary | A narrative management summary: what the numbers mean, what needs deciding, what to watch. LLM-written, clearly labeled, from `interpret-brief.executive.md`. |
-| [`deterministic/real-session.report.{html,md}`](deterministic/real-session.report.html) | Developer Guide · Evidence | A technical post-mortem: session-by-session breakdown (top 5 of 7, with rework/LOC/agents/skills per session), a top-5-languages chart, a 6-channel capture-flow diagram with per-channel `bar query`/SQL verify commands, top-5-prompts cards, rework hotspots enriched with language/location/tier, plus full appendices (a 68-prompt token/LOC ledger and the 60-row raw failure list). No AI, cost not tracked, byte-identical — about 3x the length of the plain deterministic render. |
-| [`interpreted/interpreted-engineering.html`](interpreted/interpreted-engineering.html) | Developer Guide · Commentary | A diagnostic narrative: why the run went the way it did, root-cause-grouped failures, and concrete prompt/spec/context changes for next time. LLM-written, from `interpret-brief.engineering.md`. |
-| [`deterministic/real-session.report.png`](deterministic/real-session.report.png), [`interpreted/interpreted-executive.png`](interpreted/interpreted-executive.png) | — | Screenshots used in the README and wiki. |
-| [`interpreted/interpret-brief.executive.md`](interpreted/interpret-brief.executive.md), [`interpret-brief.engineering.md`](interpreted/interpret-brief.engineering.md) | — | The real, deterministic briefs `bar interpret` generated — the exact facts each Commentary report was written from. Nothing in either Commentary report exists that isn't in its brief. |
+| **The generated report** — every table the record produces. This is the file `bar report` writes. | Developer Guide · Evidence | [`.html`](deterministic/session.report.html) · [`.md`](deterministic/session.report.md) · [`.json`](deterministic/session.report.json) |
+| **Delivery memo** — key stats and ranked top-5 lists for someone who signs things off. | Boss Mode · Evidence | [`.html`](deterministic/delivery-memo.html) · [`.md`](deterministic/delivery-memo.md) |
+| **Management read** — what the numbers mean, what needs deciding, what to watch. | Boss Mode · Commentary | [`.html`](interpreted/management-read.html) · [`.md`](interpreted/management-read.md) · [brief](interpreted/brief.executive.md) |
+| **Diagnostic review** — all 60 failures by root cause, error density per tool, what to change next run. | Developer Guide · Commentary | [`.html`](interpreted/diagnostic-review.html) · [`.md`](interpreted/diagnostic-review.md) · [brief](interpreted/brief.engineering.md) |
+| **The capture** — the seven session transcripts everything above is measured from. | — | [`capture/`](capture/) · [`run.sh`](capture/run.sh) |
 
-"Boss Mode" / "Developer Guide" are this project's settled public names for the two audiences —
-the CLI itself still says `bar interpret --audience executive|engineering`; the names describe the
-same two registers.
+## Three of these files are literally `bar report` output
 
-## One real, multi-session capture store, on purpose
+That distinction matters more than the design does, so it comes first:
 
-All five reports above come from **the same store**: 7 real Claude Code sessions ingested
-end-to-end (`bar init` → `bar ingest` ×7 → `bar report` → `bar interpret` ×2), spanning
-2026-07-31 to 2026-08-13. Earlier drafts of this folder mixed two different single sessions across
-the deterministic and interpreted examples — that's fixed now: one store, one set of facts, all
-five reports agree with each other because they're the same data read five ways.
+| File | Produced by | Hand-assembled? |
+|---|---|---|
+| `deterministic/session.report.{json,html,md}` | `bar report` | **No** |
+| `deterministic/delivery-memo.{html,md}` | `session.report.json` + `bar query` | Yes — a `--view summary` mode does not exist yet |
+| `interpreted/*.{html,md}` | a model, from the briefs shipped beside them | Prose yes, figures no |
 
-## How to read them
+**Open [the generated report](deterministic/session.report.html) to see the standard you get.** The
+plate layout, the numbered index, the charts and the light/dark handling are not a treatment applied
+to these examples — they are what the renderer emits, in a single self-contained file that fetches
+no stylesheet, no script, no font and no image. Your own report looks like this one because it is
+made by the same code.
 
-Open any `.html` file for the human view, the `.md` for a terminal- or diff-friendly view, or
-`real-session.report.json` for the machine-readable form (shared by all five). **One known gap,
-disclosed:** `real-session.report.json` does not currently validate against
-`schemas/report.schema.json` — that schema describes an earlier report shape than what `bar
-report` produces today. Same story for `schemas/interpretation.schema.json` against the
-interpreted layer, which now ships as a brief-plus-prose pair rather than the richer JSON
-structure that schema describes. Both are pending a schema regeneration in the private working
-repo; this README says so rather than leaving a reader to discover the mismatch by hand.
+## Every number here is reproducible in three commands
 
-**Also disclosed:** `boss-mode.report.{html,md}` and the Commentary layer's root-cause failure
-grouping are hand-assembled from `real-session.report.json` and a real `bar query <db> errors`
-export, not yet a dedicated `bar report --view summary` CLI mode — a genuine product gap, not a
-silent one. The underlying facts are 100% real either way.
+```sh
+bar init --dir .
+for f in examples/capture/*.jsonl; do
+  bar ingest .bar/ambient.sqlite "$f" --run-uuid "session-$(basename "$f" .jsonl)"
+done
+bar report .bar/ambient.sqlite --out out/
+```
 
-## Why the deterministic layer only had one example, historically
+`out/ambient.report.json` comes back identical to `deterministic/session.report.json`, field for
+field. Two values differ and should: `integrity.source_db_hash` and the `report.id` derived from it
+hash the SQLite file, and two separate ingests of the same transcripts do not produce a
+byte-identical database. Everything the report *measures* is identical.
 
-Earlier drafts also shipped a seeded fixture and a hand-authored "fully populated" mock, on the
-theory that showing every possible section at once had more reference value. It didn't hold up:
-the mock was built against the same earlier schema, and would have shown detectors this version
-of the product doesn't actually run yet (`human_ai_recovery`, `micro_observations`) as if they
-were live — exactly the kind of overclaiming this project's `not_observed` discipline exists to
-prevent. Two real examples now (Boss Mode + Developer Guide, both Evidence), each honestly
-incomplete in the same ways your own reports will be, is more useful than a synthetic one that
-quietly promises more than the tool delivers.
+## A stand-in project, on purpose
 
-See **[wiki/human-md/README.md](../wiki/human-md/README.md)** for a section-by-section guide to reading
-a report, and **[wiki/report-guide.html](../wiki/human-html/report-guide.html)** for a fully annotated
-walkthrough of the deterministic example above.
+The project in these reports is **`orbit`**, and it does not exist.
+
+**Real:** every count, rate and ranking — measured from the shipped capture by `bar report`, not
+typed in. The failure shapes: a blocked `rm -rf`, a plugin agent called before it was installed, a
+stale path after a docs move, a CI line caught mid-command. The distribution: one file taking 77 of
+482 repeat edits, three tests changing verdict, eight of nine channels holding no rows.
+
+**Stood in:** the project itself — its name, its paths, its commit subjects, its prompt titles, its
+sub-agent names. A published example should show what the tool sees without publishing somebody's
+repository, and the honest way to do that is to say so on the page rather than to blur a screenshot.
+
+## Two layers, two accents
+
+Both layers share one design system, so nothing is told apart by colour alone: every page also
+carries a written badge in its top bar. **Evidence pages are plate blue** — a machine extraction with
+no model anywhere in its path, where figures are substituted into fixed template text. **Commentary
+pages are iris** — a model wrote every sentence, from a deterministic brief of facts it was not
+allowed to change, and each one ships with that brief so the inputs are checkable.
+
+## Known gaps, disclosed
+
+- **Schema drift.** `session.report.json` does not currently validate against
+  `schemas/report.schema.json` — that schema describes an earlier report shape than what `bar report`
+  produces today. Same story for `schemas/interpretation.schema.json` against the interpreted layer.
+  Both are pending a schema regeneration.
+- **Assembly gap.** The delivery memo and the Commentary layer's root-cause grouping are assembled
+  from `session.report.json` plus real `bar query` exports — not a dedicated `bar report --view
+  summary` CLI mode. A genuine product gap, not a silent one.
+- **Cost is not measured anywhere in this capture.** These sessions were read back from transcripts
+  after the fact, so the cost, token, hook and span channels were never running. Every such row reads
+  *not recorded*, never 0 — the tool behaving correctly, and also a limit on what these examples can
+  show you.
+
+See **[wiki/human-md/README.md](../wiki/human-md/README.md)** for a section-by-section guide to
+reading a report, and **[wiki/human-html/report-guide.html](../wiki/human-html/report-guide.html)**
+for an annotated walkthrough.

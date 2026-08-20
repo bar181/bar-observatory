@@ -99,6 +99,162 @@ footer{border-top:1px solid var(--rule);padding:36px 0 56px;font-size:14px;color
 footer a{color:var(--ink-2)}
 .disclaim{font-size:12.5px;margin-top:20px;color:var(--absent);max-width:74ch}
 .byline{font-family:var(--mono);font-size:12px;color:var(--absent);letter-spacing:.05em;margin-top:6px}
+
+/* ============================================================
+   PLATE SKIN — 2026-08-19
+   The reports render in the plate palette (see the generated
+   report's own inlined stylesheet). This block brings the site
+   and wiki onto the same palette and type scale, so a reader
+   moving between a page and a report does not feel they have
+   changed products.
+
+   It is layered ON TOP of each page's own stylesheet and only
+   redefines tokens plus a little chrome — every layout rule,
+   every CSS-only interaction, and the no-JavaScript guarantee
+   are left exactly as they were. Dark mode follows the operating
+   system; there is no toggle here, because adding one would mean
+   adding a script to pages that deliberately have none.
+   ============================================================ */
+:root{
+  --paper:#F1F5F8;
+  --card:#FFFFFF;
+  --card-2:#F7FAFC;
+  --ink:#08202F;
+  --ink-2:#3A5468;
+  --stamp:#2C6CA6;
+  --verified:#1B7A62;
+  --absent:#7B92A5;
+  --rule:#DCE5EC;
+  --rule-2:#EAF0F5;
+  --plate-900:#061523;
+  --plate-800:#0A2135;
+  --plate-700:#0F3050;
+  --amber:#B57F22;
+  --vermilion:#B93A22;
+  --iris:#5A55A3;
+  --display:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Times New Roman",serif;
+  --body:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace;
+  --shadow-sm:0 1px 2px rgba(8,32,47,.05), 0 2px 8px rgba(8,32,47,.04);
+  --shadow:0 2px 4px rgba(8,32,47,.04), 0 16px 40px rgba(8,32,47,.09);
+}
+@media (prefers-color-scheme:dark){
+  :root{
+    --paper:#071B2B;
+    --card:#0C2739;
+    --card-2:#0A2233;
+    --ink:#E7EFF5;
+    --ink-2:#AFC4D4;
+    --stamp:#63A6DE;
+    --verified:#4FBFA0;
+    --absent:#7D97AB;
+    --rule:#173248;
+    --rule-2:#12293C;
+    --amber:#E0AA4E;
+    --vermilion:#F0715A;
+    --iris:#9C97E8;
+    --shadow-sm:0 1px 2px rgba(0,0,0,.3);
+    --shadow:0 2px 4px rgba(0,0,0,.25), 0 20px 44px rgba(0,0,0,.4);
+  }
+  img{opacity:.94}
+}
+
+/* ---- type: serif display, sans body, the reports' rhythm ---- */
+body{font-family:var(--body);color:var(--ink);background:var(--paper);
+  -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+h1,h2,h3,h4{font-family:var(--display);font-weight:600;letter-spacing:-.015em;color:var(--ink)}
+h1{line-height:1.03}
+h2{line-height:1.1}
+h3{line-height:1.25}
+.lede,.tagline{color:var(--ink-2)}
+.eyebrow,.kicker{font-family:var(--mono);letter-spacing:.18em;text-transform:uppercase;color:var(--stamp)}
+code,kbd,samp,pre{font-family:var(--mono)}
+a{color:var(--stamp)}
+strong,b{color:var(--ink)}
+
+/* ---- chrome: rounded cards, quiet rules, a real shadow ---- */
+.card,.note,.reg-panel,.ly,.flow-col,.item,.receipt,.mx-body,.try-it{
+  border-radius:14px;
+}
+.card,.ly,.item{box-shadow:var(--shadow-sm)}
+.topbar{
+  position:sticky;top:0;z-index:60;
+  background:color-mix(in srgb,var(--paper) 88%,transparent);
+  backdrop-filter:blur(10px);border-bottom:1px solid var(--rule);
+}
+.btn,.ghost{border-radius:10px}
+.chip,.tag,.mark{border-radius:999px}
+hr{border:0;border-top:1px solid var(--rule)}
+table{border-color:var(--rule)}
+th{color:var(--absent)}
+td,th{border-color:var(--rule-2)}
+
+/* ---- the hero becomes a plate, matching the reports' title block ---- */
+.hero{
+  position:relative;overflow:hidden;
+  background:var(--plate-900);color:#DCE9F2;
+  border-radius:0;border-bottom:1px solid var(--plate-700);
+}
+.hero::before{
+  content:"";position:absolute;inset:0;opacity:.55;pointer-events:none;
+  background-image:linear-gradient(rgba(93,164,222,.09) 1px,transparent 1px),
+                   linear-gradient(90deg,rgba(93,164,222,.09) 1px,transparent 1px);
+  background-size:52px 52px;
+  mask-image:radial-gradient(120% 90% at 15% 0%,#000 20%,transparent 78%);
+  -webkit-mask-image:radial-gradient(120% 90% at 15% 0%,#000 20%,transparent 78%);
+}
+.hero > *{position:relative;z-index:2}
+.hero h1,.hero h2{color:#F2F8FC}
+.hero .lede,.hero .tagline,.hero p{color:#B5CEE0}
+.hero .eyebrow,.hero .kicker{color:#7FC0F0}
+.hero .mark,.hero .tag{border-color:rgba(127,192,240,.4);color:#CFE6F8}
+.hero a{color:#7FC0F0}
+.hero .btn{background:#2C6CA6;border-color:#2C6CA6;color:#fff}
+.hero .btn.ghost,.hero .ghost{background:transparent;border-color:rgba(127,192,240,.45);color:#DCE9F2}
+.hero .card{background:rgba(255,255,255,.05);border-color:rgba(127,192,240,.22);color:#DCE9F2}
+
+/* The receipt stays a paper object on the blueprint ground — that contrast IS the
+   image, so it keeps light values in both themes rather than inheriting the plate. */
+.receipt{
+  background:#FBFDFE !important;color:#08202F !important;
+  border:1px solid #DCE5EC !important;box-shadow:0 18px 44px rgba(0,0,0,.34);
+}
+.receipt .r-head b{color:#08202F}
+.receipt .r-head small,.receipt .r-key,.receipt .r-sub,.receipt .r-note{color:#3A5468}
+.receipt .r-absent{color:#7B92A5}
+.receipt .r-rule{border-top-color:#DCE5EC}
+.receipt .r-stamp{color:#2C6CA6;border-color:#2C6CA6;background:rgba(44,108,166,.08)}
+.receipt::before,.receipt::after{
+  background:linear-gradient(-45deg,transparent 50%,#FBFDFE 51%) 0 0/14px 9px repeat-x,
+             linear-gradient(45deg,transparent 50%,#FBFDFE 51%) 0 0/14px 9px repeat-x !important;
+}
+.receipt-cap{color:#8FAFC6}
+
+/* headline figures under the hero copy read on the dark ground */
+.hero .hero-facts{border-top-color:rgba(127,192,240,.28);color:#B5CEE0}
+.hero .hero-facts b{color:#F2F8FC}
+
+/* ---- readability: measure, spacing, and a calmer table ---- */
+p,li{max-width:74ch}
+.wrap p,.wrap li{line-height:1.62}
+.note{border-left-width:4px;box-shadow:var(--shadow-sm)}
+img,.shot{border-radius:12px}
+:focus-visible{outline:2px solid var(--stamp);outline-offset:3px;border-radius:3px}
+
+/* ---- responsive hardening ----
+   Grid and flex children default to min-width:auto, so one long token — a shell
+   command, a crate path — can push the whole page sideways on a phone. These
+   rules let those children shrink and give code blocks their own scrollbar. */
+.two,.two-up,.hero-grid,.cards,.foot-grid,.layers,.flow,.outcomes,.matrix,.g{min-width:0}
+.two>*,.two-up>*,.hero-grid>*,.cards>*,.foot-grid>*,.layers>*,.flow>*,.outcomes>*,.g>*{min-width:0}
+pre,.scroll-x,.aisp-doc{overflow-x:auto;-webkit-overflow-scrolling:touch}
+pre code{white-space:pre}
+li,p{overflow-wrap:anywhere}
+@media (max-width:720px){
+  .two,.two-up,.hero-grid,.g{grid-template-columns:1fr !important}
+  table{font-size:13.5px}
+}
+
 </style>
 </head>
 <body>
@@ -146,7 +302,7 @@ footer a{color:var(--ink-2)}
     </div>
 
     <div class="note">
-      <b>Real example from this project's own captured window.</b> 373 <code>cargo test</code>
+      <b>A real example, from the capture that ships with this project.</b> 373 <code>cargo test</code>
       result lines were captured — 344 passed, 29 failed, and the run's last line was a pass. That
       "29 failed" is <em>measured</em>: it comes from the test runner's own output, not from the
       agent summarizing its own work. Three tests even flipped between pass and fail across the
@@ -176,15 +332,16 @@ footer a{color:var(--ink-2)}
 <pre><span class="c">$ bar query .bar/ambient.sqlite errors</span>
 seq   excerpt
 ----  -----------------------------------------------------------------
-308   MCP tool timed out after 60s
-316   search error: worker timed out after 240s
-436   Exit code 143 <span class="c">(killed long-running command)</span>
-1391  Blocked: sleep 90 <span class="c">(guardrail refusal)</span></pre>
-      (Illustrative — your own session's errors and sequence numbers will differ; for a real
-      captured example, see <a href="../../../examples/deterministic/real-session.report.md">examples/deterministic/real-session.report.md</a>'s
-      raw failure appendix.)
+133   Permission to run `rm -rf …/target/debug` was denied by policy
+453   String to replace not found. `README.md` was read 240 turns ago
+690   Agent type 'requirements-validator' not found. Available: …
+1035  File has not been read yet. Read `CHANGELOG.md` before editing it
+1104  SyntaxError: Unexpected token '&lt;' in JSON at position 0
+<span class="c">…                                                     (60 row(s))</span></pre>
       Every failure the session hit, with its exact position, whether or not the agent chose to
-      mention it in its own summary.</li>
+      mention it in its own summary. Read them with a sceptical eye in <em>both</em> directions:
+      the first row there is a guardrail doing its job, not a defect, and roughly a third of the
+      sixty are like it.</li>
 
       <li><b>If something looks off, ask the raw database directly.</b>
 <pre>bar query .bar/ambient.sqlite --sql \
@@ -200,11 +357,12 @@ seq   excerpt
     <p class="eyebrow">The other thing worth checking</p>
     <h2>Where the agent circled back — and why that's not automatically bad.</h2>
     <p class="lede" style="margin-top:16px">A "rework hotspot" is a file the agent edited far more
-    than the rest. In one real captured window, <b>77 of 496</b> total edits — more than the next
-    four files combined — landed in a single file. That's not automatically a problem with the
+    than the rest. In the capture that ships with this project, <b>77 of 482</b> repeat
+    edits — more than the next four files combined — landed in a single file. That's not automatically a problem with the
     agent. It's frequently a sign that the task or the spec for that one file was underspecified,
-    and the agent kept guessing until something stuck (though here it traced to a deliberate
-    multi-persona review pass, not a spec gap — always check which it is before assuming).</p>
+    and the agent kept guessing until something stuck. It can just as easily be a file that was
+    always going to need many passes. The report deliberately doesn't guess which — it shows you the
+    concentration and lets you go and look.</p>
 
     <div class="cards">
       <div class="card">
@@ -229,12 +387,13 @@ seq   excerpt
     <h2>This isn't a tool for catching your agent in a lie.</h2>
     <p class="lede" style="margin-top:16px">The record can be incomplete for reasons that have
     nothing to do with the agent's honesty. If a capture channel wasn't running, the report says
-    <code>not_observed</code> — not "nothing happened," just "nothing was captured." Learn to
-    read that distinction and you'll avoid the opposite mistake: treating an absence of evidence
-    as evidence of a problem.</p>
+    <code>not_recorded</code> — not "nothing happened," just "nothing was captured." (There's a
+    third word, <code>not_observed</code>, for a channel whose machinery exists but was never
+    invoked here. Same lesson, one step further along.) Learn to read that distinction and you'll
+    avoid the opposite mistake: treating an absence of evidence as evidence of a problem.</p>
     <div class="note green">
       <b>The rule that matters here:</b> <code>0 failures</code> means the evidence was checked
-      and none were found. <code>not_observed</code> means there wasn't enough evidence to check
+      and none were found. <code>not_recorded</code> means there wasn't enough evidence to check
       at all. Confusing the two in either direction — assuming the best or assuming the worst —
       is the mistake this tool exists to prevent.
     </div>

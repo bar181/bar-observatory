@@ -1,9 +1,9 @@
 {
   "schema_version": "bar-observatory-report-1.0",
   "report": {
-    "id": "barobs-96ad36b19f55",
+    "id": "barobs-14fd056be293",
     "title": "BAR Observatory — captured session report",
-    "generated_at": "2026-08-13T23:43:46Z",
+    "generated_at": "2026-05-18T06:06:00Z",
     "template_version": "bar-observatory-engineering-1.0",
     "deterministic": true,
     "interpretation": {
@@ -19,14 +19,16 @@
     "creator_name": "Bradley Ross",
     "studio_name": "Bradley.Academy",
     "repository_url": "https://github.com/bar181/bar-observatory",
-    "affiliation_disclaimer": "Independent open-source project by Bradley Ross / Bradley.Academy. Academic crimson palette; no Harvard University marks are used and no endorsement is implied."
+    "affiliation_disclaimer": "Independent open-source project by Bradley Ross / Bradley.Academy. No third-party marks are used and no endorsement is implied."
   },
   "scope": {
     "type": "session",
     "session_count": 7,
-    "started_at": "2026-07-31T18:57:19Z",
-    "ended_at": "2026-08-13T23:43:46Z",
-    "note": "Scope is inferred from captured run/hook/event windows; repository and branch binding lands with the git measurement (later phase)."
+    "started_at": "2026-05-04T19:07:00Z",
+    "ended_at": "2026-05-18T06:06:00Z",
+    "note": "Scope is inferred from captured run/hook/event windows; repository and branch binding lands with the git measurement (later phase).",
+    "workspace_root": "/work/orbit",
+    "workspace_root_source": "transcript_cwd"
   },
   "summary": {
     "runs": 7,
@@ -40,7 +42,7 @@
     "tokens_out": null,
     "tokens_total": null,
     "capture_losses": 0,
-    "elapsed_ms": 1140387000,
+    "elapsed_ms": 1162740000,
     "tool_calls": 3171,
     "tools": [
       {
@@ -132,23 +134,23 @@
         "count": 10
       },
       {
-        "subagent_type": "claude-code-guide",
+        "subagent_type": "docs-researcher",
         "count": 5
       },
       {
-        "subagent_type": "qe-requirements-validator",
+        "subagent_type": "requirements-validator",
         "count": 3
       },
       {
-        "subagent_type": "bar-docs-curator",
+        "subagent_type": "docs-curator",
         "count": 2
       },
       {
-        "subagent_type": "bar-release-verifier",
+        "subagent_type": "release-verifier",
         "count": 1
       },
       {
-        "subagent_type": "bar-skeptic-reviewer",
+        "subagent_type": "skeptic-reviewer",
         "count": 1
       },
       {
@@ -162,19 +164,19 @@
         "count": 2
       },
       {
-        "skill": "bar-phase-protocol",
-        "count": 1
-      },
-      {
         "skill": "loop",
         "count": 1
       },
       {
-        "skill": "qe-court",
+        "skill": "quality-assessment",
         "count": 1
       },
       {
-        "skill": "qe-quality-assessment",
+        "skill": "quality-court",
+        "count": 1
+      },
+      {
+        "skill": "release-protocol",
         "count": 1
       }
     ]
@@ -192,7 +194,7 @@
         "rework_events": null,
         "state": "completed",
         "task_id": "task-1",
-        "title": "Determinism root-cause investigation on reuse-target crates"
+        "title": "Draft the public README and the quickstart it promises"
       },
       {
         "attempts": null,
@@ -204,7 +206,7 @@
         "rework_events": null,
         "state": "completed",
         "task_id": "task-2",
-        "title": "Add QE Fleet guardrails"
+        "title": "Fix the plugin manifest so the hooks load once"
       },
       {
         "attempts": null,
@@ -216,7 +218,7 @@
         "rework_events": null,
         "state": "completed",
         "task_id": "task-3",
-        "title": "Produce pre-seal plan + updated phase-level DoD checklist"
+        "title": "Split the configuration reference out of the README"
       },
       {
         "attempts": null,
@@ -228,7 +230,7 @@
         "rework_events": null,
         "state": "completed",
         "task_id": "task-4",
-        "title": "Sweep stale docs (README, CLAUDE.md-equivalents, phase docs) and produce updated spec document"
+        "title": "Add a run-it-yourself walkthrough for a first-time reader"
       },
       {
         "attempts": null,
@@ -240,7 +242,7 @@
         "rework_events": null,
         "state": "completed",
         "task_id": "task-5",
-        "title": "Write brutal capture/measure/report coverage review"
+        "title": "Check every external link in the docs tree"
       },
       {
         "attempts": null,
@@ -252,7 +254,7 @@
         "rework_events": null,
         "state": "completed",
         "task_id": "task-6",
-        "title": "Investigate and resolve the aisp-obs to bar-observatory naming-collision claim"
+        "title": "Tighten the error text so it names the failing input"
       },
       {
         "attempts": null,
@@ -264,7 +266,7 @@
         "rework_events": null,
         "state": "completed",
         "task_id": "task-7",
-        "title": "Reconstruct Phase 1's RED receipt honestly and seal Phase 1"
+        "title": "Add a worked example for the query command"
       },
       {
         "attempts": null,
@@ -276,7 +278,7 @@
         "rework_events": null,
         "state": "completed",
         "task_id": "task-8",
-        "title": "Fix Step 9 raw_logs citation staleness and reconcile plan doc self-contradiction"
+        "title": "Document what the tool does not observe yet"
       },
       {
         "attempts": null,
@@ -288,7 +290,7 @@
         "rework_events": null,
         "state": "completed",
         "task_id": "task-9",
-        "title": "Finalize QE Fleet next-session plan (both surfaces + plain adversarial subagent)"
+        "title": "Rewrite the comparison page for a non-specialist"
       },
       {
         "attempts": null,
@@ -300,7 +302,7 @@
         "rework_events": null,
         "state": "completed",
         "task_id": "task-10",
-        "title": "Update docs/specs/06: QE Court primary at band gates, subagent fallback"
+        "title": "Add a licence header check to the release script"
       },
       {
         "attempts": null,
@@ -312,7 +314,7 @@
         "rework_events": null,
         "state": "completed",
         "task_id": "task-11",
-        "title": "Update docs/specs/13 §4 and §9: full-fleet plan, not disclosed substitute"
+        "title": "Make the report render byte-identical across runs"
       },
       {
         "attempts": null,
@@ -324,7 +326,7 @@
         "rework_events": null,
         "state": "completed",
         "task_id": "task-12",
-        "title": "Fix Phase 1 count contradiction and relabel status OPEN 11/12"
+        "title": "Reconcile the handbook figures against the manifest"
       },
       {
         "attempts": null,
@@ -336,7 +338,7 @@
         "rework_events": null,
         "state": "completed",
         "task_id": "task-13",
-        "title": "Correct docs/specs/11 QE guide install section"
+        "title": "Verify the plugin installs from a local folder path"
       },
       {
         "attempts": null,
@@ -348,7 +350,7 @@
         "rework_events": null,
         "state": "completed",
         "task_id": "task-14",
-        "title": "New ADR: QE Fleet adopted as dev tooling"
+        "title": "Collect the open questions into one document"
       },
       {
         "attempts": null,
@@ -360,7 +362,7 @@
         "rework_events": null,
         "state": "completed",
         "task_id": "task-15",
-        "title": "Fix Steps 15/17/18/02 bugs found by the fallback review"
+        "title": "Add a schema-drift note to the examples index"
       },
       {
         "attempts": null,
@@ -372,7 +374,7 @@
         "rework_events": null,
         "state": "completed",
         "task_id": "task-16",
-        "title": "Research: Claude Code's full data-capture surface (SOTA flight recorder)"
+        "title": "Trim the quickstart to a single screen"
       },
       {
         "attempts": null,
@@ -384,7 +386,7 @@
         "rework_events": null,
         "state": "completed",
         "task_id": "task-17",
-        "title": "Research: competitive SOTA landscape for agent observability"
+        "title": "Confirm the guide builds with scripting disabled"
       },
       {
         "attempts": null,
@@ -396,7 +398,7 @@
         "rework_events": null,
         "state": "completed",
         "task_id": "task-18",
-        "title": "Mine agentic-qe repo for agent-to-agent capture insights + new metrics"
+        "title": "Record the provenance of every generated file"
       },
       {
         "attempts": null,
@@ -408,7 +410,7 @@
         "rework_events": null,
         "state": "completed",
         "task_id": "task-19",
-        "title": "Enhance BAR specs significantly based on all research"
+        "title": "Add an accessibility pass over the report pages"
       },
       {
         "attempts": null,
@@ -420,7 +422,7 @@
         "rework_events": null,
         "state": "completed",
         "task_id": "task-20",
-        "title": "Write end-of-phase retrospective for the specs-enhancement work, save in docs/status/"
+        "title": "Reconcile the language ranking with the rework list"
       },
       {
         "attempts": null,
@@ -432,7 +434,7 @@
         "rework_events": null,
         "state": "completed",
         "task_id": "task-21",
-        "title": "Read Phase 2 step file in full, scope real implementation"
+        "title": "Replace the placeholder screenshots with real ones"
       },
       {
         "attempts": null,
@@ -444,7 +446,7 @@
         "rework_events": null,
         "state": "completed",
         "task_id": "task-22",
-        "title": "Implement Phase 2 for real: crate(s), RED tests, GREEN, real data"
+        "title": "Name the two dates the record carries"
       },
       {
         "attempts": null,
@@ -456,7 +458,7 @@
         "rework_events": null,
         "state": "completed",
         "task_id": "task-23",
-        "title": "Resolve enhance-and-refactor vs new-product/read-only framing conflict"
+        "title": "Port the crate index and check every publish flag"
       },
       {
         "attempts": null,
@@ -468,7 +470,7 @@
         "rework_events": null,
         "state": "completed",
         "task_id": "task-24",
-        "title": "Populate public bar-observatory/ staging folder as part of Phase 2"
+        "title": "Add a print stylesheet to the report"
       },
       {
         "attempts": null,
@@ -480,7 +482,7 @@
         "rework_events": null,
         "state": "completed",
         "task_id": "task-25",
-        "title": "Run QE Fleet (or disclosed fallback) review on Phase 2 before declaring done"
+        "title": "Check the report at three viewport widths"
       },
       {
         "attempts": null,
@@ -492,7 +494,7 @@
         "rework_events": null,
         "state": "completed",
         "task_id": "task-26",
-        "title": "Phase 2 retrospective + Phase 3 DoD + data confirmation + report"
+        "title": "Move the appendices behind a disclosure control"
       },
       {
         "attempts": null,
@@ -504,7 +506,7 @@
         "rework_events": null,
         "state": "completed",
         "task_id": "task-27",
-        "title": "Route SOTA gaps (evaluation, cross-session aggregation, replay) to correct phase specs"
+        "title": "Give the failure list a root-cause column"
       },
       {
         "attempts": null,
@@ -516,7 +518,7 @@
         "rework_events": null,
         "state": "completed",
         "task_id": "task-28",
-        "title": "Read Phase 3 step file, scope real implementation"
+        "title": "Document the redaction policy in the guide"
       },
       {
         "attempts": null,
@@ -528,7 +530,7 @@
         "rework_events": null,
         "state": "completed",
         "task_id": "task-29",
-        "title": "Implement Phase 3 for real: one-shot, tested, reviewed"
+        "title": "Add a worked example for the interpret command"
       },
       {
         "attempts": null,
@@ -540,7 +542,7 @@
         "rework_events": null,
         "state": "completed",
         "task_id": "task-30",
-        "title": "Build a real report.json from phases 0-3's actual execution data"
+        "title": "Verify the examples folder has no dead links"
       },
       {
         "attempts": null,
@@ -552,7 +554,7 @@
         "rework_events": null,
         "state": "completed",
         "task_id": "task-31",
-        "title": "Render all 5 report artifacts from the real data"
+        "title": "Regenerate the crate index from the manifests"
       },
       {
         "attempts": null,
@@ -564,7 +566,7 @@
         "rework_events": null,
         "state": "completed",
         "task_id": "task-32",
-        "title": "Playwright style-guide visual check"
+        "title": "Write the contributing guide"
       },
       {
         "attempts": null,
@@ -576,7 +578,7 @@
         "rework_events": null,
         "state": "completed",
         "task_id": "task-33",
-        "title": "QE Fleet review of phases 0-3 implementation"
+        "title": "Add a security policy and a disclosure address"
       },
       {
         "attempts": null,
@@ -588,7 +590,7 @@
         "rework_events": null,
         "state": "completed",
         "task_id": "task-34",
-        "title": "Mechanically verify all 19 reuse citations against the matrix"
+        "title": "Write the release checklist and run it end to end"
       },
       {
         "attempts": null,
@@ -600,7 +602,7 @@
         "rework_events": null,
         "state": "completed",
         "task_id": "task-35",
-        "title": "Final DoD proof + brutal honest review of project/data/reporting"
+        "title": "Tag the release candidate and write the notes"
       },
       {
         "attempts": null,
@@ -612,7 +614,7 @@
         "rework_events": null,
         "state": "completed",
         "task_id": "task-36",
-        "title": "Supersede ADR-020 (modules.toml waiver)"
+        "title": "Add the capture-channel diagram to the guide"
       },
       {
         "attempts": null,
@@ -624,7 +626,7 @@
         "rework_events": null,
         "state": "completed",
         "task_id": "task-37",
-        "title": "Fix ADR-verdict wording, test-count drift, reserved-stubs check, stale-score disclosure"
+        "title": "Redact private paths from the example output"
       },
       {
         "attempts": null,
@@ -636,7 +638,7 @@
         "rework_events": null,
         "state": "completed",
         "task_id": "task-38",
-        "title": "Confirm flywheel/harness/existing DB reachability"
+        "title": "Cross-link the guide pages and add a trust section"
       },
       {
         "attempts": null,
@@ -648,7 +650,7 @@
         "rework_events": null,
         "state": "completed",
         "task_id": "task-39",
-        "title": "Confirm capture-coverage / flight-recorder completeness"
+        "title": "Regenerate the checksum manifest and verify it"
       },
       {
         "attempts": null,
@@ -660,10 +662,11 @@
         "rework_events": null,
         "state": "completed",
         "task_id": "task-40",
-        "title": "Install QE Fleet plugin and run QE Court verdict on Steps 15-18 + Phase 2 freeze contracts"
+        "title": "Review the changelog against the actual commits"
       }
     ],
-    "note": "Real ledger from the ingested transcript: 40 task(s) — 40 completed, 0 in-progress, 0 pending, 0 other/untracked (sums to 40). State is the agent's SELF-REPORT (TodoWrite/TaskUpdate); per-task attempt/loop/evidence linkage (claim≠evidence) is P8 (rendered null, not a measured zero)."
+    "note": "Real ledger from the ingested transcript: 40 task(s) — 40 completed, 0 in-progress, 0 pending, 0 other/untracked (sums to 40). State is the agent's SELF-REPORT (TodoWrite/TaskUpdate); per-task attempt/loop/evidence linkage (claim≠evidence) is P8 (rendered null, not a measured zero).",
+    "reason_code": "n/a"
   },
   "agents": {
     "status": "observed",
@@ -678,30 +681,31 @@
       },
       {
         "count": 5,
-        "subagent_type": "claude-code-guide"
+        "subagent_type": "docs-researcher"
       },
       {
         "count": 3,
-        "subagent_type": "qe-requirements-validator"
+        "subagent_type": "requirements-validator"
       },
       {
         "count": 2,
-        "subagent_type": "bar-docs-curator"
+        "subagent_type": "docs-curator"
       },
       {
         "count": 1,
-        "subagent_type": "bar-release-verifier"
+        "subagent_type": "release-verifier"
       },
       {
         "count": 1,
-        "subagent_type": "bar-skeptic-reviewer"
+        "subagent_type": "skeptic-reviewer"
       },
       {
         "count": 1,
         "subagent_type": "unspecified"
       }
     ],
-    "note": "Real sub-agent hierarchy from the transcript: 40 dispatch(es) across 8 sub-agent type(s). Deterministic post-hoc 'who was dispatched'; live nested-span viz needs the runtime (conceded)."
+    "note": "Real sub-agent hierarchy from the transcript: 40 dispatch(es) across 8 sub-agent type(s). Deterministic post-hoc 'who was dispatched'; live nested-span viz needs the runtime (conceded).",
+    "reason_code": "n/a"
   },
   "skills": {
     "status": "observed",
@@ -712,31 +716,32 @@
       },
       {
         "count": 1,
-        "skill": "bar-phase-protocol"
-      },
-      {
-        "count": 1,
         "skill": "loop"
       },
       {
         "count": 1,
-        "skill": "qe-court"
+        "skill": "quality-assessment"
       },
       {
         "count": 1,
-        "skill": "qe-quality-assessment"
+        "skill": "quality-court"
+      },
+      {
+        "count": 1,
+        "skill": "release-protocol"
       }
     ],
-    "note": "Real skill invocations from the transcript: 5 skill(s)."
+    "note": "Real skill invocations from the transcript: 5 skill(s).",
+    "reason_code": "n/a"
   },
   "rework": {
     "status": "observed",
     "events": [
       {
         "confidence": "exact",
-        "detail": "bar-observatory/README.md edited 77 times",
+        "detail": "orbit/README.md edited 77 times",
         "evidence_refs": [
-          "transcript:edit:bar-observatory/README.md"
+          "transcript:edit:orbit/README.md"
         ],
         "rework_id": "rw-1",
         "task_id": "session",
@@ -744,9 +749,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "bar-observatory/index.html edited 22 times",
+        "detail": "orbit/index.html edited 22 times",
         "evidence_refs": [
-          "transcript:edit:bar-observatory/index.html"
+          "transcript:edit:orbit/index.html"
         ],
         "rework_id": "rw-2",
         "task_id": "session",
@@ -754,9 +759,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "bar-observatory/provenance/PROVENANCE.json edited 16 times",
+        "detail": "orbit/docs/guide/README.md edited 16 times",
         "evidence_refs": [
-          "transcript:edit:bar-observatory/provenance/PROVENANCE.json"
+          "transcript:edit:orbit/docs/guide/README.md"
         ],
         "rework_id": "rw-3",
         "task_id": "session",
@@ -764,9 +769,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "bar-observatory/wiki/human/README.md edited 16 times",
+        "detail": "orbit/docs/manifest.json edited 16 times",
         "evidence_refs": [
-          "transcript:edit:bar-observatory/wiki/human/README.md"
+          "transcript:edit:orbit/docs/manifest.json"
         ],
         "rework_id": "rw-4",
         "task_id": "session",
@@ -774,9 +779,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "bar-observatory/CHANGELOG.md edited 15 times",
+        "detail": "orbit/CHANGELOG.md edited 15 times",
         "evidence_refs": [
-          "transcript:edit:bar-observatory/CHANGELOG.md"
+          "transcript:edit:orbit/CHANGELOG.md"
         ],
         "rework_id": "rw-5",
         "task_id": "session",
@@ -784,9 +789,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "bar-observatory/wiki/master-guide.html edited 15 times",
+        "detail": "orbit/docs/guide/handbook.html edited 15 times",
         "evidence_refs": [
-          "transcript:edit:bar-observatory/wiki/master-guide.html"
+          "transcript:edit:orbit/docs/guide/handbook.html"
         ],
         "rework_id": "rw-6",
         "task_id": "session",
@@ -804,9 +809,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "docs/specs/10-capabilities-review.md edited 9 times",
+        "detail": "orbit/RUN.md edited 9 times",
         "evidence_refs": [
-          "transcript:edit:docs/specs/10-capabilities-review.md"
+          "transcript:edit:orbit/RUN.md"
         ],
         "rework_id": "rw-8",
         "task_id": "session",
@@ -814,9 +819,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "docs/specs/13-pre-seal-checklist.md edited 9 times",
+        "detail": "orbit/docs/layers.html edited 9 times",
         "evidence_refs": [
-          "transcript:edit:docs/specs/13-pre-seal-checklist.md"
+          "transcript:edit:orbit/docs/layers.html"
         ],
         "rework_id": "rw-9",
         "task_id": "session",
@@ -824,9 +829,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "bar-observatory/RUN.md edited 9 times",
+        "detail": "specs/10-capabilities-review.md edited 9 times",
         "evidence_refs": [
-          "transcript:edit:bar-observatory/RUN.md"
+          "transcript:edit:specs/10-capabilities-review.md"
         ],
         "rework_id": "rw-10",
         "task_id": "session",
@@ -834,21 +839,11 @@
       },
       {
         "confidence": "exact",
-        "detail": "bar-observatory/wiki/documentation-layers.html edited 9 times",
+        "detail": "specs/13-pre-release-checklist.md edited 9 times",
         "evidence_refs": [
-          "transcript:edit:bar-observatory/wiki/documentation-layers.html"
+          "transcript:edit:specs/13-pre-release-checklist.md"
         ],
         "rework_id": "rw-11",
-        "task_id": "session",
-        "type": "repeated_edit"
-      },
-      {
-        "confidence": "exact",
-        "detail": "review/verify/src/main.rs edited 7 times",
-        "evidence_refs": [
-          "transcript:edit:review/verify/src/main.rs"
-        ],
-        "rework_id": "rw-12",
         "task_id": "session",
         "type": "repeated_edit"
       },
@@ -858,15 +853,25 @@
         "evidence_refs": [
           "transcript:edit:NOTES.md"
         ],
+        "rework_id": "rw-12",
+        "task_id": "session",
+        "type": "repeated_edit"
+      },
+      {
+        "confidence": "exact",
+        "detail": "review/verify/src/main.rs edited 7 times",
+        "evidence_refs": [
+          "transcript:edit:review/verify/src/main.rs"
+        ],
         "rework_id": "rw-13",
         "task_id": "session",
         "type": "repeated_edit"
       },
       {
         "confidence": "exact",
-        "detail": "review/pr-a/crates/bar-observatory/src/detectors.rs edited 6 times",
+        "detail": "AGENTS.md edited 6 times",
         "evidence_refs": [
-          "transcript:edit:review/pr-a/crates/bar-observatory/src/detectors.rs"
+          "transcript:edit:AGENTS.md"
         ],
         "rework_id": "rw-14",
         "task_id": "session",
@@ -874,9 +879,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "CLAUDE.md edited 6 times",
+        "detail": "review/pr-a/crates/orbit/src/detectors.rs edited 6 times",
         "evidence_refs": [
-          "transcript:edit:CLAUDE.md"
+          "transcript:edit:review/pr-a/crates/orbit/src/detectors.rs"
         ],
         "rework_id": "rw-15",
         "task_id": "session",
@@ -884,9 +889,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "TODO.md edited 6 times",
+        "detail": "orbit/config/proxy-26.toml edited 5 times",
         "evidence_refs": [
-          "transcript:edit:TODO.md"
+          "transcript:edit:orbit/config/proxy-26.toml"
         ],
         "rework_id": "rw-16",
         "task_id": "session",
@@ -894,9 +899,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "crates/bar-config/src/lib.rs edited 6 times",
+        "detail": "orbit/config/query-22.toml edited 5 times",
         "evidence_refs": [
-          "transcript:edit:crates/bar-config/src/lib.rs"
+          "transcript:edit:orbit/config/query-22.toml"
         ],
         "rework_id": "rw-17",
         "task_id": "session",
@@ -904,9 +909,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "bar-observatory/wiki/aisp/HUB.aisp edited 6 times",
+        "detail": "orbit/crates/orbit-core/Cargo.toml edited 5 times",
         "evidence_refs": [
-          "transcript:edit:bar-observatory/wiki/aisp/HUB.aisp"
+          "transcript:edit:orbit/crates/orbit-core/Cargo.toml"
         ],
         "rework_id": "rw-18",
         "task_id": "session",
@@ -914,9 +919,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "review/pr-b/crates/bar-observatory/src/compare.rs edited 5 times",
+        "detail": "orbit/crates/orbit-core/src/lib.rs edited 5 times",
         "evidence_refs": [
-          "transcript:edit:review/pr-b/crates/bar-observatory/src/compare.rs"
+          "transcript:edit:orbit/crates/orbit-core/src/lib.rs"
         ],
         "rework_id": "rw-19",
         "task_id": "session",
@@ -924,9 +929,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "review/pr-b/crates/bar-observatory/src/report.rs edited 5 times",
+        "detail": "orbit/crates/orbit-ingest/Cargo.toml edited 5 times",
         "evidence_refs": [
-          "transcript:edit:review/pr-b/crates/bar-observatory/src/report.rs"
+          "transcript:edit:orbit/crates/orbit-ingest/Cargo.toml"
         ],
         "rework_id": "rw-20",
         "task_id": "session",
@@ -934,9 +939,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "review/pr-b/crates/bar-observatory/src/share_safe.rs edited 5 times",
+        "detail": "orbit/crates/orbit-ingest/src/mod20.rs edited 5 times",
         "evidence_refs": [
-          "transcript:edit:review/pr-b/crates/bar-observatory/src/share_safe.rs"
+          "transcript:edit:orbit/crates/orbit-ingest/src/mod20.rs"
         ],
         "rework_id": "rw-21",
         "task_id": "session",
@@ -944,9 +949,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "review/pr-a/crates/bar-observatory/src/report.rs edited 5 times",
+        "detail": "orbit/crates/orbit-metrics/Cargo.toml edited 5 times",
         "evidence_refs": [
-          "transcript:edit:review/pr-a/crates/bar-observatory/src/report.rs"
+          "transcript:edit:orbit/crates/orbit-metrics/Cargo.toml"
         ],
         "rework_id": "rw-22",
         "task_id": "session",
@@ -954,9 +959,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "bar-observatory/wiki/agent/AI-CONTEXT.md edited 5 times",
+        "detail": "orbit/crates/orbit-proxy/src/lib.rs edited 5 times",
         "evidence_refs": [
-          "transcript:edit:bar-observatory/wiki/agent/AI-CONTEXT.md"
+          "transcript:edit:orbit/crates/orbit-proxy/src/lib.rs"
         ],
         "rework_id": "rw-23",
         "task_id": "session",
@@ -964,9 +969,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "bar-observatory/wiki/human-html/documentation-layers.html edited 5 times",
+        "detail": "orbit/crates/orbit-query/src/lib.rs edited 5 times",
         "evidence_refs": [
-          "transcript:edit:bar-observatory/wiki/human-html/documentation-layers.html"
+          "transcript:edit:orbit/crates/orbit-query/src/lib.rs"
         ],
         "rework_id": "rw-24",
         "task_id": "session",
@@ -974,9 +979,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "review/pr-b/crates/bar-observatory/src/report_tests.rs edited 4 times",
+        "detail": "orbit/crates/orbit-registry/src/lib.rs edited 5 times",
         "evidence_refs": [
-          "transcript:edit:review/pr-b/crates/bar-observatory/src/report_tests.rs"
+          "transcript:edit:orbit/crates/orbit-registry/src/lib.rs"
         ],
         "rework_id": "rw-25",
         "task_id": "session",
@@ -984,9 +989,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "review/pr-b/crates/bar-observatory/tests/capture.rs edited 4 times",
+        "detail": "orbit/crates/orbit-resolve/Cargo.toml edited 5 times",
         "evidence_refs": [
-          "transcript:edit:review/pr-b/crates/bar-observatory/tests/capture.rs"
+          "transcript:edit:orbit/crates/orbit-resolve/Cargo.toml"
         ],
         "rework_id": "rw-26",
         "task_id": "session",
@@ -994,9 +999,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "crates/bar-mcp/Cargo.toml edited 4 times",
+        "detail": "orbit/crates/orbit-schema/Cargo.toml edited 5 times",
         "evidence_refs": [
-          "transcript:edit:crates/bar-mcp/Cargo.toml"
+          "transcript:edit:orbit/crates/orbit-schema/Cargo.toml"
         ],
         "rework_id": "rw-27",
         "task_id": "session",
@@ -1004,9 +1009,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "crates/bar-mcp/src/tools.rs edited 4 times",
+        "detail": "orbit/crates/orbit-schema/src/mod24.rs edited 5 times",
         "evidence_refs": [
-          "transcript:edit:crates/bar-mcp/src/tools.rs"
+          "transcript:edit:orbit/crates/orbit-schema/src/mod24.rs"
         ],
         "rework_id": "rw-28",
         "task_id": "session",
@@ -1014,9 +1019,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "crates/bar-observatory/Cargo.toml edited 4 times",
+        "detail": "orbit/crates/orbit-testenv/src/lib.rs edited 5 times",
         "evidence_refs": [
-          "transcript:edit:crates/bar-observatory/Cargo.toml"
+          "transcript:edit:orbit/crates/orbit-testenv/src/lib.rs"
         ],
         "rework_id": "rw-29",
         "task_id": "session",
@@ -1024,9 +1029,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "crates/bar-observatory/src/report.rs edited 4 times",
+        "detail": "orbit/docs/guide/cli-25.md edited 5 times",
         "evidence_refs": [
-          "transcript:edit:crates/bar-observatory/src/report.rs"
+          "transcript:edit:orbit/docs/guide/cli-25.md"
         ],
         "rework_id": "rw-30",
         "task_id": "session",
@@ -1034,9 +1039,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "crates/bar-observatory/tests/resolved_config_schema_parity.rs edited 4 times",
+        "detail": "orbit/docs/guide/config-5.md edited 5 times",
         "evidence_refs": [
-          "transcript:edit:crates/bar-observatory/tests/resolved_config_schema_parity.rs"
+          "transcript:edit:orbit/docs/guide/config-5.md"
         ],
         "rework_id": "rw-31",
         "task_id": "session",
@@ -1044,9 +1049,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "crates/bar-schema/Cargo.toml edited 4 times",
+        "detail": "orbit/docs/guide/docs-17.md edited 5 times",
         "evidence_refs": [
-          "transcript:edit:crates/bar-schema/Cargo.toml"
+          "transcript:edit:orbit/docs/guide/docs-17.md"
         ],
         "rework_id": "rw-32",
         "task_id": "session",
@@ -1054,9 +1059,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "docs/reference/bar-observatory.default.toml edited 4 times",
+        "detail": "orbit/docs/guide/hooks-9.md edited 5 times",
         "evidence_refs": [
-          "transcript:edit:docs/reference/bar-observatory.default.toml"
+          "transcript:edit:orbit/docs/guide/hooks-9.md"
         ],
         "rework_id": "rw-33",
         "task_id": "session",
@@ -1064,9 +1069,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "docs/adr/0004-caching-strategy.md edited 4 times",
+        "detail": "orbit/docs/guide/render-21.md edited 5 times",
         "evidence_refs": [
-          "transcript:edit:docs/adr/0004-caching-strategy.md"
+          "transcript:edit:orbit/docs/guide/render-21.md"
         ],
         "rework_id": "rw-34",
         "task_id": "session",
@@ -1074,9 +1079,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "examples/deterministic/sample.report.json edited 4 times",
+        "detail": "orbit/docs/guide/review-13.md edited 5 times",
         "evidence_refs": [
-          "transcript:edit:examples/deterministic/sample.report.json"
+          "transcript:edit:orbit/docs/guide/review-13.md"
         ],
         "rework_id": "rw-35",
         "task_id": "session",
@@ -1084,9 +1089,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "docs/specs/06-build-loop.md edited 4 times",
+        "detail": "orbit/docs/guide/store-1.md edited 5 times",
         "evidence_refs": [
-          "transcript:edit:docs/specs/06-build-loop.md"
+          "transcript:edit:orbit/docs/guide/store-1.md"
         ],
         "rework_id": "rw-36",
         "task_id": "session",
@@ -1094,9 +1099,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "docs/specs/09-session-grounding.md edited 4 times",
+        "detail": "specs/23-render-notes.md edited 5 times",
         "evidence_refs": [
-          "transcript:edit:docs/specs/09-session-grounding.md"
+          "transcript:edit:specs/23-render-notes.md"
         ],
         "rework_id": "rw-37",
         "task_id": "session",
@@ -1104,9 +1109,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "docs/specs/14-flight-recorder-enhancement.md edited 4 times",
+        "detail": "specs/27-cli-notes.md edited 5 times",
         "evidence_refs": [
-          "transcript:edit:docs/specs/14-flight-recorder-enhancement.md"
+          "transcript:edit:specs/27-cli-notes.md"
         ],
         "rework_id": "rw-38",
         "task_id": "session",
@@ -1114,9 +1119,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "bar-observatory/config/bar-observatory.default.toml edited 4 times",
+        "detail": "specs/31-index-notes.md edited 5 times",
         "evidence_refs": [
-          "transcript:edit:bar-observatory/config/bar-observatory.default.toml"
+          "transcript:edit:specs/31-index-notes.md"
         ],
         "rework_id": "rw-39",
         "task_id": "session",
@@ -1124,9 +1129,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "bar-observatory/wiki/architecture.md edited 4 times",
+        "detail": "specs/35-sanitize-notes.md edited 5 times",
         "evidence_refs": [
-          "transcript:edit:bar-observatory/wiki/architecture.md"
+          "transcript:edit:specs/35-sanitize-notes.md"
         ],
         "rework_id": "rw-40",
         "task_id": "session",
@@ -1134,9 +1139,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "bar-observatory/wiki/human/md/architecture.md edited 4 times",
+        "detail": "specs/39-store-notes.md edited 5 times",
         "evidence_refs": [
-          "transcript:edit:bar-observatory/wiki/human/md/architecture.md"
+          "transcript:edit:specs/39-store-notes.md"
         ],
         "rework_id": "rw-41",
         "task_id": "session",
@@ -1144,9 +1149,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "scripts/public-export.sh edited 4 times",
+        "detail": "specs/43-config-notes.md edited 5 times",
         "evidence_refs": [
-          "transcript:edit:scripts/public-export.sh"
+          "transcript:edit:specs/43-config-notes.md"
         ],
         "rework_id": "rw-42",
         "task_id": "session",
@@ -1154,9 +1159,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "review/build_report.py edited 3 times",
+        "detail": "specs/47-hooks-notes.md edited 5 times",
         "evidence_refs": [
-          "transcript:edit:review/build_report.py"
+          "transcript:edit:specs/47-hooks-notes.md"
         ],
         "rework_id": "rw-43",
         "task_id": "session",
@@ -1164,9 +1169,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "review/pr-b/crates/bar-observatory/src/detectors.rs edited 3 times",
+        "detail": "orbit/crates/orbit-metrics/src/mod28.rs edited 3 times",
         "evidence_refs": [
-          "transcript:edit:review/pr-b/crates/bar-observatory/src/detectors.rs"
+          "transcript:edit:orbit/crates/orbit-metrics/src/mod28.rs"
         ],
         "rework_id": "rw-44",
         "task_id": "session",
@@ -1174,9 +1179,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "review/pr-a/crates/bar-read/src/lib.rs edited 3 times",
+        "detail": "orbit/config/core-54.toml edited 2 times",
         "evidence_refs": [
-          "transcript:edit:review/pr-a/crates/bar-read/src/lib.rs"
+          "transcript:edit:orbit/config/core-54.toml"
         ],
         "rework_id": "rw-45",
         "task_id": "session",
@@ -1184,9 +1189,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "review/pr-a/scripts/public-export.sh edited 3 times",
+        "detail": "orbit/config/ingest-38.toml edited 2 times",
         "evidence_refs": [
-          "transcript:edit:review/pr-a/scripts/public-export.sh"
+          "transcript:edit:orbit/config/ingest-38.toml"
         ],
         "rework_id": "rw-46",
         "task_id": "session",
@@ -1194,9 +1199,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "review/verify/Cargo.toml edited 3 times",
+        "detail": "orbit/config/ingest-74.toml edited 2 times",
         "evidence_refs": [
-          "transcript:edit:review/verify/Cargo.toml"
+          "transcript:edit:orbit/config/ingest-74.toml"
         ],
         "rework_id": "rw-47",
         "task_id": "session",
@@ -1204,9 +1209,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "crates/Cargo.toml edited 3 times",
+        "detail": "orbit/config/metrics-46.toml edited 2 times",
         "evidence_refs": [
-          "transcript:edit:crates/Cargo.toml"
+          "transcript:edit:orbit/config/metrics-46.toml"
         ],
         "rework_id": "rw-48",
         "task_id": "session",
@@ -1214,9 +1219,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "crates/bar-config/Cargo.toml edited 3 times",
+        "detail": "orbit/config/proxy-62.toml edited 2 times",
         "evidence_refs": [
-          "transcript:edit:crates/bar-config/Cargo.toml"
+          "transcript:edit:orbit/config/proxy-62.toml"
         ],
         "rework_id": "rw-49",
         "task_id": "session",
@@ -1224,9 +1229,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "crates/bar-schema/src/lib.rs edited 3 times",
+        "detail": "orbit/config/query-58.toml edited 2 times",
         "evidence_refs": [
-          "transcript:edit:crates/bar-schema/src/lib.rs"
+          "transcript:edit:orbit/config/query-58.toml"
         ],
         "rework_id": "rw-50",
         "task_id": "session",
@@ -1234,9 +1239,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "crates/bar-schema/tests/branding_from_toml.rs edited 3 times",
+        "detail": "orbit/config/registry-30.toml edited 2 times",
         "evidence_refs": [
-          "transcript:edit:crates/bar-schema/tests/branding_from_toml.rs"
+          "transcript:edit:orbit/config/registry-30.toml"
         ],
         "rework_id": "rw-51",
         "task_id": "session",
@@ -1244,9 +1249,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "crates/bar-schema/tests/fact_id_assign.rs edited 3 times",
+        "detail": "orbit/config/registry-66.toml edited 2 times",
         "evidence_refs": [
-          "transcript:edit:crates/bar-schema/tests/fact_id_assign.rs"
+          "transcript:edit:orbit/config/registry-66.toml"
         ],
         "rework_id": "rw-52",
         "task_id": "session",
@@ -1254,9 +1259,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "docs/specs/11-qe-fleet-guide.md edited 3 times",
+        "detail": "orbit/config/resolve-50.toml edited 2 times",
         "evidence_refs": [
-          "transcript:edit:docs/specs/11-qe-fleet-guide.md"
+          "transcript:edit:orbit/config/resolve-50.toml"
         ],
         "rework_id": "rw-53",
         "task_id": "session",
@@ -1264,9 +1269,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "schemas/report.schema.internal.json edited 3 times",
+        "detail": "orbit/config/schema-42.toml edited 2 times",
         "evidence_refs": [
-          "transcript:edit:schemas/report.schema.internal.json"
+          "transcript:edit:orbit/config/schema-42.toml"
         ],
         "rework_id": "rw-54",
         "task_id": "session",
@@ -1274,9 +1279,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "tests/integration/resolver_test.py edited 3 times",
+        "detail": "orbit/config/schema-78.toml edited 2 times",
         "evidence_refs": [
-          "transcript:edit:tests/integration/resolver_test.py"
+          "transcript:edit:orbit/config/schema-78.toml"
         ],
         "rework_id": "rw-55",
         "task_id": "session",
@@ -1284,9 +1289,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "docs/status/audit-status.md edited 3 times",
+        "detail": "orbit/config/testenv-34.toml edited 2 times",
         "evidence_refs": [
-          "transcript:edit:docs/status/audit-status.md"
+          "transcript:edit:orbit/config/testenv-34.toml"
         ],
         "rework_id": "rw-56",
         "task_id": "session",
@@ -1294,9 +1299,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "bar-observatory/examples/README.html edited 3 times",
+        "detail": "orbit/config/testenv-70.toml edited 2 times",
         "evidence_refs": [
-          "transcript:edit:bar-observatory/examples/README.html"
+          "transcript:edit:orbit/config/testenv-70.toml"
         ],
         "rework_id": "rw-57",
         "task_id": "session",
@@ -1304,9 +1309,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "bar-observatory/examples/README.md edited 3 times",
+        "detail": "orbit/crates/orbit-core/src/mod36.rs edited 2 times",
         "evidence_refs": [
-          "transcript:edit:bar-observatory/examples/README.md"
+          "transcript:edit:orbit/crates/orbit-core/src/mod36.rs"
         ],
         "rework_id": "rw-58",
         "task_id": "session",
@@ -1314,9 +1319,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "bar-observatory/llms.txt edited 3 times",
+        "detail": "orbit/crates/orbit-core/src/mod72.rs edited 2 times",
         "evidence_refs": [
-          "transcript:edit:bar-observatory/llms.txt"
+          "transcript:edit:orbit/crates/orbit-core/src/mod72.rs"
         ],
         "rework_id": "rw-59",
         "task_id": "session",
@@ -1324,9 +1329,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "bar-observatory/schemas/interpretation.schema.json edited 3 times",
+        "detail": "orbit/crates/orbit-ingest/src/mod56.rs edited 2 times",
         "evidence_refs": [
-          "transcript:edit:bar-observatory/schemas/interpretation.schema.json"
+          "transcript:edit:orbit/crates/orbit-ingest/src/mod56.rs"
         ],
         "rework_id": "rw-60",
         "task_id": "session",
@@ -1334,9 +1339,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "bar-observatory/wiki/README.html edited 3 times",
+        "detail": "orbit/crates/orbit-metrics/src/mod64.rs edited 2 times",
         "evidence_refs": [
-          "transcript:edit:bar-observatory/wiki/README.html"
+          "transcript:edit:orbit/crates/orbit-metrics/src/mod64.rs"
         ],
         "rework_id": "rw-61",
         "task_id": "session",
@@ -1344,9 +1349,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "review/pr-b/crates/bar-observatory/src/lib.rs edited 2 times",
+        "detail": "orbit/crates/orbit-proxy/src/mod44.rs edited 2 times",
         "evidence_refs": [
-          "transcript:edit:review/pr-b/crates/bar-observatory/src/lib.rs"
+          "transcript:edit:orbit/crates/orbit-proxy/src/mod44.rs"
         ],
         "rework_id": "rw-62",
         "task_id": "session",
@@ -1354,9 +1359,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "review/pr-a/crates/bar-observatory/src/lib.rs edited 2 times",
+        "detail": "orbit/crates/orbit-proxy/src/mod80.rs edited 2 times",
         "evidence_refs": [
-          "transcript:edit:review/pr-a/crates/bar-observatory/src/lib.rs"
+          "transcript:edit:orbit/crates/orbit-proxy/src/mod80.rs"
         ],
         "rework_id": "rw-63",
         "task_id": "session",
@@ -1364,9 +1369,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "secrets/deploy-key.pem edited 2 times",
+        "detail": "orbit/crates/orbit-query/src/mod40.rs edited 2 times",
         "evidence_refs": [
-          "transcript:edit:secrets/deploy-key.pem"
+          "transcript:edit:orbit/crates/orbit-query/src/mod40.rs"
         ],
         "rework_id": "rw-64",
         "task_id": "session",
@@ -1374,9 +1379,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "crates/bar-config/examples/print_hash.rs edited 2 times",
+        "detail": "orbit/crates/orbit-query/src/mod76.rs edited 2 times",
         "evidence_refs": [
-          "transcript:edit:crates/bar-config/examples/print_hash.rs"
+          "transcript:edit:orbit/crates/orbit-query/src/mod76.rs"
         ],
         "rework_id": "rw-65",
         "task_id": "session",
@@ -1384,9 +1389,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "crates/bar-review/Cargo.toml edited 2 times",
+        "detail": "orbit/crates/orbit-registry/src/mod48.rs edited 2 times",
         "evidence_refs": [
-          "transcript:edit:crates/bar-review/Cargo.toml"
+          "transcript:edit:orbit/crates/orbit-registry/src/mod48.rs"
         ],
         "rework_id": "rw-66",
         "task_id": "session",
@@ -1394,9 +1399,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "crates/bar-schema/src/fact_id.rs edited 2 times",
+        "detail": "orbit/crates/orbit-resolve/src/mod32.rs edited 2 times",
         "evidence_refs": [
-          "transcript:edit:crates/bar-schema/src/fact_id.rs"
+          "transcript:edit:orbit/crates/orbit-resolve/src/mod32.rs"
         ],
         "rework_id": "rw-67",
         "task_id": "session",
@@ -1404,9 +1409,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "crates/bar-schema/tests/absence_state_serde.rs edited 2 times",
+        "detail": "orbit/crates/orbit-resolve/src/mod68.rs edited 2 times",
         "evidence_refs": [
-          "transcript:edit:crates/bar-schema/tests/absence_state_serde.rs"
+          "transcript:edit:orbit/crates/orbit-resolve/src/mod68.rs"
         ],
         "rework_id": "rw-68",
         "task_id": "session",
@@ -1414,9 +1419,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "crates/bar-schema/tests/roundtrip_report_example.rs edited 2 times",
+        "detail": "orbit/crates/orbit-schema/src/mod60.rs edited 2 times",
         "evidence_refs": [
-          "transcript:edit:crates/bar-schema/tests/roundtrip_report_example.rs"
+          "transcript:edit:orbit/crates/orbit-schema/src/mod60.rs"
         ],
         "rework_id": "rw-69",
         "task_id": "session",
@@ -1424,9 +1429,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "crates/bar-schema/tests/schema_field_parity.rs edited 2 times",
+        "detail": "orbit/crates/orbit-testenv/src/mod52.rs edited 2 times",
         "evidence_refs": [
-          "transcript:edit:crates/bar-schema/tests/schema_field_parity.rs"
+          "transcript:edit:orbit/crates/orbit-testenv/src/mod52.rs"
         ],
         "rework_id": "rw-70",
         "task_id": "session",
@@ -1434,9 +1439,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "dist/plugin/README.md edited 2 times",
+        "detail": "orbit/docs/guide/cli-61.md edited 2 times",
         "evidence_refs": [
-          "transcript:edit:dist/plugin/README.md"
+          "transcript:edit:orbit/docs/guide/cli-61.md"
         ],
         "rework_id": "rw-71",
         "task_id": "session",
@@ -1444,9 +1449,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "docs/architecture.md edited 2 times",
+        "detail": "orbit/docs/guide/config-41.md edited 2 times",
         "evidence_refs": [
-          "transcript:edit:docs/architecture.md"
+          "transcript:edit:orbit/docs/guide/config-41.md"
         ],
         "rework_id": "rw-72",
         "task_id": "session",
@@ -1454,9 +1459,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "docs/steps/02-base-materials.md edited 2 times",
+        "detail": "orbit/docs/guide/config-77.md edited 2 times",
         "evidence_refs": [
-          "transcript:edit:docs/steps/02-base-materials.md"
+          "transcript:edit:orbit/docs/guide/config-77.md"
         ],
         "rework_id": "rw-73",
         "task_id": "session",
@@ -1464,9 +1469,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "docs/steps/15-evidence-package.md edited 2 times",
+        "detail": "orbit/docs/guide/docs-53.md edited 2 times",
         "evidence_refs": [
-          "transcript:edit:docs/steps/15-evidence-package.md"
+          "transcript:edit:orbit/docs/guide/docs-53.md"
         ],
         "rework_id": "rw-74",
         "task_id": "session",
@@ -1474,9 +1479,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "tests/integration/csp_regression.sh edited 2 times",
+        "detail": "orbit/docs/guide/hooks-45.md edited 2 times",
         "evidence_refs": [
-          "transcript:edit:tests/integration/csp_regression.sh"
+          "transcript:edit:orbit/docs/guide/hooks-45.md"
         ],
         "rework_id": "rw-75",
         "task_id": "session",
@@ -1484,9 +1489,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "tests/integration/schema_validate.sh edited 2 times",
+        "detail": "orbit/docs/guide/index-29.md edited 2 times",
         "evidence_refs": [
-          "transcript:edit:tests/integration/schema_validate.sh"
+          "transcript:edit:orbit/docs/guide/index-29.md"
         ],
         "rework_id": "rw-76",
         "task_id": "session",
@@ -1494,9 +1499,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "tests/integration/toml_parse.sh edited 2 times",
+        "detail": "orbit/docs/guide/index-65.md edited 2 times",
         "evidence_refs": [
-          "transcript:edit:tests/integration/toml_parse.sh"
+          "transcript:edit:orbit/docs/guide/index-65.md"
         ],
         "rework_id": "rw-77",
         "task_id": "session",
@@ -1504,9 +1509,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "tools/render-check/src/main.rs edited 2 times",
+        "detail": "orbit/docs/guide/render-57.md edited 2 times",
         "evidence_refs": [
-          "transcript:edit:tools/render-check/src/main.rs"
+          "transcript:edit:orbit/docs/guide/render-57.md"
         ],
         "rework_id": "rw-78",
         "task_id": "session",
@@ -1514,9 +1519,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "tools/template-check/src/main.rs edited 2 times",
+        "detail": "orbit/docs/guide/review-49.md edited 2 times",
         "evidence_refs": [
-          "transcript:edit:tools/template-check/src/main.rs"
+          "transcript:edit:orbit/docs/guide/review-49.md"
         ],
         "rework_id": "rw-79",
         "task_id": "session",
@@ -1524,9 +1529,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "docs/wiki/agent/AI-CONTEXT.md edited 2 times",
+        "detail": "orbit/docs/guide/sanitize-33.md edited 2 times",
         "evidence_refs": [
-          "transcript:edit:docs/wiki/agent/AI-CONTEXT.md"
+          "transcript:edit:orbit/docs/guide/sanitize-33.md"
         ],
         "rework_id": "rw-80",
         "task_id": "session",
@@ -1534,9 +1539,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "docs/wiki/aisp/HUB.aisp edited 2 times",
+        "detail": "orbit/docs/guide/sanitize-69.md edited 2 times",
         "evidence_refs": [
-          "transcript:edit:docs/wiki/aisp/HUB.aisp"
+          "transcript:edit:orbit/docs/guide/sanitize-69.md"
         ],
         "rework_id": "rw-81",
         "task_id": "session",
@@ -1544,9 +1549,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "docs/wiki/human/README.md edited 2 times",
+        "detail": "orbit/docs/guide/store-37.md edited 2 times",
         "evidence_refs": [
-          "transcript:edit:docs/wiki/human/README.md"
+          "transcript:edit:orbit/docs/guide/store-37.md"
         ],
         "rework_id": "rw-82",
         "task_id": "session",
@@ -1554,9 +1559,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "reports/audit-report.md edited 2 times",
+        "detail": "orbit/docs/guide/store-73.md edited 2 times",
         "evidence_refs": [
-          "transcript:edit:reports/audit-report.md"
+          "transcript:edit:orbit/docs/guide/store-73.md"
         ],
         "rework_id": "rw-83",
         "task_id": "session",
@@ -1564,9 +1569,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "bar-observatory/.claude-plugin/plugin.json edited 2 times",
+        "detail": "specs/51-review-notes.md edited 2 times",
         "evidence_refs": [
-          "transcript:edit:bar-observatory/.claude-plugin/plugin.json"
+          "transcript:edit:specs/51-review-notes.md"
         ],
         "rework_id": "rw-84",
         "task_id": "session",
@@ -1574,9 +1579,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "bar-observatory/CONTRIBUTING.md edited 2 times",
+        "detail": "specs/55-docs-notes.md edited 2 times",
         "evidence_refs": [
-          "transcript:edit:bar-observatory/CONTRIBUTING.md"
+          "transcript:edit:specs/55-docs-notes.md"
         ],
         "rework_id": "rw-85",
         "task_id": "session",
@@ -1584,9 +1589,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "bar-observatory/CRATES.md edited 2 times",
+        "detail": "specs/59-render-notes.md edited 2 times",
         "evidence_refs": [
-          "transcript:edit:bar-observatory/CRATES.md"
+          "transcript:edit:specs/59-render-notes.md"
         ],
         "rework_id": "rw-86",
         "task_id": "session",
@@ -1594,9 +1599,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "bar-observatory/process/00-init.md edited 2 times",
+        "detail": "specs/63-cli-notes.md edited 2 times",
         "evidence_refs": [
-          "transcript:edit:bar-observatory/process/00-init.md"
+          "transcript:edit:specs/63-cli-notes.md"
         ],
         "rework_id": "rw-87",
         "task_id": "session",
@@ -1604,9 +1609,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "bar-observatory/process/04-optional-modules.md edited 2 times",
+        "detail": "specs/67-index-notes.md edited 2 times",
         "evidence_refs": [
-          "transcript:edit:bar-observatory/process/04-optional-modules.md"
+          "transcript:edit:specs/67-index-notes.md"
         ],
         "rework_id": "rw-88",
         "task_id": "session",
@@ -1614,9 +1619,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "bar-observatory/process/05-sample-report.md edited 2 times",
+        "detail": "specs/71-sanitize-notes.md edited 2 times",
         "evidence_refs": [
-          "transcript:edit:bar-observatory/process/05-sample-report.md"
+          "transcript:edit:specs/71-sanitize-notes.md"
         ],
         "rework_id": "rw-89",
         "task_id": "session",
@@ -1624,9 +1629,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "bar-observatory/process/06-use-cases.md edited 2 times",
+        "detail": "specs/75-store-notes.md edited 2 times",
         "evidence_refs": [
-          "transcript:edit:bar-observatory/process/06-use-cases.md"
+          "transcript:edit:specs/75-store-notes.md"
         ],
         "rework_id": "rw-90",
         "task_id": "session",
@@ -1634,9 +1639,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "bar-observatory/run.sh edited 2 times",
+        "detail": "specs/79-config-notes.md edited 2 times",
         "evidence_refs": [
-          "transcript:edit:bar-observatory/run.sh"
+          "transcript:edit:specs/79-config-notes.md"
         ],
         "rework_id": "rw-91",
         "task_id": "session",
@@ -1644,9 +1649,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "bar-observatory/schemas/report.schema.json edited 2 times",
+        "detail": "specs/83-hooks-notes.md edited 2 times",
         "evidence_refs": [
-          "transcript:edit:bar-observatory/schemas/report.schema.json"
+          "transcript:edit:specs/83-hooks-notes.md"
         ],
         "rework_id": "rw-92",
         "task_id": "session",
@@ -1654,9 +1659,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "bar-observatory/wiki/README.md edited 2 times",
+        "detail": "specs/87-review-notes.md edited 2 times",
         "evidence_refs": [
-          "transcript:edit:bar-observatory/wiki/README.md"
+          "transcript:edit:specs/87-review-notes.md"
         ],
         "rework_id": "rw-93",
         "task_id": "session",
@@ -1664,9 +1669,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "bar-observatory/wiki/enterprise.md edited 2 times",
+        "detail": "specs/91-docs-notes.md edited 2 times",
         "evidence_refs": [
-          "transcript:edit:bar-observatory/wiki/enterprise.md"
+          "transcript:edit:specs/91-docs-notes.md"
         ],
         "rework_id": "rw-94",
         "task_id": "session",
@@ -1674,9 +1679,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "observatory/CLAUDE.md edited 2 times",
+        "detail": "specs/95-render-notes.md edited 2 times",
         "evidence_refs": [
-          "transcript:edit:observatory/CLAUDE.md"
+          "transcript:edit:specs/95-render-notes.md"
         ],
         "rework_id": "rw-95",
         "task_id": "session",
@@ -1684,9 +1689,9 @@
       },
       {
         "confidence": "exact",
-        "detail": "observatory/crates/README.md edited 2 times",
+        "detail": "specs/99-cli-notes.md edited 2 times",
         "evidence_refs": [
-          "transcript:edit:observatory/crates/README.md"
+          "transcript:edit:specs/99-cli-notes.md"
         ],
         "rework_id": "rw-96",
         "task_id": "session",
@@ -1696,27 +1701,27 @@
     "hotspots": [
       {
         "edits": 77,
-        "path": "bar-observatory/README.md"
+        "path": "orbit/README.md"
       },
       {
         "edits": 22,
-        "path": "bar-observatory/index.html"
+        "path": "orbit/index.html"
       },
       {
         "edits": 16,
-        "path": "bar-observatory/provenance/PROVENANCE.json"
+        "path": "orbit/docs/guide/README.md"
       },
       {
         "edits": 16,
-        "path": "bar-observatory/wiki/human/README.md"
+        "path": "orbit/docs/manifest.json"
       },
       {
         "edits": 15,
-        "path": "bar-observatory/CHANGELOG.md"
+        "path": "orbit/CHANGELOG.md"
       },
       {
         "edits": 15,
-        "path": "bar-observatory/wiki/master-guide.html"
+        "path": "orbit/docs/guide/handbook.html"
       },
       {
         "edits": 12,
@@ -1724,379 +1729,781 @@
       },
       {
         "edits": 9,
-        "path": "docs/specs/10-capabilities-review.md"
+        "path": "orbit/RUN.md"
       },
       {
         "edits": 9,
-        "path": "docs/specs/13-pre-seal-checklist.md"
+        "path": "orbit/docs/layers.html"
       },
       {
         "edits": 9,
-        "path": "bar-observatory/RUN.md"
+        "path": "specs/10-capabilities-review.md"
       },
       {
         "edits": 9,
-        "path": "bar-observatory/wiki/documentation-layers.html"
-      },
-      {
-        "edits": 7,
-        "path": "review/verify/src/main.rs"
+        "path": "specs/13-pre-release-checklist.md"
       },
       {
         "edits": 7,
         "path": "NOTES.md"
       },
       {
-        "edits": 6,
-        "path": "review/pr-a/crates/bar-observatory/src/detectors.rs"
+        "edits": 7,
+        "path": "review/verify/src/main.rs"
       },
       {
         "edits": 6,
-        "path": "CLAUDE.md"
+        "path": "AGENTS.md"
       },
       {
         "edits": 6,
-        "path": "TODO.md"
-      },
-      {
-        "edits": 6,
-        "path": "crates/bar-config/src/lib.rs"
-      },
-      {
-        "edits": 6,
-        "path": "bar-observatory/wiki/aisp/HUB.aisp"
+        "path": "review/pr-a/crates/orbit/src/detectors.rs"
       },
       {
         "edits": 5,
-        "path": "review/pr-b/crates/bar-observatory/src/compare.rs"
+        "path": "orbit/config/proxy-26.toml"
       },
       {
         "edits": 5,
-        "path": "review/pr-b/crates/bar-observatory/src/report.rs"
+        "path": "orbit/config/query-22.toml"
       },
       {
         "edits": 5,
-        "path": "review/pr-b/crates/bar-observatory/src/share_safe.rs"
+        "path": "orbit/crates/orbit-core/Cargo.toml"
       },
       {
         "edits": 5,
-        "path": "review/pr-a/crates/bar-observatory/src/report.rs"
+        "path": "orbit/crates/orbit-core/src/lib.rs"
       },
       {
         "edits": 5,
-        "path": "bar-observatory/wiki/agent/AI-CONTEXT.md"
+        "path": "orbit/crates/orbit-ingest/Cargo.toml"
       },
       {
         "edits": 5,
-        "path": "bar-observatory/wiki/human-html/documentation-layers.html"
+        "path": "orbit/crates/orbit-ingest/src/mod20.rs"
       },
       {
-        "edits": 4,
-        "path": "review/pr-b/crates/bar-observatory/src/report_tests.rs"
+        "edits": 5,
+        "path": "orbit/crates/orbit-metrics/Cargo.toml"
       },
       {
-        "edits": 4,
-        "path": "review/pr-b/crates/bar-observatory/tests/capture.rs"
+        "edits": 5,
+        "path": "orbit/crates/orbit-proxy/src/lib.rs"
       },
       {
-        "edits": 4,
-        "path": "crates/bar-mcp/Cargo.toml"
+        "edits": 5,
+        "path": "orbit/crates/orbit-query/src/lib.rs"
       },
       {
-        "edits": 4,
-        "path": "crates/bar-mcp/src/tools.rs"
+        "edits": 5,
+        "path": "orbit/crates/orbit-registry/src/lib.rs"
       },
       {
-        "edits": 4,
-        "path": "crates/bar-observatory/Cargo.toml"
+        "edits": 5,
+        "path": "orbit/crates/orbit-resolve/Cargo.toml"
       },
       {
-        "edits": 4,
-        "path": "crates/bar-observatory/src/report.rs"
+        "edits": 5,
+        "path": "orbit/crates/orbit-schema/Cargo.toml"
       },
       {
-        "edits": 4,
-        "path": "crates/bar-observatory/tests/resolved_config_schema_parity.rs"
+        "edits": 5,
+        "path": "orbit/crates/orbit-schema/src/mod24.rs"
       },
       {
-        "edits": 4,
-        "path": "crates/bar-schema/Cargo.toml"
+        "edits": 5,
+        "path": "orbit/crates/orbit-testenv/src/lib.rs"
       },
       {
-        "edits": 4,
-        "path": "docs/reference/bar-observatory.default.toml"
+        "edits": 5,
+        "path": "orbit/docs/guide/cli-25.md"
       },
       {
-        "edits": 4,
-        "path": "docs/adr/0004-caching-strategy.md"
+        "edits": 5,
+        "path": "orbit/docs/guide/config-5.md"
       },
       {
-        "edits": 4,
-        "path": "examples/deterministic/sample.report.json"
+        "edits": 5,
+        "path": "orbit/docs/guide/docs-17.md"
       },
       {
-        "edits": 4,
-        "path": "docs/specs/06-build-loop.md"
+        "edits": 5,
+        "path": "orbit/docs/guide/hooks-9.md"
       },
       {
-        "edits": 4,
-        "path": "docs/specs/09-session-grounding.md"
+        "edits": 5,
+        "path": "orbit/docs/guide/render-21.md"
       },
       {
-        "edits": 4,
-        "path": "docs/specs/14-flight-recorder-enhancement.md"
+        "edits": 5,
+        "path": "orbit/docs/guide/review-13.md"
       },
       {
-        "edits": 4,
-        "path": "bar-observatory/config/bar-observatory.default.toml"
+        "edits": 5,
+        "path": "orbit/docs/guide/store-1.md"
       },
       {
-        "edits": 4,
-        "path": "bar-observatory/wiki/architecture.md"
+        "edits": 5,
+        "path": "specs/23-render-notes.md"
       },
       {
-        "edits": 4,
-        "path": "bar-observatory/wiki/human/md/architecture.md"
+        "edits": 5,
+        "path": "specs/27-cli-notes.md"
       },
       {
-        "edits": 4,
-        "path": "scripts/public-export.sh"
+        "edits": 5,
+        "path": "specs/31-index-notes.md"
       },
       {
-        "edits": 3,
-        "path": "review/build_report.py"
+        "edits": 5,
+        "path": "specs/35-sanitize-notes.md"
       },
       {
-        "edits": 3,
-        "path": "review/pr-b/crates/bar-observatory/src/detectors.rs"
+        "edits": 5,
+        "path": "specs/39-store-notes.md"
       },
       {
-        "edits": 3,
-        "path": "review/pr-a/crates/bar-read/src/lib.rs"
+        "edits": 5,
+        "path": "specs/43-config-notes.md"
       },
       {
-        "edits": 3,
-        "path": "review/pr-a/scripts/public-export.sh"
-      },
-      {
-        "edits": 3,
-        "path": "review/verify/Cargo.toml"
+        "edits": 5,
+        "path": "specs/47-hooks-notes.md"
       },
       {
         "edits": 3,
-        "path": "crates/Cargo.toml"
-      },
-      {
-        "edits": 3,
-        "path": "crates/bar-config/Cargo.toml"
-      },
-      {
-        "edits": 3,
-        "path": "crates/bar-schema/src/lib.rs"
-      },
-      {
-        "edits": 3,
-        "path": "crates/bar-schema/tests/branding_from_toml.rs"
-      },
-      {
-        "edits": 3,
-        "path": "crates/bar-schema/tests/fact_id_assign.rs"
-      },
-      {
-        "edits": 3,
-        "path": "docs/specs/11-qe-fleet-guide.md"
-      },
-      {
-        "edits": 3,
-        "path": "schemas/report.schema.internal.json"
-      },
-      {
-        "edits": 3,
-        "path": "tests/integration/resolver_test.py"
-      },
-      {
-        "edits": 3,
-        "path": "docs/status/audit-status.md"
-      },
-      {
-        "edits": 3,
-        "path": "bar-observatory/examples/README.html"
-      },
-      {
-        "edits": 3,
-        "path": "bar-observatory/examples/README.md"
-      },
-      {
-        "edits": 3,
-        "path": "bar-observatory/llms.txt"
-      },
-      {
-        "edits": 3,
-        "path": "bar-observatory/schemas/interpretation.schema.json"
-      },
-      {
-        "edits": 3,
-        "path": "bar-observatory/wiki/README.html"
+        "path": "orbit/crates/orbit-metrics/src/mod28.rs"
       },
       {
         "edits": 2,
-        "path": "review/pr-b/crates/bar-observatory/src/lib.rs"
+        "path": "orbit/config/core-54.toml"
       },
       {
         "edits": 2,
-        "path": "review/pr-a/crates/bar-observatory/src/lib.rs"
+        "path": "orbit/config/ingest-38.toml"
       },
       {
         "edits": 2,
-        "path": "secrets/deploy-key.pem"
+        "path": "orbit/config/ingest-74.toml"
       },
       {
         "edits": 2,
-        "path": "crates/bar-config/examples/print_hash.rs"
+        "path": "orbit/config/metrics-46.toml"
       },
       {
         "edits": 2,
-        "path": "crates/bar-review/Cargo.toml"
+        "path": "orbit/config/proxy-62.toml"
       },
       {
         "edits": 2,
-        "path": "crates/bar-schema/src/fact_id.rs"
+        "path": "orbit/config/query-58.toml"
       },
       {
         "edits": 2,
-        "path": "crates/bar-schema/tests/absence_state_serde.rs"
+        "path": "orbit/config/registry-30.toml"
       },
       {
         "edits": 2,
-        "path": "crates/bar-schema/tests/roundtrip_report_example.rs"
+        "path": "orbit/config/registry-66.toml"
       },
       {
         "edits": 2,
-        "path": "crates/bar-schema/tests/schema_field_parity.rs"
+        "path": "orbit/config/resolve-50.toml"
       },
       {
         "edits": 2,
-        "path": "dist/plugin/README.md"
+        "path": "orbit/config/schema-42.toml"
       },
       {
         "edits": 2,
-        "path": "docs/architecture.md"
+        "path": "orbit/config/schema-78.toml"
       },
       {
         "edits": 2,
-        "path": "docs/steps/02-base-materials.md"
+        "path": "orbit/config/testenv-34.toml"
       },
       {
         "edits": 2,
-        "path": "docs/steps/15-evidence-package.md"
+        "path": "orbit/config/testenv-70.toml"
       },
       {
         "edits": 2,
-        "path": "tests/integration/csp_regression.sh"
+        "path": "orbit/crates/orbit-core/src/mod36.rs"
       },
       {
         "edits": 2,
-        "path": "tests/integration/schema_validate.sh"
+        "path": "orbit/crates/orbit-core/src/mod72.rs"
       },
       {
         "edits": 2,
-        "path": "tests/integration/toml_parse.sh"
+        "path": "orbit/crates/orbit-ingest/src/mod56.rs"
       },
       {
         "edits": 2,
-        "path": "tools/render-check/src/main.rs"
+        "path": "orbit/crates/orbit-metrics/src/mod64.rs"
       },
       {
         "edits": 2,
-        "path": "tools/template-check/src/main.rs"
+        "path": "orbit/crates/orbit-proxy/src/mod44.rs"
       },
       {
         "edits": 2,
-        "path": "docs/wiki/agent/AI-CONTEXT.md"
+        "path": "orbit/crates/orbit-proxy/src/mod80.rs"
       },
       {
         "edits": 2,
-        "path": "docs/wiki/aisp/HUB.aisp"
+        "path": "orbit/crates/orbit-query/src/mod40.rs"
       },
       {
         "edits": 2,
-        "path": "docs/wiki/human/README.md"
+        "path": "orbit/crates/orbit-query/src/mod76.rs"
       },
       {
         "edits": 2,
-        "path": "reports/audit-report.md"
+        "path": "orbit/crates/orbit-registry/src/mod48.rs"
       },
       {
         "edits": 2,
-        "path": "bar-observatory/.claude-plugin/plugin.json"
+        "path": "orbit/crates/orbit-resolve/src/mod32.rs"
       },
       {
         "edits": 2,
-        "path": "bar-observatory/CONTRIBUTING.md"
+        "path": "orbit/crates/orbit-resolve/src/mod68.rs"
       },
       {
         "edits": 2,
-        "path": "bar-observatory/CRATES.md"
+        "path": "orbit/crates/orbit-schema/src/mod60.rs"
       },
       {
         "edits": 2,
-        "path": "bar-observatory/process/00-init.md"
+        "path": "orbit/crates/orbit-testenv/src/mod52.rs"
       },
       {
         "edits": 2,
-        "path": "bar-observatory/process/04-optional-modules.md"
+        "path": "orbit/docs/guide/cli-61.md"
       },
       {
         "edits": 2,
-        "path": "bar-observatory/process/05-sample-report.md"
+        "path": "orbit/docs/guide/config-41.md"
       },
       {
         "edits": 2,
-        "path": "bar-observatory/process/06-use-cases.md"
+        "path": "orbit/docs/guide/config-77.md"
       },
       {
         "edits": 2,
-        "path": "bar-observatory/run.sh"
+        "path": "orbit/docs/guide/docs-53.md"
       },
       {
         "edits": 2,
-        "path": "bar-observatory/schemas/report.schema.json"
+        "path": "orbit/docs/guide/hooks-45.md"
       },
       {
         "edits": 2,
-        "path": "bar-observatory/wiki/README.md"
+        "path": "orbit/docs/guide/index-29.md"
       },
       {
         "edits": 2,
-        "path": "bar-observatory/wiki/enterprise.md"
+        "path": "orbit/docs/guide/index-65.md"
       },
       {
         "edits": 2,
-        "path": "observatory/CLAUDE.md"
+        "path": "orbit/docs/guide/render-57.md"
       },
       {
         "edits": 2,
-        "path": "observatory/crates/README.md"
+        "path": "orbit/docs/guide/review-49.md"
+      },
+      {
+        "edits": 2,
+        "path": "orbit/docs/guide/sanitize-33.md"
+      },
+      {
+        "edits": 2,
+        "path": "orbit/docs/guide/sanitize-69.md"
+      },
+      {
+        "edits": 2,
+        "path": "orbit/docs/guide/store-37.md"
+      },
+      {
+        "edits": 2,
+        "path": "orbit/docs/guide/store-73.md"
+      },
+      {
+        "edits": 2,
+        "path": "specs/51-review-notes.md"
+      },
+      {
+        "edits": 2,
+        "path": "specs/55-docs-notes.md"
+      },
+      {
+        "edits": 2,
+        "path": "specs/59-render-notes.md"
+      },
+      {
+        "edits": 2,
+        "path": "specs/63-cli-notes.md"
+      },
+      {
+        "edits": 2,
+        "path": "specs/67-index-notes.md"
+      },
+      {
+        "edits": 2,
+        "path": "specs/71-sanitize-notes.md"
+      },
+      {
+        "edits": 2,
+        "path": "specs/75-store-notes.md"
+      },
+      {
+        "edits": 2,
+        "path": "specs/79-config-notes.md"
+      },
+      {
+        "edits": 2,
+        "path": "specs/83-hooks-notes.md"
+      },
+      {
+        "edits": 2,
+        "path": "specs/87-review-notes.md"
+      },
+      {
+        "edits": 2,
+        "path": "specs/91-docs-notes.md"
+      },
+      {
+        "edits": 2,
+        "path": "specs/95-render-notes.md"
+      },
+      {
+        "edits": 2,
+        "path": "specs/99-cli-notes.md"
       }
     ],
-    "note": "Real deterministic rework signals from the transcript: 96 attributable file(s) edited ≥2× (churn) + 60 error tool_result(s). Structural signals (repeated-edit / error) — NOT hallucination/quality judgment (that is the interpreted report, P10+). Repeated edits are normal in iterative/TDD work; this flags concentration, not failure."
+    "note": "Real deterministic rework signals from the transcript: 96 attributable file(s) edited ≥2× (churn) + 60 error tool_result(s). Structural signals (repeated-edit / error) — NOT hallucination/quality judgment (that is the interpreted report, P10+). Repeated edits are normal in iterative/TDD work; this flags concentration, not failure.",
+    "reason_code": "n/a"
+  },
+  "cross_run_hotspots": {
+    "status": "observed",
+    "hotspots": [
+      {
+        "edits": 77,
+        "path": "orbit/README.md"
+      },
+      {
+        "edits": 22,
+        "path": "orbit/index.html"
+      },
+      {
+        "edits": 16,
+        "path": "orbit/docs/guide/README.md"
+      },
+      {
+        "edits": 16,
+        "path": "orbit/docs/manifest.json"
+      },
+      {
+        "edits": 15,
+        "path": "orbit/CHANGELOG.md"
+      },
+      {
+        "edits": 15,
+        "path": "orbit/docs/guide/handbook.html"
+      },
+      {
+        "edits": 12,
+        "path": ".gitignore"
+      },
+      {
+        "edits": 9,
+        "path": "orbit/RUN.md"
+      },
+      {
+        "edits": 9,
+        "path": "orbit/docs/layers.html"
+      },
+      {
+        "edits": 9,
+        "path": "specs/10-capabilities-review.md"
+      },
+      {
+        "edits": 9,
+        "path": "specs/13-pre-release-checklist.md"
+      },
+      {
+        "edits": 7,
+        "path": "NOTES.md"
+      },
+      {
+        "edits": 7,
+        "path": "review/verify/src/main.rs"
+      },
+      {
+        "edits": 6,
+        "path": "AGENTS.md"
+      },
+      {
+        "edits": 6,
+        "path": "review/pr-a/crates/orbit/src/detectors.rs"
+      },
+      {
+        "edits": 5,
+        "path": "orbit/config/proxy-26.toml"
+      },
+      {
+        "edits": 5,
+        "path": "orbit/config/query-22.toml"
+      },
+      {
+        "edits": 5,
+        "path": "orbit/crates/orbit-core/Cargo.toml"
+      },
+      {
+        "edits": 5,
+        "path": "orbit/crates/orbit-core/src/lib.rs"
+      },
+      {
+        "edits": 5,
+        "path": "orbit/crates/orbit-ingest/Cargo.toml"
+      },
+      {
+        "edits": 5,
+        "path": "orbit/crates/orbit-ingest/src/mod20.rs"
+      },
+      {
+        "edits": 5,
+        "path": "orbit/crates/orbit-metrics/Cargo.toml"
+      },
+      {
+        "edits": 5,
+        "path": "orbit/crates/orbit-proxy/src/lib.rs"
+      },
+      {
+        "edits": 5,
+        "path": "orbit/crates/orbit-query/src/lib.rs"
+      },
+      {
+        "edits": 5,
+        "path": "orbit/crates/orbit-registry/src/lib.rs"
+      },
+      {
+        "edits": 5,
+        "path": "orbit/crates/orbit-resolve/Cargo.toml"
+      },
+      {
+        "edits": 5,
+        "path": "orbit/crates/orbit-schema/Cargo.toml"
+      },
+      {
+        "edits": 5,
+        "path": "orbit/crates/orbit-schema/src/mod24.rs"
+      },
+      {
+        "edits": 5,
+        "path": "orbit/crates/orbit-testenv/src/lib.rs"
+      },
+      {
+        "edits": 5,
+        "path": "orbit/docs/guide/cli-25.md"
+      },
+      {
+        "edits": 5,
+        "path": "orbit/docs/guide/config-5.md"
+      },
+      {
+        "edits": 5,
+        "path": "orbit/docs/guide/docs-17.md"
+      },
+      {
+        "edits": 5,
+        "path": "orbit/docs/guide/hooks-9.md"
+      },
+      {
+        "edits": 5,
+        "path": "orbit/docs/guide/render-21.md"
+      },
+      {
+        "edits": 5,
+        "path": "orbit/docs/guide/review-13.md"
+      },
+      {
+        "edits": 5,
+        "path": "orbit/docs/guide/store-1.md"
+      },
+      {
+        "edits": 5,
+        "path": "specs/23-render-notes.md"
+      },
+      {
+        "edits": 5,
+        "path": "specs/27-cli-notes.md"
+      },
+      {
+        "edits": 5,
+        "path": "specs/31-index-notes.md"
+      },
+      {
+        "edits": 5,
+        "path": "specs/35-sanitize-notes.md"
+      },
+      {
+        "edits": 5,
+        "path": "specs/39-store-notes.md"
+      },
+      {
+        "edits": 5,
+        "path": "specs/43-config-notes.md"
+      },
+      {
+        "edits": 5,
+        "path": "specs/47-hooks-notes.md"
+      },
+      {
+        "edits": 3,
+        "path": "orbit/crates/orbit-metrics/src/mod28.rs"
+      },
+      {
+        "edits": 2,
+        "path": "orbit/config/core-54.toml"
+      },
+      {
+        "edits": 2,
+        "path": "orbit/config/ingest-38.toml"
+      },
+      {
+        "edits": 2,
+        "path": "orbit/config/ingest-74.toml"
+      },
+      {
+        "edits": 2,
+        "path": "orbit/config/metrics-46.toml"
+      },
+      {
+        "edits": 2,
+        "path": "orbit/config/proxy-62.toml"
+      },
+      {
+        "edits": 2,
+        "path": "orbit/config/query-58.toml"
+      },
+      {
+        "edits": 2,
+        "path": "orbit/config/registry-30.toml"
+      },
+      {
+        "edits": 2,
+        "path": "orbit/config/registry-66.toml"
+      },
+      {
+        "edits": 2,
+        "path": "orbit/config/resolve-50.toml"
+      },
+      {
+        "edits": 2,
+        "path": "orbit/config/schema-42.toml"
+      },
+      {
+        "edits": 2,
+        "path": "orbit/config/schema-78.toml"
+      },
+      {
+        "edits": 2,
+        "path": "orbit/config/testenv-34.toml"
+      },
+      {
+        "edits": 2,
+        "path": "orbit/config/testenv-70.toml"
+      },
+      {
+        "edits": 2,
+        "path": "orbit/crates/orbit-core/src/mod36.rs"
+      },
+      {
+        "edits": 2,
+        "path": "orbit/crates/orbit-core/src/mod72.rs"
+      },
+      {
+        "edits": 2,
+        "path": "orbit/crates/orbit-ingest/src/mod56.rs"
+      },
+      {
+        "edits": 2,
+        "path": "orbit/crates/orbit-metrics/src/mod64.rs"
+      },
+      {
+        "edits": 2,
+        "path": "orbit/crates/orbit-proxy/src/mod44.rs"
+      },
+      {
+        "edits": 2,
+        "path": "orbit/crates/orbit-proxy/src/mod80.rs"
+      },
+      {
+        "edits": 2,
+        "path": "orbit/crates/orbit-query/src/mod40.rs"
+      },
+      {
+        "edits": 2,
+        "path": "orbit/crates/orbit-query/src/mod76.rs"
+      },
+      {
+        "edits": 2,
+        "path": "orbit/crates/orbit-registry/src/mod48.rs"
+      },
+      {
+        "edits": 2,
+        "path": "orbit/crates/orbit-resolve/src/mod32.rs"
+      },
+      {
+        "edits": 2,
+        "path": "orbit/crates/orbit-resolve/src/mod68.rs"
+      },
+      {
+        "edits": 2,
+        "path": "orbit/crates/orbit-schema/src/mod60.rs"
+      },
+      {
+        "edits": 2,
+        "path": "orbit/crates/orbit-testenv/src/mod52.rs"
+      },
+      {
+        "edits": 2,
+        "path": "orbit/docs/guide/cli-61.md"
+      },
+      {
+        "edits": 2,
+        "path": "orbit/docs/guide/config-41.md"
+      },
+      {
+        "edits": 2,
+        "path": "orbit/docs/guide/config-77.md"
+      },
+      {
+        "edits": 2,
+        "path": "orbit/docs/guide/docs-53.md"
+      },
+      {
+        "edits": 2,
+        "path": "orbit/docs/guide/hooks-45.md"
+      },
+      {
+        "edits": 2,
+        "path": "orbit/docs/guide/index-29.md"
+      },
+      {
+        "edits": 2,
+        "path": "orbit/docs/guide/index-65.md"
+      },
+      {
+        "edits": 2,
+        "path": "orbit/docs/guide/render-57.md"
+      },
+      {
+        "edits": 2,
+        "path": "orbit/docs/guide/review-49.md"
+      },
+      {
+        "edits": 2,
+        "path": "orbit/docs/guide/sanitize-33.md"
+      },
+      {
+        "edits": 2,
+        "path": "orbit/docs/guide/sanitize-69.md"
+      },
+      {
+        "edits": 2,
+        "path": "orbit/docs/guide/store-37.md"
+      },
+      {
+        "edits": 2,
+        "path": "orbit/docs/guide/store-73.md"
+      },
+      {
+        "edits": 2,
+        "path": "specs/51-review-notes.md"
+      },
+      {
+        "edits": 2,
+        "path": "specs/55-docs-notes.md"
+      },
+      {
+        "edits": 2,
+        "path": "specs/59-render-notes.md"
+      },
+      {
+        "edits": 2,
+        "path": "specs/63-cli-notes.md"
+      },
+      {
+        "edits": 2,
+        "path": "specs/67-index-notes.md"
+      },
+      {
+        "edits": 2,
+        "path": "specs/71-sanitize-notes.md"
+      },
+      {
+        "edits": 2,
+        "path": "specs/75-store-notes.md"
+      },
+      {
+        "edits": 2,
+        "path": "specs/79-config-notes.md"
+      },
+      {
+        "edits": 2,
+        "path": "specs/83-hooks-notes.md"
+      },
+      {
+        "edits": 2,
+        "path": "specs/87-review-notes.md"
+      },
+      {
+        "edits": 2,
+        "path": "specs/91-docs-notes.md"
+      },
+      {
+        "edits": 2,
+        "path": "specs/95-render-notes.md"
+      },
+      {
+        "edits": 2,
+        "path": "specs/99-cli-notes.md"
+      }
+    ],
+    "excluded_runs": 0,
+    "note": "Real deterministic cross-run churn signal: 96 file(s) edited ≥2× when aggregated across every run with a reliable workspace root in this store.",
+    "reason_code": "n/a"
   },
   "human_ai_recovery": {
     "status": "not_observed",
     "items": [],
-    "note": "Not observed — human-vs-AI recovery classification is not built yet."
+    "note": "Not observed — human-vs-AI recovery classification is not built yet.",
+    "reason_code": "detector_not_built"
   },
   "validation": {
     "status": "observed",
     "items": [
       {
+        "by_runner": [
+          {
+            "runner": "cargo",
+            "verdicts": 373
+          }
+        ],
         "failed": 29,
         "last_ok": true,
         "passed": 344,
-        "runs": 373
+        "runs": 373,
+        "unreadable_results": 0
       }
     ],
-    "note": "Real validation EVIDENCE from ingested tool outputs: 373 cargo `test result:` line(s) — 344 passed, 29 failed; last line PASSED. (One `cargo test --workspace` emits several such lines — one per crate — so this counts result-lines, not invocations; the last verdict is as of the capture window's end.) Measured, not self-reported: it begins to back the ledger's completion claims."
+    "note": "Real validation EVIDENCE from ingested tool outputs: 373 verdict line(s) (373 cargo) — 344 passed, 29 failed; last verdict PASSED. (One `cargo test --workspace` emits several such lines — one per crate — so this counts result-lines, not invocations; the last verdict is as of the capture window's end.) Measured, not self-reported: it begins to back the ledger's completion claims.",
+    "reason_code": "n/a"
   },
   "flaky": {
     "status": "observed",
@@ -2109,15 +2516,16 @@
       {
         "fails": 2,
         "passes": 3,
-        "test": "pr2_review_list_query_failures_are_disclosed_not_silent"
+        "test": "query_failures_are_disclosed_not_silent"
       },
       {
         "fails": 1,
         "passes": 2,
-        "test": "a2c_f1_committed_plugin_hooks_match_generator"
+        "test": "committed_hooks_match_generator"
       }
     ],
-    "note": "3 test(s) both passed AND failed across the session's captured cargo runs (measured from `test … ok`/`FAILED` lines, no LLM). This is a verdict-change signal to investigate — on an actively-editing session a flip can be a fix or a regression, not only non-determinism."
+    "note": "3 test(s) both passed AND failed across the session's captured test runs (measured from `test … ok`/`FAILED` lines, no LLM). This is a verdict-change signal to investigate — on an actively-editing session a flip can be a fix or a regression, not only non-determinism.",
+    "reason_code": "n/a"
   },
   "failures": {
     "status": "observed",
@@ -2158,12 +2566,14 @@
         "tool": "Write"
       }
     ],
-    "note": "Real failures captured from tool outputs: 60 error result(s) across 7 distinct tool(s), categorized (mcp / tool / unknown). This section surfaces both system failures (a tool or MCP not working) and coded errors so they are recorded, not silently dropped."
+    "note": "Real failures captured from tool outputs: 60 error result(s) across 7 distinct tool(s), categorized (mcp / tool / unknown). This section surfaces both system failures (a tool or MCP not working) and coded errors so they are recorded, not silently dropped.",
+    "reason_code": "n/a"
   },
   "observations": {
     "status": "not_observed",
     "featured": [],
-    "note": "Not observed — micro-observation extraction and silent-signal detection are not built yet; no findings are fabricated."
+    "note": "Not observed — micro-observation extraction and silent-signal detection are not built yet; no findings are fabricated.",
+    "reason_code": "detector_not_built"
   },
   "capture": {
     "channels": [
@@ -2193,14 +2603,35 @@
         "status": "partial",
         "coverage": "gap_detected",
         "recorded": 9132,
-        "reason": "9132 turns; coverage gap (MEASURED) — 629 dangling parent(s); 139 unpaired tool_use/tool_result."
+        "reason": "9132 turns; coverage gap (MEASURED) — 629 dangling parent(s); 136 unpaired tool_use/tool_result."
       },
       {
         "id": "requests",
         "status": "not_recorded",
         "coverage": "not_applicable",
         "recorded": 0,
-        "reason": "No requests rows in this store."
+        "reason": "No requests rows in this store. Remediable: the token/cost channel is captured by the local proxy (point ANTHROPIC_BASE_URL at it), not by transcript ingest — this is expected on a transcript-only ingest, not a capture failure."
+      },
+      {
+        "id": "file_history",
+        "status": "not_recorded",
+        "coverage": "not_applicable",
+        "recorded": 0,
+        "reason": "No file_history rows in this store."
+      },
+      {
+        "id": "plan_docs",
+        "status": "not_observed",
+        "coverage": "not_applicable",
+        "recorded": 0,
+        "reason": "Not observed — no correlation_stats row for channel='plan_docs' in this store (ingest_plans has not run against this store's data yet)."
+      },
+      {
+        "id": "raw_logs",
+        "status": "not_observed",
+        "coverage": "not_applicable",
+        "recorded": 0,
+        "reason": "no_data: raw_logs has a real writer but no ambient-capture trigger wires it — on-demand-only by design, not a capture gap. No call site in this store's ingest path has invoked it."
       },
       {
         "id": "provider_cost_usd",
@@ -2210,13 +2641,16 @@
         "reason": "Subscription auth (ADR-024) exposes no authoritative per-token USD; a labeled list-price ESTIMATE is derived instead (see cost). Tokens + wall-clock stay primary."
       }
     ],
-    "health_note": "No capture losses recorded (dead_letters is empty)."
+    "health_note": "No unresolved capture losses (dead_letters has no resolved=0 rows)."
   },
   "integrity": {
-    "source_db_hash": "blake3:96ad36b19f55b07ba73de1474eafdcdf68d3b583c1c6bb55ef3b443153b5ce7e",
-    "template_hash": "blake3:b8bcf83ef579efa16b0185ca546f39cf8a408aa8c0a58051763eab7500742871",
-    "renderer_version": "0.1.1",
+    "source_db_hash": "blake3:14fd056be2935fc7f5ed2d979eaac9c3a2f891a7b031581711201090ebfc5ff4",
+    "template_hash": "blake3:3384a44fb8e759ebed83168fa79ff83c4cf30b6b2bb3867be4c91310fd5a022e",
+    "renderer_version": "0.2.1",
     "deterministic_render": true,
-    "llm_in_render_path": false
+    "llm_in_render_path": false,
+    "redact_mode": "off",
+    "redact_paths": "verbatim",
+    "redact_secrets": "detect_and_report"
   }
 }

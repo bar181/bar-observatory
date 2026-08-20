@@ -128,6 +128,11 @@ h1 em{font-style:normal;color:var(--stamp)}
   margin-top:26px;max-width:390px}
 .print-row{opacity:0;animation:print .34s ease-out forwards}
 @keyframes print{from{opacity:0;transform:translateY(-5px)}to{opacity:1;transform:none}}
+/* The stamp is also a .print-row, and `print`'s forwards fill would land it on
+   transform:none — flattening the rotation the moment the animation ended. It gets its
+   own keyframes so the tilt survives, in both themes. */
+.r-stamp.print-row{animation-name:print-stamp}
+@keyframes print-stamp{from{opacity:0;transform:rotate(-11deg) translateY(-5px)}to{opacity:.82;transform:rotate(-11deg)}}
 @media(prefers-reduced-motion:reduce){.print-row{animation:none;opacity:1}}
 
 /* blocks */
@@ -277,6 +282,171 @@ footer{border-top:1px solid var(--rule);padding:44px 0 60px;font-size:14px;color
 .foot-grid{display:flex;gap:34px;flex-wrap:wrap;justify-content:space-between}
 footer a{color:var(--ink-2)}
 .disclaim{font-size:12.5px;margin-top:24px;color:var(--absent);max-width:70ch}
+
+/* ============================================================
+   PLATE SKIN — 2026-08-19
+   The reports render in the plate palette (see the generated
+   report's own inlined stylesheet). This block brings the site
+   and wiki onto the same palette and type scale, so a reader
+   moving between a page and a report does not feel they have
+   changed products.
+
+   It is layered ON TOP of each page's own stylesheet and only
+   redefines tokens plus a little chrome — every layout rule,
+   every CSS-only interaction, and the no-JavaScript guarantee
+   are left exactly as they were. Dark mode follows the operating
+   system; there is no toggle here, because adding one would mean
+   adding a script to pages that deliberately have none.
+   ============================================================ */
+:root{
+  --paper:#F1F5F8;
+  --card:#FFFFFF;
+  --card-2:#F7FAFC;
+  --ink:#08202F;
+  --ink-2:#3A5468;
+  --stamp:#2C6CA6;
+  --verified:#1B7A62;
+  --absent:#7B92A5;
+  --rule:#DCE5EC;
+  --rule-2:#EAF0F5;
+  --plate-900:#061523;
+  --plate-800:#0A2135;
+  --plate-700:#0F3050;
+  --amber:#B57F22;
+  --vermilion:#B93A22;
+  --iris:#5A55A3;
+  --display:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Times New Roman",serif;
+  --body:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace;
+  --shadow-sm:0 1px 2px rgba(8,32,47,.05), 0 2px 8px rgba(8,32,47,.04);
+  --shadow:0 2px 4px rgba(8,32,47,.04), 0 16px 40px rgba(8,32,47,.09);
+}
+@media (prefers-color-scheme:dark){
+  :root{
+    --paper:#071B2B;
+    --card:#0C2739;
+    --card-2:#0A2233;
+    --ink:#E7EFF5;
+    --ink-2:#AFC4D4;
+    --stamp:#63A6DE;
+    --verified:#4FBFA0;
+    --absent:#7D97AB;
+    --rule:#173248;
+    --rule-2:#12293C;
+    --amber:#E0AA4E;
+    --vermilion:#F0715A;
+    --iris:#9C97E8;
+    --shadow-sm:0 1px 2px rgba(0,0,0,.3);
+    --shadow:0 2px 4px rgba(0,0,0,.25), 0 20px 44px rgba(0,0,0,.4);
+  }
+  img{opacity:.94}
+}
+
+/* ---- type: serif display, sans body, the reports' rhythm ---- */
+body{font-family:var(--body);color:var(--ink);background:var(--paper);
+  -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+h1,h2,h3,h4{font-family:var(--display);font-weight:600;letter-spacing:-.015em;color:var(--ink)}
+h1{line-height:1.03}
+h2{line-height:1.1}
+h3{line-height:1.25}
+.lede,.tagline{color:var(--ink-2)}
+.eyebrow,.kicker{font-family:var(--mono);letter-spacing:.18em;text-transform:uppercase;color:var(--stamp)}
+code,kbd,samp,pre{font-family:var(--mono)}
+a{color:var(--stamp)}
+strong,b{color:var(--ink)}
+
+/* ---- chrome: rounded cards, quiet rules, a real shadow ---- */
+.card,.note,.reg-panel,.ly,.flow-col,.item,.receipt,.mx-body,.try-it{
+  border-radius:14px;
+}
+.card,.ly,.item{box-shadow:var(--shadow-sm)}
+.topbar{
+  position:sticky;top:0;z-index:60;
+  background:color-mix(in srgb,var(--paper) 88%,transparent);
+  backdrop-filter:blur(10px);border-bottom:1px solid var(--rule);
+}
+.btn,.ghost{border-radius:10px}
+.chip,.tag,.mark{border-radius:999px}
+hr{border:0;border-top:1px solid var(--rule)}
+table{border-color:var(--rule)}
+th{color:var(--absent)}
+td,th{border-color:var(--rule-2)}
+
+/* ---- the hero becomes a plate, matching the reports' title block ---- */
+.hero{
+  position:relative;overflow:hidden;
+  background:var(--plate-900);color:#DCE9F2;
+  border-radius:0;border-bottom:1px solid var(--plate-700);
+}
+.hero::before{
+  content:"";position:absolute;inset:0;opacity:.55;pointer-events:none;
+  background-image:linear-gradient(rgba(93,164,222,.09) 1px,transparent 1px),
+                   linear-gradient(90deg,rgba(93,164,222,.09) 1px,transparent 1px);
+  background-size:52px 52px;
+  mask-image:radial-gradient(120% 90% at 15% 0%,#000 20%,transparent 78%);
+  -webkit-mask-image:radial-gradient(120% 90% at 15% 0%,#000 20%,transparent 78%);
+}
+.hero > *{position:relative;z-index:2}
+.hero h1,.hero h2{color:#F2F8FC}
+.hero .lede,.hero .tagline,.hero p{color:#B5CEE0}
+.hero .eyebrow,.hero .kicker{color:#7FC0F0}
+.hero .mark,.hero .tag{border-color:rgba(127,192,240,.4);color:#CFE6F8}
+.hero a{color:#7FC0F0}
+.hero .btn{background:#2C6CA6;border-color:#2C6CA6;color:#fff}
+.hero .btn.ghost,.hero .ghost{background:transparent;border-color:rgba(127,192,240,.45);color:#DCE9F2}
+.hero .card{background:rgba(255,255,255,.05);border-color:rgba(127,192,240,.22);color:#DCE9F2}
+
+/* The receipt stays a paper object on the blueprint ground — that contrast IS the
+   image, so it keeps light values in both themes rather than inheriting the plate. */
+.receipt{
+  background:#FBFDFE !important;color:#08202F !important;
+  border:1px solid #DCE5EC !important;box-shadow:0 18px 44px rgba(0,0,0,.34);
+}
+.receipt .r-head b{color:#08202F}
+.receipt .r-head small,.receipt .r-key,.receipt .r-sub,.receipt .r-note{color:#3A5468}
+.receipt .r-absent{color:#7B92A5}
+.receipt .r-rule{border-top-color:#DCE5EC}
+.receipt .r-stamp{color:#2C6CA6;border-color:#2C6CA6;background:rgba(44,108,166,.08)}
+/* Keep the stamp on the paper. At right:-6px its tail fell onto the dark plate behind the
+   receipt, where a near-transparent blue box has nothing to read against. */
+.receipt .r-stamp{right:14px;bottom:22px}
+/* `.hero p` (0,1,1) was quietly beating `.receipt-cap` (0,1,0), rendering an 11.5px mono
+   caption at the lede's 19.5px. Raised to match. */
+.hero .receipt-cap{font-size:11.5px;line-height:1.65}
+/* Same specificity trap: the hero eyebrow is a .tagline <p>, so `.hero p`'s
+   19.5px lede size was winning over its own 11.5px. */
+.hero .tagline{font-size:11.5px;max-width:none}
+.receipt::before,.receipt::after{
+  background:linear-gradient(-45deg,transparent 50%,#FBFDFE 51%) 0 0/14px 9px repeat-x,
+             linear-gradient(45deg,transparent 50%,#FBFDFE 51%) 0 0/14px 9px repeat-x !important;
+}
+.receipt-cap{color:#8FAFC6}
+
+/* headline figures under the hero copy read on the dark ground */
+.hero .hero-facts{border-top-color:rgba(127,192,240,.28);color:#B5CEE0}
+.hero .hero-facts b{color:#F2F8FC}
+
+/* ---- readability: measure, spacing, and a calmer table ---- */
+p,li{max-width:74ch}
+.wrap p,.wrap li{line-height:1.62}
+.note{border-left-width:4px;box-shadow:var(--shadow-sm)}
+img,.shot{border-radius:12px}
+:focus-visible{outline:2px solid var(--stamp);outline-offset:3px;border-radius:3px}
+
+/* ---- responsive hardening ----
+   Grid and flex children default to min-width:auto, so one long token — a shell
+   command, a crate path — can push the whole page sideways on a phone. These
+   rules let those children shrink and give code blocks their own scrollbar. */
+.two,.two-up,.hero-grid,.cards,.foot-grid,.layers,.flow,.outcomes,.matrix,.g{min-width:0}
+.two>*,.two-up>*,.hero-grid>*,.cards>*,.foot-grid>*,.layers>*,.flow>*,.outcomes>*,.g>*{min-width:0}
+pre,.scroll-x,.aisp-doc{overflow-x:auto;-webkit-overflow-scrolling:touch}
+pre code{white-space:pre}
+li,p{overflow-wrap:anywhere}
+@media (max-width:720px){
+  .two,.two-up,.hero-grid,.g{grid-template-columns:1fr !important}
+  table{font-size:13.5px}
+}
+
 </style>
 </head>
 <body>
@@ -348,21 +518,21 @@ footer a{color:var(--ink-2)}
           <div class="r-rule print-row" style="animation-delay:.18s"></div>
           <div class="print-row" style="animation-delay:.24s">
             <div class="r-key">tool calls</div>
-            <div class="r-line"><span>Bash</span><span>1,700+</span></div>
-            <div class="r-line"><span>Edit</span><span>490+</span></div>
-            <div class="r-line"><span>Read</span><span>410+</span></div>
+            <div class="r-line"><span>Bash</span><span>1,706</span></div>
+            <div class="r-line"><span>Edit</span><span>496</span></div>
+            <div class="r-line"><span>Read</span><span>410</span></div>
           </div>
           <div class="r-rule print-row" style="animation-delay:.30s"></div>
           <div class="print-row" style="animation-delay:.36s">
             <div class="r-line r-total"><span>errors observed</span><span>60</span></div>
-            <div class="r-sub">seq 150 · guardrail refusal (rm -rf)</div>
-            <div class="r-sub">seq 438 · sub-agent not found</div>
-            <div class="r-sub">seq 603 · exit code 143</div>
-            <div class="r-sub">seq 1490 · ambiguous edit match</div>
+            <div class="r-sub">seq 133 · guardrail refusal (rm -rf)</div>
+            <div class="r-sub">seq 690 · sub-agent not found</div>
+            <div class="r-sub">seq 186 · stale path after a docs move</div>
+            <div class="r-sub">seq 453 · edit string no longer present</div>
           </div>
           <div class="r-rule print-row" style="animation-delay:.42s"></div>
           <div class="print-row" style="animation-delay:.48s">
-            <div class="r-line r-absent"><span>token cost</span><span>not_observed</span></div>
+            <div class="r-line r-absent"><span>token cost</span><span>not recorded</span></div>
             <span class="r-note">channel not captured — not $0.00</span>
           </div>
           <div class="r-rule print-row" style="animation-delay:.54s"></div>
@@ -373,8 +543,9 @@ footer a{color:var(--ink-2)}
             REPRODUCIBLE<small>NO MODEL IN PATH</small>
           </div>
         </div>
-        <p class="receipt-cap">Real figures from a real captured session. The blank line is the point:
-        an uncaptured channel prints as absent, never as a zero.</p>
+        <p class="receipt-cap">Every figure here is measured by the tool from the capture that ships in
+        <code>examples/capture/</code> — run it yourself and get the same numbers. The blank line is
+        the point: an uncaptured channel prints as absent, never as a zero.</p>
       </div>
     </div>
   </div>
@@ -429,19 +600,20 @@ footer a{color:var(--ink-2)}
     <p class="eyebrow">What you get out of it</p>
     <h2>What one captured window actually revealed.</h2>
     <p class="lede" style="margin-top:18px">Reconstructed from captured evidence — not from the
-    agent's account of its own work. 7 real sessions, ingested and queried together.</p>
+    agent's account of its own work. Seven sessions, ingested and queried together — the ones that ship in <code>examples/capture/</code>.</p>
 
     <div class="outcomes">
       <div class="oc"><b>40<span>/40</span></b><small>tasks completed</small></div>
       <div class="oc"><b>60</b><small>tool errors, every one surfaced</small></div>
       <div class="oc"><b>1,706</b><small>Bash calls</small></div>
-      <div class="oc"><b>77<span>/496</span></b><small>edits in one file</small></div>
+      <div class="oc"><b>77<span>/482</span></b><small>repeat edits in one file</small></div>
       <div class="oc absent-oc"><b>gaps</b><small>named, never zeroed</small></div>
     </div>
     <p class="fine">That fourth figure is the sort of thing you'd never find by scrolling: one file
-    absorbed more edit churn than the next four combined. That's a signal worth a look — here, it
-    traces to a multi-persona review pass, not a defect. (Two figures deliberately don't appear here
-    — a commit count and a sleep-cycle count. Neither is a channel this report captures today; see
+    absorbed more edit churn than the next four combined. The report doesn't editorialise about why —
+    it flags the concentration and leaves the diagnosis to you, which is usually enough to prompt the
+    right question. (One figure deliberately doesn't appear here: a commit count. Repository and
+    branch binding is not a channel this report captures today; see
     <a href="../README.md#what-does-bar-observatory-not-see">what BAR Observatory doesn't see</a>.)</p>
 
     <div class="two" style="margin-top:52px">
@@ -449,7 +621,7 @@ footer a{color:var(--ink-2)}
         <h3>Zero and unknown are different numbers</h3>
         <div class="zero-vs">
           <div><code>0 failures</code><span>BAR looked at the evidence and found none.</span></div>
-          <div class="na"><code>not_observed</code><span>BAR didn't have enough evidence to make that claim at all.</span></div>
+          <div class="na"><code>not_recorded</code><span>BAR didn't have enough evidence to make that claim at all.</span></div>
         </div>
         <p class="muted" style="margin-top:18px">A tool that quietly turns a gap into a reassuring zero
         is worse than no tool. <code>bar doctor</code> tells you which channels were blind before you
@@ -800,35 +972,40 @@ footer a{color:var(--ink-2)}
 <section id="proof">
   <div class="wrap">
     <p class="eyebrow">Proof</p>
-    <h2>Twenty-five failures, all still there months later.</h2>
-    <p class="lede" style="margin-top:18px">Everything below came out of one genuine Claude Code
-    session. Run the same commands against your own and you'll get your own numbers — that's the whole
-    point.</p>
+    <h2>Sixty failures, all still there months later.</h2>
+    <p class="lede" style="margin-top:18px">Every line below is the tool's own output over the seven
+    session transcripts that ship in <code>examples/capture/</code>. Run the same commands against a
+    session of your own and you'll get your own numbers — that's the whole point. (The project in the
+    capture, <code>orbit</code>, is a stand-in: the measurements are real, the repository is not.)</p>
 
     <div class="two" style="margin-top:34px">
       <div>
         <h3>"What silently failed?"</h3>
-<pre><span class="c">$ bar query &lt;session&gt;.sqlite errors</span>
+<pre><span class="c">$ bar query &lt;session&gt;.sqlite errors --limit 0</span>
 seq   excerpt
-----  ------------------------------------------
-308   MCP tool timed out after 60s
-316   search error: worker timed out after 240s
-389   MCP tool timed out after 60s
-436   Exit code 143 <span class="c">(killed long-running command)</span>
-1391  Blocked: sleep 90 <span class="c">(guardrail refusal)</span></pre>
-        <p class="muted">Timeouts, a killed command, a guardrail refusal — each with its exact position
-        in the session and its original text. Nothing swallowed, nothing rounded away.</p>
+----  --------------------------------------------------
+133   Permission to run `rm -rf …` denied <span class="c">(guardrail)</span>
+489   Search for TOKEN blocked <span class="c">(credential-scan guard)</span>
+690   Agent type 'requirements-validator' not found
+453   String to replace not found in file <span class="c">(file moved on)</span>
+186   cd: …/legacy-guide/index.md: No such file or directory
+1104  SyntaxError: Unexpected token '&lt;' in JSON at position 0
+<span class="c">…                                          (60 row(s))</span></pre>
+        <p class="muted">Guardrail refusals, a missing sub-agent, an edit against a file that had
+        moved on, a script parsing HTML as JSON — each with its exact position in the session and its
+        original text. Nothing swallowed, nothing rounded away, and nothing editorialised: seventeen
+        of the sixty are the safety system working, and the report says which.</p>
       </div>
       <div>
         <h3>"What did it lean on, and is the recorder working?"</h3>
 <pre><span class="c">$ bar query &lt;session&gt;.sqlite tools</span>
-Bash 1,700+ · Edit 490+ · Read 410+ · …
+Bash 1,706 · Edit 496 · Read 410 · TaskUpdate 209 · …
 
 <span class="c">$ bar report &lt;session&gt;.sqlite</span>
 <span class="p">wrote</span> report.json report.html report.md
 
 <span class="c">$ bar doctor &lt;session&gt;.sqlite</span>
-<span class="p">channels:</span> transcript OK · tokens not_observed</pre>
+<span class="p">channels:</span> transcript partial · tokens not_recorded</pre>
         <p class="muted">Check the instrument before you trust the reading. <code>bar doctor</code>
         says plainly which channels had data and which were blind spots, rather than letting a gap look
         like a measurement.</p>
@@ -1009,7 +1186,7 @@ bar report .bar/ambient.sqlite --out .</pre>
     <p class="eyebrow">Advanced</p>
     <h2>Under the hood.</h2>
     <p class="lede" style="margin-top:18px">A thin <code>bar</code> CLI (crate
-    <code>bar-observatory</code>) over a fifteen-crate <code>bar-*</code> engine. Crate source lives
+    <code>bar-observatory</code>) over a 16-crate <code>bar-*</code> engine. Crate source lives
     and publishes from a private working repository; the public repository is the front door,
     documentation, plugin, and contracts.</p>
 
@@ -1037,9 +1214,10 @@ bar report .bar/ambient.sqlite --out .</pre>
       </tbody>
     </table>
     </div>
-    <p class="fine">Sixteen crates published to crates.io — all live; <code>bar-testenv</code> is
-    internal and unpublished. See <code>CRATES.md</code> for each crate's real-time status.
-    <code>bar-engine</code>, an older internal-only CLI, is deliberately not ported.</p>
+    <p class="fine">Sixteen of the seventeen crates publish to crates.io; <code>bar-testenv</code> is
+    internal and stays unpublished. Crates publish incrementally in dependency-tier order — a link in
+    <code>CRATES.md</code> means cleared for publish, not necessarily live. <code>bar-engine</code>, an
+    older internal-only CLI, is deliberately not ported.</p>
 
     <h3 style="margin-top:52px">The determinism contract</h3>
     <ul class="plain">
@@ -1051,11 +1229,25 @@ bar report .bar/ambient.sqlite --out .</pre>
     </ul>
 
     <h3 style="margin-top:52px">Absence semantics</h3>
-    <p class="muted" style="max-width:72ch">The schema carries an explicit absence state. A channel
-    with no data renders as <code>not_observed</code>, never coerced to zero, empty, or unchanged. This
-    is a design rule with teeth: a cost of <code>$0.00</code> and a cost of <code>not_observed</code>
-    mean entirely different things, and conflating them is how observability tools quietly lie.
-    <code>bar doctor</code> exists to make the distinction visible before you read a report.</p>
+    <p class="muted" style="max-width:72ch">The schema carries an explicit absence state, and it is finer-grained than a single
+      "missing" flag — because "we didn't look" and "we can't look yet" are different admissions:</p>
+      <div class="scroll-x">
+      <table>
+        <thead><tr><th>State</th><th>What it means</th><th>In the shipped report</th></tr></thead>
+        <tbody>
+          <tr><th><code>observed</code></th><td>the channel had rows, and they were used</td><td>transcripts — 9,132 turns</td></tr>
+          <tr><th><code>partial</code></th><td>rows landed, but a measured gap was detected</td><td>629 dangling parents, 136 unpaired tool_use/tool_result</td></tr>
+          <tr><th><code>not_recorded</code></th><td>this channel had no rows in this store</td><td>hooks, events, spans, requests on a transcript-only ingest</td></tr>
+          <tr><th><code>not_observed</code></th><td>a writer or detector exists, but nothing invoked it here</td><td>plan_docs, raw_logs, and the two unbuilt detectors</td></tr>
+        </tbody>
+      </table>
+      </div>
+      <p>None of the four is ever coerced to zero, empty, or unchanged. This is a design rule with
+      teeth: a cost figure of <code>$0.00</code> and a cost figure of <code>not_recorded</code> mean
+      entirely different things, and conflating them is how observability tools quietly lie.
+      <code>bar doctor</code> makes the distinction visible before you read a report, and the
+      report's own capture-quality table repeats it channel by channel with the reason attached.</p>
+
 
     <h3 style="margin-top:52px">Capture channels</h3>
     <ul class="plain">
@@ -1131,10 +1323,12 @@ bar report .bar/ambient.sqlite --out .</pre>
       </details>
 
       <details>
-        <summary>What does <code>not_observed</code> mean?</summary>
-        <div class="body"><p>That BAR Observatory had no data for that channel and is saying so,
-        instead of printing a zero you might mistake for a real measurement. Absence is reported as
-        absence.</p></div>
+        <summary><span>What do <code>not_recorded</code> and <code>not_observed</code> mean?</span></summary>
+        <div class="body"><p>Two different things, kept apart on purpose.
+        <code>not_recorded</code> means the channel had no rows in this store — you weren't running
+        the proxy, so there are no token counts. <code>not_observed</code> means the machinery
+        exists but nothing invoked it here. Neither is ever printed as a zero you might mistake for
+        a real measurement. Absence is reported as absence, and the report says which kind.</p></div>
       </details>
 
       <details>
@@ -1183,7 +1377,7 @@ bar report .bar/ambient.sqlite --out .</pre>
       <div><b>&lt;0.02</b><small>Ambig(D) target</small></div>
     </div>
 
-    <div class="aisp-doc">𝔸5.1.bar.observatory@2026-08-13
+    <div class="aisp-doc">𝔸5.2.bar.observatory@2026-08-19
 γ≔bar.observatory.specification.complete
 ρ≔⟨capture,store,render,absence,evidence,mcp,agent,enterprise⟩
 ⊢ND∧CAT∧ΠΣ∧μ
@@ -1197,7 +1391,7 @@ Ambig≜λD.1-|Parse_u(D)|/|Parse_t(D)|
 ;; The four invariants. Each is a proof obligation discharged in ⟦Θ⟧.
 I₁≜render:𝔻𝔹→𝔹*∧∀db,t:render_t(db)≡render_0(db)   ;; determinism
 I₂≜∀r∈render:𝕃𝕃𝕄∉path(r)                          ;; no model in the evidence path
-I₃≜∀c∈Chan:¬obs(c)⇒emit(not_observed)              ;; absence honesty
+I₃≜∀c∈Chan:¬obs(c)⇒emit(a∈Absence⧵{observed})      ;; absence honesty, never 0
 I₄≜∀op∈Primary:net(op)≡∅                           ;; zero egress
 
 Pipeline≜ingest≫store≫render≫emit
@@ -1213,10 +1407,13 @@ Chan≜{transcript,hooks,proxy,otlp}
 Obs≜⟨seq:ℕ,tool:𝕊,payload:𝕊,err:𝔹⟩
 𝔻𝔹≜Vec n Obs                                       ;; one SQLite file per run
 
-;; Absence as a dependent type — the rule has teeth at the type level
-Absence≜{observed,not_observed}
-Fact≜Σ(v:Value)(a:Absence).(a≡not_observed⇒v≡∅)
-⊢∀f:Fact.f.a≡not_observed⇒f.v≢0                    ;; 0 is unrepresentable under absence
+;; Absence as a dependent type — the rule has teeth at the type level.
+;; Four states, not two: "no rows here" and "nothing ever called this" are
+;; different admissions, and the schema refuses to collapse them.
+Absence≜{observed,partial,not_recorded,not_observed}
+Absent≜Absence⧵{observed}
+Fact≜Σ(v:Value)(a:Absence).(a∈Absent⇒v≡∅)
+⊢∀f:Fact.f.a∈Absent⇒f.v≢0                          ;; 0 is unrepresentable under absence
 
 ;; Report domain
 Report≜⟨json:𝕊,html:𝕊,md:𝕊⟩
@@ -1240,9 +1437,11 @@ sdk≜∅; ∀proj:∂bar(proj)≡∅                          ;; zero-SDK: the 
 
 ;; ─── Γ: ABSENCE RULES ───
 ⟦Γ:Absence⟧{
-∀c∈Chan:¬obs(c)⇒Fact.a≔not_observed
+∀c∈Chan:rows(c)≡0∧∃writer(c)⇒Fact.a≔not_recorded   ;; nothing landed in this store
+∀c∈Chan:∄invoked(c)⇒Fact.a≔not_observed            ;; the machinery was never called
+∀c∈Chan:obs(c)∧gap(c)⇒Fact.a≔partial               ;; landed, with a MEASURED shortfall
 ¬∃c:(¬obs(c)∧Fact.v≔0)                             ;; never a fabricated zero
-not_observed≢0∧not_observed≢∅∧not_observed≢unchanged
+∀a∈Absent:a≢0∧a≢∅∧a≢unchanged
 doctor:𝔻𝔹→𝒫(Chan)×𝒫(Chan)                          ;; ⟨observed,blind⟩
 ∀claim∈Report:¬(∃row∈𝔻𝔹:claim↦row)⇒drop(claim)
 }
@@ -1251,7 +1450,7 @@ doctor:𝔻𝔹→𝒫(Chan)×𝒫(Chan)                          ;; ⟨observed
 ⟦Γ:Render⟧{
 ∀db:render(db)↦⟨json,html,md⟩∧Consistent(json,html,md)
 ∀f∈Facts(Report):∃!row∈𝔻𝔹:f↦row                    ;; every claim resolves to a row
-⊢validate(json,schema)≡⊤
+⊢validate(json,schema)≡⊥_today                     ;; disclosed: schema describes an earlier shape
 dep(Report_det,𝕃𝕃𝕄)≡∅                              ;; evidence ⊥ commentary
 interp∈Mode⇒label(output,commentary)≡⊤
 evidence≻narrative
@@ -1283,7 +1482,7 @@ mcp:𝔻𝔹→Tools
 ;; ─── Χ: ERROR ALGEBRA ───
 ⟦Χ:Errors⟧{
 ε≜Σ(ψ:𝔻𝔹→𝔹)(ρ:Πd:𝔻𝔹.ψ(d)≡⊤→𝔻𝔹)
-ε_chan≜⟨¬obs(c),emit(not_observed)⟩
+ε_chan≜⟨¬obs(c),emit(a∈Absent)⟩
 ε_zero≜⟨v≡0∧¬obs(c),reject∧⊥⟩
 ε_egress≜⟨net(op)≢∅∧op∈Primary,reject∧⊥⟩
 ε_llm≜⟨𝕃𝕃𝕄∈path(render),reject∧⊥⟩
@@ -1301,7 +1500,7 @@ mcp:𝔻𝔹→Tools
 ℝ:𝐃𝐁⇒𝐑𝐩𝐭; ℝ.ob≜render; ℝ.mor≜λf.ℝ(cod f)⊒ℝ(dom f)
 ⊢ℝ(id_d)≡id_{ℝd}
 ⊢ℝ(g∘f)≡ℝ(g)∘ℝ(f)                                  ;; determinism composes
-𝔸bs:𝐃𝐁⇒𝐅𝐚𝐜𝐭; 𝔸bs.ob≜λc.obs(c)→observed|not_observed
+𝔸bs:𝐃𝐁⇒𝐅𝐚𝐜𝐭; 𝔸bs.ob≜λc.obs(c)→observed|partial|not_recorded|not_observed
 η:Id_𝐃𝐁⟹ℝ⁻¹∘ℝ                                      ;; report is lossless w.r.t. facts
 }
 
@@ -1314,7 +1513,7 @@ mcp:𝔻𝔹→Tools
 π:fact_id assigned at schema;injective by construction∎
 
 ∴¬obs(c)⇒Report(c)≢0
-π:Fact≜Σ(v)(a).(a≡not_observed⇒v≡∅);type forbids the coercion∎
+π:Fact≜Σ(v)(a).(a∈Absent⇒v≡∅);type forbids the coercion∎
 
 ∴Consistent(json,html,md)
 π:one db,one pass,three emitters∘one ledger;shared codomain∎
@@ -1422,7 +1621,7 @@ system.⊢evidential
     </div>
     <p class="disclaim">BAR Observatory is an independent open-source project and is not affiliated
     with or endorsed by Anthropic. "Claude" and "Claude Code" are trademarks of Anthropic. Figures on
-    this page come from real captured sessions and the project's published crate index; reproduce them
+    this page are measured by the tool from the capture that ships in <code>examples/capture/</code>, and from the project's published crate index; reproduce them
     yourself against your own sessions.</p>
   </div>
 </footer>

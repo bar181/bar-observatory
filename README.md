@@ -90,9 +90,9 @@ changes the evidence.** The optional interpretation (`bar interpret`) is written
 Claude Code session in one of two registers — one for engineers, one for executives — always
 clearly labeled as commentary, and the evidence never depends on it existing.
 
-![The optional interpreted report, executive audience — a labeled disclaimer explaining it's LLM-written from a deterministic brief, followed by an executive synthesis and what-happened section.](examples/interpreted/interpreted-executive.png)
+![The optional interpreted report, executive audience — a labeled disclaimer explaining it's LLM-written from a deterministic brief, followed by an executive synthesis and what-happened section.](examples/management-read.png)
 
-*Five real artifacts, all rendered from the same captured session: [the full reports index](examples/README.md).*
+*Four real artifacts, all rendered from the same captured session: [the full reports index](examples/README.md).*
 
 ## Why developers use it
 
@@ -190,8 +190,8 @@ output byte-for-byte, today or a year from now.
 
 The sections below are for engineers evaluating the tool, people integrating it into a pipeline,
 AI agents reading this repository, and anyone who wants the specifics behind the claims above.
-**Engineering specifics:** 15 engine crates · 16 published crates · 21 lifecycle hooks · 12 MCP
-tools · 645 tests at the current published snapshot.
+**Engineering specifics:** 16-crate engine · 16 of 17 crates published · 21 lifecycle hooks · 12 MCP
+tools · 699 tests at the current published snapshot.
 
 ### Installing without the plugin
 
@@ -232,13 +232,13 @@ evolves, so they can't drift from what the code actually does.
 One real example, from a captured window of 7 real sessions:
 
 ```
-seq 150 — Permission to use Bash with command rm -rf … has been denied. (a guardrail refusal)
+seq 133 — Permission to run `rm -rf …/target/debug` was denied by policy. (a guardrail refusal)
 ```
 
 One of **60 error results** surfaced across that window, each still queryable months later. (Some,
 like this one, are the safety system working as intended, not a defect — the deterministic layer
 just records every one, without judging.) Full numbers behind that claim, nothing rounded up:
-[`examples/deterministic/real-session.report.json`](examples/deterministic/real-session.report.json).
+[`examples/deterministic/session.report.json`](examples/deterministic/session.report.json).
 
 JSON, HTML, and Markdown render from the same database — not identical *to each other*, but each
 byte-for-byte reproducible from an unchanged database. `report.json` is the typed contract for
@@ -247,9 +247,9 @@ sync with the live report shape.
 
 The `.html` view — this is what opens when you run `bar report`:
 
-![A BAR Observatory report open in a browser, showing the executive summary, key findings, and prioritized recommendations across 7 real captured sessions.](examples/deterministic/real-session.report.png)
+![A BAR Observatory report open in a browser, showing the executive summary, key findings, and prioritized recommendations across 7 real captured sessions.](examples/session-report.png)
 
-*Full file: [`examples/deterministic/real-session.report.html`](examples/deterministic/real-session.report.html) — open it yourself, no setup needed. Section-by-section annotated walkthrough: [wiki/human-html/report-guide.html](wiki/human-html/report-guide.html).*
+*Full file: [`examples/deterministic/session.report.html`](examples/deterministic/session.report.html) — open it yourself, no setup needed. Section-by-section annotated walkthrough: [wiki/human-html/report-guide.html](wiki/human-html/report-guide.html).*
 
 ### For AI agents: read your own session over MCP
 
@@ -271,13 +271,13 @@ can ask "what did previous runs already try" before repeating it.
 
 ### Architecture and crates
 
-BAR Observatory is a thin `bar` CLI (crate `bar-observatory`) over a 15-crate `bar-*` engine —
+BAR Observatory is a thin `bar` CLI (crate `bar-observatory`) over a 16-crate `bar-*` engine —
 a SQLite substrate, a transcript parser, a read-only query surface, the typed report contract,
 and the MCP server, among others. Determinism comes from this architecture (a captured database,
 a pure rendering path, no model in it), not from the crate boundaries themselves — those exist for
 isolation and maintainability. **[CRATES.md](CRATES.md)** has the full list and a live crates.io
-link for each; all 16 crates are published. Crate source lives and publishes from a private
-working repo — **this repository is the front door, documentation, and plugin, no crate source
+link for each; 16 of the 17 crates are published (the rest is dev-only tooling). Crate source lives
+and publishes from a private working repo — **this repository is the front door, documentation, and plugin, no crate source
 here, by design.**
 
 ### How this compares
@@ -353,11 +353,13 @@ Open an [issue](https://github.com/bar181/bar-observatory/issues). Security repo
 
 ## Where things stand
 
-Version 0.2.0 is live on crates.io — the full pipeline is built, tested end to end (645 tests),
-and verified the same way you'd use it: a genuine install from scratch, not just a passing test
-suite. Existing data migrates automatically on your next command if you're coming from an earlier
-install. The one thing still catching up: the plugin doesn't bundle its helper programs yet (see
-the [disclosed gap](#installing-without-the-plugin) above) — that's next.
+Version 0.2.1 is live on crates.io — the full pipeline is built, tested end to end (699 tests),
+and verified the same way you'd use it: a genuine `cargo install --locked` from the published
+registry, then a real `init`/`ingest`/`report`/`doctor` run against the installed binary, not
+just a passing test suite. Existing data migrates automatically on your next command if you're
+coming from an earlier install. The one thing still catching up: the plugin doesn't bundle its
+helper programs yet (see the [disclosed gap](#installing-without-the-plugin) above) — that's
+next.
 
 ## About the author
 

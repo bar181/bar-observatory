@@ -49,6 +49,7 @@ query` at all — **[`bar-mcp`](https://crates.io/crates/bar-mcp)** exposes the 
 queries as MCP (Model Context Protocol — the standard interface AI agents use to call external
 tools) tools you can call directly. See the [README](../README.md) for how to connect it.
 
-Deeper technical detail on the crates behind each module: [wiki/architecture.md](../wiki/human-md/architecture.md).
+Deeper technical detail on the crates behind each module:
+[wiki/human-md/architecture.md](../wiki/human-md/architecture.md).
 
 Next: [05 — Sample report](05-sample-report.md) to see all of this rendered in a real report.

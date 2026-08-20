@@ -1,15 +1,22 @@
 # Step 5 — Sample report: see BAR Observatory's output for real
 
-You don't have to take any of the previous steps on faith — a real, deterministic sample report
-ships right in this repo under `examples/`, and it's **re-rendered from a real Claude Code
-session each phase**. It's never a hand-authored mock.
+You don't have to take any of the previous steps on faith. `examples/` ships four reports over one
+capture, and **the capture ships with them** — so you can run the tool over the same seven
+transcripts and get the same numbers back on your own machine.
 
-- `examples/` — five report artifacts, all rendered from **the same 7-session real capture store**
-  (2026-07-31 → 2026-08-13, 9,132 transcript turns, 40/40 tasks completed): two audiences (**Boss
-  Mode** = executive/client, **Developer Guide** = engineering) × two registers (**Evidence** =
-  deterministic/no LLM, **Commentary** = optional LLM synthesis), plus the shared
-  `real-session.report.json` machine contract. See [`examples/README.md`](../examples/README.md)
-  for the full table and what's disclosed as not-yet-CLI-native.
+- `examples/deterministic/session.report.{json,html,md}` — literally what `bar report` writes.
+  Nothing is added by hand.
+- `examples/deterministic/delivery-memo.{html,md}` — the same record cut for an executive reader.
+- `examples/interpreted/*.{html,md}` — the optional commentary layer, with the exact brief each page
+  was written from shipped beside it.
+- `examples/capture/` — the seven session transcripts, plus `run.sh`. One script — `bar init`, seven
+  `bar ingest` calls, one `bar report` — rebuilds every deterministic file above.
+
+The capture covers 7 sessions, 9,132 transcript turns, 3,171 tool calls, 40 of 40 tasks completed
+and 60 error results, over a recorded window of 322h 59m. **The project it describes — `orbit` — is a stand-in.** Every count, rate and ranking is
+measured from the shipped transcripts by the real tool; the paths, commit subjects and prompt titles
+belong to a demo project rather than to somebody's private repository. `examples/README.md` says
+which is which, and `examples/capture/README.md` shows you how to check.
 
 ## Which file should you open?
 

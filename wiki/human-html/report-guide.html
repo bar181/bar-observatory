@@ -53,6 +53,10 @@ section{padding:var(--gap) 0;border-top:1px solid var(--rule)}
   padding:22px 22px 4px}
 .item-label{padding:0 22px 22px;background:var(--paper);border-right:1px solid var(--rule-2);
   display:flex;flex-direction:column}
+/* Grid children default to min-width:auto, so a wide .evidence block inside .item-body
+   would widen the whole track (and push .item-label past the viewport on narrow screens)
+   instead of scrolling inside its own box. Verified at 390px. */
+.item>*{min-width:0}
 @media(max-width:820px){.item-label{border-right:0;border-bottom:1px solid var(--rule-2)}}
 .item-label h3{margin-bottom:8px}
 .item-label p{font-size:14.5px;color:var(--ink-2);margin:0}
@@ -83,6 +87,162 @@ p code{background:var(--paper);border:1px solid var(--rule-2);padding:1px 5px;bo
 footer{border-top:1px solid var(--rule);padding:36px 0 56px;font-size:14px;color:var(--ink-2)}
 footer a{color:var(--ink-2)}
 .disclaim{font-size:12.5px;margin-top:20px;color:var(--absent);max-width:74ch}
+
+/* ============================================================
+   PLATE SKIN — 2026-08-19
+   The reports render in the plate palette (see the generated
+   report's own inlined stylesheet). This block brings the site
+   and wiki onto the same palette and type scale, so a reader
+   moving between a page and a report does not feel they have
+   changed products.
+
+   It is layered ON TOP of each page's own stylesheet and only
+   redefines tokens plus a little chrome — every layout rule,
+   every CSS-only interaction, and the no-JavaScript guarantee
+   are left exactly as they were. Dark mode follows the operating
+   system; there is no toggle here, because adding one would mean
+   adding a script to pages that deliberately have none.
+   ============================================================ */
+:root{
+  --paper:#F1F5F8;
+  --card:#FFFFFF;
+  --card-2:#F7FAFC;
+  --ink:#08202F;
+  --ink-2:#3A5468;
+  --stamp:#2C6CA6;
+  --verified:#1B7A62;
+  --absent:#7B92A5;
+  --rule:#DCE5EC;
+  --rule-2:#EAF0F5;
+  --plate-900:#061523;
+  --plate-800:#0A2135;
+  --plate-700:#0F3050;
+  --amber:#B57F22;
+  --vermilion:#B93A22;
+  --iris:#5A55A3;
+  --display:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Times New Roman",serif;
+  --body:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace;
+  --shadow-sm:0 1px 2px rgba(8,32,47,.05), 0 2px 8px rgba(8,32,47,.04);
+  --shadow:0 2px 4px rgba(8,32,47,.04), 0 16px 40px rgba(8,32,47,.09);
+}
+@media (prefers-color-scheme:dark){
+  :root{
+    --paper:#071B2B;
+    --card:#0C2739;
+    --card-2:#0A2233;
+    --ink:#E7EFF5;
+    --ink-2:#AFC4D4;
+    --stamp:#63A6DE;
+    --verified:#4FBFA0;
+    --absent:#7D97AB;
+    --rule:#173248;
+    --rule-2:#12293C;
+    --amber:#E0AA4E;
+    --vermilion:#F0715A;
+    --iris:#9C97E8;
+    --shadow-sm:0 1px 2px rgba(0,0,0,.3);
+    --shadow:0 2px 4px rgba(0,0,0,.25), 0 20px 44px rgba(0,0,0,.4);
+  }
+  img{opacity:.94}
+}
+
+/* ---- type: serif display, sans body, the reports' rhythm ---- */
+body{font-family:var(--body);color:var(--ink);background:var(--paper);
+  -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+h1,h2,h3,h4{font-family:var(--display);font-weight:600;letter-spacing:-.015em;color:var(--ink)}
+h1{line-height:1.03}
+h2{line-height:1.1}
+h3{line-height:1.25}
+.lede,.tagline{color:var(--ink-2)}
+.eyebrow,.kicker{font-family:var(--mono);letter-spacing:.18em;text-transform:uppercase;color:var(--stamp)}
+code,kbd,samp,pre{font-family:var(--mono)}
+a{color:var(--stamp)}
+strong,b{color:var(--ink)}
+
+/* ---- chrome: rounded cards, quiet rules, a real shadow ---- */
+.card,.note,.reg-panel,.ly,.flow-col,.item,.receipt,.mx-body,.try-it{
+  border-radius:14px;
+}
+.card,.ly,.item{box-shadow:var(--shadow-sm)}
+.topbar{
+  position:sticky;top:0;z-index:60;
+  background:color-mix(in srgb,var(--paper) 88%,transparent);
+  backdrop-filter:blur(10px);border-bottom:1px solid var(--rule);
+}
+.btn,.ghost{border-radius:10px}
+.chip,.tag,.mark{border-radius:999px}
+hr{border:0;border-top:1px solid var(--rule)}
+table{border-color:var(--rule)}
+th{color:var(--absent)}
+td,th{border-color:var(--rule-2)}
+
+/* ---- the hero becomes a plate, matching the reports' title block ---- */
+.hero{
+  position:relative;overflow:hidden;
+  background:var(--plate-900);color:#DCE9F2;
+  border-radius:0;border-bottom:1px solid var(--plate-700);
+}
+.hero::before{
+  content:"";position:absolute;inset:0;opacity:.55;pointer-events:none;
+  background-image:linear-gradient(rgba(93,164,222,.09) 1px,transparent 1px),
+                   linear-gradient(90deg,rgba(93,164,222,.09) 1px,transparent 1px);
+  background-size:52px 52px;
+  mask-image:radial-gradient(120% 90% at 15% 0%,#000 20%,transparent 78%);
+  -webkit-mask-image:radial-gradient(120% 90% at 15% 0%,#000 20%,transparent 78%);
+}
+.hero > *{position:relative;z-index:2}
+.hero h1,.hero h2{color:#F2F8FC}
+.hero .lede,.hero .tagline,.hero p{color:#B5CEE0}
+.hero .eyebrow,.hero .kicker{color:#7FC0F0}
+.hero .mark,.hero .tag{border-color:rgba(127,192,240,.4);color:#CFE6F8}
+.hero a{color:#7FC0F0}
+.hero .btn{background:#2C6CA6;border-color:#2C6CA6;color:#fff}
+.hero .btn.ghost,.hero .ghost{background:transparent;border-color:rgba(127,192,240,.45);color:#DCE9F2}
+.hero .card{background:rgba(255,255,255,.05);border-color:rgba(127,192,240,.22);color:#DCE9F2}
+
+/* The receipt stays a paper object on the blueprint ground — that contrast IS the
+   image, so it keeps light values in both themes rather than inheriting the plate. */
+.receipt{
+  background:#FBFDFE !important;color:#08202F !important;
+  border:1px solid #DCE5EC !important;box-shadow:0 18px 44px rgba(0,0,0,.34);
+}
+.receipt .r-head b{color:#08202F}
+.receipt .r-head small,.receipt .r-key,.receipt .r-sub,.receipt .r-note{color:#3A5468}
+.receipt .r-absent{color:#7B92A5}
+.receipt .r-rule{border-top-color:#DCE5EC}
+.receipt .r-stamp{color:#2C6CA6;border-color:#2C6CA6;background:rgba(44,108,166,.08)}
+.receipt::before,.receipt::after{
+  background:linear-gradient(-45deg,transparent 50%,#FBFDFE 51%) 0 0/14px 9px repeat-x,
+             linear-gradient(45deg,transparent 50%,#FBFDFE 51%) 0 0/14px 9px repeat-x !important;
+}
+.receipt-cap{color:#8FAFC6}
+
+/* headline figures under the hero copy read on the dark ground */
+.hero .hero-facts{border-top-color:rgba(127,192,240,.28);color:#B5CEE0}
+.hero .hero-facts b{color:#F2F8FC}
+
+/* ---- readability: measure, spacing, and a calmer table ---- */
+p,li{max-width:74ch}
+.wrap p,.wrap li{line-height:1.62}
+.note{border-left-width:4px;box-shadow:var(--shadow-sm)}
+img,.shot{border-radius:12px}
+:focus-visible{outline:2px solid var(--stamp);outline-offset:3px;border-radius:3px}
+
+/* ---- responsive hardening ----
+   Grid and flex children default to min-width:auto, so one long token — a shell
+   command, a crate path — can push the whole page sideways on a phone. These
+   rules let those children shrink and give code blocks their own scrollbar. */
+.two,.two-up,.hero-grid,.cards,.foot-grid,.layers,.flow,.outcomes,.matrix,.g{min-width:0}
+.two>*,.two-up>*,.hero-grid>*,.cards>*,.foot-grid>*,.layers>*,.flow>*,.outcomes>*,.g>*{min-width:0}
+pre,.scroll-x,.aisp-doc{overflow-x:auto;-webkit-overflow-scrolling:touch}
+pre code{white-space:pre}
+li,p{overflow-wrap:anywhere}
+@media (max-width:720px){
+  .two,.two-up,.hero-grid,.g{grid-template-columns:1fr !important}
+  table{font-size:13.5px}
+}
+
 </style>
 </head>
 <body>
@@ -98,31 +258,38 @@ footer a{color:var(--ink-2)}
   <div class="wrap narrow">
     <p class="eyebrow">Wiki · report guide</p>
     <h1>What's actually in a report.</h1>
-    <p class="lede">Every section below is annotated from the <b>real</b> shipped example —
-    <a href="../../examples/deterministic/real-session.report.json">real-session.report.json</a> — not
-    a mock-up written to look good. Where a section is empty, that's shown too: an unbuilt feature
-    reads <code>not_observed</code>, the same as an uncaptured channel, never silently omitted.</p>
-    <img class="shot" src="../../examples/deterministic/real-session.report.png"
-      alt="The real-session.report.html example open in a browser, showing its stat bar, executive summary, key findings, and recommendations.">
+    <p class="lede">Every section below is annotated from the shipped example —
+    <a href="../../examples/deterministic/session.report.json">session.report.json</a>, which is
+    literally what <code>bar report</code> wrote over the seven transcripts in
+    <a href="../../examples/capture/">examples/capture/</a>. Not a mock-up written to look good: run
+    the tool over the same capture and you get the same figures. Where a section is empty, that is
+    shown too — an unbuilt feature reads <code>not_observed</code>, the same as an uncaptured
+    channel, never silently omitted.</p>
+    <p class="lede" style="font-size:15px">The project in the example, <code>orbit</code>, is a
+    stand-in: the measurements are real, the repository is not.</p>
+    <img class="shot" src="../../examples/session-report.png"
+      alt="The session.report.html example open in a browser, showing its stat bar, executive summary, key findings, and recommendations.">
     <p class="shot-cap">The actual rendered report this page annotates. Open it yourself:
-    <a href="../../examples/deterministic/real-session.report.html">real-session.report.html</a></p>
+    <a href="../../examples/deterministic/session.report.html">session.report.html</a></p>
   </div>
 </section>
 
 <section>
   <div class="wrap narrow">
     <p class="eyebrow">Walkthrough</p>
-    <h2>Ten parts, each traceable to a row.</h2>
+    <h2>Each part, traceable to a row.</h2>
 
     <div class="item">
       <div class="item-label"><span class="item-n">01</span><h3>Stat bar</h3>
         <p>The header. Orientation before detail.</p></div>
       <div class="item-body">
-        <p>Elapsed time, tool-call count, sub-agent-type count, transcript turns captured — the
-        numbers a reader needs before anything else. The real bar for this session:</p>
-        <div class="evidence"><span class="k">316h 46m</span> · <span class="v">3,171 tool calls</span> · 8 sub-agent type(s)<br>9,132 transcript turns captured · 0 fabricated numbers</div>
-        <p>"0 fabricated numbers" isn't a slogan here — it's the schema's own absence rule, visible
-        as the first thing you read.</p>
+        <p>Six figures across the title plate — volume, outcome, cost in time — the numbers a
+        reader needs before anything else. The real strip for this session:</p>
+        <div class="evidence"><span class="v">7</span> sessions · <span class="v">9,132</span> transcript turns · <span class="v">3,171</span> tool calls<br><span class="v">40 / 40</span> tasks completed · <span class="v">60</span> error results · <span class="k">322h 59m</span> recorded window</div>
+        <p>Directly beneath it the report draws the composition of those 3,171 calls as a single
+        banded strip — one band per tool, widest first — so the shape of the session is visible
+        before a single table. Every band is also written out in prose and in the tool table
+        further down, so the page still argues its case with scripting switched off.</p>
       </div>
     </div>
 
@@ -131,7 +298,7 @@ footer a{color:var(--ink-2)}
         <p>One paragraph, assembled from fields — never composed by a model.</p></div>
       <div class="item-body">
         <p>A single sentence stitched from real counters, not written prose:</p>
-        <div class="evidence">Over 316h 46m, the session made 3,171 tool calls across 9,132<br>transcript turns, dispatched 40 sub-agent run(s), and captured<br>60 error result(s).</div>
+        <div class="evidence">Over 322h 59m, the session made 3,171 tool calls across 9,132<br>transcript turns, dispatched 40 sub-agent run(s), and captured<br>60 error result(s).</div>
         <p>Compare this to <code>bar interpret</code>'s output: that one <em>is</em> LLM-written
         prose, and is labeled as such wherever it appears. This one is template substitution over
         typed fields — swap the database, the sentence updates itself; nothing here was composed.</p>
@@ -145,9 +312,9 @@ footer a{color:var(--ink-2)}
         <p>Four findings, each a plain claim with a supporting detail underneath it — not a single
         undifferentiated wall of text:</p>
         <div class="evidence">60 tool error(s) were captured — the failures are recorded, not swallowed.<br>&nbsp;&nbsp;Worst: <span class="k">Bash</span> ×45.
-One file absorbed the most churn: 77 edits.<br>&nbsp;&nbsp;<span class="k">README.md</span> — a refactor / test-coverage candidate.
+One file absorbed the most churn: 77 edits.<br>&nbsp;&nbsp;<span class="k">orbit/README.md</span> — a refactor / test-coverage candidate.
 Validation was not fully green at capture end: 29 failing vs 344 passing.<br>&nbsp;&nbsp;From real `test result:` lines (measured, not self-reported).
-5 of 6 capture channels were not recorded this session.<br>&nbsp;&nbsp;Uncaptured channels read "not recorded" — this is a transcript-only ingest.</div>
+6 of 9 capture channels were not recorded this session.<br>&nbsp;&nbsp;Uncaptured channels read "not recorded" — this is a transcript-only ingest.</div>
         <p>Each of these traces to a section further down this page — the findings aren't a
         separate narrative, they're a summary of facts that are also shown in full.</p>
       </div>
@@ -158,9 +325,10 @@ Validation was not fully green at capture end: 29 failing vs 344 passing.<br>&nb
         <p>Resolution-first, priority-tagged, grounded in the findings above.</p></div>
       <div class="item-body">
         <p>Three recommendations, each tagged P1/P2/P3 by how directly it follows from captured
-        evidence — not a generic best-practices list:</p>
+        evidence — not a generic best-practices list. The list is as long as the evidence supports
+        and no longer; a session with nothing to flag gets a short one:</p>
         <div class="evidence"><span class="v">P1</span> Resolve the remaining failing tests before relying on the session's<br>&nbsp;&nbsp;completion claims.
-<span class="k">P2</span> Review README.md (highest edit churn) for a refactor or missing<br>&nbsp;&nbsp;test coverage.
+<span class="k">P2</span> Review `orbit/README.md` (highest edit churn) for a refactor or missing<br>&nbsp;&nbsp;test coverage.
 <span class="k">P3</span> Enable OTEL telemetry + hooks to capture tokens/cost, timeline,<br>&nbsp;&nbsp;and coverage.</div>
       </div>
     </div>
@@ -182,9 +350,10 @@ Validation was not fully green at capture end: 29 failing vs 344 passing.<br>&nb
       <div class="item-label"><span class="item-n">06</span><h3>Tool usage</h3>
         <p>Which tools, and how hard, ranked by real call counts.</p></div>
       <div class="item-body">
-        <div class="evidence">Bash 1,706 · Edit 496 · Read 410 · Write 97 · TaskUpdate 209<br>TaskCreate 132 · Agent 40 · ToolSearch 19 · AskUserQuestion 11 · …</div>
-        <p>Seventeen distinct tools appear in the full record; this is the ranked head of that list,
-        exactly as captured — nothing rounded, nothing merged.</p>
+        <div class="evidence">Bash 1,706 · Edit 496 · Read 410 · TaskUpdate 209<br>TaskCreate 132 · Write 97 · Agent 40 · ToolSearch 19 · TaskOutput 16 · …</div>
+        <p>Seventeen distinct tools appear in the full record; this is the ranked head of that
+        list, exactly as captured — nothing rounded, nothing merged, and the tail (down to
+        <code>Workflow ×1</code>) is kept rather than collapsed into an "other" bucket.</p>
       </div>
     </div>
 
@@ -192,7 +361,7 @@ Validation was not fully green at capture end: 29 failing vs 344 passing.<br>&nb
       <div class="item-label"><span class="item-n">07</span><h3>Sub-agent dispatches</h3>
         <p>What got delegated, and to which agent type.</p></div>
       <div class="item-body">
-        <div class="evidence">40 agent run(s) total<br>general-purpose ×17 · reviewer ×10 · claude-code-guide ×5<br>qe-requirements-validator ×3 · bar-docs-curator ×2<br>bar-release-verifier ×1 · bar-skeptic-reviewer ×1 · unspecified ×1</div>
+        <div class="evidence">40 agent run(s) total, 8 distinct types<br>general-purpose ×17 · reviewer ×10 · docs-researcher ×5<br>requirements-validator ×3 · docs-curator ×2 · release-verifier ×1<br>skeptic-reviewer ×1 · unspecified ×1</div>
         <p>A session that spawns helper agents can hide its real failure surface inside them — this
         section is why that no longer works. Every dispatch is counted by type, whether or not the
         parent session's own summary mentioned it.</p>
@@ -203,8 +372,8 @@ Validation was not fully green at capture end: 29 failing vs 344 passing.<br>&nb
       <div class="item-label"><span class="item-n">08</span><h3>Rework hotspots</h3>
         <p>Where effort concentrated — a signal about the work, not a score.</p></div>
       <div class="item-body">
-        <div class="evidence">./…/bar-observatory/README.md — edited 77 times<br>./…/bar-observatory/index.html — edited 22 times<br>./…/bar-observatory/provenance/PROVENANCE.json — edited 16 times</div>
-        <p>77 of that window's 496 total edits — more than the next four files combined — landed in one
+        <div class="evidence">orbit/README.md — edited 77 times<br>orbit/index.html — edited 22 times<br>orbit/docs/guide/README.md — edited 16 times<br>orbit/docs/manifest.json — edited 16 times<br><span class="k">…92 more files, 482 repeat edits in all</span></div>
+        <p>77 of that window's 482 repeat edits — more than the next four files combined — landed in one
         file. The report doesn't editorialize about why; it just makes the concentration impossible
         to miss, which is usually enough to prompt the right question.</p>
       </div>
@@ -214,12 +383,25 @@ Validation was not fully green at capture end: 29 failing vs 344 passing.<br>&nb
       <div class="item-label"><span class="item-n">09</span><h3>Validation &amp; flaky signals</h3>
         <p>Measured from real test output — not a self-reported "tests pass."</p></div>
       <div class="item-body">
-        <div class="evidence">373 cargo `test result:` line(s) — 344 passed, 29 failed<br>last line: PASSED (measured, not self-reported)
+        <div class="evidence">373 verdict line(s) (373 cargo) — 344 passed, 29 failed<br>last verdict: PASSED (measured, not self-reported)<br>unreadable_results: <span class="v">0</span>
 
-flaky: 3 test(s) both passed AND failed this window<br>&nbsp;&nbsp;round_trips_losslessly — 3 fails / 5 passes<br>&nbsp;&nbsp;pr2_review_list_query_failures_are_disclosed_not_silent — 2 fails / 3 passes<br>&nbsp;&nbsp;a2c_f1_committed_plugin_hooks_match_generator — 1 fail / 2 passes</div>
+flaky: 3 test(s) both passed AND failed this window<br>&nbsp;&nbsp;round_trips_losslessly — 3 fails / 5 passes<br>&nbsp;&nbsp;query_failures_are_disclosed_not_silent — 2 fails / 3 passes<br>&nbsp;&nbsp;committed_hooks_match_generator — 1 fail / 2 passes</div>
         <p>A test that flips between pass and fail across the same session is a real signal — could
         be a fix landing mid-session, could be a regression, could be flakiness. The report doesn't
         guess which; it surfaces the flip and lets a human or agent decide.</p>
+        <p>Two details in that block are there because of a real defect a user reported. The verdict
+        count now names <em>which runner</em> matched — it used to describe every verdict as a cargo
+        <code>test result:</code> line even on a pytest-only session. And <code>unreadable_results</code>
+        counts tool outputs too large to be stored inline, which an earlier version could not read and
+        silently left out of the total; verdicts are now extracted during ingest, while the full
+        output is still in hand, so a failing run that produced a lot of output can no longer go
+        missing. Where a store still predates that change, this section reports
+        <code>partial</code> rather than a confident count.</p>
+        <p>The flaky list below it had the same problem in a nastier form. A test that flips inside a
+        long run is exactly the flip worth knowing about, and it was exactly the one the old scan
+        could not see — so the section answered "no flaky tests" with confidence. Per-test verdicts
+        are now read at ingest too, and the section reports <code>partial</code> rather than "none"
+        when it is working from a store it cannot fully read.</p>
       </div>
     </div>
 
@@ -250,10 +432,18 @@ observations: "Not observed — micro-observation extraction and<br>silent-signa
       <div class="item-label"><span class="item-n">11</span><h3>Capture-channel honesty</h3>
         <p>Which channels actually had data.</p></div>
       <div class="item-body">
-        <div class="evidence">transcripts: <span class="v">partial</span> — 9,132 turns; 629 dangling parent(s), 139 unpaired tool_use/tool_result<br>hooks / events / spans / requests: <span class="k">not_recorded</span> — no rows in this store<br>provider_cost_usd: <span class="k">not_recorded</span> — no authoritative per-token USD available</div>
-        <p>Five of six channels read <code>not_recorded</code> here because this capture was a
-        transcript-only ingest — no hooks, proxy, or OTLP were running. That's disclosed plainly
-        rather than left for a reader to assume from silence.</p>
+        <div class="evidence">transcripts: <span class="v">partial</span> — 9,132 turns; 629 dangling parent(s), 136 unpaired tool_use/tool_result<br>hooks / events / spans / requests / file_history: <span class="k">not_recorded</span> — no rows in this store<br>provider_cost_usd: <span class="k">not_recorded</span> — no authoritative per-token USD available<br>plan_docs / raw_logs: <span class="k">not_observed</span> — writer exists, nothing has invoked it here</div>
+        <p>One line in that block is about the recorder rather than the session: a tool output above
+        the inline size cap has its body moved to a content-addressed file beside the database, and
+        this row says how many. Only the body moves — every field that identifies the result stays,
+        which is why an error in a huge output still counts as an error and still pairs with its
+        call. That was not always true, and while it wasn't, the "unpaired" figure above was partly
+        the recorder reporting damage it had done itself.</p>
+        <p>Nine channels, three states, and the difference between the last two is the whole point.
+        Six read <code>not_recorded</code> because this was a transcript-only ingest — no hooks,
+        proxy, or OTLP were running. Two read <code>not_observed</code>: a channel with a real
+        writer that nothing in this ingest path called. Neither is a zero, and neither is left for a
+        reader to assume from silence.</p>
       </div>
     </div>
 
@@ -261,11 +451,17 @@ observations: "Not observed — micro-observation extraction and<br>silent-signa
       <div class="item-label"><span class="item-n">12</span><h3>Integrity</h3>
         <p>What actually makes "byte-identical" a checkable claim, not a slogan.</p></div>
       <div class="item-body">
-        <div class="evidence">source_db_hash: blake3:96ad36b19f55b07b…<br>template_hash: blake3:b8bcf83ef579efa1…<br>deterministic_render: <span class="v">true</span> · llm_in_render_path: <span class="v">false</span></div>
+        <div class="evidence">source_db_hash: blake3:14fd056be2935fc7…<br>template_hash: blake3:3384a44fb8e759eb…<br>deterministic_render: <span class="v">true</span> · llm_in_render_path: <span class="v">false</span></div>
         <p>The report's own hash of the database it came from, plus a hash of the template that
-        rendered it. Re-render the same database with the same template version and these two
-        values — and every fact above them — come out identical. That's what "same database in,
-        byte-identical report out" cashes out to at the field level.</p>
+        rendered it. Re-render the same database with the same renderer and these two values — and
+        every fact above them — come out identical. That's what "same database in, byte-identical
+        report out" cashes out to at the field level.</p>
+        <p>The second hash is worth one extra sentence, because it used to be weaker than it
+        looked. <code>template_hash</code> is taken over the inlined stylesheet and page runtime
+        themselves, not over a version label someone has to remember to bump — so changing a single
+        CSS rule moves it. A signature that only changed when its author chose to change it would
+        not be evidence of anything, which is exactly the failure this project spends its time
+        avoiding elsewhere.</p>
       </div>
     </div>
 
@@ -273,7 +469,7 @@ observations: "Not observed — micro-observation extraction and<br>silent-signa
       <b>Why this order.</b> Sections 11 and 12 are placed last on this page but exist first in
       practice — they're what tells you whether to trust sections 1 through 10 at all.
       <code>bar doctor</code> surfaces the same capture-honesty information before you even open a
-      report. See <a href="../human-md/architecture.md">wiki/architecture.md</a> for the full absence-semantics
+      report. See <a href="../human-md/architecture.md">wiki/human-md/architecture.md</a> for the full absence-semantics
       and determinism-contract writeup.
     </div>
   </div>
@@ -286,7 +482,7 @@ observations: "Not observed — micro-observation extraction and<br>silent-signa
     <a href="../human-md/architecture.md">Architecture</a></p>
     <p class="disclaim">BAR Observatory is an independent open-source project by Bradley Ross
     (Bradley.Academy) and is not affiliated with or endorsed by Anthropic. Every quoted value on
-    this page is copied verbatim from <code>examples/deterministic/real-session.report.json</code>
+    this page is copied verbatim from <code>examples/deterministic/session.report.json</code>
     at the time this page was written — re-render that database yourself to confirm it still
     matches, since the whole point of a deterministic report is that you don't have to take
     anyone's word for it.</p>

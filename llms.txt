@@ -6,8 +6,9 @@
 > no API key.
 
 BAR Observatory (Base Agentic Reporter) turns an AI coding agent session into a receipt: every
-tool call, task, sub-agent dispatch, rework loop, and error, with an explicit `not_observed` state
-for anything it couldn't capture rather than a fabricated zero. It also exposes the same data to
+tool call, task, sub-agent dispatch, rework loop, and error, with explicit absence states —
+`not_recorded` for a channel with no rows, `not_observed` for a detector that isn't built yet —
+rather than a fabricated zero. It also exposes the same data to
 AI agents over a read-only MCP server, so a new session can check what a previous one already
 tried before repeating it. Built by Bradley Ross; not affiliated with or endorsed by Anthropic.
 
@@ -17,7 +18,7 @@ tried before repeating it. Built by Bradley Ross; not affiliated with or endorse
 - [Plain-language guide](wiki/human-md/README.md): no assumed background, click-along setup
 - [AI agent guide](wiki/agent/AI-CONTEXT.md): MCP tool reference for an agent consuming this project
 - [RUN.md](RUN.md): the command reference, three ways to install and run it
-- [CRATES.md](CRATES.md): the 16-crate architecture, each crate's role and crates.io link
+- [CRATES.md](CRATES.md): the 17-crate architecture, each crate's role and crates.io link
 
 ## Deeper reference
 
@@ -25,14 +26,18 @@ tried before repeating it. Built by Bradley Ross; not affiliated with or endorse
 - [wiki/human-md/comparison.md](wiki/human-md/comparison.md): how this differs from live dashboards, OTel backends, and LLM eval platforms
 - [wiki/human-md/enterprise.md](wiki/human-md/enterprise.md): offline/air-gapped use, what "local-only" actually guarantees
 - [wiki/human-html/documentation-layers.html](wiki/human-html/documentation-layers.html): why this project's docs exist in three registers (human/AI/AISP), with a live tab switcher between them
-- [wiki/human-html/report-guide.html](wiki/human-html/report-guide.html): section-by-section annotated walkthrough of a real report, quoting the shipped example verbatim
+- [wiki/human-html/report-guide.html](wiki/human-html/report-guide.html): section-by-section annotated walkthrough, quoting the shipped example report verbatim
 - [wiki/aisp/HUB.aisp](wiki/aisp/HUB.aisp): machine-readable capability registry (AISP symbolic spec)
 - [schemas/report.schema.json](schemas/report.schema.json): a versioned JSON contract for report.json -- currently out of sync with live output, disclosed as a known gap, not silently wrong
 
 ## Examples
 
-- [examples/deterministic/](examples/deterministic/): real, re-rendered sample reports (JSON/HTML/MD), not mocks
-- [examples/interpreted/](examples/interpreted/): a sample of the optional LLM-written interpretation layer
+- [examples/README.md](examples/README.md): what the four example reports are, and which of them the tool wrote
+- [examples/deterministic/session.report.json](examples/deterministic/session.report.json): literally `bar report` output over the shipped capture -- also .html and .md
+- [examples/deterministic/delivery-memo.html](examples/deterministic/delivery-memo.html): the same record cut for an executive reader (assembled from report.json + bar query, disclosed)
+- [examples/interpreted/](examples/interpreted/): the optional LLM-written commentary layer, with the exact brief each page was written from
+- [examples/capture/](examples/capture/): the seven session transcripts every figure is measured from, plus run.sh -- three commands reproduce the deterministic examples
+- the project in the examples (`orbit`) is a stand-in: every count is measured by the tool from the shipped capture, the paths and names are demo values
 
 ## Policy
 

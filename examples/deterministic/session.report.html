@@ -1,0 +1,1412 @@
+<!doctype html>
+<html lang="en" data-layer="evidence"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BAR Observatory — captured session report</title>
+<meta name="description" content="Deterministic capture report: 322h 59m · 3,171 tool calls · 8 sub-agent type(s). No LLM and no network in the render path.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%232C6CA6'/><text x='16' y='23' font-size='19' fill='white' text-anchor='middle' font-family='sans-serif' font-weight='700'>B</text></svg>">
+<style>
+/* ============================================================
+   BAR OBSERVATORY · REPORT DESIGN SYSTEM
+   Shared by every page in examples/ — Evidence and Commentary,
+   Boss Mode and Developer Guide.
+
+   Visual direction: cyanotype plate. The subject is a record, so
+   a page is built like an archival plate set: prussian ground,
+   blueprint rules, plate numbers, and one signature artifact per
+   report that carries its whole thesis.
+
+   Two layers share this system and are told apart by an accent
+   and an explicit label, never by colour alone:
+     data-layer="evidence"   -> plate blue. No model in the path.
+     data-layer="commentary" -> iris.      A model wrote the prose.
+
+   Typography is system-stack only. A generated report is a single
+   self-contained file: no stylesheet, no script, no font, and no
+   image is fetched from anywhere, because the tool's whole claim
+   is that your session data never leaves your machine.
+   ============================================================ */
+
+/* ============================================================
+   BAR OBSERVATORY · DIAGNOSTIC REVIEW
+   Visual direction: cyanotype plate. The subject is a record, so
+   the page is built like an archival plate set: prussian ground,
+   blueprint rules, plate numbers, and one signature artifact
+   (the 60-tick error strip) that carries the whole thesis.
+   ============================================================ */
+:root{
+  --plate-900:#061523;
+  --plate-800:#0A2135;
+  --plate-700:#0F3050;
+  --plate-600:#17486F;
+  --paper:#F1F5F8;
+  --card:#FFFFFF;
+  --card-2:#F7FAFC;
+  --ink:#08202F;
+  --ink-2:#3A5468;
+  --muted:#7B92A5;
+  --line:#DCE5EC;
+  --line-2:#EAF0F5;
+
+  --verdigris:#1B7A62;
+  --amber:#B57F22;
+  --vermilion:#B93A22;
+  --plateblue:#2C6CA6;
+  --iris:#5A55A3;
+
+  --tint-verdigris:rgba(27,122,98,.10);
+  --tint-amber:rgba(181,127,34,.12);
+  --tint-vermilion:rgba(185,58,34,.10);
+  --tint-blue:rgba(44,108,166,.10);
+
+  --shadow-sm:0 1px 2px rgba(8,32,47,.05), 0 2px 8px rgba(8,32,47,.04);
+  --shadow:0 2px 4px rgba(8,32,47,.04), 0 16px 40px rgba(8,32,47,.09);
+
+  --display:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Times New Roman",serif;
+  --body:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace;
+
+  --rail:236px;
+  --maxw:1080px;
+}
+[data-theme="dark"]{
+  --paper:#071B2B;
+  --card:#0C2739;
+  --card-2:#0A2233;
+  --ink:#E7EFF5;
+  --ink-2:#AFC4D4;
+  --muted:#7D97AB;
+  --line:#173248;
+  --line-2:#12293C;
+  --verdigris:#4FBFA0;
+  --amber:#E0AA4E;
+  --vermilion:#F0715A;
+  --plateblue:#63A6DE;
+  --iris:#9C97E8;
+  --tint-verdigris:rgba(79,191,160,.14);
+  --tint-amber:rgba(224,170,78,.14);
+  --tint-vermilion:rgba(240,113,90,.13);
+  --tint-blue:rgba(99,166,222,.14);
+  --shadow-sm:0 1px 2px rgba(0,0,0,.3);
+  --shadow:0 2px 4px rgba(0,0,0,.25), 0 20px 44px rgba(0,0,0,.4);
+}
+
+/* Respect the operating-system setting by default; the in-page toggle,
+   which stamps data-theme, wins in both directions. */
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+  --paper:#071B2B;
+  --card:#0C2739;
+  --card-2:#0A2233;
+  --ink:#E7EFF5;
+  --ink-2:#AFC4D4;
+  --muted:#7D97AB;
+  --line:#173248;
+  --line-2:#12293C;
+  --verdigris:#4FBFA0;
+  --amber:#E0AA4E;
+  --vermilion:#F0715A;
+  --plateblue:#63A6DE;
+  --iris:#9C97E8;
+  --tint-verdigris:rgba(79,191,160,.14);
+  --tint-amber:rgba(224,170,78,.14);
+  --tint-vermilion:rgba(240,113,90,.13);
+  --tint-blue:rgba(99,166,222,.14);
+  --shadow-sm:0 1px 2px rgba(0,0,0,.3);
+  --shadow:0 2px 4px rgba(0,0,0,.25), 0 20px 44px rgba(0,0,0,.4);
+  }
+}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;background:var(--paper);color:var(--ink);
+  font-family:var(--body);font-size:16px;line-height:1.62;
+  -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
+}
+p{margin:0 0 1.05em;color:var(--ink-2)}
+a{color:var(--plateblue);text-decoration:none;border-bottom:1px solid rgba(44,108,166,.35)}
+a:hover{border-bottom-color:currentColor}
+b,strong{color:var(--ink);font-weight:600}
+code{font-family:var(--mono);font-size:.86em;background:var(--card-2);border:1px solid var(--line);padding:1px 5px;border-radius:4px;color:var(--ink)}
+:focus-visible{outline:2px solid var(--plateblue);outline-offset:3px;border-radius:3px}
+
+/* ---------- Type scale ---------- */
+h1,h2,h3,h4{margin:0;font-family:var(--display);font-weight:600;letter-spacing:-.015em;color:var(--ink)}
+h1{font-size:clamp(38px,6.2vw,74px);line-height:1.02;font-weight:600}
+h2{font-size:clamp(26px,3.4vw,38px);line-height:1.1}
+h3{font-size:19px;line-height:1.25;font-weight:600}
+h4{font-family:var(--body);font-size:13px;font-weight:600;letter-spacing:.02em}
+.lede{font-size:clamp(17px,1.7vw,20px);line-height:1.55;color:var(--ink-2);max-width:62ch}
+
+.eyebrow{
+  font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--plateblue);display:flex;align-items:center;gap:12px;
+}
+.eyebrow::after{content:"";height:1px;flex:1;background:var(--line);min-width:24px}
+.kicker{font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+
+/* ---------- Top bar ---------- */
+.topbar{
+  position:sticky;top:0;z-index:60;display:flex;align-items:center;gap:14px;
+  padding:10px 20px;background:color-mix(in srgb,var(--paper) 88%,transparent);
+  backdrop-filter:blur(10px);border-bottom:1px solid var(--line);
+}
+.brandmark{display:flex;align-items:center;gap:10px;font-family:var(--mono);font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink)}
+.brandmark .dot{width:9px;height:9px;border-radius:50%;background:var(--verdigris);box-shadow:0 0 0 3px var(--tint-verdigris)}
+.topbar .spacer{flex:1}
+.topbar .meta{font-family:var(--mono);font-size:11px;color:var(--muted);letter-spacing:.06em}
+.btn{
+  font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;
+  padding:7px 12px;border-radius:8px;border:1px solid var(--line);background:var(--card);
+  color:var(--ink-2);cursor:pointer;transition:.18s ease;
+}
+.btn:hover{border-color:var(--plateblue);color:var(--plateblue)}
+
+/* ---------- Hero plate ---------- */
+.plate{
+  position:relative;overflow:hidden;background:var(--plate-900);color:#DCE9F2;
+  border-bottom:1px solid var(--plate-700);
+}
+.plate::before{
+  content:"";position:absolute;inset:0;opacity:.55;
+  background-image:linear-gradient(rgba(93,164,222,.09) 1px,transparent 1px),
+                   linear-gradient(90deg,rgba(93,164,222,.09) 1px,transparent 1px);
+  background-size:52px 52px;
+  mask-image:radial-gradient(120% 90% at 15% 0%,#000 20%,transparent 78%);
+  -webkit-mask-image:radial-gradient(120% 90% at 15% 0%,#000 20%,transparent 78%);
+}
+.plate::after{
+  content:"";position:absolute;right:-160px;top:-180px;width:620px;height:620px;border-radius:50%;
+  background:radial-gradient(circle at 50% 50%,rgba(44,108,166,.42),transparent 62%);
+  pointer-events:none;
+}
+.plate-inner{position:relative;z-index:2;max-width:var(--maxw);margin:0 auto;padding:64px 24px 44px}
+.plate .eyebrow{color:#7FC0F0}
+.plate .eyebrow::after{background:rgba(127,192,240,.28)}
+.plate h1{color:#F2F8FC;margin:18px 0 0;max-width:19ch}
+.plate h1 .accent{color:#6FD8B8;font-style:italic;font-weight:400}
+.plate .lede{color:#B5CEE0;margin-top:20px;max-width:60ch}
+.runstrip{
+  display:flex;flex-wrap:wrap;gap:0;margin-top:34px;border-top:1px solid rgba(127,192,240,.22);
+  border-bottom:1px solid rgba(127,192,240,.22);
+}
+.runstrip div{padding:14px 22px 13px;border-right:1px solid rgba(127,192,240,.16);flex:1 1 auto;min-width:132px}
+.runstrip div:last-child{border-right:0}
+.runstrip .v{font-family:var(--mono);font-size:19px;font-weight:500;color:#F2F8FC;letter-spacing:-.01em}
+.runstrip .k{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#7F9FB8;margin-top:3px}
+
+/* ---------- Signature: the 60-tick plate ---------- */
+.signature{position:relative;z-index:2;max-width:var(--maxw);margin:0 auto;padding:0 24px 60px}
+.sig-head{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:14px}
+.sig-title{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#7FC0F0}
+.sig-note{font-size:12.5px;color:#8FAFC6}
+.ticks{display:flex;align-items:flex-end;gap:3px;height:118px;padding:0 0 2px}
+.tick{
+  flex:1 1 0;min-width:5px;border-radius:2px 2px 0 0;position:relative;cursor:default;
+  transform-origin:bottom;transition:transform .16s ease,opacity .2s ease,filter .2s ease;
+  animation:grow .6s cubic-bezier(.2,.8,.2,1) both;
+}
+@keyframes grow{from{transform:scaleY(.04);opacity:.15}to{transform:scaleY(1);opacity:1}}
+.tick:hover{filter:brightness(1.35)}
+.tick.dim{opacity:.16}
+.tick[data-v="intent"]{background:linear-gradient(180deg,#6FD8B8,#2E8E76)}
+.tick[data-v="noise"]{background:linear-gradient(180deg,#B4C4CF,#7E93A3)}
+.tick[data-v="drift"]{background:linear-gradient(180deg,#F0C36B,#B5822A)}
+.tick[data-v="tooling"]{background:linear-gradient(180deg,#F58A6E,#B93A22)}
+.tick[data-v="git"]{background:linear-gradient(180deg,#7FC0F0,#2C6CA6)}
+.tick[data-v="unknown"]{background:repeating-linear-gradient(135deg,rgba(180,200,215,.55) 0 3px,transparent 3px 6px);border:1px dashed rgba(180,200,215,.5)}
+.legend{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+.legend button{
+  display:flex;align-items:center;gap:9px;padding:8px 13px;border-radius:9px;cursor:pointer;
+  background:rgba(255,255,255,.045);border:1px solid rgba(127,192,240,.2);color:#CBDDEA;
+  font-family:var(--body);font-size:12.5px;transition:.18s ease;
+}
+.legend button:hover{border-color:rgba(127,192,240,.55);background:rgba(255,255,255,.09)}
+.legend button.off{opacity:.4}
+.legend .sw{width:11px;height:11px;border-radius:3px}
+.legend .n{font-family:var(--mono);font-size:12px;color:#F2F8FC}
+.tip{
+  position:fixed;z-index:99;pointer-events:none;opacity:0;transform:translateY(4px);
+  transition:opacity .13s ease,transform .13s ease;background:var(--plate-800);
+  border:1px solid rgba(127,192,240,.35);color:#EAF3F9;padding:9px 12px;border-radius:9px;
+  font-size:12.5px;max-width:280px;box-shadow:0 14px 34px rgba(0,0,0,.45);line-height:1.45;
+}
+.tip.on{opacity:1;transform:translateY(0)}
+.tip .tv{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;display:block;margin-bottom:3px}
+
+/* ---------- Shell / rail ---------- */
+.shell{max-width:calc(var(--maxw) + var(--rail) + 48px);margin:0 auto;padding:0 24px;display:grid;grid-template-columns:var(--rail) 1fr;gap:48px;align-items:start}
+.rail{position:sticky;top:78px;padding:44px 0;display:block}
+.rail ol{list-style:none;margin:0;padding:0}
+.rail li{margin:0}
+.rail a{
+  display:grid;grid-template-columns:38px 1fr;gap:6px;align-items:baseline;padding:7px 0;
+  border-bottom:0;color:var(--muted);font-size:13.5px;transition:.16s ease;
+}
+.rail a .pl{font-family:var(--mono);font-size:10.5px;letter-spacing:.08em}
+.rail a:hover{color:var(--ink)}
+.rail a.active{color:var(--plateblue);font-weight:600}
+.rail a.active .pl{color:var(--plateblue)}
+.rail .railcard{margin-top:24px;padding:14px;border:1px solid var(--line);border-radius:12px;background:var(--card);box-shadow:var(--shadow-sm)}
+.rail .railcard .kicker{display:block;margin-bottom:6px}
+.rail .railcard p{font-size:12.5px;margin:0;line-height:1.5}
+main{padding:44px 0 80px;min-width:0}
+section{padding:26px 0 46px;scroll-margin-top:82px}
+.sechead{margin-bottom:22px}
+.sechead .eyebrow{margin-bottom:10px}
+.sechead p{max-width:64ch;margin-top:10px}
+
+/* ---------- Cards & grids ---------- */
+.grid{display:grid;gap:16px}
+.g2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.g3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.g4{grid-template-columns:repeat(4,minmax(0,1fr))}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px 22px;box-shadow:var(--shadow-sm)}
+.card.flat{box-shadow:none;background:var(--card-2)}
+.card h3{margin-bottom:6px}
+.card p:last-child{margin-bottom:0}
+
+.stat{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 18px 16px;box-shadow:var(--shadow-sm);position:relative;overflow:hidden}
+.stat .v{font-family:var(--mono);font-size:30px;font-weight:500;letter-spacing:-.02em;color:var(--ink);line-height:1.1}
+.stat .v small{font-size:15px;color:var(--muted);font-weight:400}
+.stat .k{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-top:7px}
+.stat .d{font-size:12.5px;color:var(--ink-2);margin-top:9px;line-height:1.45}
+.stat::after{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--plateblue);opacity:.85}
+.stat.good::after{background:var(--verdigris)}
+.stat.warn::after{background:var(--amber)}
+.stat.alert::after{background:var(--vermilion)}
+
+/* verdict cards */
+.verdict{border:1px solid var(--line);border-radius:14px;padding:20px;background:var(--card);box-shadow:var(--shadow-sm)}
+.verdict .tagline{display:inline-flex;align-items:center;gap:7px;font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;padding:4px 9px;border-radius:999px;margin-bottom:12px}
+.verdict.ok .tagline{background:var(--tint-verdigris);color:var(--verdigris)}
+.verdict.watch .tagline{background:var(--tint-amber);color:var(--amber)}
+.verdict.act .tagline{background:var(--tint-vermilion);color:var(--vermilion)}
+.verdict .big{font-family:var(--display);font-size:34px;line-height:1;margin-bottom:8px}
+.verdict p{font-size:13.5px;margin:0}
+
+/* audience cards */
+.aud{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.aud .card{border-top:3px solid var(--plateblue)}
+.aud .card:nth-child(2){border-top-color:var(--verdigris)}
+.aud .card:nth-child(3){border-top-color:var(--amber)}
+.aud .who{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+.aud h3{font-size:17px;margin-bottom:8px}
+.aud p{font-size:13.5px;margin:0}
+
+/* ---------- Bars ---------- */
+.bars{display:grid;gap:11px;margin-top:6px}
+.bar{display:grid;grid-template-columns:1fr 46px;gap:14px;align-items:center}
+.bar .lab{font-size:13.5px;color:var(--ink-2);display:flex;align-items:center;gap:8px;min-width:0}
+.bar .lab span.t{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.bar .track{grid-column:1/-1;height:9px;border-radius:5px;background:var(--line-2);overflow:hidden}
+.bar .fill{height:100%;border-radius:5px;width:0;transition:width 1s cubic-bezier(.22,.9,.26,1)}
+.bar .n{font-family:var(--mono);font-size:13px;text-align:right;color:var(--ink)}
+.reveal .bar .fill{width:var(--w)}
+.fill.intent{background:linear-gradient(90deg,#2E8E76,#6FD8B8)}
+.fill.noise{background:linear-gradient(90deg,#7E93A3,#B4C4CF)}
+.fill.drift{background:linear-gradient(90deg,#B5822A,#F0C36B)}
+.fill.tooling{background:linear-gradient(90deg,#B93A22,#F58A6E)}
+.fill.git{background:linear-gradient(90deg,#2C6CA6,#7FC0F0)}
+.fill.unknown{background:repeating-linear-gradient(135deg,var(--muted) 0 4px,transparent 4px 8px)}
+.fill.plain{background:linear-gradient(90deg,var(--plate-600),var(--plateblue))}
+.fill.scratch{background:repeating-linear-gradient(135deg,rgba(123,146,165,.85) 0 4px,rgba(123,146,165,.35) 4px 8px)}
+
+.chip{display:inline-block;font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;padding:2px 7px;border-radius:999px;border:1px solid var(--line);color:var(--muted);white-space:nowrap}
+.chip.ok{color:var(--verdigris);border-color:color-mix(in srgb,var(--verdigris) 40%,transparent);background:var(--tint-verdigris)}
+.chip.warn{color:var(--amber);border-color:color-mix(in srgb,var(--amber) 40%,transparent);background:var(--tint-amber)}
+.chip.alert{color:var(--vermilion);border-color:color-mix(in srgb,var(--vermilion) 40%,transparent);background:var(--tint-vermilion)}
+.chip.info{color:var(--plateblue);border-color:color-mix(in srgb,var(--plateblue) 40%,transparent);background:var(--tint-blue)}
+
+/* stacked composition bar */
+.stack{display:flex;height:44px;border-radius:10px;overflow:hidden;border:1px solid var(--line);margin:4px 0 14px}
+.stack div{position:relative;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:12px;color:#fff;width:0;transition:width 1.1s cubic-bezier(.22,.9,.26,1)}
+.reveal .stack div{width:var(--w)}
+.stack .s-intent{background:#2E8E76}
+.stack .s-noise{background:#93A7B6;color:#08202F}
+.stack .s-drift{background:#B5822A}
+.stack .s-tooling{background:#B93A22}
+.stack .s-git{background:#2C6CA6}
+.stack .s-unknown{background:repeating-linear-gradient(135deg,#93A7B6 0 4px,#C6D2DB 4px 8px)}
+
+/* ---------- Tables ---------- */
+.tablewrap{border:1px solid var(--line);border-radius:14px;overflow:hidden;background:var(--card);box-shadow:var(--shadow-sm)}
+table{width:100%;border-collapse:collapse;font-size:14px}
+thead th{
+  font-family:var(--mono);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);
+  text-align:left;padding:12px 16px;background:var(--card-2);border-bottom:1px solid var(--line);white-space:nowrap;
+}
+tbody td{padding:11px 16px;border-bottom:1px solid var(--line-2);color:var(--ink-2);vertical-align:middle}
+tbody tr:last-child td{border-bottom:0}
+tbody tr:hover td{background:var(--card-2)}
+td.n,th.n{text-align:right;font-family:var(--mono);font-size:13px;color:var(--ink)}
+
+/* ---------- Findings ---------- */
+.finding{border:1px solid var(--line);border-left:4px solid var(--plateblue);border-radius:0 14px 14px 0;background:var(--card);padding:20px 22px;box-shadow:var(--shadow-sm);margin-bottom:14px}
+.finding.ok{border-left-color:var(--verdigris)}
+.finding.warn{border-left-color:var(--amber)}
+.finding.alert{border-left-color:var(--vermilion)}
+.finding .fmeta{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:10px}
+.finding h3{margin-bottom:8px;font-size:20px}
+.finding p{font-size:14.5px}
+.rec{margin-top:12px;padding:13px 15px;border-radius:10px;background:var(--card-2);border:1px solid var(--line);font-size:13.5px;color:var(--ink-2)}
+.rec b{display:block;font-family:var(--mono);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--plateblue);margin-bottom:5px}
+
+/* ---------- Donut ---------- */
+.donutwrap{display:grid;grid-template-columns:220px 1fr;gap:26px;align-items:center}
+.donut{position:relative;width:220px;height:220px}
+.donut svg{transform:rotate(-90deg)}
+.donut circle{fill:none;stroke-width:26;stroke-linecap:butt;transition:stroke-width .18s ease,opacity .18s ease}
+.donut circle:hover{stroke-width:32}
+.donut .center{position:absolute;inset:0;display:grid;place-content:center;text-align:center}
+.donut .center .v{font-family:var(--mono);font-size:30px;color:var(--ink);line-height:1}
+.donut .center .k{font-family:var(--mono);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-top:5px}
+.dlegend{display:grid;gap:7px}
+.dlegend .row{display:grid;grid-template-columns:12px 1fr auto auto;gap:11px;align-items:center;font-size:13.5px;color:var(--ink-2);padding:4px 0;border-bottom:1px solid var(--line-2)}
+.dlegend .row:last-child{border-bottom:0}
+.dlegend .sw{width:12px;height:12px;border-radius:3px}
+.dlegend .n{font-family:var(--mono);font-size:12.5px;color:var(--ink)}
+.dlegend .p{font-family:var(--mono);font-size:11.5px;color:var(--muted);min-width:44px;text-align:right}
+
+/* ---------- Test matrix ---------- */
+.matrix{display:flex;flex-wrap:wrap;gap:3px;margin:14px 0 6px}
+.dot{width:9px;height:9px;border-radius:2px;background:color-mix(in srgb,var(--verdigris) 55%,transparent)}
+.dot.f{background:var(--vermilion)}
+.dot.last{outline:2px solid var(--ink);outline-offset:2px}
+
+/* ---------- Experiments ---------- */
+.exp{border:1px solid var(--line);border-radius:14px;background:var(--card);box-shadow:var(--shadow-sm);overflow:hidden;margin-bottom:16px}
+.exp .top{display:flex;flex-wrap:wrap;gap:12px;align-items:center;padding:16px 20px;border-bottom:1px solid var(--line-2);background:var(--card-2)}
+.exp .pri{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;padding:4px 10px;border-radius:999px;background:var(--plate-800);color:#CBE4F5}
+.exp h3{font-size:18px;flex:1;min-width:220px}
+.exp .rgo{display:grid;gap:1px;background:var(--line-2)}
+.exp .rgo > div{display:grid;grid-template-columns:104px 1fr;gap:16px;padding:14px 20px;background:var(--card);font-size:13.5px;color:var(--ink-2)}
+.exp .rgo b{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase}
+.exp .rgo .r b{color:var(--vermilion)}
+.exp .rgo .g b{color:var(--verdigris)}
+.exp .rgo .o b{color:var(--plateblue)}
+
+/* ---------- Action list ---------- */
+.actions{list-style:none;margin:0;padding:0;counter-reset:act}
+.actions li{
+  counter-increment:act;display:grid;grid-template-columns:44px 1fr;gap:16px;
+  padding:18px 20px;border:1px solid var(--line);border-radius:14px;background:var(--card);
+  margin-bottom:12px;box-shadow:var(--shadow-sm);
+}
+.actions li::before{
+  content:counter(act,decimal-leading-zero);font-family:var(--mono);font-size:13px;color:var(--plateblue);
+  border-right:1px solid var(--line-2);padding-right:12px;
+}
+.actions h4{margin-bottom:5px;font-size:15px;font-family:var(--body);font-weight:600;color:var(--ink)}
+.actions p{font-size:13.5px;margin:0}
+.actions .chip{margin-top:9px}
+
+/* ---------- Gaps panel ---------- */
+.gaps{background:var(--plate-900);border-radius:16px;padding:28px 30px;color:#C6DCEA;position:relative;overflow:hidden}
+.gaps::before{content:"";position:absolute;inset:0;opacity:.5;background-image:linear-gradient(rgba(93,164,222,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(93,164,222,.07) 1px,transparent 1px);background-size:44px 44px}
+.gaps > *{position:relative;z-index:2}
+.gaps h3{color:#F0F7FB;margin-bottom:8px}
+.gaps p{color:#A8C4D8}
+.gaps .chans{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px;margin-top:18px}
+.gaps .chan{border:1px solid rgba(127,192,240,.22);border-radius:11px;padding:13px 15px;background:rgba(255,255,255,.035)}
+.gaps .chan .nm{font-family:var(--mono);font-size:12px;color:#EAF3F9}
+.gaps .chan .st{font-family:var(--mono);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;margin-top:6px;color:#F0C36B}
+.gaps .chan.on .st{color:#6FD8B8}
+.gaps a{color:#7FC0F0;border-bottom-color:rgba(127,192,240,.4)}
+
+/* ---------- Footnote / provenance ---------- */
+.foot-note{font-size:12.5px;color:var(--muted);margin-top:10px;line-height:1.5}
+.foot-note code{font-size:11.5px;background:transparent;border:0;padding:0;color:var(--muted)}
+footer{border-top:1px solid var(--line);margin-top:30px;padding:30px 0 60px}
+footer .fgrid{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:26px}
+footer h4{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:9px}
+footer p,footer li{font-size:13px;color:var(--ink-2)}
+footer ul{list-style:none;margin:0;padding:0}
+footer li{margin-bottom:6px}
+
+/* ---------- Reveal ---------- */
+.anim{transition:opacity .6s ease,transform .6s cubic-bezier(.2,.8,.2,1)}
+/* Only hide-then-reveal when scripting is actually running. Without the .js
+   class the page is fully visible: a report whose body disappears when
+   JavaScript is off would be a broken document, not a subtle one. */
+.js .anim{opacity:0;transform:translateY(14px)}
+.js .anim.reveal{opacity:1;transform:none}
+
+/* ---------- Responsive ---------- */
+@media (max-width:1100px){
+  .shell{grid-template-columns:1fr;gap:0}
+  .rail{display:none}
+  main{padding-top:26px}
+}
+@media (max-width:860px){
+  .g4{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .g3,.aud{grid-template-columns:1fr}
+  .g2{grid-template-columns:1fr}
+  .donutwrap{grid-template-columns:1fr;justify-items:center}
+  footer .fgrid{grid-template-columns:1fr}
+  .exp .rgo > div{grid-template-columns:1fr;gap:5px}
+  .ticks{height:86px}
+  .plate-inner{padding:44px 20px 34px}
+}
+@media (prefers-reduced-motion:reduce){
+  *{animation:none !important;transition:none !important}
+  .anim,.js .anim{opacity:1;transform:none}
+  .reveal .bar .fill,.bar .fill{width:var(--w)}
+  .stack div{width:var(--w)}
+  html{scroll-behavior:auto}
+}
+@media print{
+  .topbar,.rail,.legend,.tip,.skip{display:none}
+  body{background:#fff;font-size:11pt}
+  .plate{background:#08202F !important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .card,.finding,.exp,.tablewrap,.actions li{box-shadow:none;break-inside:avoid}
+  section{break-inside:avoid;padding:12px 0 20px}
+  .anim,.js .anim{opacity:1;transform:none}
+}
+/* ============================================================
+   LAYER ACCENT — one system, two identities.
+   ============================================================ */
+:root{--accent:var(--plateblue);--accent-tint:var(--tint-blue)}
+[data-layer="commentary"]{--accent:var(--iris);--accent-tint:rgba(90,85,163,.12)}
+[data-theme="dark"][data-layer="commentary"],
+[data-theme="dark"] [data-layer="commentary"]{--accent-tint:rgba(156,151,232,.16)}
+.eyebrow{color:var(--accent)}
+.rail a.active,.rail a.active .pl{color:var(--accent)}
+.stat::after{background:var(--accent)}
+.finding{border-left-color:var(--accent)}
+.rec b{color:var(--accent)}
+.aud .card{border-top-color:var(--accent)}
+.actions li::before{color:var(--accent)}
+.btn:hover{border-color:var(--accent);color:var(--accent)}
+a{color:var(--accent);border-bottom-color:color-mix(in srgb,var(--accent) 35%,transparent)}
+.exp .rgo .o b{color:var(--accent)}
+.chip.info{color:var(--accent);border-color:color-mix(in srgb,var(--accent) 40%,transparent);background:var(--accent-tint)}
+.fill.plain{background:linear-gradient(90deg,color-mix(in srgb,var(--accent) 70%,#0A2135),var(--accent))}
+
+/* layer badge in the top bar and hero */
+.layerbadge{
+  display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:10px;
+  letter-spacing:.14em;text-transform:uppercase;padding:5px 11px;border-radius:999px;
+  border:1px solid color-mix(in srgb,var(--accent) 45%,transparent);color:var(--accent);
+  background:var(--accent-tint);white-space:nowrap;
+}
+.plate .layerbadge{color:#BFE0F6;border-color:rgba(127,192,240,.4);background:rgba(255,255,255,.06)}
+[data-layer="commentary"] .plate .layerbadge{color:#CFC9FF;border-color:rgba(156,151,232,.45)}
+.plate .eyebrow{color:#7FC0F0}
+[data-layer="commentary"] .plate .eyebrow{color:#B9B3FF}
+[data-layer="commentary"] .plate h1 .accent{color:#C3BCFF}
+[data-layer="commentary"] .plate::after{background:radial-gradient(circle at 50% 50%,rgba(90,85,163,.5),transparent 62%)}
+
+/* ============================================================
+   ADDITIONS — components the Evidence pages need that a
+   commentary page does not: dense key/value blocks, ranked
+   top-N lists, capture strips, and disclosure notes.
+   ============================================================ */
+
+/* key/value fact block */
+.kv{display:grid;gap:1px;background:var(--line-2);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.kv .r{display:grid;grid-template-columns:1fr auto;gap:18px;align-items:baseline;padding:12px 18px;background:var(--card)}
+.kv .r:hover{background:var(--card-2)}
+.kv .k{font-size:13.5px;color:var(--ink-2)}
+.kv .k small{display:block;font-size:11.5px;color:var(--muted);margin-top:2px}
+.kv .v{font-family:var(--mono);font-size:14px;color:var(--ink);text-align:right;white-space:nowrap}
+.kv .v.absent{color:var(--muted);font-size:12.5px;letter-spacing:.04em;text-transform:uppercase}
+.kv .v.big{font-size:18px}
+
+/* ranked top-N list */
+.toplist{display:grid;gap:1px;background:var(--line-2);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.toplist .row{display:grid;grid-template-columns:30px 1fr auto;gap:14px;align-items:center;padding:12px 18px;background:var(--card)}
+.toplist .row:hover{background:var(--card-2)}
+.toplist .rk{font-family:var(--mono);font-size:11px;color:var(--muted)}
+.toplist .nm{font-size:13.5px;color:var(--ink-2);min-width:0;overflow-wrap:anywhere}
+.toplist .nm small{display:block;font-size:11.5px;color:var(--muted);margin-top:2px}
+.toplist .vv{font-family:var(--mono);font-size:14px;color:var(--ink);text-align:right;white-space:nowrap}
+.toplist .vv small{display:block;font-size:11px;color:var(--muted)}
+.toplist .row.lead{background:var(--card-2)}
+.toplist .row.lead .nm{color:var(--ink);font-weight:600}
+.toplist .more{padding:11px 18px;background:var(--card-2);font-size:12.5px;color:var(--muted)}
+
+/* session strip — one column per captured session */
+.sesstrip{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:1px;background:rgba(127,192,240,.18);
+  border:1px solid rgba(127,192,240,.22);border-radius:12px;overflow:hidden}
+.sesstrip .s{background:rgba(255,255,255,.04);padding:14px 14px 12px}
+.sesstrip .sd{font-family:var(--mono);font-size:11px;color:#9FC2DA;letter-spacing:.04em}
+.sesstrip .sv{font-family:var(--mono);font-size:17px;color:#F2F8FC;margin-top:8px}
+.sesstrip .sk{font-family:var(--mono);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:#7F9FB8;margin-top:3px}
+.sesstrip .sbar{height:5px;border-radius:3px;background:rgba(255,255,255,.12);margin-top:10px;overflow:hidden}
+.sesstrip .sbar span{display:block;height:100%;border-radius:3px;background:linear-gradient(90deg,#2E8E76,#6FD8B8)}
+
+/* disclosure / honesty note */
+.note{border:1px solid var(--line);border-left:4px solid var(--amber);border-radius:0 14px 14px 0;
+  background:var(--card);padding:18px 20px;box-shadow:var(--shadow-sm);margin:16px 0}
+.note h4{font-family:var(--body);font-size:14.5px;font-weight:600;color:var(--ink);margin-bottom:6px}
+.note p{font-size:13.5px;margin:0}
+.note p + p{margin-top:.7em}
+.note.info{border-left-color:var(--accent)}
+
+/* long table inside a scroll container */
+.tablewrap.scroll{overflow-x:auto}
+.tablewrap.scroll table{min-width:640px}
+.tablewrap .cap{padding:12px 16px;background:var(--card-2);border-bottom:1px solid var(--line);
+  font-size:12.5px;color:var(--muted)}
+details.more{border:1px solid var(--line);border-radius:14px;background:var(--card);box-shadow:var(--shadow-sm);margin-top:16px;overflow:hidden}
+details.more > summary{cursor:pointer;padding:14px 20px;font-family:var(--mono);font-size:11px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--accent);list-style:none;background:var(--card-2)}
+details.more > summary::-webkit-details-marker{display:none}
+details.more > summary::before{content:"+ ";font-weight:600}
+details.more[open] > summary::before{content:"– "}
+details.more .body{padding:4px 0}
+details.more table{border-radius:0}
+details.more .tablewrap{border:0;border-radius:0;box-shadow:none}
+
+/* provenance grid */
+.prov{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px}
+.prov .p{border:1px solid var(--line);border-radius:12px;padding:14px 16px;background:var(--card-2)}
+.prov .pk{font-family:var(--mono);font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--muted)}
+.prov .pv{font-family:var(--mono);font-size:13px;color:var(--ink);margin-top:6px;overflow-wrap:anywhere}
+
+/* source line under a figure */
+.src{font-family:var(--mono);font-size:11px;color:var(--muted);margin-top:14px;padding-top:12px;
+  border-top:1px solid var(--line-2);line-height:1.55;overflow-wrap:anywhere}
+.src b{color:var(--ink-2);letter-spacing:.12em;text-transform:uppercase;font-size:9.5px}
+.gaps .src{border-top-color:rgba(127,192,240,.2);color:#8FAFC6}
+.gaps .src b{color:#BFD8E8}
+
+/* dense bar variant with the label on the same row as the value */
+.bars.tight{gap:9px}
+.bar.wide{grid-template-columns:1fr 92px}
+.bar .n small{color:var(--muted);font-size:11px}
+
+/* skip link */
+.skip{position:absolute;left:-9999px;top:0;background:var(--card);color:var(--ink);padding:10px 14px;
+  border-radius:0 0 10px 0;z-index:200}
+.skip:focus{left:0}
+
+/* ---- narrow-viewport corrections to the base plate styles ---- */
+.topbar{flex-wrap:wrap;row-gap:8px}
+@media (max-width:620px){
+  .topbar .meta{display:none}
+  .ticks{gap:2px;height:74px}
+  .tick{min-width:3px}
+  .runstrip div{min-width:104px;padding:12px 14px}
+  .plate-inner{padding:38px 18px 30px}
+  .signature{padding:0 18px 44px}
+  .shell{padding:0 18px}
+  .kv .r{grid-template-columns:1fr;gap:4px}
+  /* nowrap is right in the two-column layout (the value column stays aligned);
+     once the row stacks it would push a long value past the viewport instead. */
+  .kv .v{text-align:left;white-space:normal}
+  .toplist .row{grid-template-columns:24px 1fr;gap:8px 10px}
+  .toplist .vv{grid-column:2;text-align:left;white-space:normal}
+  .bar.wide{grid-template-columns:1fr 78px}
+}
+
+/* ---- colour-vision correction, 2026-08-18 -------------------------------
+   The neutral "detector artefact" class was re-stepped from #546E82 to
+   #93A7B6 because #546E82 sat 10.8 dE from the verdigris guardrail class
+   under normal vision — below the 15 dE floor, and those two classes are
+   exactly the pair the report asks a reader to add together. The five solid
+   hues now clear both the CVD and normal-vision floors in light and dark.
+   The two neutrals stay deliberately low-chroma: in this palette grey means
+   "not a signal", and both are carried by a direct label plus a table row.
+   The unclassified class is hatched rather than coloured, so it is told
+   apart by texture and never by hue alone.
+   ------------------------------------------------------------------------ */
+.dlegend .sw,.legend .sw{border:1px solid rgba(8,32,47,.12)}
+[data-theme="dark"] .dlegend .sw,[data-theme="dark"] .legend .sw{border-color:rgba(255,255,255,.16)}
+
+/* ---- grid children must be allowed to shrink, or long words push the page ---- */
+.grid > *,.aud > *,.g2 > *,.g3 > *,.g4 > *{min-width:0}
+.actions li{grid-template-columns:44px minmax(0,1fr)}
+.actions .chip{white-space:normal}
+.donutwrap.sm{grid-template-columns:150px 1fr;gap:18px}
+@media (max-width:860px){.donutwrap.sm{grid-template-columns:1fr;justify-items:center}}
+
+/* ============================================================
+   COMPATIBILITY LAYER
+   The Developer Guide evidence page carries data blocks that
+   predate this design system — per-session cards, prompt cards,
+   a language ranking, a capture-flow diagram, and the two long
+   appendix tables. Their markup is transplanted unchanged so
+   that every figure, id and anchor survives; these rules dress
+   that markup in the plate palette rather than rewriting it.
+   ============================================================ */
+.cards2{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr));gap:16px;margin:4px 0}
+.card2{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px 22px;box-shadow:var(--shadow-sm);min-width:0}
+.card2.rank1{border-left:3px solid var(--accent)}
+.card2 .c2-head{display:flex;flex-wrap:wrap;gap:4px 10px;align-items:flex-start;margin-bottom:12px}
+.card2 .c2-title{font-family:var(--display);font-weight:600;font-size:16px;letter-spacing:-.012em;line-height:1.28;flex:1 1 100%;min-width:0;color:var(--ink)}
+.card2 .c2-rank{order:-1;flex:0 0 auto;font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.c2-stats{display:grid;grid-template-columns:1fr;gap:0;margin:12px 0 4px;font-size:13px}
+.c2-stats div{display:flex;justify-content:space-between;gap:14px;padding:6px 0;border-bottom:1px dashed var(--line-2);color:var(--ink-2)}
+.c2-stats div:last-child{border-bottom:0}
+.c2-stats b{font-family:var(--mono);color:var(--ink);font-weight:500}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.chips .chip{background:var(--tint-blue);color:var(--plateblue);border-color:color-mix(in srgb,var(--plateblue) 30%,transparent)}
+.chips .chip.sk{background:var(--tint-verdigris);color:var(--verdigris);border-color:color-mix(in srgb,var(--verdigris) 30%,transparent)}
+.chips .chip.fl{background:var(--card-2);color:var(--muted);border-color:var(--line)}
+
+.layers{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(176px,100%),1fr));gap:12px;margin:4px 0}
+.ly{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px;display:flex;flex-direction:column;box-shadow:var(--shadow-sm);min-width:0}
+.ly-n{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:6px}
+.ly h4{font-family:var(--display);font-size:18px;font-weight:600;margin:0 0 4px;color:var(--ink)}
+.ly small{font-family:var(--mono);font-size:10.5px;color:var(--muted);display:block;margin-bottom:12px}
+.ly-bar{height:8px;background:var(--line-2);border-radius:4px;overflow:hidden;margin-top:auto}
+.ly-bar span{display:block;height:100%;border-radius:4px;background:linear-gradient(90deg,var(--plate-600),var(--plateblue))}
+.ly-score{font-family:var(--mono);font-size:11px;color:var(--ink-2);margin-top:9px}
+.ly-score b{color:var(--ink);font-size:13.5px;font-weight:500}
+.ly-score i{color:var(--muted);font-style:normal}
+
+.flow{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(210px,100%),1fr));gap:1px;background:var(--line);
+  border:1px solid var(--line);border-radius:14px;overflow:hidden;margin:4px 0}
+.flow-col{background:var(--card);padding:16px 18px;min-width:0}
+.flow-col h4{font-family:var(--mono);font-size:10px;letter-spacing:.13em;text-transform:uppercase;color:var(--accent);margin:0 0 10px}
+.flow-item{font-size:12.5px;padding:3px 0;color:var(--ink-2)}
+.flow-verify{margin-top:12px;padding:9px 10px;background:var(--card-2);border:1px dashed var(--line);border-radius:9px}
+.flow-verify .vl{font-family:var(--mono);font-size:9px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);font-weight:600;margin-bottom:4px}
+.flow-verify code{display:block;font-size:10.5px;white-space:pre-wrap;word-break:break-all;color:var(--ink-2);background:none;border:0;padding:0}
+
+table.ledger td{vertical-align:top;padding-top:11px;padding-bottom:11px}
+table.ledger .pn{font-family:var(--mono);font-size:11.5px;white-space:nowrap;color:var(--ink-2)}
+table.ledger .ptitle{max-width:340px;color:var(--ink)}
+table.ledger .psum{font-size:11.5px;color:var(--muted);margin-top:4px}
+table.ledger .ploc{min-width:110px}
+.locbar{height:7px;border-radius:4px;background:var(--line-2);overflow:hidden;display:flex;margin-bottom:4px;width:96px}
+.locbar .add{display:block;height:100%;background:var(--verdigris)}
+.locbar .rem{display:block;height:100%;background:var(--vermilion)}
+.locn{font-family:var(--mono);font-size:11px;color:var(--muted)}
+td.num,th.num{text-align:right;font-family:var(--mono);font-size:13px;color:var(--ink);white-space:nowrap}
+.tier-heavy{color:var(--vermilion);font-weight:600}
+.tier-mod{color:var(--amber);font-weight:600}
+.tier-light{color:var(--muted)}
+.absent{color:var(--muted)}
+.mono-inline{font-family:var(--mono);font-size:.9em;background:var(--card-2);border:1px solid var(--line);padding:1px 5px;border-radius:4px;color:var(--ink-2)}
+.cov{font-size:12px;color:var(--muted)}
+main .st{display:inline-block;font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;
+  padding:3px 8px;border-radius:999px;border:1px solid var(--line);color:var(--muted);background:var(--card-2);white-space:nowrap}
+main .st-complete{color:var(--plateblue);border-color:color-mix(in srgb,var(--plateblue) 35%,transparent);background:var(--tint-blue)}
+main .st-partial,main .st-task-created,main .st-task-other{color:var(--amber);border-color:color-mix(in srgb,var(--amber) 35%,transparent);background:var(--tint-amber)}
+main .st-task-completed{color:var(--verdigris);border-color:color-mix(in srgb,var(--verdigris) 35%,transparent);background:var(--tint-verdigris)}
+main .st-not_recorded,main .st-task-pending{color:var(--muted);border-color:var(--line);background:var(--card-2)}
+main .st-task-in_progress{color:var(--plateblue);border-color:color-mix(in srgb,var(--plateblue) 35%,transparent);background:var(--tint-blue)}
+details.method{margin:14px 0}
+details.method > summary{cursor:pointer;font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+details.method > summary:hover{color:var(--accent)}
+
+/* ---- signature-plate corrections ----
+   A stack drawn straight onto the dark plate has no .reveal ancestor to
+   trigger its width transition, and the shared legend colours are tuned for
+   a light card. Both are fixed here rather than by duplicating the markup. */
+.signature .stack div{width:var(--w)}
+.signature .stack{border-color:rgba(127,192,240,.25)}
+.signature .dlegend .row{color:#B5CEE0;border-bottom-color:rgba(127,192,240,.14)}
+.signature .dlegend .n{color:#F2F8FC}
+.signature .dlegend .p{color:#8FAFC6}
+.signature .dlegend .sw{border-color:rgba(255,255,255,.2)}
+/* equal-width run-strip cells, so a long label cannot push a sixth cell
+   onto its own row */
+.runstrip div{flex:1 1 0;min-width:124px}
+.runstrip .v{white-space:nowrap}
+
+/* Legacy wrapper kept working: a report rendered before the plate system used
+   `.tw` for its scrollable tables. Same behaviour, so an old file still reads. */
+.tw{overflow-x:auto;-webkit-overflow-scrolling:touch;border:1px solid var(--line);border-radius:14px;background:var(--card);box-shadow:var(--shadow-sm)}
+.tw table{min-width:560px}
+
+</style>
+<script>document.documentElement.classList.add("js")</script>
+</head>
+<body>
+<a class="skip" href="#executive-summary">Skip to the report</a>
+
+<div class="topbar">
+  <div class="brandmark"><span class="dot" aria-hidden="true"></span> BAR Observatory</div>
+  <span class="layerbadge">Evidence · no LLM in the path</span>
+  <span class="meta">barobs-14fd056be293</span>
+  <div class="spacer"></div>
+  <button class="btn" id="printBtn" type="button">Print</button>
+  <button class="btn" id="themeBtn" type="button" aria-pressed="false">Dark</button>
+</div>
+
+<noscript><div class="shell"><div class="note info" style="margin:18px auto">
+<h4>JavaScript is off, so the drawings are missing</h4>
+<p>Every figure on this page is also written out in prose and in a table, so the report is complete
+without them. The charts are drawn in the browser from those same numbers.</p></div></div></noscript>
+
+<header class="plate">
+  <div class="plate-inner">
+    <div class="eyebrow">BAR Observatory · deterministic render</div>
+    <h1>BAR Observatory — captured session report</h1>
+    <p class="lede">Observe how agentic work actually gets done.</p>
+    <p class="lede" style="font-size:16px;margin-top:-6px">9,132 transcript turns captured, and <span class="accent">zero fabricated numbers</span>: a channel that was not recording reads &ldquo;not recorded&rdquo;, never a convenient 0.</p>
+    <div class="runstrip">
+      <div><div class="v">7</div><div class="k">Sessions</div></div>
+      <div><div class="v">9,132</div><div class="k">Transcript turns</div></div>
+      <div><div class="v">3,171</div><div class="k">Tool calls</div></div>
+      <div><div class="v">40 / 40</div><div class="k">Tasks completed</div></div>
+      <div><div class="v">60</div><div class="k">Error results</div></div>
+      <div><div class="v">322h 59m</div><div class="k">Recorded window</div></div>
+    </div>
+  </div>
+
+  <div class="signature">
+    <div class="sig-head">
+      <div class="sig-title">Plate 00 · what the 3,171 tool calls were</div>
+      <div class="sig-note">Every call, across 17 distinct tool(s). Hover a band for its share.</div>
+    </div>
+    <div class="stack" id="toolStack" style="height:52px" aria-hidden="true"></div>
+    <div class="dlegend" id="toolLegend" style="margin-top:16px"></div>
+  </div>
+  <script>window.__BAR_TOOLS=[{"id":"t0","label":"Bash","color":"#17486F","n":1706,"read":"53.8%"},{"id":"t1","label":"Edit","color":"#2C6CA6","n":496,"read":"15.6%"},{"id":"t2","label":"Read","color":"#5FA3D8","n":410,"read":"12.9%"},{"id":"t3","label":"TaskUpdate","color":"#2E8E76","n":209,"read":"6.6%"},{"id":"t4","label":"TaskCreate","color":"#4FB294","n":132,"read":"4.2%"},{"id":"t5","label":"Write","color":"#B5822A","n":97,"read":"3.1%"},{"id":"t6","label":"Agent","color":"#5A55A3","n":40,"read":"1.3%"},{"id":"tail","label":"10 other tool(s)","color":"#93A7B6","n":81,"read":"2.6%"}];</script>
+</header>
+
+<div class="shell">
+  <nav class="rail" aria-label="Report contents">
+    <ol id="railList">
+<li><a href="#executive-summary"><span class="pl">Pl. 01</span><span>Executive summary</span></a></li>
+<li><a href="#summary"><span class="pl">Pl. 02</span><span>Summary</span></a></li>
+<li><a href="#capture-quality"><span class="pl">Pl. 03</span><span>Capture quality</span></a></li>
+<li><a href="#agent-activity"><span class="pl">Pl. 04</span><span>Agent activity</span></a></li>
+<li><a href="#failures"><span class="pl">Pl. 05</span><span>Failures</span></a></li>
+<li><a href="#flaky-tests-measured"><span class="pl">Pl. 06</span><span>Flaky tests · measured</span></a></li>
+<li><a href="#task-ledger"><span class="pl">Pl. 07</span><span>Task ledger</span></a></li>
+<li><a href="#sub-agents-dispatched"><span class="pl">Pl. 08</span><span>Sub-agents dispatched</span></a></li>
+<li><a href="#skills-invoked"><span class="pl">Pl. 09</span><span>Skills invoked</span></a></li>
+<li><a href="#validation-evidence-measured"><span class="pl">Pl. 10</span><span>Validation evidence · measured</span></a></li>
+<li><a href="#rework-measured"><span class="pl">Pl. 11</span><span>Rework · measured</span></a></li>
+<li><a href="#cross-run-hotspots-measured"><span class="pl">Pl. 12</span><span>Cross-run hotspots · measured</span></a></li>
+<li><a href="#cost-list-price-estimate"><span class="pl">Pl. 13</span><span>Cost (list-price estimate)</span></a></li>
+<li><a href="#still-not-built"><span class="pl">Pl. 14</span><span>Still not built</span></a></li>
+<li><a href="#evidence-integrity"><span class="pl">Pl. 15</span><span>Evidence &amp; integrity</span></a></li>
+    </ol>
+    <div class="railcard">
+      <span class="kicker">This page is not written by an AI</span>
+      <p>Every figure is extracted from the store. For a reading of what they mean, run
+      <code>bar interpret</code> — that layer is labelled where it starts.</p>
+    </div>
+  </nav>
+
+  <main>
+<section id="executive-summary">
+  <div class="sechead">
+    <div class="eyebrow">Plate 01</div>
+    <h2>Executive summary</h2>
+  </div>
+
+<div class="exec anim">
+<p class="essence">Over 322h 59m, the session made 3,171 tool calls across 9,132 transcript turns, dispatched 40 sub-agent run(s), and captured 60 error result(s).</p>
+<h3>Key findings</h3><ul class="findings">
+<li><strong>60 tool error(s) were captured — the failures are recorded, not swallowed.</strong><div class="ev">Worst: Bash ×45. See the Failures section for the per-tool breakdown.</div></li>
+<li><strong>One file absorbed the most churn: 77 edits.</strong><div class="ev">`orbit/README.md` — a refactor / test-coverage candidate.</div></li>
+<li><strong>Validation was not fully green at capture end: 29 failing vs 344 passing.</strong><div class="ev">From real `test result:` lines in the tool outputs (measured, not self-reported).</div></li>
+<li><strong>6 of 9 capture channels were not recorded this session.</strong><div class="ev">Uncaptured channels read "not recorded" (never a fabricated 0) — this is a transcript-only ingest.</div></li>
+</ul>
+<h3>Recommendations (resolution-first)</h3><ol class="recs">
+<li><span class="pri pri1">P1</span> Resolve the remaining failing tests before relying on the session's completion claims.</li>
+<li><span class="pri pri2">P2</span> Review `orbit/README.md` (highest edit churn) for a refactor or missing test coverage.</li>
+<li><span class="pri pri3">P3</span> Enable OTEL telemetry + hooks to capture tokens/cost, timeline, and coverage (see the process docs).</li>
+</ol></div>
+
+
+<p class="narr">In a recorded window of 322h 59m, the recorder captured 9,132 transcript turns (hook, log/metric, and span channels were not recorded in this transcript-only ingest); hook-lifecycle coverage is unverified; a TRANSCRIPT coverage gap was detected (see capture quality — a dead-letter count of 0 is not the whole completeness story), and 0 dead-letter loss(es) were detected. The agent made 3,171 tool calls; the task ledger shows 40 task(s) (40 completed, 0 in-progress, 0 other), and 96 attributable file(s) show repeated-edit churn.</p>
+
+<div class="verdict anim">
+<div class="vchip info"><div class="vk">Outcome (self-reported)</div><div class="vv">40/40 tasks completed</div><div class="vs">self-reported (TodoWrite/TaskUpdate); per-task claim≠evidence linkage is P8</div></div>
+<div class="vchip warn"><div class="vk">Rework signal</div><div class="vv">96 rework hotspot(s), 60 error(s)</div><div class="vs">measured repeated-edit / error churn (structural signal, not a quality judgment)</div></div>
+<div class="vchip"><div class="vk">Recorded window</div><div class="vv">322h 59m</div><div class="vs">wall-clock span of the captured session</div></div>
+</div>
+
+<div class="action anim"><div class="ak">Action required</div><div class="av">Review 96 rework hotspot(s)</div>
+<div class="as">The most-churned file(s) are under Rework — repeated edits often mark a hard spot worth a test or a design pass. Structural signal, not a quality verdict.</div></div>
+
+<p class="keylegend">A <strong>measured gap or risk in this session</strong> and a <strong>recorder
+capability not yet enabled</strong> are different things, and this report never renders the second
+as the first — or as a zero.</p>
+
+<div class="grid g3 anim">
+<div class="stat"><div class="v">7</div><div class="k">runs / sessions</div></div>
+<div class="stat"><div class="v">9,132</div><div class="k">transcript turns</div></div>
+<div class="stat"><div class="v">not recorded</div><div class="k">timeline events</div></div>
+<div class="stat"><div class="v">not recorded</div><div class="k">hook events</div></div>
+<div class="stat"><div class="v">not recorded</div><div class="k">tokens (in+out)</div></div>
+<div class="stat"><div class="v">0</div><div class="k">capture losses detected</div><div class="d">Coverage is measured per channel below; a zero here is not a coverage guarantee.</div></div>
+</div>
+
+</section>
+<section id="summary">
+  <div class="sechead">
+    <div class="eyebrow">Plate 02</div>
+    <h2>Summary</h2>
+  </div>
+
+<p>Every headline measure, including the ones that are blank. A blank row is a channel that was not
+recording, printed as <em>not recorded</em> rather than 0, because 0 would be a claim.</p>
+<div class="tablewrap scroll anim"><table><thead><tr><th>Measure</th><th class="n">Value</th></tr></thead>
+<tbody>
+<tr><td>Runs / sessions</td><td class="num">7</td></tr>
+<tr><td>Timeline events</td><td class="num">not recorded</td></tr>
+<tr><td>Hook events</td><td class="num">not recorded</td></tr>
+<tr><td>Log/metric events</td><td class="num">not recorded</td></tr>
+<tr><td>OTLP spans</td><td class="num">not recorded</td></tr>
+<tr><td>Transcript turns</td><td class="num">9,132</td></tr>
+<tr><td>Requests</td><td class="num">not recorded</td></tr>
+<tr><td>Tokens in</td><td class="num">not recorded</td></tr>
+<tr><td>Tokens out</td><td class="num">not recorded</td></tr>
+<tr><td>Tokens total</td><td class="num">not recorded</td></tr>
+<tr><td>Capture losses</td><td class="num">0</td></tr>
+</tbody></table></div>
+
+</section>
+<section id="capture-quality">
+  <div class="sechead">
+    <div class="eyebrow">Plate 03</div>
+    <h2>Capture quality</h2>
+  </div>
+
+<p>What was recorded, per channel, with an honest status. The hooks channel carries an
+<strong>expected-vs-observed</strong> coverage oracle (see "What this means"); other channels stay
+honest <em>unverified</em> until their oracle ships. No unresolved capture losses (dead_letters has no resolved=0 rows).</p>
+<div class="tablewrap scroll anim"><table><thead><tr><th>Channel</th><th>Status</th><th>Coverage</th><th class="n">Recorded</th><th>What this means</th></tr></thead>
+<tbody>
+<tr><td>hooks</td><td><span class="st st-not_recorded">not_recorded</span></td><td>not_applicable</td><td class="num">0</td><td>No hooks rows in this store.</td></tr>
+<tr><td>events</td><td><span class="st st-not_recorded">not_recorded</span></td><td>not_applicable</td><td class="num">0</td><td>No events rows in this store.</td></tr>
+<tr><td>spans</td><td><span class="st st-not_recorded">not_recorded</span></td><td>not_applicable</td><td class="num">0</td><td>No spans rows in this store.</td></tr>
+<tr><td>transcripts</td><td><span class="st st-partial">partial</span></td><td>gap_detected</td><td class="num">9132</td><td>9132 turns; coverage gap (MEASURED) — 629 dangling parent(s); 136 unpaired tool_use/tool_result.</td></tr>
+<tr><td>requests</td><td><span class="st st-not_recorded">not_recorded</span></td><td>not_applicable</td><td class="num">0</td><td>No requests rows in this store. Remediable: the token/cost channel is captured by the local proxy (point ANTHROPIC_BASE_URL at it), not by transcript ingest — this is expected on a transcript-only ingest, not a capture failure.</td></tr>
+<tr><td>file_history</td><td><span class="st st-not_recorded">not_recorded</span></td><td>not_applicable</td><td class="num">0</td><td>No file_history rows in this store.</td></tr>
+<tr><td>plan_docs</td><td><span class="st st-not_observed">not_observed</span></td><td>not_applicable</td><td class="num">0</td><td>Not observed — no correlation_stats row for channel='plan_docs' in this store (ingest_plans has not run against this store's data yet).</td></tr>
+<tr><td>raw_logs</td><td><span class="st st-not_observed">not_observed</span></td><td>not_applicable</td><td class="num">0</td><td>no_data: raw_logs has a real writer but no ambient-capture trigger wires it — on-demand-only by design, not a capture gap. No call site in this store's ingest path has invoked it.</td></tr>
+<tr><td>provider_cost_usd</td><td><span class="st st-not_recorded">not_recorded</span></td><td>not_applicable</td><td class="num">0</td><td>Subscription auth (ADR-024) exposes no authoritative per-token USD; a labeled list-price ESTIMATE is derived instead (see cost). Tokens + wall-clock stay primary.</td></tr>
+</tbody></table></div>
+<details class="method"><summary>Methodology &amp; definitions (status vs coverage, the oracle)</summary>
+<p><strong>Status</strong> is loss-detection: <code>complete</code> = no dead-letter loss recorded;
+<code>partial</code> = a loss or gap was measured; <code>not_recorded</code> = the channel produced
+no rows. <strong>Coverage</strong> is a separate axis: <code>verified</code> means an oracle
+measured completeness (hooks: bracketed + paired; transcripts: seq gapless + parents resolve +
+tool_use paired with tool_result; spans: closed + parents resolve); <code>gap_detected</code> names
+the shortfall; <code>unverified</code> means no oracle exists for that channel yet. A green status is
+never a coverage guarantee.</p></details>
+
+</section>
+<section id="agent-activity">
+  <div class="sechead">
+    <div class="eyebrow">Plate 04</div>
+    <h2>Agent activity</h2>
+  </div>
+
+<p>What the agent actually did: <strong>3,171</strong> tool calls this session, by tool.</p>
+<div class="tablewrap scroll anim"><table><thead><tr><th>Tool</th><th>Calls</th></tr></thead><tbody>
+<tr><td>Bash</td><td class="num">1,706</td></tr>
+<tr><td>Edit</td><td class="num">496</td></tr>
+<tr><td>Read</td><td class="num">410</td></tr>
+<tr><td>TaskUpdate</td><td class="num">209</td></tr>
+<tr><td>TaskCreate</td><td class="num">132</td></tr>
+<tr><td>Write</td><td class="num">97</td></tr>
+<tr><td>Agent</td><td class="num">40</td></tr>
+<tr><td>ToolSearch</td><td class="num">19</td></tr>
+<tr><td>TaskOutput</td><td class="num">16</td></tr>
+<tr><td>ScheduleWakeup</td><td class="num">15</td></tr>
+<tr><td>AskUserQuestion</td><td class="num">11</td></tr>
+<tr><td>WebSearch</td><td class="num">9</td></tr>
+<tr><td>Skill</td><td class="num">6</td></tr>
+<tr><td>WebFetch</td><td class="num">2</td></tr>
+<tr><td>EnterPlanMode</td><td class="num">1</td></tr>
+<tr><td>ExitPlanMode</td><td class="num">1</td></tr>
+<tr><td>Workflow</td><td class="num">1</td></tr>
+</tbody></table></div>
+</section>
+<section id="failures">
+  <div class="sechead">
+    <div class="eyebrow">Plate 05</div>
+    <h2>Failures</h2>
+  </div>
+
+<p class="warn-note">Real failures captured from tool outputs: 60 error result(s) across 7 distinct tool(s), categorized (mcp / tool / unknown). This section surfaces both system failures (a tool or MCP not working) and coded errors so they are recorded, not silently dropped.</p>
+<div class="tablewrap scroll anim"><table><thead><tr><th>Tool</th><th>Kind</th><th>Errors</th></tr></thead><tbody>
+<tr><td>Bash</td><td><span class="st st-task-created">tool</span></td><td class="num">45</td></tr>
+<tr><td>Agent</td><td><span class="st st-task-created">tool</span></td><td class="num">5</td></tr>
+<tr><td>Edit</td><td><span class="st st-task-created">tool</span></td><td class="num">3</td></tr>
+<tr><td>Read</td><td><span class="st st-task-created">tool</span></td><td class="num">2</td></tr>
+<tr><td>Skill</td><td><span class="st st-task-created">tool</span></td><td class="num">2</td></tr>
+<tr><td>unknown</td><td><span class="st st-task-created">unknown</span></td><td class="num">2</td></tr>
+<tr><td>Write</td><td><span class="st st-task-created">tool</span></td><td class="num">1</td></tr>
+</tbody></table></div>
+</section>
+<section id="flaky-tests-measured">
+  <div class="sechead">
+    <div class="eyebrow">Plate 06</div>
+    <h2>Flaky tests · <span class="st st-task-created">measured</span></h2>
+  </div>
+
+<p class="warn-note">3 test(s) both passed AND failed across the session's captured test runs (measured from `test … ok`/`FAILED` lines, no LLM). This is a verdict-change signal to investigate — on an actively-editing session a flip can be a fix or a regression, not only non-determinism.</p>
+<div class="tablewrap scroll anim"><table><thead><tr><th>Test</th><th>Passes</th><th>Fails</th></tr></thead><tbody>
+<tr><td>round_trips_losslessly</td><td class="num">5</td><td class="num">3</td></tr>
+<tr><td>query_failures_are_disclosed_not_silent</td><td class="num">3</td><td class="num">2</td></tr>
+<tr><td>committed_hooks_match_generator</td><td class="num">2</td><td class="num">1</td></tr>
+</tbody></table></div>
+</section>
+<section id="task-ledger">
+  <div class="sechead">
+    <div class="eyebrow">Plate 07</div>
+    <h2>Task ledger</h2>
+  </div>
+
+<p>Real ledger from the ingested transcript: 40 task(s) — 40 completed, 0 in-progress, 0 pending, 0 other/untracked (sums to 40). State is the agent's SELF-REPORT (TodoWrite/TaskUpdate); per-task attempt/loop/evidence linkage (claim≠evidence) is P8 (rendered null, not a measured zero).</p>
+<div class="tablewrap scroll anim"><table><thead><tr><th>Task</th><th>State (self-reported)</th></tr></thead><tbody>
+<tr><td>Draft the public README and the quickstart it promises</td><td><span class="st st-task-completed">completed</span></td></tr>
+<tr><td>Fix the plugin manifest so the hooks load once</td><td><span class="st st-task-completed">completed</span></td></tr>
+<tr><td>Split the configuration reference out of the README</td><td><span class="st st-task-completed">completed</span></td></tr>
+<tr><td>Add a run-it-yourself walkthrough for a first-time reader</td><td><span class="st st-task-completed">completed</span></td></tr>
+<tr><td>Check every external link in the docs tree</td><td><span class="st st-task-completed">completed</span></td></tr>
+<tr><td>Tighten the error text so it names the failing input</td><td><span class="st st-task-completed">completed</span></td></tr>
+<tr><td>Add a worked example for the query command</td><td><span class="st st-task-completed">completed</span></td></tr>
+<tr><td>Document what the tool does not observe yet</td><td><span class="st st-task-completed">completed</span></td></tr>
+<tr><td>Rewrite the comparison page for a non-specialist</td><td><span class="st st-task-completed">completed</span></td></tr>
+<tr><td>Add a licence header check to the release script</td><td><span class="st st-task-completed">completed</span></td></tr>
+<tr><td>Make the report render byte-identical across runs</td><td><span class="st st-task-completed">completed</span></td></tr>
+<tr><td>Reconcile the handbook figures against the manifest</td><td><span class="st st-task-completed">completed</span></td></tr>
+<tr><td>Verify the plugin installs from a local folder path</td><td><span class="st st-task-completed">completed</span></td></tr>
+<tr><td>Collect the open questions into one document</td><td><span class="st st-task-completed">completed</span></td></tr>
+<tr><td>Add a schema-drift note to the examples index</td><td><span class="st st-task-completed">completed</span></td></tr>
+<tr><td>Trim the quickstart to a single screen</td><td><span class="st st-task-completed">completed</span></td></tr>
+<tr><td>Confirm the guide builds with scripting disabled</td><td><span class="st st-task-completed">completed</span></td></tr>
+<tr><td>Record the provenance of every generated file</td><td><span class="st st-task-completed">completed</span></td></tr>
+<tr><td>Add an accessibility pass over the report pages</td><td><span class="st st-task-completed">completed</span></td></tr>
+<tr><td>Reconcile the language ranking with the rework list</td><td><span class="st st-task-completed">completed</span></td></tr>
+<tr><td>Replace the placeholder screenshots with real ones</td><td><span class="st st-task-completed">completed</span></td></tr>
+<tr><td>Name the two dates the record carries</td><td><span class="st st-task-completed">completed</span></td></tr>
+<tr><td>Port the crate index and check every publish flag</td><td><span class="st st-task-completed">completed</span></td></tr>
+<tr><td>Add a print stylesheet to the report</td><td><span class="st st-task-completed">completed</span></td></tr>
+<tr><td>Check the report at three viewport widths</td><td><span class="st st-task-completed">completed</span></td></tr>
+<tr><td>Move the appendices behind a disclosure control</td><td><span class="st st-task-completed">completed</span></td></tr>
+<tr><td>Give the failure list a root-cause column</td><td><span class="st st-task-completed">completed</span></td></tr>
+<tr><td>Document the redaction policy in the guide</td><td><span class="st st-task-completed">completed</span></td></tr>
+<tr><td>Add a worked example for the interpret command</td><td><span class="st st-task-completed">completed</span></td></tr>
+<tr><td>Verify the examples folder has no dead links</td><td><span class="st st-task-completed">completed</span></td></tr>
+<tr><td>Regenerate the crate index from the manifests</td><td><span class="st st-task-completed">completed</span></td></tr>
+<tr><td>Write the contributing guide</td><td><span class="st st-task-completed">completed</span></td></tr>
+<tr><td>Add a security policy and a disclosure address</td><td><span class="st st-task-completed">completed</span></td></tr>
+<tr><td>Write the release checklist and run it end to end</td><td><span class="st st-task-completed">completed</span></td></tr>
+<tr><td>Tag the release candidate and write the notes</td><td><span class="st st-task-completed">completed</span></td></tr>
+<tr><td>Add the capture-channel diagram to the guide</td><td><span class="st st-task-completed">completed</span></td></tr>
+<tr><td>Redact private paths from the example output</td><td><span class="st st-task-completed">completed</span></td></tr>
+<tr><td>Cross-link the guide pages and add a trust section</td><td><span class="st st-task-completed">completed</span></td></tr>
+<tr><td>Regenerate the checksum manifest and verify it</td><td><span class="st st-task-completed">completed</span></td></tr>
+<tr><td>Review the changelog against the actual commits</td><td><span class="st st-task-completed">completed</span></td></tr>
+</tbody></table></div>
+</section>
+<section id="sub-agents-dispatched">
+  <div class="sechead">
+    <div class="eyebrow">Plate 08</div>
+    <h2>Sub-agents dispatched</h2>
+  </div>
+
+<p>Real sub-agent hierarchy from the transcript: 40 dispatch(es) across 8 sub-agent type(s). Deterministic post-hoc 'who was dispatched'; live nested-span viz needs the runtime (conceded).</p>
+<div class="tablewrap scroll anim"><table><thead><tr><th>Sub-agent type</th><th>Dispatches</th></tr></thead><tbody>
+<tr><td>general-purpose</td><td class="num">17</td></tr>
+<tr><td>reviewer</td><td class="num">10</td></tr>
+<tr><td>docs-researcher</td><td class="num">5</td></tr>
+<tr><td>requirements-validator</td><td class="num">3</td></tr>
+<tr><td>docs-curator</td><td class="num">2</td></tr>
+<tr><td>release-verifier</td><td class="num">1</td></tr>
+<tr><td>skeptic-reviewer</td><td class="num">1</td></tr>
+<tr><td>unspecified</td><td class="num">1</td></tr>
+</tbody></table></div>
+</section>
+<section id="skills-invoked">
+  <div class="sechead">
+    <div class="eyebrow">Plate 09</div>
+    <h2>Skills invoked</h2>
+  </div>
+
+<p>Real skill invocations from the transcript: 5 skill(s).</p>
+<div class="tablewrap scroll anim"><table><thead><tr><th>Skill</th><th>Invocations</th></tr></thead><tbody>
+<tr><td>review</td><td class="num">2</td></tr>
+<tr><td>loop</td><td class="num">1</td></tr>
+<tr><td>quality-assessment</td><td class="num">1</td></tr>
+<tr><td>quality-court</td><td class="num">1</td></tr>
+<tr><td>release-protocol</td><td class="num">1</td></tr>
+</tbody></table></div>
+</section>
+<section id="validation-evidence-measured">
+  <div class="sechead">
+    <div class="eyebrow">Plate 10</div>
+    <h2>Validation evidence · <span class="st st-task-completed">measured</span></h2>
+  </div>
+
+<p>Real validation EVIDENCE from ingested tool outputs: 373 verdict line(s) (373 cargo) — 344 passed, 29 failed; last verdict PASSED. (One `cargo test --workspace` emits several such lines — one per crate — so this counts result-lines, not invocations; the last verdict is as of the capture window's end.) Measured, not self-reported: it begins to back the ledger's completion claims.</p>
+</section>
+<section id="rework-measured">
+  <div class="sechead">
+    <div class="eyebrow">Plate 11</div>
+    <h2>Rework · <span class="st st-partial">measured</span></h2>
+  </div>
+
+<p>Real deterministic rework signals from the transcript: 96 attributable file(s) edited ≥2× (churn) + 60 error tool_result(s). Structural signals (repeated-edit / error) — NOT hallucination/quality judgment (that is the interpreted report, P10+). Repeated edits are normal in iterative/TDD work; this flags concentration, not failure.</p>
+<div class="tablewrap scroll anim"><table><thead><tr><th>File (edited ≥2×)</th><th>Edits</th></tr></thead><tbody>
+<tr><td>orbit/README.md</td><td class="num">77</td></tr>
+<tr><td>orbit/index.html</td><td class="num">22</td></tr>
+<tr><td>orbit/docs/guide/README.md</td><td class="num">16</td></tr>
+<tr><td>orbit/docs/manifest.json</td><td class="num">16</td></tr>
+<tr><td>orbit/CHANGELOG.md</td><td class="num">15</td></tr>
+<tr><td>orbit/docs/guide/handbook.html</td><td class="num">15</td></tr>
+<tr><td>.gitignore</td><td class="num">12</td></tr>
+<tr><td>orbit/RUN.md</td><td class="num">9</td></tr>
+<tr><td>orbit/docs/layers.html</td><td class="num">9</td></tr>
+<tr><td>specs/10-capabilities-review.md</td><td class="num">9</td></tr>
+<tr><td>specs/13-pre-release-checklist.md</td><td class="num">9</td></tr>
+<tr><td>NOTES.md</td><td class="num">7</td></tr>
+<tr><td>review/verify/src/main.rs</td><td class="num">7</td></tr>
+<tr><td>AGENTS.md</td><td class="num">6</td></tr>
+<tr><td>review/pr-a/crates/orbit/src/detectors.rs</td><td class="num">6</td></tr>
+<tr><td>orbit/config/proxy-26.toml</td><td class="num">5</td></tr>
+<tr><td>orbit/config/query-22.toml</td><td class="num">5</td></tr>
+<tr><td>orbit/crates/orbit-core/Cargo.toml</td><td class="num">5</td></tr>
+<tr><td>orbit/crates/orbit-core/src/lib.rs</td><td class="num">5</td></tr>
+<tr><td>orbit/crates/orbit-ingest/Cargo.toml</td><td class="num">5</td></tr>
+<tr><td>orbit/crates/orbit-ingest/src/mod20.rs</td><td class="num">5</td></tr>
+<tr><td>orbit/crates/orbit-metrics/Cargo.toml</td><td class="num">5</td></tr>
+<tr><td>orbit/crates/orbit-proxy/src/lib.rs</td><td class="num">5</td></tr>
+<tr><td>orbit/crates/orbit-query/src/lib.rs</td><td class="num">5</td></tr>
+<tr><td>orbit/crates/orbit-registry/src/lib.rs</td><td class="num">5</td></tr>
+<tr><td>orbit/crates/orbit-resolve/Cargo.toml</td><td class="num">5</td></tr>
+<tr><td>orbit/crates/orbit-schema/Cargo.toml</td><td class="num">5</td></tr>
+<tr><td>orbit/crates/orbit-schema/src/mod24.rs</td><td class="num">5</td></tr>
+<tr><td>orbit/crates/orbit-testenv/src/lib.rs</td><td class="num">5</td></tr>
+<tr><td>orbit/docs/guide/cli-25.md</td><td class="num">5</td></tr>
+<tr><td>orbit/docs/guide/config-5.md</td><td class="num">5</td></tr>
+<tr><td>orbit/docs/guide/docs-17.md</td><td class="num">5</td></tr>
+<tr><td>orbit/docs/guide/hooks-9.md</td><td class="num">5</td></tr>
+<tr><td>orbit/docs/guide/render-21.md</td><td class="num">5</td></tr>
+<tr><td>orbit/docs/guide/review-13.md</td><td class="num">5</td></tr>
+<tr><td>orbit/docs/guide/store-1.md</td><td class="num">5</td></tr>
+<tr><td>specs/23-render-notes.md</td><td class="num">5</td></tr>
+<tr><td>specs/27-cli-notes.md</td><td class="num">5</td></tr>
+<tr><td>specs/31-index-notes.md</td><td class="num">5</td></tr>
+<tr><td>specs/35-sanitize-notes.md</td><td class="num">5</td></tr>
+<tr><td>specs/39-store-notes.md</td><td class="num">5</td></tr>
+<tr><td>specs/43-config-notes.md</td><td class="num">5</td></tr>
+<tr><td>specs/47-hooks-notes.md</td><td class="num">5</td></tr>
+<tr><td>orbit/crates/orbit-metrics/src/mod28.rs</td><td class="num">3</td></tr>
+<tr><td>orbit/config/core-54.toml</td><td class="num">2</td></tr>
+<tr><td>orbit/config/ingest-38.toml</td><td class="num">2</td></tr>
+<tr><td>orbit/config/ingest-74.toml</td><td class="num">2</td></tr>
+<tr><td>orbit/config/metrics-46.toml</td><td class="num">2</td></tr>
+<tr><td>orbit/config/proxy-62.toml</td><td class="num">2</td></tr>
+<tr><td>orbit/config/query-58.toml</td><td class="num">2</td></tr>
+<tr><td>orbit/config/registry-30.toml</td><td class="num">2</td></tr>
+<tr><td>orbit/config/registry-66.toml</td><td class="num">2</td></tr>
+<tr><td>orbit/config/resolve-50.toml</td><td class="num">2</td></tr>
+<tr><td>orbit/config/schema-42.toml</td><td class="num">2</td></tr>
+<tr><td>orbit/config/schema-78.toml</td><td class="num">2</td></tr>
+<tr><td>orbit/config/testenv-34.toml</td><td class="num">2</td></tr>
+<tr><td>orbit/config/testenv-70.toml</td><td class="num">2</td></tr>
+<tr><td>orbit/crates/orbit-core/src/mod36.rs</td><td class="num">2</td></tr>
+<tr><td>orbit/crates/orbit-core/src/mod72.rs</td><td class="num">2</td></tr>
+<tr><td>orbit/crates/orbit-ingest/src/mod56.rs</td><td class="num">2</td></tr>
+<tr><td>orbit/crates/orbit-metrics/src/mod64.rs</td><td class="num">2</td></tr>
+<tr><td>orbit/crates/orbit-proxy/src/mod44.rs</td><td class="num">2</td></tr>
+<tr><td>orbit/crates/orbit-proxy/src/mod80.rs</td><td class="num">2</td></tr>
+<tr><td>orbit/crates/orbit-query/src/mod40.rs</td><td class="num">2</td></tr>
+<tr><td>orbit/crates/orbit-query/src/mod76.rs</td><td class="num">2</td></tr>
+<tr><td>orbit/crates/orbit-registry/src/mod48.rs</td><td class="num">2</td></tr>
+<tr><td>orbit/crates/orbit-resolve/src/mod32.rs</td><td class="num">2</td></tr>
+<tr><td>orbit/crates/orbit-resolve/src/mod68.rs</td><td class="num">2</td></tr>
+<tr><td>orbit/crates/orbit-schema/src/mod60.rs</td><td class="num">2</td></tr>
+<tr><td>orbit/crates/orbit-testenv/src/mod52.rs</td><td class="num">2</td></tr>
+<tr><td>orbit/docs/guide/cli-61.md</td><td class="num">2</td></tr>
+<tr><td>orbit/docs/guide/config-41.md</td><td class="num">2</td></tr>
+<tr><td>orbit/docs/guide/config-77.md</td><td class="num">2</td></tr>
+<tr><td>orbit/docs/guide/docs-53.md</td><td class="num">2</td></tr>
+<tr><td>orbit/docs/guide/hooks-45.md</td><td class="num">2</td></tr>
+<tr><td>orbit/docs/guide/index-29.md</td><td class="num">2</td></tr>
+<tr><td>orbit/docs/guide/index-65.md</td><td class="num">2</td></tr>
+<tr><td>orbit/docs/guide/render-57.md</td><td class="num">2</td></tr>
+<tr><td>orbit/docs/guide/review-49.md</td><td class="num">2</td></tr>
+<tr><td>orbit/docs/guide/sanitize-33.md</td><td class="num">2</td></tr>
+<tr><td>orbit/docs/guide/sanitize-69.md</td><td class="num">2</td></tr>
+<tr><td>orbit/docs/guide/store-37.md</td><td class="num">2</td></tr>
+<tr><td>orbit/docs/guide/store-73.md</td><td class="num">2</td></tr>
+<tr><td>specs/51-review-notes.md</td><td class="num">2</td></tr>
+<tr><td>specs/55-docs-notes.md</td><td class="num">2</td></tr>
+<tr><td>specs/59-render-notes.md</td><td class="num">2</td></tr>
+<tr><td>specs/63-cli-notes.md</td><td class="num">2</td></tr>
+<tr><td>specs/67-index-notes.md</td><td class="num">2</td></tr>
+<tr><td>specs/71-sanitize-notes.md</td><td class="num">2</td></tr>
+<tr><td>specs/75-store-notes.md</td><td class="num">2</td></tr>
+<tr><td>specs/79-config-notes.md</td><td class="num">2</td></tr>
+<tr><td>specs/83-hooks-notes.md</td><td class="num">2</td></tr>
+<tr><td>specs/87-review-notes.md</td><td class="num">2</td></tr>
+<tr><td>specs/91-docs-notes.md</td><td class="num">2</td></tr>
+<tr><td>specs/95-render-notes.md</td><td class="num">2</td></tr>
+<tr><td>specs/99-cli-notes.md</td><td class="num">2</td></tr>
+</tbody></table></div>
+</section>
+<section id="cross-run-hotspots-measured">
+  <div class="sechead">
+    <div class="eyebrow">Plate 12</div>
+    <h2>Cross-run hotspots · <span class="st st-partial">measured</span></h2>
+  </div>
+
+<p>Real deterministic cross-run churn signal: 96 file(s) edited ≥2× when aggregated across every run with a reliable workspace root in this store.</p>
+<div class="tablewrap scroll anim"><table><thead><tr><th>File (edited ≥2× across runs)</th><th>Edits</th></tr></thead><tbody>
+<tr><td>orbit/README.md</td><td class="num">77</td></tr>
+<tr><td>orbit/index.html</td><td class="num">22</td></tr>
+<tr><td>orbit/docs/guide/README.md</td><td class="num">16</td></tr>
+<tr><td>orbit/docs/manifest.json</td><td class="num">16</td></tr>
+<tr><td>orbit/CHANGELOG.md</td><td class="num">15</td></tr>
+<tr><td>orbit/docs/guide/handbook.html</td><td class="num">15</td></tr>
+<tr><td>.gitignore</td><td class="num">12</td></tr>
+<tr><td>orbit/RUN.md</td><td class="num">9</td></tr>
+<tr><td>orbit/docs/layers.html</td><td class="num">9</td></tr>
+<tr><td>specs/10-capabilities-review.md</td><td class="num">9</td></tr>
+<tr><td>specs/13-pre-release-checklist.md</td><td class="num">9</td></tr>
+<tr><td>NOTES.md</td><td class="num">7</td></tr>
+<tr><td>review/verify/src/main.rs</td><td class="num">7</td></tr>
+<tr><td>AGENTS.md</td><td class="num">6</td></tr>
+<tr><td>review/pr-a/crates/orbit/src/detectors.rs</td><td class="num">6</td></tr>
+<tr><td>orbit/config/proxy-26.toml</td><td class="num">5</td></tr>
+<tr><td>orbit/config/query-22.toml</td><td class="num">5</td></tr>
+<tr><td>orbit/crates/orbit-core/Cargo.toml</td><td class="num">5</td></tr>
+<tr><td>orbit/crates/orbit-core/src/lib.rs</td><td class="num">5</td></tr>
+<tr><td>orbit/crates/orbit-ingest/Cargo.toml</td><td class="num">5</td></tr>
+<tr><td>orbit/crates/orbit-ingest/src/mod20.rs</td><td class="num">5</td></tr>
+<tr><td>orbit/crates/orbit-metrics/Cargo.toml</td><td class="num">5</td></tr>
+<tr><td>orbit/crates/orbit-proxy/src/lib.rs</td><td class="num">5</td></tr>
+<tr><td>orbit/crates/orbit-query/src/lib.rs</td><td class="num">5</td></tr>
+<tr><td>orbit/crates/orbit-registry/src/lib.rs</td><td class="num">5</td></tr>
+<tr><td>orbit/crates/orbit-resolve/Cargo.toml</td><td class="num">5</td></tr>
+<tr><td>orbit/crates/orbit-schema/Cargo.toml</td><td class="num">5</td></tr>
+<tr><td>orbit/crates/orbit-schema/src/mod24.rs</td><td class="num">5</td></tr>
+<tr><td>orbit/crates/orbit-testenv/src/lib.rs</td><td class="num">5</td></tr>
+<tr><td>orbit/docs/guide/cli-25.md</td><td class="num">5</td></tr>
+<tr><td>orbit/docs/guide/config-5.md</td><td class="num">5</td></tr>
+<tr><td>orbit/docs/guide/docs-17.md</td><td class="num">5</td></tr>
+<tr><td>orbit/docs/guide/hooks-9.md</td><td class="num">5</td></tr>
+<tr><td>orbit/docs/guide/render-21.md</td><td class="num">5</td></tr>
+<tr><td>orbit/docs/guide/review-13.md</td><td class="num">5</td></tr>
+<tr><td>orbit/docs/guide/store-1.md</td><td class="num">5</td></tr>
+<tr><td>specs/23-render-notes.md</td><td class="num">5</td></tr>
+<tr><td>specs/27-cli-notes.md</td><td class="num">5</td></tr>
+<tr><td>specs/31-index-notes.md</td><td class="num">5</td></tr>
+<tr><td>specs/35-sanitize-notes.md</td><td class="num">5</td></tr>
+<tr><td>specs/39-store-notes.md</td><td class="num">5</td></tr>
+<tr><td>specs/43-config-notes.md</td><td class="num">5</td></tr>
+<tr><td>specs/47-hooks-notes.md</td><td class="num">5</td></tr>
+<tr><td>orbit/crates/orbit-metrics/src/mod28.rs</td><td class="num">3</td></tr>
+<tr><td>orbit/config/core-54.toml</td><td class="num">2</td></tr>
+<tr><td>orbit/config/ingest-38.toml</td><td class="num">2</td></tr>
+<tr><td>orbit/config/ingest-74.toml</td><td class="num">2</td></tr>
+<tr><td>orbit/config/metrics-46.toml</td><td class="num">2</td></tr>
+<tr><td>orbit/config/proxy-62.toml</td><td class="num">2</td></tr>
+<tr><td>orbit/config/query-58.toml</td><td class="num">2</td></tr>
+<tr><td>orbit/config/registry-30.toml</td><td class="num">2</td></tr>
+<tr><td>orbit/config/registry-66.toml</td><td class="num">2</td></tr>
+<tr><td>orbit/config/resolve-50.toml</td><td class="num">2</td></tr>
+<tr><td>orbit/config/schema-42.toml</td><td class="num">2</td></tr>
+<tr><td>orbit/config/schema-78.toml</td><td class="num">2</td></tr>
+<tr><td>orbit/config/testenv-34.toml</td><td class="num">2</td></tr>
+<tr><td>orbit/config/testenv-70.toml</td><td class="num">2</td></tr>
+<tr><td>orbit/crates/orbit-core/src/mod36.rs</td><td class="num">2</td></tr>
+<tr><td>orbit/crates/orbit-core/src/mod72.rs</td><td class="num">2</td></tr>
+<tr><td>orbit/crates/orbit-ingest/src/mod56.rs</td><td class="num">2</td></tr>
+<tr><td>orbit/crates/orbit-metrics/src/mod64.rs</td><td class="num">2</td></tr>
+<tr><td>orbit/crates/orbit-proxy/src/mod44.rs</td><td class="num">2</td></tr>
+<tr><td>orbit/crates/orbit-proxy/src/mod80.rs</td><td class="num">2</td></tr>
+<tr><td>orbit/crates/orbit-query/src/mod40.rs</td><td class="num">2</td></tr>
+<tr><td>orbit/crates/orbit-query/src/mod76.rs</td><td class="num">2</td></tr>
+<tr><td>orbit/crates/orbit-registry/src/mod48.rs</td><td class="num">2</td></tr>
+<tr><td>orbit/crates/orbit-resolve/src/mod32.rs</td><td class="num">2</td></tr>
+<tr><td>orbit/crates/orbit-resolve/src/mod68.rs</td><td class="num">2</td></tr>
+<tr><td>orbit/crates/orbit-schema/src/mod60.rs</td><td class="num">2</td></tr>
+<tr><td>orbit/crates/orbit-testenv/src/mod52.rs</td><td class="num">2</td></tr>
+<tr><td>orbit/docs/guide/cli-61.md</td><td class="num">2</td></tr>
+<tr><td>orbit/docs/guide/config-41.md</td><td class="num">2</td></tr>
+<tr><td>orbit/docs/guide/config-77.md</td><td class="num">2</td></tr>
+<tr><td>orbit/docs/guide/docs-53.md</td><td class="num">2</td></tr>
+<tr><td>orbit/docs/guide/hooks-45.md</td><td class="num">2</td></tr>
+<tr><td>orbit/docs/guide/index-29.md</td><td class="num">2</td></tr>
+<tr><td>orbit/docs/guide/index-65.md</td><td class="num">2</td></tr>
+<tr><td>orbit/docs/guide/render-57.md</td><td class="num">2</td></tr>
+<tr><td>orbit/docs/guide/review-49.md</td><td class="num">2</td></tr>
+<tr><td>orbit/docs/guide/sanitize-33.md</td><td class="num">2</td></tr>
+<tr><td>orbit/docs/guide/sanitize-69.md</td><td class="num">2</td></tr>
+<tr><td>orbit/docs/guide/store-37.md</td><td class="num">2</td></tr>
+<tr><td>orbit/docs/guide/store-73.md</td><td class="num">2</td></tr>
+<tr><td>specs/51-review-notes.md</td><td class="num">2</td></tr>
+<tr><td>specs/55-docs-notes.md</td><td class="num">2</td></tr>
+<tr><td>specs/59-render-notes.md</td><td class="num">2</td></tr>
+<tr><td>specs/63-cli-notes.md</td><td class="num">2</td></tr>
+<tr><td>specs/67-index-notes.md</td><td class="num">2</td></tr>
+<tr><td>specs/71-sanitize-notes.md</td><td class="num">2</td></tr>
+<tr><td>specs/75-store-notes.md</td><td class="num">2</td></tr>
+<tr><td>specs/79-config-notes.md</td><td class="num">2</td></tr>
+<tr><td>specs/83-hooks-notes.md</td><td class="num">2</td></tr>
+<tr><td>specs/87-review-notes.md</td><td class="num">2</td></tr>
+<tr><td>specs/91-docs-notes.md</td><td class="num">2</td></tr>
+<tr><td>specs/95-render-notes.md</td><td class="num">2</td></tr>
+<tr><td>specs/99-cli-notes.md</td><td class="num">2</td></tr>
+</tbody></table></div>
+</section>
+<section id="cost-list-price-estimate">
+  <div class="sechead">
+    <div class="eyebrow">Plate 13</div>
+    <h2>Cost (list-price estimate)</h2>
+  </div>
+
+<p>No token counts in this store — the token channel is captured by the proxy (<code>requests</code>), not by transcript ingest (see the capture runbook). Cost is therefore <strong>not recorded</strong> here, not $0 spent.</p>
+
+</section>
+<section id="still-not-built">
+  <div class="sechead">
+    <div class="eyebrow">Plate 14</div>
+    <h2>Still not built</h2>
+  </div>
+
+<p>2 analyzer(s) are <strong>not yet built</strong> — disclosed here so an unbuilt measure is
+never mistaken for a measured zero. This is capability state, not a finding.</p>
+<details class="more"><summary>Show the 2 not-yet-built analyzer(s) &amp; why each is absent</summary>
+<div class="body"><div class="tablewrap scroll"><table><thead><tr><th>Section</th><th>Why it is absent</th></tr></thead>
+<tbody>
+<tr><td>Human-vs-AI recovery</td><td>Not observed — human-vs-AI recovery classification is not built yet.</td></tr>
+<tr><td>Micro-observations &amp; silent signals</td><td>Not observed — micro-observation extraction and silent-signal detection are not built yet; no findings are fabricated.</td></tr>
+</tbody></table></div></div></details>
+
+</section>
+<section id="evidence-integrity">
+  <div class="sechead">
+    <div class="eyebrow">Plate 15</div>
+    <h2>Evidence &amp; integrity</h2>
+  </div>
+
+<p>This report is deterministic: the same database always renders byte-identically. No LLM and no
+network are in the render path, and this page fetches nothing — no stylesheet, no script, no font.</p>
+<div class="prov anim">
+<div class="p"><div class="pk">Report id</div><div class="pv">barobs-14fd056be293</div></div>
+<div class="p"><div class="pk">Recorded window</div><div class="pv">322h 59m (1,162,740,000 ms)</div></div>
+<div class="p"><div class="pk">Source db hash</div><div class="pv">blake3:14fd056be2935fc7f5ed2d979eaac9c3a2f891a7b031581711201090ebfc5ff4</div></div>
+<div class="p"><div class="pk">Template hash</div><div class="pv">blake3:3384a44fb8e759ebed83168fa79ff83c4cf30b6b2bb3867be4c91310fd5a022e</div></div>
+<div class="p"><div class="pk">Renderer version</div><div class="pv">0.2.1</div></div>
+<div class="p"><div class="pk">Generated at (from DB)</div><div class="pv">2026-05-18T06:06:00Z</div></div>
+<div class="p"><div class="pk">Redact mode</div><div class="pv">off</div></div>
+<div class="p"><div class="pk">Redact paths / secrets</div><div class="pv">verbatim / detect_and_report</div></div>
+</div>
+</section>
+
+    <footer>
+      <p>Independent open-source project by Bradley Ross / Bradley.Academy. No third-party marks are used and no endorsement is implied.</p>
+      <p class="foot-note">Report barobs-14fd056be293 · template bar-observatory-engineering-1.0 · renderer 0.2.1 · Bradley.Academy. This file fetches
+      nothing: no stylesheet, no script, no font, no image. Re-render from the same store and it is
+      byte-identical.</p>
+    </footer>
+  </main>
+</div>
+
+<script>
+
+(function(g){"use strict";
+function el(t,c,h){var e=document.createElement(t);if(c)e.className=c;if(h!==undefined)e.innerHTML=h;return e}
+function pct(n,d){return (n/d*100).toFixed(1)}
+function stack(node,legend,items,total){
+  // `label`/`read` may be transcript-controlled (e.g. a tool_use.name from any ingested
+  // transcript). Built via createElement + textContent, never innerHTML string concatenation,
+  // so no captured value can inject markup or break out of an attribute.
+  items.forEach(function(c){
+    var d=el("div","s-"+c.id,c.n/total>=.06?String(c.n):"");
+    d.style.setProperty("--w",(c.n/total*100)+"%");
+    d.title=c.label+" — "+c.n+" of "+total+" ("+pct(c.n,total)+"%)";
+    node.appendChild(d);
+    if(!legend)return;
+    var r=el("div","row");
+    var sw=document.createElement("span");
+    sw.className="sw";
+    sw.style.background=c.swatch||c.color;
+    var lab=document.createElement("span");
+    lab.appendChild(document.createTextNode(c.label));
+    if(c.read){
+      var rd=document.createElement("span");
+      rd.style.color="var(--muted)";
+      rd.textContent=" · "+c.read;
+      lab.appendChild(rd);
+    }
+    var nEl=document.createElement("span");
+    nEl.className="n";
+    nEl.textContent=c.n;
+    var pEl=document.createElement("span");
+    pEl.className="p";
+    pEl.textContent=pct(c.n,total)+"%";
+    r.appendChild(sw);r.appendChild(lab);r.appendChild(nEl);r.appendChild(pEl);
+    legend.appendChild(r);
+  });
+}
+function bars(node,rows,max){
+  max=max||rows.reduce(function(a,r){return Math.max(a,r.n)},0);
+  rows.forEach(function(r){
+    var b=el("div","bar wide");
+    var labDiv=document.createElement("div");
+    labDiv.className="lab";
+    var t=document.createElement("span");
+    t.className="t";
+    t.title=r.label;
+    t.textContent=r.label;
+    labDiv.appendChild(t);
+    var nDiv=document.createElement("div");
+    nDiv.className="n";
+    nDiv.appendChild(document.createTextNode(String(r.display!==undefined?r.display:r.n)));
+    if(r.sub){
+      nDiv.appendChild(document.createTextNode(" "));
+      var small=document.createElement("small");
+      small.textContent=r.sub;
+      nDiv.appendChild(small);
+    }
+    var track=document.createElement("div");
+    track.className="track";
+    var fill=document.createElement("div");
+    fill.className="fill "+(r.fill||"plain");
+    fill.style.setProperty("--w",(r.n/max*100)+"%");
+    track.appendChild(fill);
+    b.appendChild(labDiv);b.appendChild(nDiv);b.appendChild(track);
+    node.appendChild(b);
+  });
+}
+function init(){
+  if("IntersectionObserver" in g){
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){
+      if(e.isIntersecting){e.target.classList.add("reveal");io.unobserve(e.target)}})},
+      {threshold:.14,rootMargin:"0px 0px -40px 0px"});
+    document.querySelectorAll(".anim").forEach(function(n){io.observe(n)});
+    var links=[].slice.call(document.querySelectorAll("#railList a"));
+    if(links.length){
+      var spy=new IntersectionObserver(function(es){es.forEach(function(e){
+        if(!e.isIntersecting)return;
+        links.forEach(function(l){l.classList.toggle("active",l.getAttribute("href")==="#"+e.target.id)})})},
+        {rootMargin:"-30% 0px -60% 0px"});
+      document.querySelectorAll("main section").forEach(function(s){spy.observe(s)});
+    }
+  } else {document.querySelectorAll(".anim").forEach(function(n){n.classList.add("reveal")})}
+  var root=document.documentElement,tb=document.getElementById("themeBtn");
+  if(tb){
+    var osDark=g.matchMedia&&g.matchMedia("(prefers-color-scheme: dark)").matches;
+    var sync=function(){var d=root.getAttribute("data-theme")==="dark"||(!root.hasAttribute("data-theme")&&osDark);
+      tb.textContent=d?"Light":"Dark";tb.setAttribute("aria-pressed",String(d))};
+    sync();
+    tb.addEventListener("click",function(){var d=root.getAttribute("data-theme")==="dark"||(!root.hasAttribute("data-theme")&&osDark);
+      root.setAttribute("data-theme",d?"light":"dark");sync()});
+  }
+  var pb=document.getElementById("printBtn");
+  if(pb)pb.addEventListener("click",function(){g.print()});
+}
+g.BAR={el:el,pct:pct,stack:stack,bars:bars,init:init};
+})(window);
+
+</script>
+<script>
+(function(){
+  var t = document.getElementById("toolStack");
+  if (t && window.__BAR_TOOLS && window.__BAR_TOOLS.length) {
+    BAR.stack(t, document.getElementById("toolLegend"), window.__BAR_TOOLS, 3171);
+  }
+  BAR.init();
+})();
+</script>
+</body></html>

@@ -19,7 +19,7 @@ create, no company server it talks to, and nothing to configure to make that tru
 tool is built, not a setting you could accidentally turn off. If you ever want to hand a captured
 session to someone else, there's a built-in step that scrubs sensitive text out first, so sharing
 is a choice you make, not something that happens by default. Full detail, including how this
-holds up for regulated or fully offline environments: [wiki/enterprise.md](enterprise.md).
+holds up for regulated or fully offline environments: [wiki/human-md/enterprise.md](enterprise.md).
 
 ## Step 1 — Install the plugin (recommended)
 
@@ -101,7 +101,8 @@ Two sections you'll see planned in this project's own docs but won't find in tod
 **who fixed what** (did the AI catch its own mistake, or did a human have to step in?) and a
 **small-but-important findings** section for things that are easy to miss just by watching the
 conversation. Both are real, disclosed gaps — not built yet, not silently skipped — and the
-report itself says so plainly (`not_observed`) rather than showing an empty section that looks
+report itself says so plainly (`not_observed` — the detector exists in the schema, nothing has
+built it yet) rather than showing an empty section that looks
 finished.
 
 Every single fact in the report is pulled directly from what was actually recorded — never
@@ -110,17 +111,25 @@ plainly instead of quietly showing a "0" that looks like a real answer.
 
 ### A real example
 
-Here's the kind of thing that section 7 above catches — three real problems from a real
-session, found in one command, that would otherwise have scrolled off the screen and been
-forgotten:
+Here's the kind of thing the report surfaces that a summary never would — real problems from a
+captured session, found in one command, that would otherwise have scrolled off the screen and been
+forgotten. These lines come from the capture that ships with this project, in `examples/capture/`:
 
 ```
+$ bar query <db> errors --limit 0
 seq    what happened
 ----   -----------------------------------------------------------------
-308    An external tool timed out after 60 seconds
-436    A long-running command was killed partway through
-1391   A safety guardrail blocked a risky command
+14     A skill was called before it was installed
+133    A safety guardrail blocked a risky command
+186    A path that a docs reorganisation had already moved
+453    An edit whose target text had changed since the file was read
+690    A helper agent was dispatched by a name that does not exist
 ```
+
+That session recorded sixty of them. Not all sixty are defects — the guardrail on line 133 is the
+safety system doing its job — and the report sorts them by root cause rather than lumping them
+together. Run the same command over your own store and you get your own list. The point is not
+these five lines; it is that nothing had to be remembered to find them.
 
 ## Optional: get a plain-English writeup
 
@@ -190,8 +199,9 @@ learn from.
 
 - **[CRATES.md](../../CRATES.md)** — the full list of components this project is built from
 - **[process/](../../process/)** — a more detailed, step-by-step tour for the technically curious
-- **[examples/](../../examples/)** — real sample reports you can open right now, no setup needed
-- **[wiki/comparison.md](comparison.md)** — how this differs from a live dashboard or a
+- **[examples/](../../examples/)** — four sample reports you can open right now, no setup needed,
+  plus the capture they were all measured from
+- **[wiki/human-md/comparison.md](comparison.md)** — how this differs from a live dashboard or a
   telemetry backend, if you're weighing it against something else
 
 ---

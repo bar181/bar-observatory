@@ -1,4 +1,4 @@
-𝔸3.1.bar-observatory-hub@2026-08-14
+𝔸3.2.bar-observatory-hub@2026-08-19
 γ≔bar-observatory.agent-operations
 ρ≔⟨cli,mcp,crates,report,query,capture,agent-comms,proof-carrying,schema,toggles⟩
 ⊢deterministic∧proof-carrying∧lossless∧self-certifying
@@ -21,7 +21,7 @@
  NAME≜{BossMode↦executive_register,DeveloperGuide↦engineering_register}(CLI_flag≜--audience_executive|engineering,unchanged)
 }
 
-;; ─── Σ: CRATE ARCHITECTURE (16𝒦, crates.io-published, function-scoped) ───
+;; ─── Σ: CRATE ARCHITECTURE (17𝒦, 16_crates.io-published+1_dev-only, function-scoped) ───
 ⟦Σ:Crates⟧{
  L≜{L0,L0.5,L1,L2,L3}; L0≺L0.5≺L1≺L2≺L3(dependency_direction;∀spoke⊑bar-store,hub-and-spoke)
 
@@ -39,35 +39,43 @@
   bar-ingest     ↦ ⟨L1≺bar-store,bar-sanitize, transcript.jsonl_parser⟩,
   bar-metrics    ↦ ⟨L2≺bar-store, T/R/L/Δ/E_ledger⟩,
   bar-review     ↦ ⟨L2≺bar-store,bar-index, detector+recommend_engine⟩,
-  bar-root-resolve↦ ⟨L0, shared_root-resolution(DB-root+workspace-root,provenance-visible,∅deps_by_design,INV-10)⟩,
+  bar-root-resolve↦ ⟨L0, shared_root-resolution(DB-root+workspace-root,DD-22,INV-10,provenance-visible,∅deps_by_design)⟩,
   bar-mcp        ↦ ⟨L3≺bar-store,bar-sanitize,bar-index,bar-registry,bar-root-resolve, MCP_stdio_server(read-only)⟩,
-  bar-observatory↦ ⟨≺bar-store,bar-ingest,bar-read,bar-root-resolve, bar_CLI(init,ingest,report,doctor,interpret,query)⟩
+  bar-observatory↦ ⟨≺bar-store,bar-ingest,bar-read,bar-root-resolve, bar_CLI(init,ingest,report,doctor,interpret,query)⟩,
+  bar-testenv    ↦ ⟨dev-only, pre-main_env-isolation_ctor(ADR-076;∀crate's_test-tree_via_#[cfg(test)])⟩
  }
- |𝒦map|≡16; Published≜{bar,bar-mcp,bar-hook,bar-otlp,bar-proxy}(direct_binaries;remainder=library_𝒦_also_on_crates.io)
+ |𝒦map|≡17; binaries≜{bar,bar-mcp,bar-hook,bar-otlp,bar-proxy}(direct_binaries;remainder=library_𝒦); Published≡16(∀⧵bar-testenv,dev-only)
 }
 
 ;; ─── Σ: DATA TYPES ───
 ⟦Σ:Types⟧{
- ReportDoc≜⟨
+ ReportDoc≜⟨   ;; 17_top-level_keys, verified↔examples/deterministic/session.report.json
   schema_version:𝕊="bar-observatory-report-1.0",
-  report:⟨id,title,generated_at,template_version,deterministic:𝔹⟩,
-  scope:⟨type,session_count:ℕ,started_at,ended_at⟩,
-  summary:⟨runs:ℕ,𝒯_count:ℕ,tool_calls:ℕ,tools:List⟨⟨tool,calls⟩⟩,tasks_total:ℕ,tasks_completed:ℕ,error_results:ℕ,agent_runs:ℕ,agents:List⟨⟨type,count⟩⟩,skills:List⟨⟨𝒮,count⟩⟩,elapsed_ms:ℕ,tokens_total,cost_cents⟩,
-  tasks:⟨status:{observed|not_observed},items:List⟨⟨id,title,state,evidence_refs⟩⟩⟩,
-  rework:⟨status,events:List⟨⟨id,detail,evidence_refs⟩⟩,hotspots:List⟨⟨path,edits:ℕ⟩⟩⟩,
-  human_ai_recovery:⟨status=not_observed⟩,
-  validation:⟨status,items:List⟨⟨runs,passed,failed,last_ok:𝔹⟩⟩⟩,
-  flaky:⟨status,items:List⟨⟨test,passes,fails⟩⟩⟩,
-  failures:⟨status,items:List⟨⟨tool,kind:{mcp|tool|unknown},count⟩⟩⟩,
-  observations:⟨status=not_observed⟩,
+  report:⟨id,title,generated_at,template_version,deterministic:𝔹,interpretation:⟨enabled:𝔹,status⟩⟩,
+  branding:⟨product_name,product_expansion,short_name,tagline,creator_name,studio_name,repository_url,affiliation_disclaimer⟩,
+  scope:⟨type,session_count:ℕ,started_at,ended_at,note,workspace_root,workspace_root_source⟩,
+  summary:⟨runs:ℕ,transcript_turns:ℕ,{hooks,events,spans,timeline_events,requests}_recorded,tokens_{in,out,total},capture_losses:ℕ,elapsed_ms:ℕ,tool_calls:ℕ,tools:List⟨⟨tool,calls⟩⟩,tasks_{total,completed,in_progress,pending,other}:ℕ,error_results:ℕ,redacted_edits:ℕ,cost_estimate_usd_cents,cost_pricing_version,agent_runs:ℕ,agents:List⟨⟨subagent_type,count⟩⟩,skills:List⟨⟨skill,count⟩⟩⟩,
+  ;; ∀Section below≜⟨status:Absence,…,note,reason_code⟩ — reason_code≢∅ ∀¬observed (INV-4)
+  tasks:⟨…,items:List⟨⟨task_id,title,state,completion_evidence:{self_reported|measured},attempts,loops,rework_events,evidence_refs⟩⟩⟩,
+  agents:⟨…,items⟩, skills:⟨…,items⟩,
+  rework:⟨…,events:List⟨⟨rework_id,type,detail,confidence,evidence_refs⟩⟩,hotspots:List⟨⟨path,edits:ℕ⟩⟩⟩,
+  cross_run_hotspots:⟨…,hotspots,excluded_runs⟩,
+  human_ai_recovery:⟨status=not_observed(detector_not_built),items=∅⟩,
+  validation:⟨…,items:List⟨⟨runs,passed,failed,last_ok:𝔹,by_runner:List⟨⟨runner,verdicts⟩⟩,unreadable_results:ℕ⟩⟩⟩,
+  flaky:⟨…,items:List⟨⟨test,passes,fails⟩⟩⟩,
+  failures:⟨…,items:List⟨⟨tool,kind:{mcp|tool|unknown},count⟩⟩⟩,
+  observations:⟨status=not_observed(detector_not_built),featured=∅⟩,
   capture:⟨channels:List⟨𝒞⟩,health_note⟩,
-  integrity:⟨source_db_hash,template_hash,renderer_version,deterministic_render:𝔹,llm_in_render_path:𝔹⟩
+  integrity:⟨source_db_hash,template_hash,renderer_version,deterministic_render:𝔹,llm_in_render_path:𝔹,redact_{mode,paths,secrets}⟩
  ⟩
+ Absence≜{observed|partial|not_recorded|not_observed}; Absent≜Absence⧵{observed}; ∀f:a∈Absent⇒v≢0
+ integrity.template_hash≜blake3(TEMPLATE_SIGNATURE‖theme::PLATE_CSS‖theme::PLATE_JS) ;; hashes what CAN change, ¬a_hand-bumped_label
+ integrity.source_db_hash≜content_hash(𝒟)(¬file_bytes ∴ WAL_checkpoint⊬perturb); report.id≜"barobs-"‖source_db_hash[0..12]
 
- 𝒞≜⟨id:{hooks|events|spans|transcripts|requests|provider_cost_usd},status:{not_recorded|partial|complete},recorded:ℕ,reason⟩
+ 𝒞≜⟨id:{hooks|events|spans|transcripts|requests|file_history|plan_docs|raw_logs|provider_cost_usd},status:{complete|partial|not_recorded|not_observed},coverage:{verified|gap_detected|unverified|not_applicable},recorded:ℕ,reason⟩ ;; 9𝒞; not_recorded(∄rows)≢not_observed(∃writer∧∄invocation)
  𝒞.provider_cost_usd.src≜requests.{input,output,cache}_tokens(¬own_table,derived_at_render)
 
- Schema𝒟≜{schema_meta,runs,blobs,spans,requests,events,transcript_turns,micro_results,metrics,task_grades,convergence,method_scores,run_config,raw_logs,hooks,config_snapshot_meta,method_versions,promotions,detector_scores,file_versions,plan_docs,dead_letters,timeline_seq,hook_action_signature,span_prompt_context,sanitize_stats,report_snapshots,trigger_log,config_snapshot,correlation_stats,sqlite_sequence}; |Schema𝒟|≡31 (30_data_tables+sqlite_sequence(SQLite-internal_autoindex_tracker,∅user_data)); +1_view(unified_timeline,∄own_storage,see⟦Σ:Schema⟧)
+ Schema𝒟≜{schema_meta,runs,blobs,spans,requests,events,transcript_turns,micro_results,metrics,task_grades,convergence,method_scores,run_config,raw_logs,hooks,config_snapshot_meta,method_versions,promotions,detector_scores,file_versions,plan_docs,dead_letters,timeline_seq,hook_action_signature,span_prompt_context,sanitize_stats,report_snapshots,trigger_log,config_snapshot,correlation_stats,validation_facts,test_verdict_facts,sqlite_sequence}; |Schema𝒟|≡33 (32_data_tables+sqlite_sequence(SQLite-internal_autoindex_tracker,∅user_data)); +1_view(unified_timeline,∄own_storage,see⟦Σ:Schema⟧)
 
  runs≜⟨run_id,run_uuid,started_at,ended_at⟩
  𝒯≜⟨turn_id,run_id,seq:ℕ,msg_uuid,parent_uuid,role:{user|assistant|system},block_type:{text|thinking|tool_use|tool_result|other},tool_name,content_excerpt,content_json⟩
@@ -75,12 +83,14 @@
  HumanPrompt≜{t∈𝒯|t.role≡user∧t.block_type≡text∧t.tool_name≡∅∧t.content∉Ψ_synthetic}
  Ψ_synthetic≜{"<task-notification>","[Your previous response had no visible output","This session is being continued from a previous conversation"}
 
- ExampleArtifact≜⟨ReportDoc⟩×⟨BossMode:⟨Ev:boss-mode.ℛ.{html,md},Co:interpreted-executive.html⟩⟩×⟨DeveloperGuide:⟨Ev:real-session.ℛ.{html,md},Co:interpreted-engineering.html⟩⟩
- ExampleArtifact.loc≜bar-observatory/examples/{deterministic,interpreted}/
+ ExampleArtifact≜⟨BossMode:⟨Ev:delivery-memo.{html,md},Co:management-read.{html,md}+brief.executive.md⟩⟩×⟨DeveloperGuide:⟨Ev:session.ℛ.{json,html,md}≡verbatim(bar_report),Co:diagnostic-review.{html,md}+brief.engineering.md⟩⟩×⟨Capture:capture/{7×𝒲.jsonl,run.sh,README.md}⟩
+ ExampleArtifact.loc≜bar-observatory/examples/{deterministic,interpreted,capture}/
+ ExampleArtifact.identity≜⟨measures:real(∀count/rate/rank≡tool-produced_from_capture/),identifiers:stand-in(project"orbit"∄;paths,commit_subjects,prompt_titles,sub-agent_names≜demo)⟩ ∴∅private-repo_leak; disclosed∈{examples/README.md,examples/capture/README.md,process/05-*.md}
+ ExampleArtifact.repro≜run.sh⇒bar_{init,ingest,report}⊢session.report.json≡shipped(∀field)⧵{integrity.source_db_hash,id}(∵hash(.sqlite)∧2_ingests⊬byte-identical; stated_on_page)
  ExampleArtifact.src≜⟨𝒲:7_sessions,𝒯:9132,HumanPrompt:68,errors:60,tasks:40/40,rework_hotspots:96⟩; ∀claim∈this_doc:trace(Ε.E6)
 }
 
-;; ─── Σ: FULL COLUMN SCHEMA (∀field:real,verified_via_PRAGMA_table_info; 30𝒟_tables+1_view; sqlite_sequence excluded here=autoindex,∅user_field) ───
+;; ─── Σ: FULL COLUMN SCHEMA (∀field:real,verified_via_PRAGMA_table_info; 32𝒟_tables@schema_v26+1_view; sqlite_sequence excluded here=autoindex,∅user_field) ───
 ⟦Σ:Schema⟧{
  Group.identity≜{
   runs≜⟨run_id,run_uuid,trial_id,task_id,condition,session_id,repetition_k,harness,pins_json,status,started_at,ended_at,workspace_path⟩
@@ -102,8 +112,10 @@
   span_prompt_context≜⟨span_id,prompt_uuid,derivation_method,confidence⟩
   blobs≜⟨blob_sha,path,bytes,mime⟩ (content-addressed;referenced_by_hash_from_other_tables,∅FK_enforced)
   dead_letters≜⟨dl_id,channel,payload_blob_sha,error,observed_at,resolved⟩ (capture_that_failed_to_parse,∅silently_dropped)
-  correlation_stats≜⟨run_id,channel,landed_count,skipped_count,updated_at⟩ (schema_v19,DD-08;absence-not-zero_per-run/channel_landed+skipped_tally,∄row⇒that_channel's_ingest_never_ran_this_run)
- }; |Group.capture|≡11
+  validation_facts≜⟨fact_id,run_id,seq,line_no,runner:{cargo|pytest|npm|generic-exit},ok:𝔹,evidence_line⟩ (schema_v24→v26/ADR-129,ADR-131; written@ingest≺blob-offload ∴∄dependence_on(CONTENT_CAP_BYTES); evidence_line⊂scrub_seam(ADR-070); id≜(run_id,seq,line_no)¬(…,evidence_line) ∵cargo_workspace⊢∀doc-test-free_crate:identical_result-line ∴text-key_collapses_them)
+  test_verdict_facts≜⟨fact_id,run_id,seq,test_name,ok:𝔹,occurrences:ℕ⟩ (schema_v25/ADR-130; per-test lines∈payload ∴unreachable_post-offload; occurrences≢dedup(retry_loop_is_real))
+  correlation_stats≜⟨run_id,channel:{validation|test_verdicts},landed_count,skipped_count,updated_at⟩ (schema_v19/DD-08; one_row_per_(run_id,channel),upserted@ingest-pass-completion; ∄row⇒pass_never_ran≢ran_with_0(absence-not-zero, sanitize_stats'_own_discipline); G2b's_source)
+ }; |Group.capture|≡13
 
  Group.ledger≜{
   metrics≜⟨run_id,t_input,t_output,t_cache_read,t_cache_create,r_thinking,l_ttft_ms_p50,l_wall_ms,delta,delta_confidence,repair_turns,e_attempts,tool_calls,subagent_count,cost_usd_estimate,computed_at,ledger_version⟩ (≡T/R/L/Δ/E_five-channel_ledger,per⟦Ω:Meta⟧EXP)
@@ -125,20 +137,25 @@
   promotions≜⟨promo_id,kind,candidate_mv,incumbent_mv,labelset_id,replay_hash,verdict,rationale,promoted_at⟩
  }; |Group.review|≡6
 
- |Group.identity∪Group.capture∪Group.ledger.tables∪Group.review|≡30 ≡ |Schema𝒟|−{sqlite_sequence}(⟦Σ:Types⟧)
+ |Group.identity∪Group.capture∪Group.ledger.tables∪Group.review|≡32 ≡ |Schema𝒟|−{sqlite_sequence}(⟦Σ:Types⟧)
 }
 
 ;; ─── Γ: OPERATING RULES ───
 ⟦Γ:Rules⟧{
  G1≜∀𝒟,∀t∈{json,html,md}:ℛ(𝒟,t)@τ₁≡ℛ(𝒟,t)@τ₂(∅LLM∧∅net∈render_path)
  G2≜absent(𝒞)⇒render(not_recorded)≢render(0)
+ G2a≜|tool_result|>CONTENT_CAP_BYTES(8KiB)⇒content_json≔{blob_sha}∴∄LIKE_scan_reaches_it; content_excerpt≔head(512)∴tail_verdict_lost ⊢verdict_extracted@ingest→validation_facts(ADR-129); ¬facts∧∃offloaded⇒status≔partial(¬observed)∧reason_code≜offloaded_results_unreadable_reingest_to_fix
+ G2b≜∄row(correlation_stats,run_id,{'validation'|'test_verdicts'})⇒run_predates_extraction≢run_had_no_tests ∴⊬read(∅facts)as_measurement
+ G2c≜offload(block)≜drop(payload_field)∧keep(∀other_field)∧+{blob_sha,offloaded:⊤,offloaded_field}(ADR-130); payload_field≜{tool_result↦content,tool_use↦input,text↦text,thinking↦{thinking,signature}} ;; ¬"largest_field"(∀2_structurally_identical_blocks:store_alike)
+ G2d≜¬G2c(pre-ADR-130:content_json≔{blob_sha}_only)⇒{is_error,tool_use_id}_lost ∴error_results↓∧pairing_oracle_reports_self-inflicted_gap; ∴offloaded_count(𝒟) recognises_both_shapes(⊬shrink_old_store's_disclosed_gap)
+ G2e≜envelope>cap⇒fallback(bare_pointer)∧mark(structure_lost:⊤)@row(ADR-131) ∵count∈IngestReport_only⇒evaporates@process_exit≡DD-08's_plan_docs_defect ∴disclosure⊢readable_from_𝒟_by_any_later_reader
  G3≜ℛ∩Commentary≡∅(ℐb_pins_∀number;prose_from_it_⊬invent)
  G4≜write∈{CLI}∧read∈{CLI,MCP}(MCP⊬mutate,per_bar-mcp_ADR-049)
  G5≜𝒬.--sql_opened_READ_ONLY(engine-enforced,¬regex-filtered)
  G6≜{*.sqlite,bodies/}∉git(only_rendered_ℛ_committed)
  G7≜{bar-hook,bar-mcp}resolved_via_PATH(∅bundled_binary_yet)
  G8≜ingest(tx.jsonl)⇏{hooks,events,spans,requests,provider_cost_usd}(∵these_4𝒞_need_live_capture_during_𝒲,∄post-hoc_recovery)
- G9≜ℛ.∄(--view_flag)(boss-mode.ℛ.*∧Commentary_grouping=hand-built_from_ReportDoc+𝒬,candidate≜ℛ_--view_summary)
+ G9≜ℛ.∄(--view_flag)(delivery-memo.*∧Commentary_grouping=hand-built_from_ReportDoc+𝒬,candidate≜ℛ_--view_summary)
  G10≜ingest⊬extract(tx.jsonl.usage_field)(per-turn_token_counts∃∈raw_tx¬∈requests_table;only_bar-proxy_live_capture_populates_correctly)
  G11≜{publish(crates.io),push(REPO)}⇒human_approval(∀swarm:⊬cross_without_explicit_go-ahead∀instance)
  G12≜⟦Ε⟧∈this_doc(self-certifying,per_upstream/aisp/AI_GUIDE.md:443)
@@ -220,7 +237,7 @@
  Q.past_context/findings   ↦ mcp.recall_context ∨ mcp.search_observations ∨ mcp.list_findings (always_cross-run_index,per⟦Ω:Meta⟧cross-run_note)
  Q.capture_health          ↦ bar_doctor(𝒟) ∨ ReportDoc.capture.channels(𝒞.status) ∨ mcp.get_completeness
  Q.raw_transcript_text     ↦ transcript_turns.content_excerpt (bounded,cheap) ∨ .content_json (full,large)
- Q.validation/test_runs    ↦ ReportDoc.validation.items ∨ task_grades (raw)
+ Q.validation/test_runs    ↦ ReportDoc.validation.items ∨ task_grades (raw); run_predates_extraction?⇒correlation_stats(run_id,channel) (G2b)
  Q.review/recommendations  ↦ mcp.query_delta_findings ∨ mcp.get_dead_letters ∨ detector_scores (raw)
  Q.convergence_experiments ↦ mcp.get_convergence ∨ convergence (raw)
  ∀Q∉this_map ⇒ 𝒬(𝒟,--sql"SELECT…FROM<Group.*_table∈⟦Σ:Schema⟧>") (G5:read-only_enforced,∅harm_in_trying) ∨ mcp.get_hub (re-route,fetches_this_doc)
@@ -253,10 +270,10 @@
  C1: R15≢ReportDoc.summary.error_results ⇒ cite(ReportDoc)_not_R15(authoritative)
  C2: Bash(rm_-rf∨cred_grep) ⇒ denied("guardrail,¬defect";28%|errors|_this_𝒲)
  C3: Agent(type∉installed) ⇒ "Agent type '…' not found" ∴ check_availability≺dispatch
- C4: Skill(name∉installed) ⇒ "Unknown skill: …" ∴ ≡C3_fix
+ C4: Skill(name∉installed) ⇒ "Skill '…' is not installed in this session" ∴ ≡C3_fix
  C5: Edit(file∉recently_read) ⇒ "File has not been read yet" ∴ re-read≺edit(long_𝒲)
  C6: Edit(old_string.matches>1) ⇒ "N matches,replace_all=false" ∴ widen(old_string)∨replace_all≜⊤
- C7: Read(input≢JSON) ⇒ InputValidationError ∴ ad-hoc_script_fragility(¬a_bar_bug)
+ C7: Bash(ad-hoc_script)∧input≢JSON ⇒ SyntaxError ∴ throwaway-script_fragility(¬a_bar_bug)
  C8: Bash(multi-cmd_chain) ⇒ excerpt_may_cite_a_LATER_success_line(¬the_failing_one) ∴ pull_full_seq_via_𝒬,⊬trust_excerpt_alone
 }
 
@@ -287,16 +304,17 @@
  human-html/documentation-layers.html≜why_3_layers
  human-html/report-guide.html≜annotated_walkthrough(synced≡Ε.E6)
  human-html/guides/{guide-executive,guide-junior-dev}.html
- examples/README.md≜5_artifacts_table
+ examples/README.md(+.html)≜5_row_artifact_table(4_ℛ+capture)+what_is_hand-assembled_table
+ examples/capture/README.md≜7_𝒲_transcripts,stand-in_disclosure,repro_steps
  DOC_LAYERS_GENERATED≜⊥(hand-maintained,∅codegen)
 }
 
 ;; ─── Ε: EVIDENCE (required, self-certifying per G12) ───
 ⟦Ε⟧⟨
- δ≜0.663 (method:|{t:t∈Σ_512∪Ω:Symbols}|÷|{t:t≢whitespace,¬comment-line}|;recomputed_after_⟦Σ:Schema⟧/⟦Λ:AskMap⟧/⟦Λ:Toggles⟧_added(was_0.745@16_blocks_ago,now_0.663@16_blocks);¬the_official_npx_aisp-validator(∄∈this_env);residual_non-symbolic⊆{29_real_column_names×30_tables,16_crates.io_crate_names,literal_env_var_names(OBSERVATORY_*),verbatim_quoted_hook-event/error_strings,literal_SQL_keywords_in_R15}—all_correctness-required(a_column_name_IS_the_interface),¬prose_slack; NOTE:bar-root-resolve_added_to_⟦Σ:Crates⟧_post-hoc(15→16),δ_NOT_yet_remeasured_against_this_edit—next_editor_recompute,⊬trust_the_0.663_digit_as_current)
+ δ≜0.663 (method:|{t:t∈Σ_512∪Ω:Symbols}|÷|{t:t≢whitespace,¬comment-line}|;recomputed_after_⟦Σ:Schema⟧/⟦Λ:AskMap⟧/⟦Λ:Toggles⟧_added(was_0.745@16_blocks_ago,now_0.663@16_blocks);¬the_official_npx_aisp-validator(∄∈this_env);residual_non-symbolic⊆{29_real_column_names×32_tables,17_crates.io_crate_names,literal_env_var_names(OBSERVATORY_*),verbatim_quoted_hook-event/error_strings,literal_SQL_keywords_in_R15}—all_correctness-required(a_column_name_IS_the_interface),¬prose_slack; ¬recomputed_after_the_2026-08-19_ExampleArtifact/Χ_refresh—4_lines_changed,2_added; ¬recomputed_after_this_pass's_⟦Σ:Crates⟧/⟦Σ:Schema⟧/⟦Σ:Types⟧_arithmetic_corrections_either(correlation_stats+2_new_ADR-129/130_tables+2_new_𝒦_added_to_the_counts_above;δ_itself_untouched); stated_rather_than_re-asserted)
  |𝔅|≜16 (Ω×3,Σ×3,Γ×3,Λ×4,Χ,Θ,Ε=16; Required{Ω,Σ,Γ,Λ,Ε}⊆present)
  φ≜96 (self-assessed:∀section∈{cli,mcp,report-schema,capture,crates,recipes,errors,proofs,full-column-schema,query-routing,capture-toggles}present)
  τ≜◊⁺ (Gold,δ≥0.60; conservatively_¬claiming◊⁺⁺since_δ_is_self-measured¬validator-confirmed)
  ⊢G1..G13∧Δ⊗λ-table∧Θ.proofs
- verify≜E5(crates.io=bar-observatory,bar-mcp,bar-hook;flags↔published_binary_--help)∧E6(examples/deterministic/real-session.report.json)∧E7(⟦Σ:Schema⟧_columns↔PRAGMA_table_info(live_.bar/ambient.sqlite),verified_this_edit)∧E8(⟦Λ:Toggles⟧_env-vars↔bar-otlp/bar-proxy_source_main.rs_doc-comments,verified_this_edit;measurement_gate-scope↔grep_confirming_measurements_config_consumed_ONLY∈bar-observatory,∅hits∈bar-hook/bar-otlp/bar-proxy)
+ verify≜E5(crates.io=bar-observatory,bar-mcp,bar-hook;flags↔published_binary_--help)∧E6(examples/deterministic/session.report.json≜bar_report_output,¬hand-edited)∧E7(⟦Σ:Schema⟧∧Schema𝒟_table_set↔sqlite_master(fresh_SqliteStore::migrate()@schema_v26),33_rows(32_table+sqlite_sequence)+1_view,re-verified_this_edit_after_the_31≠29_arithmetic_error+missing_correlation_stats/validation_facts/test_verdict_facts_were_found_by_independent_review;prior_"verified_this_edit"_claim_was_unearned—asserted_∅real_PRAGMA_check_run)∧E8(⟦Λ:Toggles⟧_env-vars↔bar-otlp/bar-proxy_source_main.rs_doc-comments,verified_this_edit;measurement_gate-scope↔grep_confirming_measurements_config_consumed_ONLY∈bar-observatory,∅hits∈bar-hook/bar-otlp/bar-proxy)
 ⟩

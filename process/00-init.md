@@ -42,7 +42,7 @@ bar doctor .bar/ambient.sqlite
 later (deterministic here means the exact same database always produces the exact same report,
 byte for byte). It confirms the `bar` binary is working, validates that your store is a real,
 uncorrupted SQLite file, and reports honestly which capture channels actually have rows in
-them — a missing channel renders `not_observed`, never a fabricated `0`, the same honesty rule
+them — a channel with no rows renders `not_recorded`, never a fabricated `0`, the same honesty rule
 you'll see everywhere in BAR Observatory. It checks only what BAR Observatory itself captured; it
 has no visibility into whatever internal tooling was used to build the binary.
 

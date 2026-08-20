@@ -30,17 +30,26 @@ switch (CSS-only, no JavaScript).
 - **An AI agent consuming this project over MCP:** [`agent/AI-CONTEXT.md`](agent/AI-CONTEXT.md)
 - **Machine-readable capability registry:** [`aisp/HUB.aisp`](aisp/HUB.aisp)
 
+## Would you rather just look at the output?
+
+Skip all of the above and open [`examples/`](../examples/README.md) — four reports over one
+capture, and the capture ships with them, so you can rebuild every deterministic file yourself
+with one script. Start with
+[`session.report.html`](../examples/deterministic/session.report.html): that is literally what
+`bar report` writes, not a styled copy of it. The project it describes, `orbit`, is a stand-in —
+the measurements are real, the repository is not.
+
 ## Folder shape
 
 ```
 wiki/
-├── README.md        # this file
-├── README.html        # the same map as one long page, with a reading-mode switch
-├── human-md/          # reference pages: the setup tutorial, comparison, enterprise, architecture
-├── human-html/         # blog-style deep dives + persona guides
-│   └── guides/
-├── agent/               # for AI agents consuming this project
-└── aisp/                 # machine-readable capability registry
+├── README.md      this file — a map, by reader
+├── README.html    the same ground as one long page, with a reading-mode switch
+├── human-md/      reference pages: setup tutorial, comparison, enterprise, architecture
+├── human-html/    blog-style deep dives
+│   └── guides/    one page per reader: executive, junior developer
+├── agent/         for AI agents consuming this project over MCP
+└── aisp/          machine-readable capability registry
 ```
 
 ## One rule this folder holds itself to

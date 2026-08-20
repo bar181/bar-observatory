@@ -1,6 +1,6 @@
 # Architecture
 
-BAR Observatory is a thin `bar` CLI (crate `bar-observatory`) over a 15-crate `bar-*` engine.
+BAR Observatory is a thin `bar` CLI (crate `bar-observatory`) over a 16-crate `bar-*` engine.
 Crate source lives and publishes from a private working repository; this public repository is
 the front door — documentation, plugin assets, schemas, and contracts, no crate source, by
 design. Full crate list with live crates.io links: [CRATES.md](../../CRATES.md).
@@ -23,12 +23,16 @@ design. Full crate list with live crates.io links: [CRATES.md](../../CRATES.md).
 | `bar-schema` | — | The `report.json` typed contract: ReportDocument, AbsenceState, fact_id assignment. |
 | `bar-obs-config` | — | Layered TOML config resolution. |
 | `bar-registry` | — | The Hub's registry: capability collection plus a byte-deterministic canonical-JSON emitter. Zero dependencies by design. |
+| `bar-root-resolve` | — | Shared, provenance-visible workspace / db-root resolution. |
 | `bar-sanitize` | — | Publication sanitizer: scrub PII from a capture DB into a publish-safe copy. |
 | `bar-observatory` | facade | The `bar` CLI: init, ingest, report, query, doctor, interpret. |
 
-Sixteen crates published to crates.io — all live; `bar-testenv` is internal/dev-only and
-unpublished. `bar-engine`, an older internal-only CLI that predates the public `bar-observatory`
-facade, is deliberately not ported — see [CRATES.md](../../CRATES.md) for the disclosed rationale.
+Sixteen of the seventeen crates publish to crates.io; `bar-testenv` is internal/dev-only and
+stays unpublished. Crates publish incrementally in dependency-tier order — a link in `CRATES.md`
+means cleared for publish, not necessarily live. That table is generated from the crate manifests
+themselves, counts included, so it cannot quietly disagree with the crate set. `bar-engine`, an older internal-only CLI that predates the public
+`bar-observatory` facade, is deliberately not ported — see [CRATES.md](../../CRATES.md) for the
+disclosed rationale.
 
 ## The determinism contract
 
@@ -36,23 +40,55 @@ facade, is deliberately not ported — see [CRATES.md](../../CRATES.md) for the 
   Any interpreted output is a separate, optional command (`bar interpret`).
 - **Byte-identical across formats.** JSON, HTML, and Markdown render in one pass from one
   database, so they cannot disagree.
+- **One file, no fetches.** The HTML report inlines its own stylesheet and its own runtime. It
+  requests no stylesheet, no script, no font and no image from anywhere — the same promise the tool
+  makes about your session data, applied to the artifact it hands you. Charts are drawn in the
+  browser from figures the page also states in prose and tables, so the report is complete with
+  scripting switched off.
 - **Typed contract.** `report.json` is structured, typed output. A versioned JSON Schema for it
   ships in [`schemas/`](../../schemas/), but it currently describes an earlier report shape and does
-  not validate against live `bar report` output (confirmed against a real captured session with
-  the actual JSON Schema validator) — a known gap, pending a schema regeneration in the private
+  not validate against live `bar report` output (confirmed against the shipped example with the
+  actual JSON Schema validator) — a known gap, pending a schema regeneration in the private
   working repo, disclosed here rather than silently wrong.
-- **Every claim resolves to a row.** Facts carry identifiers back to the database that produced
-  them.
+- **Every claim resolves to a row — and the row has to be readable.** Facts carry identifiers back
+  to the database that produced them. A tool output too large to store inline is kept in a
+  content-addressed blob beside the database rather than in it. Two rules keep that from quietly
+  costing you measurements:
+  - **The size cap applies to the payload, not the block.** An oversized tool result keeps every
+    field that identifies it — whether it errored, which call it answers — and loses only its body.
+    It used to lose all of them, which meant a failure inside a large output was counted nowhere,
+    and offloaded results looked like unpaired orphans, so the recorder reported a coverage gap it
+    had created itself.
+  - **Verdicts inside the body are read during *ingest*,** while the untruncated output is still in
+    hand, and stored as typed rows. The answer therefore does not depend on a size threshold, on
+    where a runner prints its summary line, or on whether the blob directory travelled with the
+    database.
+
+  Where a report is built from an older store that predates that extraction, the affected section
+  says `partial` and names the count it could not read rather than presenting a confident total.
+  In the rare case where a block was too large to keep even its identifying fields, the row itself
+  records that, so a reader of the database learns it too — a count that exists only in the memory
+  of the process that did the ingest is not a disclosure to anyone.
 - **Integrity artifacts.** [`checksums/SHA256SUMS.txt`](../../checksums/SHA256SUMS.txt) and
   [`provenance/PROVENANCE.json`](../../provenance/PROVENANCE.json) ship with the repository.
 
 ## Absence semantics
 
-The schema carries an explicit absence state. A channel with no data renders as `not_observed`,
-never coerced to zero, empty, or unchanged. This is a design rule with teeth: a cost figure of
-`$0.00` and a cost figure of `not_observed` mean entirely different things, and conflating them is
-how observability tools quietly lie. `bar doctor` exists to make the distinction visible before
-you read a report.
+The schema carries an explicit absence state, and it is finer-grained than a single "missing"
+flag — because "we didn't look" and "we can't look yet" are not the same admission:
+
+| State | What it means | Example from the shipped report |
+|---|---|---|
+| `observed` | the channel had rows, and they were used | `transcripts` — 9,132 turns |
+| `partial` | rows landed, but a measured gap was detected | 629 dangling parents, 136 unpaired tool_use/tool_result |
+| `not_recorded` | this channel had no rows in this store | `hooks`, `events`, `spans`, `requests` on a transcript-only ingest |
+| `not_observed` | the writer or detector exists but nothing invoked it here | `plan_docs`, `raw_logs`, and the two unbuilt detectors |
+
+None of the four is ever coerced to zero, empty, or unchanged. This is a design rule with teeth:
+a cost figure of `$0.00` and a cost figure of `not_recorded` mean entirely different things, and
+conflating them is how observability tools quietly lie. `bar doctor` exists to make the
+distinction visible before you read a report, and the report's own capture-quality table repeats
+it channel by channel with the reason attached.
 
 ## Capture channels
 
@@ -64,6 +100,12 @@ you read a report.
 
 ## Known limits, on the record
 
+- **Two measurements still read only what is stored inline.** The task ledger's
+  "created successfully" scan and the commit-output scan read the body of a tool result, so a large
+  enough output is not visible to them. Both read output that is short by nature — a task
+  acknowledgement, a `git commit` summary — so the exposure is small, but it is not zero and their
+  counts are a floor. This is measured rather than assumed: the capture-quality table reports how
+  many results were offloaded, so a reader is told when a denominator is incomplete.
 - **Model-side delivery failures are invisible.** Results that failed to reach the model's
   context but were recorded correctly server-side do not appear. Disclosed as a candidate future
   detector, not swallowed.

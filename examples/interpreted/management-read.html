@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="en" data-layer="evidence">
+<html lang="en" data-layer="commentary">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>BAR Observatory · Example Reports</title>
-<meta name="description" content="Four real reports from one reproducible demo capture: two audiences by two layers, each in HTML and Markdown, plus the transcripts they were all measured from.">
+<title>BAR Observatory · Management Read · barobs-14fd056be293</title>
+<meta name="description" content="A management read of 7 captured demo sessions: what 40 of 40 completed tasks, a 1.9 percent error rate and one 77-edit file actually mean.">
 <meta name="robots" content="index,follow">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%232C6CA6'/><text x='16' y='23' font-size='19' fill='white' text-anchor='middle' font-family='sans-serif' font-weight='700'>B</text></svg>">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%235A55A3'/><text x='16' y='23' font-size='19' fill='white' text-anchor='middle' font-family='sans-serif' font-weight='700'>B</text></svg>">
 <style>
 /* ============================================================
    BAR OBSERVATORY · REPORT DESIGN SYSTEM
@@ -936,312 +936,431 @@ details.method > summary:hover{color:var(--accent)}
 
 </script>
 
-<a class="skip" href="#reports">Skip to the reports</a>
+<a class="skip" href="#verdict">Skip to the report</a>
 
 <div class="topbar">
   <div class="brandmark"><span class="dot" aria-hidden="true"></span> BAR Observatory</div>
-  <span class="meta">examples · barobs-14fd056be293</span>
+  <span class="layerbadge">Commentary · written by an LLM</span>
+  <span class="meta">barobs-14fd056be293</span>
   <div class="spacer"></div>
-  <a class="btn" href="../README.md">Project readme</a>
+  <button class="btn" id="printBtn" type="button">Print</button>
   <button class="btn" id="themeBtn" type="button" aria-pressed="false">Dark</button>
 </div>
 
-<noscript><div class="shell"><div class="note info" style="margin:18px auto">
-<h4>JavaScript is off, so the drawings are missing</h4>
-<p>Every figure is also written out in prose and in a table, so nothing here depends on scripting.</p>
-</div></div></noscript>
+<noscript><div class="shell"><div class="note info" style="margin:18px auto"><h4>JavaScript is off, so the drawings are missing</h4><p>Every figure on this page is also written out in prose and in a table, so the argument is complete without them. The charts are built in the browser from the same numbers; turn scripting on to see them.</p></div></div></noscript>
 
 <header class="plate">
   <div class="plate-inner">
-    <div class="eyebrow">Real tool output · one capture · reproducible</div>
-    <h1>Four reports, <span class="accent">one record.</span></h1>
-    <p class="lede">Two audiences by two layers, each in HTML and Markdown, plus the machine contract
-    they all read — and the seven transcripts they were all measured from, so you can run the tool
-    and get these exact numbers back.</p>
+    <div class="eyebrow">Management read · what the record means</div>
+    <h1>Forty of forty. The number to look at is <span class="accent">seventy&#8209;seven.</span></h1>
+    <p class="lede">Two weeks of agent-assisted delivery, captured in full and read back. Every tracked work item closed, the last test run was green, and the error rate is under two percent. The one figure that deserves a conversation is not a failure at all: one document absorbed more revisions than the next four combined.</p>
+
     <div class="runstrip">
-      <div><div class="v">7</div><div class="k">Sessions captured</div></div>
-      <div><div class="v">9,132</div><div class="k">Transcript turns</div></div>
-      <div><div class="v">3,171</div><div class="k">Tool calls</div></div>
-      <div><div class="v">40 / 40</div><div class="k">Tasks completed</div></div>
-      <div><div class="v">322h 59m</div><div class="k">Recorded window</div></div>
+      <div><div class="v">40 / 40</div><div class="k">Work items closed</div></div>
+      <div><div class="v">41</div><div class="k">Commits landed</div></div>
+      <div><div class="v">68</div><div class="k">Human instructions</div></div>
+      <div><div class="v">1.9%</div><div class="k">Error rate</div></div>
+      <div><div class="v">14 days</div><div class="k">Scope window · UTC</div></div>
     </div>
   </div>
 
   <div class="signature">
     <div class="sig-head">
-      <div class="sig-title">Plate 00 · how the four reports divide the same record</div>
-      <div class="sig-note">The audience decides what is shown. The layer decides who wrote it.</div>
+      <div class="sig-title">Plate 00 · the two weeks, session by session</div>
+      <div class="sig-note">Seven separate sittings. Bar height is the number of instructions a person typed in that session.</div>
     </div>
-    <div class="sesstrip" style="grid-template-columns:repeat(auto-fit,minmax(min(240px,100%),1fr))">
-      <div class="s"><div class="sd">Boss Mode · Evidence</div><div class="sv" style="font-size:15px">Delivery memo</div><div class="sk">key stats · top 5 lists · no prose</div></div>
-      <div class="s"><div class="sd">Boss Mode · Commentary</div><div class="sv" style="font-size:15px">Management read</div><div class="sk">what it means · what to decide</div></div>
-      <div class="s"><div class="sd">Developer Guide · Evidence</div><div class="sv" style="font-size:15px">The generated report</div><div class="sk">every table the tool produces</div></div>
-      <div class="s"><div class="sd">Developer Guide · Commentary</div><div class="sv" style="font-size:15px">Diagnostic review</div><div class="sk">root causes · what to change</div></div>
-    </div>
+    <div class="sesstrip" id="sesstrip"></div>
+    <p class="src" style="border-top-color:rgba(127,192,240,.2);color:#8FAFC6"><b>Source</b> the per-session table in <a href="../deterministic/session.report.html">the evidence page</a>. Lines changed are published for the five largest sessions; the two smallest are counted but not broken out, so this strip uses instruction count, which is complete for all seven.</p>
   </div>
 </header>
 
+<div class="tip" id="tip" aria-hidden="true"></div>
+
 <div class="shell">
-  <nav class="rail" aria-label="Contents">
+  <nav class="rail" aria-label="Report contents">
     <ol id="railList">
-      <li><a href="#reports"><span class="pl">Pl. 01</span><span>The four reports</span></a></li>
-      <li><a href="#generated"><span class="pl">Pl. 02</span><span>What the tool writes</span></a></li>
-      <li><a href="#layers"><span class="pl">Pl. 03</span><span>Two layers, two accents</span></a></li>
-      <li><a href="#capture"><span class="pl">Pl. 04</span><span>The capture, and how to rerun it</span></a></li>
-      <li><a href="#standin"><span class="pl">Pl. 05</span><span>A stand-in project, on purpose</span></a></li>
-      <li><a href="#gaps"><span class="pl">Pl. 06</span><span>Known gaps</span></a></li>
+      <li><a href="#verdict"><span class="pl">Pl. 01</span><span>Bottom line</span></a></li>
+      <li><a href="#numbers"><span class="pl">Pl. 02</span><span>What the numbers mean</span></a></li>
+      <li><a href="#effort"><span class="pl">Pl. 03</span><span>Where the effort went</span></a></li>
+      <li><a href="#delegation"><span class="pl">Pl. 04</span><span>Who did the work</span></a></li>
+      <li><a href="#decisions"><span class="pl">Pl. 05</span><span>Your decisions</span></a></li>
+      <li><a href="#watch"><span class="pl">Pl. 06</span><span>Watch list</span></a></li>
+      <li><a href="#blindspots"><span class="pl">Pl. 07</span><span>Blind spots</span></a></li>
+      <li><a href="#trust"><span class="pl">Pl. 08</span><span>How far to trust it</span></a></li>
     </ol>
     <div class="railcard">
-      <span class="kicker">New here?</span>
-      <p>Open the <a href="deterministic/session.report.html">generated report</a> first — that is
-      what lands on your disk when you run <code>bar report</code>.</p>
+      <span class="kicker">Reading time</span>
+      <p>Four minutes end to end. Sixty seconds if you stop after the three cards in Plate 01.</p>
     </div>
   </nav>
 
   <main>
 
-    <section id="reports">
+    <!-- ===== PL 01 ===== -->
+    <section id="verdict">
       <div class="sechead">
-        <div class="eyebrow">Plate 01 · The four reports</div>
-        <h2>Pick your audience, then pick your layer</h2>
-        <p>Evidence is a machine extraction with no model anywhere in its path. Commentary is a model
-        reading that evidence back to you, from a deterministic brief of facts it was not allowed to
-        change.</p>
+        <div class="eyebrow">Plate 01 · Bottom line</div>
+        <h2>Three cards, in the order they matter</h2>
+        <p>If you read nothing else on this page, read these. Each one names what it should make you think, and what it should not.</p>
       </div>
 
-      <div class="grid g2 anim">
-        <div class="card" style="border-top:3px solid var(--plateblue)">
-          <div style="font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--plateblue);margin-bottom:8px">Developer Guide · Evidence</div>
-          <h3>The generated report</h3>
-          <p><b>This is the one the tool writes.</b> Exactly the file <code>bar report</code> leaves
-          on your disk — every table the record produces, nothing added by hand.</p>
-          <ul style="font-size:13.5px;color:var(--ink-2);padding-left:18px;margin:0 0 14px">
-            <li>Executive summary, then every top-line count including the blank ones</li>
-            <li>Capture quality per channel, with the coverage oracle explained</li>
-            <li>Agent activity, failures, flaky tests, task ledger, sub-agents, skills</li>
-            <li>All 96 rework hotspots, cross-run hotspots, and what is not built yet</li>
-          </ul>
-          <div class="chips">
-            <a class="btn" href="deterministic/session.report.html">HTML</a>
-            <a class="btn" href="deterministic/session.report.md">Markdown</a>
-            <a class="btn" href="deterministic/session.report.json">JSON contract</a>
-          </div>
+      <div class="grid g3 anim">
+        <div class="verdict ok">
+          <span class="tagline">Delivery</span>
+          <div class="big">Settled</div>
+          <p>40 of 40 tracked work items closed across seven separate sittings, and the last recorded test run of the window was green. Nothing on this page argues with that.</p>
         </div>
-
-        <div class="card" style="border-top:3px solid var(--plateblue)">
-          <div style="font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--plateblue);margin-bottom:8px">Boss Mode · Evidence</div>
-          <h3>Delivery memo</h3>
-          <p>The same record, cut for someone who signs things off: key stats and ranked top-5 lists,
-          with nothing composed.</p>
-          <ul style="font-size:13.5px;color:var(--ink-2);padding-left:18px;margin:0 0 14px">
-            <li>Delivery and cost, each row naming what it counts</li>
-            <li>Six risk flags with fixed-threshold status labels</li>
-            <li>All 8 sub-agent roles, all 5 skills, top 5 files, top 5 tools</li>
-            <li>Capture channels and provenance</li>
-          </ul>
-          <div class="chips">
-            <a class="btn" href="deterministic/delivery-memo.html">HTML</a>
-            <a class="btn" href="deterministic/delivery-memo.md">Markdown</a>
-          </div>
+        <div class="verdict watch">
+          <span class="tagline">Look at this</span>
+          <div class="big">77 edits</div>
+          <p>One document, the public README, absorbed 77 revisions — more than the next four most-edited files put together. It maps to a deliberate multi-reviewer pass, so it is almost certainly fine. It is also indistinguishable from a document nobody could get right.</p>
         </div>
-
-        <div class="card" style="border-top:3px solid var(--iris)">
-          <div style="font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--iris);margin-bottom:8px">Boss Mode · Commentary</div>
-          <h3>Management read</h3>
-          <p>What those numbers mean, what needs a decision from you, and what to keep an eye on.
-          Written by a model, clearly marked.</p>
-          <ul style="font-size:13.5px;color:var(--ink-2);padding-left:18px;margin:0 0 14px">
-            <li>Three cards, in the order they matter</li>
-            <li>Why &ldquo;60 errors&rdquo; and &ldquo;29 failing tests&rdquo; both overstate risk</li>
-            <li>Two decisions only a human can close</li>
-            <li>A one-item watch list, and how far to trust the page</li>
-          </ul>
-          <div class="chips">
-            <a class="btn" href="interpreted/management-read.html">HTML</a>
-            <a class="btn" href="interpreted/management-read.md">Markdown</a>
-            <a class="btn" href="interpreted/brief.executive.md">Its brief</a>
-          </div>
-        </div>
-
-        <div class="card" style="border-top:3px solid var(--iris)">
-          <div style="font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--iris);margin-bottom:8px">Developer Guide · Commentary</div>
-          <h3>Diagnostic review</h3>
-          <p>Why the run went the way it did, and the specific changes that would have prevented most
-          of what went wrong.</p>
-          <ul style="font-size:13.5px;color:var(--ink-2);padding-left:18px;margin:0 0 14px">
-            <li>All 60 failures as one tick each, grouped into six verdict classes</li>
-            <li>Error density per tool — a different ranking from the raw count</li>
-            <li>Four findings, each labelled fact or inference</li>
-            <li>Three falsifiable experiments and four working agreements</li>
-          </ul>
-          <div class="chips">
-            <a class="btn" href="interpreted/diagnostic-review.html">HTML</a>
-            <a class="btn" href="interpreted/diagnostic-review.md">Markdown</a>
-            <a class="btn" href="interpreted/brief.engineering.md">Its brief</a>
-          </div>
+        <div class="verdict act">
+          <span class="tagline">Not measured</span>
+          <div class="big">Cost</div>
+          <p>Every money and token figure reads "not recorded", not zero. The meter was never switched on for these sessions, and it does not backfill. That is decision two.</p>
         </div>
       </div>
 
-      <p class="foot-note">&ldquo;Boss Mode&rdquo; and &ldquo;Developer Guide&rdquo; are this
-      project&rsquo;s public names for the two audiences — the CLI itself says
-      <code>bar interpret --audience executive|engineering</code>. Same two registers.</p>
+      <div class="grid g4 anim" style="margin-top:18px">
+        <div class="stat good">
+          <div class="v">100<small>%</small></div>
+          <div class="k">Task completion</div>
+          <div class="d">40 of 40 items in the ledger reached a completed state.</div>
+        </div>
+        <div class="stat">
+          <div class="v">3<small> : 5</small></div>
+          <div class="k">Commits per instruction</div>
+          <div class="d">41 commits against 68 human prompts — an iterative, reviewed cadence.</div>
+        </div>
+        <div class="stat warn">
+          <div class="v">27<small> / 60</small></div>
+          <div class="k">Errors that were not failures</div>
+          <div class="d">Guardrail refusals and detector artefacts, counted against the headline total.</div>
+        </div>
+        <div class="stat good">
+          <div class="v">0</div>
+          <div class="k">Capture losses</div>
+          <div class="d">Nothing the recorder accepted was dropped before it reached the store.</div>
+        </div>
+      </div>
+
+      <div style="margin-top:26px" class="anim">
+        <div class="eyebrow" style="margin-bottom:14px">The one-sentence version</div>
+        <div class="card" style="border-left:4px solid var(--accent);border-radius:0 14px 14px 0">
+          <p style="font-family:var(--display);font-size:21px;line-height:1.35;color:var(--ink);margin-bottom:0">A two-week build push closed everything it started, with a low and largely benign error rate and a clean capture record. What needs your attention is not a defect: it is whether a 77-edit review pass is your standard practice, and whether these sessions should have been costed.</p>
+        </div>
+      </div>
     </section>
 
-    <section id="generated">
+    <!-- ===== PL 02 ===== -->
+    <section id="numbers">
       <div class="sechead">
-        <div class="eyebrow">Plate 02 · What the tool writes</div>
-        <h2>Three of these five files are literally <code>bar report</code> output</h2>
-        <p>The distinction matters more than the design does, so it is stated first.</p>
+        <div class="eyebrow">Plate 02 · What the numbers mean</div>
+        <h2>Two figures that get quoted out of context</h2>
+        <p>Both of them look worse in a summary than they are in the record. Here is the arithmetic rather than the reassurance.</p>
       </div>
+
+      <div class="card anim">
+        <h3 style="margin-bottom:4px">"Sixty errors" overstates the risk by roughly half</h3>
+        <p>An error count counts tool calls that came back unhappy. It bundles two very different things: a command that failed, and a command that was <em>stopped</em>. In this window, 17 of the 60 were stopped by the safety system — blocked deletions and credential scans — and another 10 were never this session's failures at all.</p>
+        <div class="stack" id="stack" aria-hidden="true"></div>
+        <div class="dlegend" id="stackLegend"></div>
+        <p class="src"><b>Source</b> 60 error rows in <code>session.report.json</code> → <code>failures</code>, grouped by the method published in the <a href="diagnostic-review.html#taxonomy">engineering companion</a>. <b>Read it as</b> 33 of 60 describe something that actually went wrong, and none of those 33 is a logic defect in shipped code.</p>
+      </div>
+
+      <div class="grid g2 anim" style="margin-top:18px">
+        <div class="card">
+          <h3>"Twenty-nine failing tests" is what iteration looks like</h3>
+          <p>373 test result lines were recorded over two weeks of active development. 344 passed. A test that failed on Tuesday and passed on Thursday appears in both columns, so the total is a record of the work, not a count of broken things.</p>
+          <div style="display:flex;flex-wrap:wrap;gap:20px;align-items:baseline;margin:14px 0 4px">
+            <div><span style="font-family:var(--mono);font-size:24px;color:var(--verdigris)">344</span> <span class="kicker">passed</span></div>
+            <div><span style="font-family:var(--mono);font-size:24px;color:var(--vermilion)">29</span> <span class="kicker">failed</span></div>
+            <div style="flex:1"></div>
+            <span class="chip ok">Last captured run · pass</span>
+          </div>
+          <div class="matrix" id="matrix" aria-hidden="true"></div>
+          <p class="src"><b>Note</b> squares are grouped by outcome, not sequenced: the store records how many lines passed and failed, not the order they arrived in. The figure that answers "is it working now" is the last captured line, and it was a pass.</p>
+        </div>
+        <div class="card">
+          <h3>Three commits for every five instructions</h3>
+          <p>68 human prompts produced 41 real commits, captured from actual <code>git commit</code> output rather than self-reported. That ratio is the one people rarely quote and probably should.</p>
+          <p>Far fewer commits than prompts suggests work that stalls before it lands. Far more suggests changes going in without a pause for review. Three-to-five sits in the middle, and matches what the session record shows: iterate, check, commit.</p>
+          <p style="margin-bottom:0">It is also the number most likely to move if delivery pressure changes, which makes it worth carrying forward as a baseline rather than reading once.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== PL 03 ===== -->
+    <section id="effort">
+      <div class="sechead">
+        <div class="eyebrow">Plate 03 · Where the effort went</div>
+        <h2>96 files were edited more than once. One took a sixth of it.</h2>
+        <p>482 repeat edits across 96 files. The distribution is the finding, not the total.</p>
+      </div>
+
+      <div class="card anim">
+        <div class="bars" id="reworkBars"></div>
+        <p class="src"><b>Source</b> <code>session.report.json</code> → <code>rework.hotspots</code>, top 6 of 96 shown with the remaining 90 aggregated.</p>
+      </div>
+
+      <div class="grid g2 anim" style="margin-top:18px">
+        <div class="card">
+          <h3>Why the gap is worth a question, not an alarm</h3>
+          <p>77 against 22 is a five-fold gap, and it accumulated across days and separate sessions rather than inside one sitting. That is the shape of a document converging through repeated independent passes, which is a different animal from one session spent fighting a file.</p>
+          <p style="margin-bottom:0">The problem is not the pattern. It is that nothing in the record says which of the two it was, so the next reader has to guess. That is decision one.</p>
+        </div>
+        <div class="card">
+          <h3>What kind of work this fortnight was</h3>
+          <p>Grouping every revision by file type, documentation and web pages account for 66 percent of the edits and code for 16 percent. If you were expecting two weeks of feature work, this is the number that says otherwise.</p>
+          <div class="donutwrap sm" style="margin-top:14px">
+            <div class="donut" style="width:150px;height:150px">
+              <svg viewBox="0 0 200 200" width="150" height="150" id="langDonut" role="img" aria-label="482 repeat edits by file type: Markdown 270, Rust 77, TOML 61, HTML 46, JSON 16, other 12."></svg>
+              <div class="center"><div class="v" style="font-size:21px">482</div><div class="k">Edits</div></div>
+            </div>
+            <div class="dlegend" id="langLegend"></div>
+          </div>
+          <p class="src" style="margin-bottom:0"><b>Derived</b> the same 96-file list, grouped by file extension. A mechanical grouping, no model involved.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== PL 04 ===== -->
+    <section id="delegation">
+      <div class="sechead">
+        <div class="eyebrow">Plate 04 · Who did the work</div>
+        <h2>More than a third of delegated work was checking</h2>
+        <p>Forty pieces of work were handed to specialist sub-agents. How that split fell is the best available evidence that anything was reviewed.</p>
+      </div>
+
+      <div class="card anim">
+        <div class="donutwrap">
+          <div class="donut">
+            <svg viewBox="0 0 200 200" width="220" height="220" id="donut" role="img" aria-label="Sub-agent dispatch share: general-purpose 17, reviewer 10, docs-researcher 5, requirements-validator 3, docs-curator 2, release-verifier 1, skeptic-reviewer 1, unspecified 1."></svg>
+            <div class="center"><div class="v">40</div><div class="k">Dispatches</div></div>
+          </div>
+          <div class="dlegend" id="donutLegend"></div>
+        </div>
+        <p class="src"><b>Source</b> <code>session.report.json</code> → <code>summary.agents</code>. <b>Derived</b> the four roles tagged "verify" total 15 of 40 dispatches, 37.5 percent.</p>
+      </div>
+
+      <div class="card anim" style="margin-top:18px;border-left:4px solid var(--accent);border-radius:0 14px 14px 0">
+        <h3>What that ratio buys you</h3>
+        <p style="margin-bottom:0">A quarter of every delegation went to an independent reviewer role alone, and 37.5 percent went to some form of checking. On a two-week push where no human read every line, that ratio is the strongest quality signal in the window — and a stronger one than the error count implies to the contrary.</p>
+      </div>
+    </section>
+
+    <!-- ===== PL 05 ===== -->
+    <section id="decisions">
+      <div class="sechead">
+        <div class="eyebrow">Plate 05 · Your decisions</div>
+        <h2>Two things only you can close</h2>
+        <p>Neither is a fault. Both are open because the record can describe the situation but cannot choose what should happen next.</p>
+      </div>
+
+      <ol class="actions anim">
+        <li>
+          <div>
+            <h4>Decide whether the 77-edit review pass is standard practice, and write it down</h4>
+            <p>Those edits map to a known multi-reviewer pass — separate passes for a first-time reader, an executive reader, a fact-checker, and search visibility, each finding real problems. Read that way it is diligence, and the output is better for it. The risk is that nothing records that. The next file that shows this pattern without a documented process behind it will look identical to instability, and there will be no way to tell from the numbers which one it was.</p>
+            <span class="chip warn">Process · one paragraph in the contributing guide closes it</span>
+          </div>
+        </li>
+        <li>
+          <div>
+            <h4>Decide whether sessions like these need to be costed</h4>
+            <p>Every money and token figure in this window reads "not recorded". That is deliberate wording: the tooling refuses to print a zero it did not measure, because a zero would read as free rather than unmeasured. These sessions ran on a flat subscription, so no per-request price existed to capture. Getting a cost figure means enabling a separate capture channel before the next block of work — a one-time setup, and nothing recovers the fortnight already past.</p>
+            <span class="chip warn">Budget · setup decision, not a data gap that self-heals</span>
+          </div>
+        </li>
+      </ol>
+    </section>
+
+    <!-- ===== PL 06 ===== -->
+    <section id="watch">
+      <div class="sechead">
+        <div class="eyebrow">Plate 06 · Watch list</div>
+        <h2>One item, three names, an afternoon of work</h2>
+        <p>Not a problem today. Small, specific and checkable, which is exactly why it belongs somewhere it can be found again.</p>
+      </div>
+
+      <div class="card anim">
+        <h3>Three tests changed their verdict inside the window</h3>
+        <p>Not simply "failed once": these three went from passing to failing and back across different runs. On code that is actively changing, that can mean a fix landing or a problem coming back, and only opening the runs tells you which. They were the only three tests that changed verdict at all.</p>
+        <div class="tablewrap scroll" style="margin-top:14px">
+          <table>
+            <thead><tr><th>Test</th><th class="n">Passed</th><th class="n">Failed</th></tr></thead>
+            <tbody>
+              <tr><td><code>round_trips_losslessly</code></td><td class="n">5</td><td class="n">3</td></tr>
+              <tr><td><code>query_failures_are_disclosed_not_silent</code></td><td class="n">3</td><td class="n">2</td></tr>
+              <tr><td><code>committed_hooks_match_generator</code></td><td class="n">2</td><td class="n">1</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="src"><b>Source</b> <code>session.report.json</code> → <code>flaky</code>, measured from real pass and fail lines. <b>Why it is here and not in your decisions</b> three named tests out of everything that ran is a finite list. It needs an engineer for an hour, not a decision from you — it is on this page so that hour gets scheduled.</p>
+      </div>
+    </section>
+
+    <!-- ===== PL 07 ===== -->
+    <section id="blindspots">
+      <div class="sechead">
+        <div class="eyebrow">Plate 07 · Blind spots</div>
+        <h2>What this report could not see</h2>
+        <p>The honest part. Nine recording channels exist; one was running.</p>
+      </div>
+
+      <div class="gaps anim">
+        <h3>Everything on this page comes from one channel</h3>
+        <p style="max-width:70ch">These seven sessions were read back from transcript files rather than observed live. Cost, timing, token and hook rows read "not recorded" because those channels were never running — a mode limitation, not a missing measurement someone forgot to take.</p>
+        <div class="chans">
+          <div class="chan on"><div class="nm">Transcript ingest</div><div class="st">Active · 9,132 turns</div></div>
+          <div class="chan"><div class="nm">Hooks</div><div class="st">Not recorded</div></div>
+          <div class="chan"><div class="nm">Events</div><div class="st">Not recorded</div></div>
+          <div class="chan"><div class="nm">OTLP spans</div><div class="st">Not recorded</div></div>
+          <div class="chan"><div class="nm">Tokens and cost</div><div class="st">Not recorded</div></div>
+          <div class="chan"><div class="nm">File history</div><div class="st">Not recorded</div></div>
+          <div class="chan"><div class="nm">Plan docs</div><div class="st">Not observed</div></div>
+          <div class="chan"><div class="nm">Raw logs</div><div class="st">Not observed</div></div>
+        </div>
+        <p style="margin-top:18px;margin-bottom:0;font-size:13.5px">Within the one active channel the gaps were measured rather than assumed: of 9,132 recorded turns, 629 reference a parent turn that is not in the store and 136 tool calls have no matching result. Those are real holes in the raw session files, small against the total, disclosed rather than smoothed over — and the reason no count here should be treated as exhaustive to the last unit.</p>
+        <p class="src"><b>Source</b> <code>session.report.json</code> → <code>capture.channels</code>.</p>
+      </div>
+    </section>
+
+    <!-- ===== PL 08 ===== -->
+    <section id="trust">
+      <div class="sechead">
+        <div class="eyebrow">Plate 08 · How far to trust it</div>
+        <h2>Which parts of this page a model wrote</h2>
+        <p>All of the prose. None of the numbers. The line between the two is drawn here rather than left to you.</p>
+      </div>
+
       <div class="tablewrap scroll anim">
         <table>
-          <thead><tr><th>File</th><th>Produced by</th><th>Hand-assembled?</th></tr></thead>
+          <thead><tr><th>Claim class</th><th>Basis</th><th>Confidence</th></tr></thead>
           <tbody>
-            <tr><td><code>deterministic/session.report.json</code></td><td><code>bar report</code></td><td>No</td></tr>
-            <tr><td><code>deterministic/session.report.html</code></td><td><code>bar report</code></td><td>No</td></tr>
-            <tr><td><code>deterministic/session.report.md</code></td><td><code>bar report</code></td><td>No</td></tr>
-            <tr><td><code>deterministic/delivery-memo.{html,md}</code></td><td>report.json + <code>bar query</code></td><td>Yes — a <code>--view summary</code> mode does not exist yet</td></tr>
-            <tr><td><code>interpreted/*.{html,md}</code></td><td>a model, from the briefs shipped beside them</td><td>Prose yes, figures no</td></tr>
+            <tr><td>Every figure</td><td>A row in a database built from seven independently captured real sessions. Not an estimate, not a summary of a summary</td><td><span class="chip ok">High</span></td></tr>
+            <tr><td>Derived shares</td><td>Arithmetic on published tables — 15 verification dispatches of 40, 27 non-failures of 60</td><td><span class="chip ok">High</span></td></tr>
+            <tr><td>Explanations of why</td><td>Reasoning over the figures — the 77 edits as a review pass, the flaky tests as an hour of work</td><td><span class="chip warn">Medium</span></td></tr>
+            <tr><td>Cost, timing, tokens</td><td>Never captured. Nothing here estimates them and no conclusion rests on them</td><td><span class="chip">Not observed</span></td></tr>
           </tbody>
         </table>
       </div>
-      <div class="note info anim">
-        <h4>Open the generated report to see the standard you get</h4>
-        <p>The plate layout, the numbered index, the charts and the light/dark handling are not a
-        treatment applied to these examples — they are what the renderer emits, in a single
-        self-contained file that fetches no stylesheet, no script, no font and no image. Your own
-        report looks like this one because it is made by the same code.</p>
-      </div>
-    </section>
 
-    <section id="layers">
-      <div class="sechead">
-        <div class="eyebrow">Plate 03 · Two layers, two accents</div>
-        <h2>The accent is load-bearing, not decoration</h2>
-        <p>Both layers share one design system, so nothing is told apart by colour alone: every page
-        also carries a written badge in its top bar.</p>
-      </div>
-      <div class="grid g2 anim">
-        <div class="card" style="border-left:4px solid var(--plateblue);border-radius:0 14px 14px 0">
-          <span class="chip info" style="margin-bottom:10px">Plate blue · Evidence</span>
-          <h3>No model in the path</h3>
-          <p style="margin-bottom:0">Figures are extracted; headings and row definitions are fixed
-          template text. Same store in, same page out. An Evidence page will tell you a channel was
-          not recording, but it will never estimate what it would have said.</p>
-        </div>
-        <div class="card" style="border-left:4px solid var(--iris);border-radius:0 14px 14px 0">
-          <span class="chip" style="margin-bottom:10px;color:var(--iris);border-color:color-mix(in srgb,var(--iris) 40%,transparent);background:rgba(90,85,163,.12)">Iris · Commentary</span>
-          <h3>A model wrote every sentence</h3>
-          <p style="margin-bottom:0">From a deterministic brief of fixed facts it could not change.
-          Switch the model off and the evidence underneath is untouched. Each commentary page ships
-          with the exact brief it was written from, so the inputs are checkable.</p>
-        </div>
-      </div>
-    </section>
-
-    <section id="capture">
-      <div class="sechead">
-        <div class="eyebrow">Plate 04 · The capture, and how to rerun it</div>
-        <h2>Every number here is reproducible in three commands</h2>
-      </div>
-      <p>The seven transcripts these reports were measured from ship in
-      <a href="capture/">examples/capture/</a>. Ingest them and render, and the JSON comes back
-      field for field identical:</p>
-      <div class="card anim" style="font-family:var(--mono);font-size:13px;line-height:1.7">
-        bar init --dir .<br>
-        for f in examples/capture/*.jsonl; do bar ingest .bar/ambient.sqlite "$f" --run-uuid "session-$(basename "$f" .jsonl)"; done<br>
-        bar report .bar/ambient.sqlite --out out/
-      </div>
-      <p>Two fields will differ and should: <code>integrity.source_db_hash</code> and the
-      <code>report.id</code> derived from it hash the SQLite file, and two separate ingests of the
-      same transcripts do not produce a byte-identical database. Everything the report
-      <em>measures</em> is identical. <a href="capture/run.sh">run.sh</a> does exactly the above.</p>
-    </section>
-
-    <section id="standin">
-      <div class="sechead">
-        <div class="eyebrow">Plate 05 · A stand-in project, on purpose</div>
-        <h2>Real measurements, stand-in identifiers</h2>
-        <p>The project in these reports is <code>orbit</code>, and it does not exist.</p>
-      </div>
-      <div class="grid g2 anim">
+      <div class="grid g2 anim" style="margin-top:18px">
         <div class="card">
-          <h3>What is real</h3>
-          <p style="margin-bottom:0">Every count, rate and ranking — measured from the shipped
-          capture by <code>bar report</code>, not typed in. The failure shapes: a blocked
-          <code>rm -rf</code>, a plugin agent called before it was installed, a stale path after a
-          docs move, a CI line caught mid-command. The distribution: one file taking 77 of 482 repeat
-          edits, three tests changing verdict, eight of nine channels holding no rows.</p>
+          <h3>What "commentary" means here</h3>
+          <p style="margin-bottom:0">A model was given a fixed brief of facts it was not allowed to change, and wrote this page from it. Switch the model off and the evidence underneath is untouched. The deterministic <a href="../deterministic/delivery-memo.html">delivery memo</a> is the same window with no prose at all.</p>
         </div>
         <div class="card">
-          <h3>What stands in</h3>
-          <p style="margin-bottom:0">The project itself — its name, its paths, its commit subjects,
-          its prompt titles, its sub-agent names. A published example should show you what the tool
-          sees without publishing somebody&rsquo;s repository, and the honest way to do that is to
-          say so on the page rather than to blur a screenshot.</p>
+          <h3>Where to push back</h3>
+          <p style="margin-bottom:0">Dispute the readings, not the counts. If you think the 77-edit pattern means something other than a review pass, that is a live disagreement — and it is settled by looking at the file's history, which this page does not claim to have done.</p>
         </div>
       </div>
-    </section>
 
-    <section id="gaps">
-      <div class="sechead">
-        <div class="eyebrow">Plate 06 · Known gaps</div>
-        <h2>Disclosed, not discovered by the reader</h2>
-      </div>
       <div class="note anim">
-        <h4>Schema drift</h4>
-        <p><code>session.report.json</code> does not currently validate against
-        <code>schemas/report.schema.json</code> — that schema describes an earlier report shape than
-        what <code>bar report</code> produces today. Same story for
-        <code>schemas/interpretation.schema.json</code> against the interpreted layer, which ships as
-        a brief-plus-prose pair rather than the richer JSON structure that schema describes. Both are
-        pending a schema regeneration.</p>
-      </div>
-      <div class="note anim">
-        <h4>Assembly gap</h4>
-        <p>The delivery memo and the Commentary layer&rsquo;s root-cause grouping are assembled from
-        <code>session.report.json</code> plus real <code>bar query</code> exports — not a dedicated
-        <code>bar report --view summary</code> CLI mode. A genuine product gap, not a silent one.</p>
-      </div>
-      <div class="note anim">
-        <h4>Cost is not measured anywhere in this capture</h4>
-        <p>These sessions were read back from transcripts after the fact, so the cost, token, hook
-        and span channels were never running. Every such row reads <em>not recorded</em>, never 0.
-        That is the tool behaving correctly, and it is also a limit on what these examples can show
-        you.</p>
+        <h4>Two dates, and why they differ</h4>
+        <p>The scope window recorded in the store runs 2026-05-04T19:07Z to 2026-05-18T06:06Z UTC. The seven sessions are labelled by the day each one started, so the last reads 2026-05-17 while the window closes on the 18th. Both are stated rather than silently reconciled; the elapsed span is 322h 59m either way.</p>
       </div>
     </section>
 
     <footer>
       <div class="fgrid">
         <div>
-          <h4>Read a report section by section</h4>
-          <p><a href="../wiki/human-md/README.md">wiki/human-md/README.md</a> explains what each
-          section is for. <a href="../wiki/human-html/report-guide.html">report-guide.html</a>
-          annotates a deterministic example line by line.</p>
+          <h4>Report</h4>
+          <p style="margin-bottom:6px">BAR Observatory management read, prepared over 7 captured sessions, window 4 to 18 May 2026 UTC.</p>
+          <p style="margin:0;font-family:var(--mono);font-size:11.5px;color:var(--muted)">barobs-14fd056be293 · <code>bar interpret --audience executive</code></p>
         </div>
         <div>
-          <h4>Run it yourself</h4>
+          <h4>Evidence</h4>
           <ul>
-            <li><a href="../RUN.md">RUN.md</a> — install to first report</li>
-            <li><a href="capture/run.sh">capture/run.sh</a> — rebuild these examples</li>
+            <li><a href="../deterministic/delivery-memo.html">Delivery memo, no commentary</a></li>
+            <li><a href="../deterministic/session.report.html">Full technical report</a></li>
+            <li><a href="../deterministic/session.report.json">session.report.json</a></li>
           </ul>
         </div>
         <div>
-          <h4>Machine readers</h4>
+          <h4>Companion reads</h4>
           <ul>
-            <li><a href="deterministic/session.report.json">session.report.json</a></li>
-            <li><a href="../llms.txt">llms.txt</a></li>
+            <li><a href="diagnostic-review.html">Engineering commentary</a></li>
+            <li><a href="management-read.md">This page as Markdown</a></li>
+            <li><a href="brief.executive.md">The brief this was written from</a></li>
           </ul>
+          <p style="margin-top:10px;font-size:12px;color:var(--muted)">Do not ask the agent what happened. Check the record.</p>
         </div>
       </div>
-      <p class="foot-note" style="margin-top:22px">BAR Observatory — Base Agentic Reporter.
-      Independent open-source project by Bradley Ross / Bradley.Academy. No third-party marks are used and no endorsement is implied. This page fetches nothing.</p>
+      <p class="foot-note" style="margin-top:22px">BAR Observatory — Base Agentic Reporter. Independent open-source project by Bradley Ross / Bradley.Academy. No third-party marks are used and no endorsement is implied. This page makes no network requests.</p>
     </footer>
 
   </main>
 </div>
 
-<script>BAR.init();</script>
+<script>
+(function(){
+  "use strict";
+  var CLASSES = [
+    {id:"intent",  label:"Safety system refused it", color:"#2E8E76", n:17, read:"Working as intended"},
+    {id:"noise",   label:"Never was an error",       color:"#93A7B6", n:10, read:"Detector artefact"},
+    {id:"drift",   label:"Missing tool or stale path",color:"#B5822A",n:14, read:"Fix the reference"},
+    {id:"tooling", label:"Real, low-severity defect",color:"#B93A22", n:12, read:"Retry or a small bug"},
+    {id:"git",     label:"Git and remote",           color:"#2C6CA6", n:5,  read:"Mostly benign"},
+    {id:"unknown", label:"Unclassified",             color:"#8FA4B4", n:2,  read:"Manual review",
+     swatch:"repeating-linear-gradient(135deg,#93A7B6 0 4px,#C6D2DB 4px 8px)"}
+  ];
+  var SESSIONS = [
+    {d:"2026-05-04",  n:12},
+    {d:"2026-05-07",  n:14},
+    {d:"2026-05-13",  n:4},
+    {d:"2026-05-14",  n:5},
+    {d:"2026-05-16a", n:16},
+    {d:"2026-05-16b", n:10},
+    {d:"2026-05-17",  n:7}
+  ];
+  var AGENTS = [
+    {name:"general-purpose", n:17, color:"#17486F"},
+    {name:"reviewer", n:10, color:"#2E8E76", tag:"verify", tagClass:"ok"},
+    {name:"docs-researcher", n:5, color:"#5A55A3"},
+    {name:"requirements-validator", n:3, color:"#4FB294", tag:"verify", tagClass:"ok"},
+    {name:"docs-curator", n:2, color:"#2C6CA6"},
+    {name:"release-verifier", n:1, color:"#7ACBB0", tag:"verify", tagClass:"ok"},
+    {name:"skeptic-reviewer", n:1, color:"#A6DCC9", tag:"verify", tagClass:"ok"},
+    {name:"unspecified", n:1, color:"#8FA4B4", tag:"capture gap"}
+  ];
+  var LANGS = [
+    {name:"Markdown · docs", n:270, color:"#17486F"},
+    {name:"Rust · code", n:77, color:"#2E8E76"},
+    {name:"TOML · config", n:61, color:"#5A55A3"},
+    {name:"HTML · pages", n:46, color:"#B5822A"},
+    {name:"JSON · data", n:16, color:"#2C6CA6"},
+    {name:"Everything else", n:12, color:"#93A7B6"}
+  ];
+  var REWORK = [
+    {label:"orbit/README.md", n:77, display:"77", sub:"16% of all edits", fill:"drift"},
+    {label:"orbit/index.html", n:22, display:"22"},
+    {label:"orbit/docs/manifest.json", n:16, display:"16"},
+    {label:"orbit/docs/guide/README.md", n:16, display:"16"},
+    {label:"orbit/CHANGELOG.md", n:15, display:"15"},
+    {label:"orbit/docs/guide/handbook.html", n:15, display:"15"},
+    {label:"the other 90 files", n:321, display:"321", sub:"3.6 average", fill:"scratch"}
+  ];
+
+  var maxS = SESSIONS.reduce(function(a,s){return Math.max(a,s.n);},0);
+  var strip = document.getElementById("sesstrip");
+  SESSIONS.forEach(function(s){
+    var d = BAR.el("div","s");
+    d.innerHTML = '<div class="sd">'+s.d+'</div><div class="sv">'+s.n+'</div>'+
+      '<div class="sk">instructions</div>'+
+      '<div class="sbar"><span style="width:'+(s.n/maxS*100)+'%"></span></div>';
+    strip.appendChild(d);
+  });
+
+  BAR.stack(document.getElementById("stack"), document.getElementById("stackLegend"), CLASSES, 60);
+  BAR.bars(document.getElementById("reworkBars"), REWORK, {max:321, wide:true});
+  BAR.donut(document.getElementById("donut"), document.getElementById("donutLegend"), AGENTS);
+  BAR.donut(document.getElementById("langDonut"), document.getElementById("langLegend"), LANGS);
+  BAR.countGrid(document.getElementById("matrix"), 373, 29, {lastPassed:true});
+  BAR.init();
+})();
+</script>
 </body>
 </html>

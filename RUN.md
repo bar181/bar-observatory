@@ -76,7 +76,8 @@ See [wiki/agent/AI-CONTEXT.md](wiki/agent/AI-CONTEXT.md) for the full tool list.
   `schemas/report.schema.json` but is currently out of sync with live output (disclosed, not
   silently wrong — pending a schema regeneration).
 
-**Honest by design:** a channel that wasn't captured reads `not_observed`, never a fabricated
-`0`. See [process/](process/) for the full guided walkthrough — init, config, database creation,
+**Honest by design:** a channel that wasn't captured reads `not_recorded`, and one whose detector
+isn't built yet reads `not_observed` — never a fabricated `0`, and never the same word for two
+different admissions. See [process/](process/) for the full guided walkthrough — init, config, database creation,
 ingestion, optional modules, and a real sample report — or [wiki/human-md/architecture.md](wiki/human-md/architecture.md)
 for the crate-level technical detail.

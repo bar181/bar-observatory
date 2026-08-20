@@ -1,9 +1,16 @@
 # Step 6 — Use cases: what you can actually answer
 
-Here are real proof points, captured from **actual Claude Code sessions** by BAR Observatory —
-not mockups. Every figure below is reproducible from a captured session database with `bar
-query` or `bar report`; run the same commands against your own session and you'll get your own
-numbers.
+Every figure and every line of output below was produced by the tool, from the capture shipped
+in [`examples/capture/`](../examples/capture/) — nothing here is a mock-up written to look
+convincing. You can reproduce all of it: `sh examples/capture/run.sh` builds the same database,
+and then the `bar query` and `bar report` commands below return exactly what you see.
+
+One thing to be clear about up front, because the reports read as if you were looking over
+someone's shoulder: **the project in the capture, `orbit`, is a stand-in.** The measurements are
+real — the counts, rates and rankings are the tool's own output over those transcripts. The
+identifiers are not: the paths, commit subjects, prompt titles and sub-agent names belong to a
+demo project rather than to anyone's private repository. Point the same commands at a session of
+your own and the shape of the answers is identical; only the names change.
 
 ## "What silently failed in my session?"
 
@@ -12,28 +19,40 @@ and are easy to forget by the time you're debugging something else. BAR Observat
 every tool result and lets you surface the errors on demand:
 
 ```
-$ bar query <db> errors --limit 0
+$ bar query .bar/ambient.sqlite errors --limit 0
 seq   tool  excerpt
-----  ----  -----------------------------------------------------------------
-150         Permission to use Bash with command rm -rf … has been denied. (a guardrail refusal)
-438         Agent type 'qe-requirements-validator' not found. Available agents: …
-603         Exit code 143 Command timed out after 2m 0s … (a killed long-running command)
-1490        <tool_use_error> Found 2 matches of the string to replace, but replace_all is false.
+----  ----  ------------------------------------------------------------------------------
+133         Permission to run `rm -rf /work/orbit/target/debug` was denied by policy: destr…
+489         Permission denied: a search for TOKEN across the workspace is blocked by the cr…
+690         Agent type 'requirements-validator' not found. Available: general-purpose, revi…
+453         String to replace not found in file. `orbit/README.md` was read 240 turns ago a…
+186         cd: /work/orbit/docs/legacy-guide/index.md: No such file or directory (moved du…
+1104        SyntaxError: Unexpected token '<' in JSON at position 0 (tools/summarise.mjs)
+…
+(60 row(s))
 ```
 
-**60 error results** turned up across a real 7-session window — guardrail refusals, a missing
-sub-agent, a killed command, ambiguous edits — each one with its exact seq and text, still
-queryable months later. Nothing was swallowed. (Guardrail refusals like the first one above are
-the safety system working as intended, not a defect — see
-[`examples/interpreted/interpreted-engineering.html`](../examples/interpreted/interpreted-engineering.html)
-for the root-cause breakdown.)
+**60 error results** across a seven-session window — guardrail refusals, a blocked credential
+scan, a sub-agent that was never installed, an edit against a file that had moved on, stale paths
+after a docs reorganisation, a throwaway script parsing HTML as JSON. Each one keeps its exact
+sequence number and text, still queryable months later. Nothing was swallowed.
+
+Not all sixty are defects, and the report does not pretend otherwise. Seventeen are guardrail
+refusals — the safety system working exactly as designed — and ten more are detector artefacts,
+things like `grep` exiting 1 because a search found nothing. That leaves roughly half the list as
+work actually worth doing.
+[`examples/interpreted/diagnostic-review.html`](../examples/interpreted/diagnostic-review.html)
+sorts all sixty into six root-cause families and says which is which.
 
 ## "Which tools did this session lean on, and what did it cost?"
 
 ```
-$ bar query <db> tools                  # Bash 1,700+, Edit 490+, Read 410+, …
-$ bar report <db>                       # deterministic json/html/md: tasks, rework, cost-equiv
+$ bar query .bar/ambient.sqlite tools   # Bash 1,706 · Edit 496 · Read 410 · TaskUpdate 209 · …
+$ bar report .bar/ambient.sqlite        # deterministic json/html/md: tasks, rework, cost-equiv
 ```
+
+Seventeen distinct tools, 3,171 calls, in one table — and the tail is kept rather than folded
+into an "other" bucket, because a tool called once is still a fact about how the work was done.
 
 Same database in, byte-identical report out — a shareable receipt of an agent run, with no LLM
 anywhere in the render path. It's a full AI agent session report you can hand to a teammate,
@@ -73,5 +92,6 @@ claude mcp add bar-observatory -- bar-mcp --db-root .bar
 See the [README](../README.md) for both front doors — the `bar` CLI for you, `bar-mcp` for your
 agent.
 
-*All numbers above are from a real captured session; reproduce them yourself with the `bar
-query`/`report`/`doctor` commands on any session database you capture.*
+*Every number above is the tool's own output over `examples/capture/` — reproduce it with
+`sh examples/capture/run.sh`, then run the same `bar query` / `bar report` / `bar doctor`
+commands against any session database you capture yourself.*

@@ -49,6 +49,21 @@ read-only `--sql "SELECT …"` — direct DB access without MCP. `bar report <db
 deterministic JSON/HTML/MD report. See [RUN.md](../../RUN.md) and [CRATES.md](../../CRATES.md)
 for the full command set and crate list.
 
+## A worked example you can read without running anything
+
+[`examples/deterministic/session.report.json`](../../examples/deterministic/session.report.json)
+is literally what `bar report` wrote over the transcripts in
+[`examples/capture/`](../../examples/capture/) — same shape you get back from `get_run_report`.
+The HTML and Markdown beside it render from that same JSON in one pass, so the three cannot
+disagree. `examples/capture/run.sh` reproduces the JSON field for field; only
+`integrity.source_db_hash` and the `id` derived from it differ, because they hash the SQLite
+file and two ingests are not byte-identical.
+
+**The project in those examples is a stand-in.** Every count, rate and ranking is real — measured
+by the tool from the shipped transcripts. The identifiers are not: `orbit` is not a real
+repository, and the paths, commit subjects, prompt titles and sub-agent names are demo values. Do
+not cite them as facts about anyone's codebase.
+
 ## Ground rules
 
 - BAR Observatory is **local-only and deterministic**: no LLM, no network call in the render

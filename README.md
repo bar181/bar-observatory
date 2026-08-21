@@ -262,8 +262,13 @@ just records every one, without judging.) Full numbers behind that claim, nothin
 
 JSON, HTML, and Markdown render from the same database — not identical *to each other*, but each
 byte-for-byte reproducible from an unchanged database. `report.json` is the typed contract for
-pipelines and agents; its JSON Schema in [`schemas/`](schemas/) is currently disclosed as out of
-sync with the live report shape.
+pipelines and agents; its JSON Schema in [`schemas/`](schemas/) was regenerated 2026-08-21 from
+three independently-rendered real reports and validates against all of them with zero errors —
+previously-declared fields that no longer exist (`evidence`, `process`, `provider_usage`,
+`reserved`, `story`) are gone, and the real fields that were undeclared (`cross_run_hotspots`,
+`failures`, `flaky`) are now in it. Still hand-regenerated from real output rather than derived
+from the Rust types at build time — a durable, build-time-generated version (from `bar-schema`'s
+structs directly) is the honest next step, not yet done.
 
 The `.html` view — this is what opens when you run `bar report`:
 

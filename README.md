@@ -295,10 +295,51 @@ BAR Observatory is a thin `bar` CLI (crate `bar-observatory`) over a 16-crate `b
 a SQLite substrate, a transcript parser, a read-only query surface, the typed report contract,
 and the MCP server, among others. Determinism comes from this architecture (a captured database,
 a pure rendering path, no model in it), not from the crate boundaries themselves — those exist for
-isolation and maintainability. **[CRATES.md](CRATES.md)** has the full list and a live crates.io
-link for each; 16 of the 17 crates are published (the rest is dev-only tooling). Crate source lives
-and publishes from a private working repo — **this repository is the front door, documentation, and plugin, no crate source
-here, by design.**
+isolation and maintainability. Crate source lives and publishes from a private working repo —
+**this repository is the front door, documentation, and plugin, no crate source here, by design.**
+
+| Crate | What it does |
+| --- | --- |
+| [`bar-observatory`](https://crates.io/crates/bar-observatory) | The `bar` CLI — turns a Claude Code session into a deterministic, local audit report. No API key, no network calls. |
+| [`bar-hook`](https://crates.io/crates/bar-hook) | Claude Code lifecycle-hook capture binary — records session events to a local SQLite audit trail, always exits 0. |
+| [`bar-mcp`](https://crates.io/crates/bar-mcp) | Read-only MCP server exposing captured Claude Code session history to AI agents. |
+| [`bar-ingest`](https://crates.io/crates/bar-ingest) | Parses Claude Code session transcripts (JSONL) into the local SQLite audit database. |
+| [`bar-store`](https://crates.io/crates/bar-store) | SQLite storage foundation — the local, deterministic database every session capture writes through. |
+| [`bar-read`](https://crates.io/crates/bar-read) | Read-only query layer over the local session database — typed queries plus a guarded raw SQL surface. |
+| [`bar-schema`](https://crates.io/crates/bar-schema) | Typed Rust contract for report.json — the deterministic Claude Code session report format. |
+| [`bar-metrics`](https://crates.io/crates/bar-metrics) | Computes the five-channel effort ledger — tokens, reasoning, latency, drop-rate, repair cost — for Claude Code sessions. |
+| [`bar-review`](https://crates.io/crates/bar-review) | Detects rework, stalls, and failure patterns in a Claude Code session for the self-review reports. |
+| [`bar-index`](https://crates.io/crates/bar-index) | Cross-run catalog and full-text search index over BAR Observatory's local Claude Code session database. |
+| [`bar-obs-config`](https://crates.io/crates/bar-obs-config) | Layered TOML configuration resolver for the local-only Claude Code session auditor. |
+| [`bar-root-resolve`](https://crates.io/crates/bar-root-resolve) | Shared, provenance-visible workspace- and database-root resolution used by every crate and binary. |
+| [`bar-registry`](https://crates.io/crates/bar-registry) | Zero-dependency capability registry and deterministic canonical-JSON emitter for the crate suite. |
+| [`bar-sanitize`](https://crates.io/crates/bar-sanitize) | Scrubs PII from a capture database to produce a publish-safe, shareable copy. |
+| [`bar-proxy`](https://crates.io/crates/bar-proxy) | Transparent Anthropic API proxy that captures every Claude Code request and response for the local audit trail. *(opt-in)* |
+| [`bar-otlp`](https://crates.io/crates/bar-otlp) | Native OpenTelemetry (OTLP) receiver — captures Claude Code session metrics and traces with no collector required. *(opt-in)* |
+| `bar-testenv` | Pre-main test-environment isolation for the private test tree. Dev-only, not published. |
+
+16 of these 17 crates are published; `bar-testenv` is dev-only tooling. Full list with live
+crates.io status (publishing is dependency-tier-ordered, so "cleared for publish" and "live now"
+can briefly differ): **[CRATES.md](CRATES.md)**.
+
+### Testing
+
+Two different test surfaces, on purpose — the 699-test private suite proves the engine works;
+the public one below proves *this published repo* works, for anyone, with no access to that
+private source:
+
+```bash
+git clone https://github.com/bar181/bar-observatory && cd bar-observatory
+sh tests/verify.sh
+```
+
+Six black-box checks against the real, published crates.io artifacts: a fresh `cargo install`,
+a determinism/reproducibility diff against the shipped example report, a checksum-manifest
+integrity check, `bar doctor`, config validity, and a live MCP `initialize`/`tools/list`
+round-trip. Expected result on a clean clone: **`6 passed, 0 failed`**, exit code `0`. Set
+`SKIP_INSTALL=1` to reuse an already-installed `bar`/`bar-mcp` on `PATH` instead of reinstalling
+(faster for repeat local runs; CI always does the real install). Per-check detail — what each
+one verifies, why, and its exact expected output: **[tests/README.md](tests/README.md)**.
 
 ### How this compares
 

@@ -1,6 +1,5 @@
 6d23c70d239c00427d4bcaf59dceb0f768bd6f60904e70daeaf20be74bed92b3  ./.claude-plugin/marketplace.json
 4c34c1f673e4170bd64118678f7bc0c0c7a7b8398e9dc9e208f7f21cc3907563  ./.claude-plugin/plugin.json
-a613852aa38c3690ff6210cfb3025f29cc4ceea31f8af8095ce686946e95e4f9  ./.github/workflows/verify.yml
 ad3fb74f80e0c3da772b567dd290c6902683b5cd11a69f8bc414b37e059c39eb  ./CHANGELOG.md
 fc0a8979c23019f8bcd05f95eb611bf01ac178d68aabd8cbe9b5bd1647775611  ./CONTRIBUTING.md
 2d5979e6b3070ed41d86dc6dfea512bee7805879e27b0cb09374e6d8a9cd7800  ./CRATES.md

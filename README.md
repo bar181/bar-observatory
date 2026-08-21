@@ -10,9 +10,10 @@
 
 > **The agent gives you a summary. BAR gives you a receipt.**
 
-Know what your AI coding agent actually did — not just what it says it did. BAR Observatory turns
-a session's real, recorded activity into a report you can trust, share, or hand to another AI
-agent:
+Know what your AI coding agent actually did — not just what it says it did. Once installed, BAR
+Observatory keeps recording automatically, every session, in the background — it's a flight
+recorder, not a one-time report you run once and forget. Turn any of that recorded activity into
+a report you can trust, share, or hand to another AI agent:
 
 - **Verify completed work** — confirm tasks actually finished, not just that the agent said so.
 - **Surface failures and rework** — every error and repeated edit, not just the ones mentioned.
@@ -20,7 +21,7 @@ agent:
 - **Create evidence you can share** — for a pull request, a reviewer, a client, or an audit trail.
 - **Let future agents query past work** — check what already happened before repeating it.
 
-**Local · deterministic · works retroactively · no account required**
+**Local · deterministic · always-on capture · works retroactively · no account required**
 
 Built for anyone running Claude Code sessions who wants to know what actually happened — from
 individual developers to teams needing an audit trail, to AI agents checking their own history.
@@ -113,9 +114,13 @@ memory grounded in evidence, not just human observability of agents.
 
 ## How BAR Observatory works
 
-**Record → Store → Report → Reuse.** A session transcript and lifecycle hooks feed one local
-file; that file renders into JSON, HTML, and Markdown; and either a human or an AI agent, over
-MCP, can query it afterward.
+**Record → Store → Report → Reuse.** This isn't a one-shot report generator — it's a flight
+recorder that runs continuously. **Record is automatic**: once the plugin is installed, every
+session's transcript and all 21 lifecycle hook events feed the same local file with no action
+from you, session after session. **Report is on-demand**: you run `bar report` (or `/bar-report`)
+whenever you want to check in, and it renders whatever's accumulated since the last time — that
+file renders into JSON, HTML, and Markdown; and either a human or an AI agent, over MCP, can
+query it afterward.
 
 ```mermaid
 flowchart LR
@@ -148,6 +153,21 @@ flowchart LR
 **At a glance:** local-only evidence · 3 report formats · 5 simple commands · retroactive
 reporting · agent-readable. *(Engineering specifics — crate count, hooks, tests: see
 [Technical details](#technical-details).)*
+
+## Evidence: verified, not asserted
+
+**99 of 101 fields matched exactly.** Every single measured figure — 60 errors, 373 test
+results, 96 rework hotspots, all 17 tool counts, every classification — identical. The only two
+differences (`source_db_hash`, `report.id`) are the ones this project's own docs already
+disclose as expected to vary between ingests, not a correctness gap.
+
+That's the result of a genuine outside reproduction: installing `bar-observatory` purely from
+crates.io (no path dependencies, no access to any private source) and re-rendering the example
+shipped in this repo, then diffing the result field by field against what's actually published
+here. It's now a real, repeatable script anyone can run —
+**[`tests/verify.sh`](tests/verify.sh)** — not a claim to take on faith. See
+**[`wiki/human-md/verification.md`](wiki/human-md/verification.md)** for the full write-up,
+including what the suite honestly can't check from the outside.
 
 ## What BAR records — and why that matters
 
@@ -360,6 +380,11 @@ just a passing test suite. Existing data migrates automatically on your next com
 coming from an earlier install. The one thing still catching up: the plugin doesn't bundle its
 helper programs yet (see the [disclosed gap](#installing-without-the-plugin) above) — that's
 next.
+
+Capture itself runs continuously once installed — every session, automatically, no action
+needed. Reporting is on-demand today: nothing surfaces on its own yet when you start a new
+session, so "check in with `bar report` when you want to know what happened" is the current
+model, not "it tells you proactively." That's a real, disclosed gap, not a hidden limitation.
 
 ## About the author
 

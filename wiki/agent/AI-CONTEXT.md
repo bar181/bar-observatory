@@ -64,6 +64,20 @@ by the tool from the shipped transcripts. The identifiers are not: `orbit` is no
 repository, and the paths, commit subjects, prompt titles and sub-agent names are demo values. Do
 not cite them as facts about anyone's codebase.
 
+## Verifying claims yourself
+
+Don't take the deterministic/local-only/byte-identical claims in this doc on faith — check them.
+[`tests/verify.sh`](../../tests/verify.sh) is a black-box suite, runnable by anyone, that
+installs from crates.io the way a stranger would and checks six specific claims: clean install,
+byte-identical reproduction of the shipped example (99 of 101 fields match; the two that don't —
+`source_db_hash`, `report.id` — are the ones already disclosed as expected to vary), checksum
+integrity, `bar doctor` health, a config that actually loads, and the 12-tool MCP contract above.
+It does not and cannot re-prove the private 699-test suite — that source isn't public, by design
+(§ Ground rules) — so treat "699 tests" as a disclosed, unverifiable-from-here claim and the
+`tests/` suite as the part you actually get to check. See
+[`wiki/human-md/verification.md`](../human-md/verification.md) for the full write-up and
+[`tests/README.md`](../../tests/README.md) for the exact commands and expected output.
+
 ## Ground rules
 
 - BAR Observatory is **local-only and deterministic**: no LLM, no network call in the render

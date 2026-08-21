@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How to check this isn't just marketing — BAR Observatory</title>
+<meta name="description" content="A black-box verification suite anyone can run against the published crates.io binary — what it checks, why it's stronger proof than a CI badge, and what it honestly can't check from the outside.">
+<!-- No external font CDN by design, matching ../index.html -- this project's own pitch is
+     "nothing leaves your machine"; loading fonts.googleapis.com would quietly contradict that.
+     System font stacks only. -->
+<style>
+:root{
+  --paper:#E4E6E1; --card:#F3F4F1; --ink:#14181C; --ink-2:#4A5158;
+  --stamp:#8C2F2A; --verified:#1F5C4A; --absent:#8A8F8B;
+  --rule:#C8CCC5; --rule-2:#D9DCD6;
+  --display:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --body:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --mono:ui-monospace,"SFMono-Regular",Menlo,Consolas,monospace;
+  --wrap:1180px; --gap:clamp(52px,6.5vw,96px);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--body);
+  font-size:17px;line-height:1.62;-webkit-font-smoothing:antialiased}
+a{color:var(--stamp);text-decoration-thickness:1px;text-underline-offset:3px}
+a:focus-visible{outline:2.5px solid var(--stamp);outline-offset:3px}
+.wrap{max-width:var(--wrap);margin:0 auto;padding:0 24px}
+.narrow{max-width:800px;margin:0 auto}
+h1,h2,h3{font-family:var(--display);font-weight:800;letter-spacing:-.025em;line-height:1.05;margin:0}
+h1{font-size:clamp(36px,5.6vw,66px);margin-bottom:22px}
+h2{font-size:clamp(27px,3.8vw,42px)}
+h3{font-size:clamp(19px,2.1vw,24px);letter-spacing:-.015em;line-height:1.2}
+h4{font-family:var(--display);font-weight:700;font-size:17.5px;margin:0 0 8px;letter-spacing:-.01em}
+p{margin:0 0 1em}
+section{padding:var(--gap) 0;border-top:1px solid var(--rule)}
+.eyebrow{font-family:var(--mono);font-size:11.5px;font-weight:600;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--ink-2);margin:0 0 18px;display:flex;align-items:center;gap:10px}
+.eyebrow::after{content:"";height:1px;flex:1;background:var(--rule)}
+.lede{font-size:clamp(18px,2vw,21px);color:var(--ink-2);max-width:66ch}
+.muted{color:var(--ink-2)}
+.fine{font-size:13.5px;color:var(--absent);margin-top:16px}
+
+.topbar{position:sticky;top:0;z-index:60;background:rgba(228,230,225,.93);
+  backdrop-filter:blur(9px);border-bottom:1px solid var(--rule)}
+.topbar-in{display:flex;align-items:center;gap:18px;min-height:60px;flex-wrap:wrap}
+.mark{font-family:var(--display);font-weight:800;font-size:17px;letter-spacing:-.02em;
+  text-decoration:none;color:var(--ink)}
+.mark span{color:var(--stamp)}
+.crumb{font-family:var(--mono);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--absent);margin-right:auto}
+.topnav{display:flex;gap:18px;font-size:14px}
+.topnav a{color:var(--ink-2);text-decoration:none}
+.topnav a:hover{color:var(--ink);text-decoration:underline}
+@media(max-width:900px){.topnav{display:none}}
+
+.hero{border-top:0;padding-top:clamp(44px,5.5vw,76px)}
+.tagline{font-family:var(--mono);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--ink-2);margin-bottom:20px}
+
+.grade{display:grid;grid-template-columns:repeat(2,1fr);border:1.5px solid var(--ink);
+  background:var(--card);margin-top:38px}
+@media(max-width:800px){.grade{grid-template-columns:1fr}}
+.grade div{padding:20px 22px;border-right:1px solid var(--rule-2)}
+.grade div:last-child{border-right:0}
+@media(max-width:800px){.grade div{border-right:0;border-bottom:1px solid var(--rule-2)}
+  .grade div:last-child{border-bottom:0}}
+.g-tag{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+  display:inline-block;padding:3px 7px;border-radius:2px;margin-bottom:11px}
+.g-measured{border:1px solid var(--verified);color:var(--verified)}
+.g-modelled{border:1px solid var(--stamp);color:var(--stamp)}
+.g-external{border:1px solid var(--absent);color:var(--absent)}
+.grade p{margin:0;font-size:14.5px;color:var(--ink-2)}
+.grade b{color:var(--ink)}
+
+table{width:100%;border-collapse:collapse;margin-top:32px;font-size:15px;background:var(--card)}
+th,td{text-align:left;padding:13px 14px;border-bottom:1px solid var(--rule-2);vertical-align:top}
+thead th{font-family:var(--mono);font-size:11px;letter-spacing:.11em;text-transform:uppercase;
+  color:var(--ink-2);border-bottom:1.5px solid var(--ink)}
+tbody th{font-weight:600;width:210px}
+td.yes{color:var(--verified);font-weight:600}
+td.no{color:var(--absent)}
+.scroll-x{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.scroll-x table{min-width:760px}
+
+pre{font-family:var(--mono);font-size:13px;line-height:1.62;background:var(--ink);color:#DFE3DE;
+  padding:20px 22px;border-radius:3px;overflow-x:auto;margin:22px 0}
+pre .c{color:#8FA39B} pre .p{color:#D8A38F} pre .g{color:#9FC4AE}
+code{font-family:var(--mono)}
+p code,li code,td code{font-size:.9em;background:var(--card);border:1px solid var(--rule-2);
+  padding:1px 5px;border-radius:2px}
+
+ul.plain{list-style:none;padding:0;margin:18px 0}
+ul.plain li{padding:11px 0 11px 26px;border-bottom:1px solid var(--rule-2);position:relative;color:var(--ink-2)}
+ul.plain li::before{content:"→";position:absolute;left:0;color:var(--stamp);font-family:var(--mono)}
+ul.plain li b{color:var(--ink)}
+ol.steps-n{counter-reset:s;list-style:none;padding:0;margin:22px 0}
+ol.steps-n li{counter-increment:s;position:relative;padding:16px 0 16px 48px;
+  border-bottom:1px solid var(--rule-2);color:var(--ink-2)}
+ol.steps-n li::before{content:counter(s,decimal-leading-zero);position:absolute;left:0;top:16px;
+  font-family:var(--mono);font-size:12px;color:var(--stamp);letter-spacing:.06em}
+ol.steps-n li b{color:var(--ink)}
+
+.note{border-left:3px solid var(--stamp);background:var(--card);padding:18px 22px;margin:26px 0;
+  font-size:15.5px;color:var(--ink-2)}
+.note b{color:var(--ink)}
+.note.green{border-left-color:var(--verified)}
+
+footer{border-top:1px solid var(--rule);padding:40px 0 60px;font-size:14px;color:var(--ink-2)}
+footer a{color:var(--ink-2)}
+.disclaim{font-size:12.5px;margin-top:22px;color:var(--absent);max-width:74ch}
+.refs{font-size:14px;color:var(--ink-2)}
+.refs li{margin-bottom:10px}
+
+/* ============================================================
+   PLATE SKIN — matches every other page in wiki/human-html/.
+   ============================================================ */
+:root{
+  --paper:#F1F5F8; --card:#FFFFFF; --card-2:#F7FAFC;
+  --ink:#08202F; --ink-2:#3A5468;
+  --stamp:#2C6CA6; --verified:#1B7A62; --absent:#7B92A5;
+  --rule:#DCE5EC; --rule-2:#EAF0F5;
+  --plate-900:#061523; --plate-800:#0A2135; --plate-700:#0F3050;
+  --amber:#B57F22; --vermilion:#B93A22; --iris:#5A55A3;
+  --display:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Times New Roman",serif;
+  --body:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace;
+  --shadow-sm:0 1px 2px rgba(8,32,47,.05), 0 2px 8px rgba(8,32,47,.04);
+  --shadow:0 2px 4px rgba(8,32,47,.04), 0 16px 40px rgba(8,32,47,.09);
+}
+@media (prefers-color-scheme:dark){
+  :root{
+    --paper:#071B2B; --card:#0C2739; --card-2:#0A2233;
+    --ink:#E7EFF5; --ink-2:#AFC4D4;
+    --stamp:#63A6DE; --verified:#4FBFA0; --absent:#7D97AB;
+    --rule:#173248; --rule-2:#12293C;
+    --amber:#E0AA4E; --vermilion:#F0715A; --iris:#9C97E8;
+    --shadow-sm:0 1px 2px rgba(0,0,0,.3); --shadow:0 2px 4px rgba(0,0,0,.25), 0 20px 44px rgba(0,0,0,.4);
+  }
+  img{opacity:.94}
+}
+body{font-family:var(--body);color:var(--ink);background:var(--paper);
+  -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+h1,h2,h3,h4{font-family:var(--display);font-weight:600;letter-spacing:-.015em;color:var(--ink)}
+h1{line-height:1.03} h2{line-height:1.1} h3{line-height:1.25}
+.lede,.tagline{color:var(--ink-2)}
+.eyebrow{font-family:var(--mono);letter-spacing:.18em;text-transform:uppercase;color:var(--stamp)}
+code,kbd,samp,pre{font-family:var(--mono)}
+a{color:var(--stamp)}
+strong,b{color:var(--ink)}
+.topbar{position:sticky;top:0;z-index:60;background:color-mix(in srgb,var(--paper) 88%,transparent);
+  backdrop-filter:blur(10px);border-bottom:1px solid var(--rule)}
+hr{border:0;border-top:1px solid var(--rule)}
+table{border-color:var(--rule)}
+th{color:var(--absent)}
+td,th{border-color:var(--rule-2)}
+.hero{position:relative;overflow:hidden;background:var(--plate-900);color:#DCE9F2;
+  border-radius:0;border-bottom:1px solid var(--plate-700)}
+.hero::before{content:"";position:absolute;inset:0;opacity:.55;pointer-events:none;
+  background-image:linear-gradient(rgba(93,164,222,.09) 1px,transparent 1px),
+                   linear-gradient(90deg,rgba(93,164,222,.09) 1px,transparent 1px);
+  background-size:52px 52px;
+  mask-image:radial-gradient(120% 90% at 15% 0%,#000 20%,transparent 78%);
+  -webkit-mask-image:radial-gradient(120% 90% at 15% 0%,#000 20%,transparent 78%)}
+.hero > *{position:relative;z-index:2}
+.hero h1,.hero h2{color:#F2F8FC}
+.hero .lede,.hero .tagline,.hero p{color:#B5CEE0}
+.hero .eyebrow{color:#7FC0F0}
+.note{border-left-width:4px;box-shadow:var(--shadow-sm);border-radius:0 14px 14px 0}
+p,li{max-width:74ch}
+:focus-visible{outline:2px solid var(--stamp);outline-offset:3px;border-radius:3px}
+pre,.scroll-x{overflow-x:auto;-webkit-overflow-scrolling:touch}
+li,p{overflow-wrap:anywhere}
+@media (max-width:720px){table{font-size:13.5px}}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wrap topbar-in">
+    <a class="mark" href="../../index.html">BAR <span>Observatory</span></a>
+    <span class="crumb">/ wiki / verification</span>
+    <nav class="topnav">
+      <a href="#result">The result</a>
+      <a href="#why">Why this, not a badge</a>
+      <a href="#checks">The six checks</a>
+      <a href="#limits">What it doesn't check</a>
+      <a href="#run">Run it</a>
+    </nav>
+  </div>
+</div>
+
+<section class="hero">
+  <div class="wrap">
+    <div class="narrow">
+      <p class="tagline">Wiki · verification</p>
+      <h1>How to check this isn't just marketing.</h1>
+      <p class="lede">Every claim on this project's front page — deterministic, byte-identical,
+      local-only, honest about what it can't see — is easy to assert and hard to prove. This page
+      is about the second part.</p>
+    </div>
+    <div class="grade">
+      <div>
+        <span class="g-tag g-measured">Measured</span>
+        <p>Every number on this page comes from a real, repeatable run against the published
+        crates.io binary — <a href="../../tests/verify.sh" style="color:#7FC0F0">tests/verify.sh</a>,
+        not a claim about it.</p>
+      </div>
+      <div>
+        <span class="g-tag g-external">External</span>
+        <p>Run purely from things anyone can see: the public GitHub repo and the crates.io
+        registry. No private source, no internal test harness.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="result">
+  <div class="wrap narrow">
+    <p class="eyebrow">The result</p>
+    <h2>99 of 101 fields matched exactly.</h2>
+    <p class="lede" style="margin-top:18px">An install done exactly the way a stranger would do
+    it — nothing borrowed from this project's own development, no shortcuts — reproduced the
+    shipped example report field for field.</p>
+    <div class="note green">
+      <b>Every single measured figure — 60 errors, 373 test results, 96 rework hotspots, all 17
+      tool counts, every classification — identical.</b> The only two differences
+      (<code>source_db_hash</code>, <code>report.id</code>) are the ones this project's own docs
+      already disclose as expected to vary between ingests, not a correctness gap.
+    </div>
+    <p class="muted">That test is now <a href="../../tests/verify.sh">a real, repeatable
+    script</a>. Anyone can run it. Nothing about it depends on trusting the person who wrote this
+    page.</p>
+  </div>
+</section>
+
+<section id="why">
+  <div class="wrap narrow">
+    <p class="eyebrow">Why this, not a badge</p>
+    <h2>A claim from the outside is still a claim.</h2>
+    <p class="lede" style="margin-top:18px">You'll see "699 tests, all green" mentioned elsewhere
+    in this project's docs. That number is real, but it's not something you can check yourself —
+    the test suite it describes lives in a private working repository, by design. This public
+    repo carries the front door and the published crates, not the source. A badge that says tests
+    passed is still just a claim from the outside.</p>
+    <p class="muted">What this page describes is different: a <b>black-box</b> check. It doesn't
+    ask you to trust that the internal tests exist or passed. It has you install the exact same
+    binary anyone else would install, from the exact same public registry, and checks whether it
+    actually does what the docs say — using only things you can see and re-run yourself.</p>
+  </div>
+</section>
+
+<section id="checks">
+  <div class="wrap">
+    <p class="eyebrow">The six checks</p>
+    <h2>Each one ties to a specific claim.</h2>
+    <div class="scroll-x">
+    <table>
+      <thead><tr><th>#</th><th>Check</th><th>What it proves</th></tr></thead>
+      <tbody>
+        <tr><th>1</th><td>Install</td><td><code>cargo install bar-hook bar-mcp bar-observatory --locked</code> works cleanly from crates.io, no hidden path dependencies</td></tr>
+        <tr><th>2</th><td>Determinism</td><td>The "byte-identical" claim above — real transcripts in, the exact same report out</td></tr>
+        <tr><th>3</th><td>Checksums</td><td>Every file in this repo matches its published hash — nothing tampered with or drifted</td></tr>
+        <tr><th>4</th><td><code>bar doctor</code> health</td><td>The tool's own honesty check reports a healthy store after a real capture</td></tr>
+        <tr><th>5</th><td>Config validity</td><td>The config <code>bar init</code> writes for you is one the binary actually accepts (a real bug, once, before it was caught)</td></tr>
+        <tr><th>6</th><td>MCP contract</td><td>The 12 MCP tools this project claims to expose are the 12 tools a real client actually gets back</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <p class="fine">Full detail on each — the exact command, the exact expected output — lives in
+    <a href="../../tests/README.md">tests/README.md</a>.</p>
+  </div>
+</section>
+
+<section id="limits">
+  <div class="wrap narrow">
+    <p class="eyebrow">What it doesn't check, on purpose</p>
+    <h2>Honest about its own limits.</h2>
+    <p class="lede" style="margin-top:18px">The same way the reports this suite verifies are
+    honest about what they didn't capture, this suite is honest about what it can't prove.</p>
+    <ul class="plain">
+      <li><b>The private 699-test suite.</b> Those tests live in source this suite has no access
+      to — it can't re-run what it can't see.</li>
+      <li><b>Deep MCP read-only enforcement.</b> That a write attempt is genuinely refused, not
+      just absent from the tool list, is covered by the private suite — not re-provable here
+      without a much bigger harness.</li>
+    </ul>
+    <p class="muted">Where a claim can't be checked from the outside, this page says so instead
+    of implying otherwise.</p>
+  </div>
+</section>
+
+<section id="run">
+  <div class="wrap narrow">
+    <p class="eyebrow">Run it yourself</p>
+    <h2>A few minutes, mostly compiling.</h2>
+<pre><span class="c">$</span> git clone https://github.com/bar181/bar-observatory
+<span class="c">$</span> cd bar-observatory
+<span class="c">$</span> sh tests/verify.sh
+<span class="g">  [PASS] installed cleanly from crates.io, no path dependencies
+  [PASS] every field matches the shipped report except source_db_hash / report.id
+  [PASS] every shipped file verifies against the manifest
+  [PASS] bar doctor exits 0 over a real capture store
+  [PASS] the config bar init writes is accepted by the binary with no error
+  [PASS] bar-mcp returns exactly 12 tools over real newline-delimited stdio JSON-RPC
+----------------------------------------
+6 passed, 0 failed</span></pre>
+    <p class="muted">Already have <code>bar</code> and <code>bar-mcp</code> on your
+    <code>PATH</code>? Set <code>SKIP_INSTALL=1</code> to skip straight to the checks.</p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap narrow">
+    <p><a href="../../index.html">← Back to the BAR Observatory site</a> ·
+    <a href="../human-md/verification.md">Plain-language version</a> ·
+    <a href="../agent/AI-CONTEXT.md">AI agent guide</a> · <a href="report-guide.html">What's in a report</a></p>
+    <p class="disclaim">BAR Observatory is an independent open-source project by Bradley Ross and
+    is not affiliated with or endorsed by Anthropic. The pass/fail output above is a real,
+    representative run of <code>tests/verify.sh</code> as shipped in this repo — reproduce it
+    yourself rather than take it on faith.</p>
+  </div>
+</footer>
+
+</body>
+</html>

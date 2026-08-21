@@ -2,15 +2,15 @@
 
 All notable changes to BAR Observatory.
 
-## [0.2.1] — published to crates.io, GitHub push still pending
+## [0.2.1] — published to crates.io and pushed to GitHub
 
 **Not breaking.** Every fix below is an internal correctness or security fix; no config schema or
 CLI surface changed. All 16 crates are live on crates.io at 0.2.1 (verified via the crates.io API
 and a real `cargo install --locked` from the published registry, then a genuine
-`init`/`ingest`/`report`/`doctor` run against the installed binary). The GitHub push to
-`github.com/bar181/bar-observatory` has not happened yet for this version — see the `[0.2.0]`
-entry below for why crates.io publish and the GitHub push are two independent standing gates on
-this repo, not one.
+`init`/`ingest`/`report`/`doctor` run against the installed binary), and `main` on
+`github.com/bar181/bar-observatory` is synced to this same content (tag `v0.2.1`) — see the
+`[0.2.0]` entry below for why crates.io publish and the GitHub push are two independent standing
+gates on this repo, not one; both are now crossed for this version.
 
 An independent review of the report-example redesign + measurement-bug-fix PR (merged 2026-08-20,
 commit `914dd14c`) found and fixed six further issues before merging, beyond the PR's own
@@ -78,12 +78,13 @@ gap this changelog already discloses above, and a disclosed-not-automated "Boss 
 real but are not documentation defects — they resolve when this version actually publishes, or
 are open product scope, not something a text edit fixes.
 
-## [0.2.0] — published to crates.io, GitHub push still pending
+## [0.2.0] — published to crates.io and pushed to GitHub
 
-**Breaking.** All 16 crates are live on crates.io as of 2026-08-17 (human go-ahead given, verified
-via a real `cargo install --locked` from the published registry). Pushing this repository's own
-commits to `github.com/bar181/bar-observatory` is a separate, still-pending human-approval gate —
-crates.io publish and the GitHub push are two independent standing gates on this repo, not one. A
+**Breaking.** All 16 crates went live on crates.io on 2026-08-17 (human go-ahead given, verified
+via a real `cargo install --locked` from the published registry), and this repository's own
+commits were pushed to `github.com/bar181/bar-observatory` the same day — a separate
+human-approval gate, crossed independently; crates.io publish and the GitHub push are two
+independent standing gates on this repo, not one. A
 `[privacy]` config key is removed with no compatibility shim, the capture schema moved six
 migrations (v17 → v23), and stored-data semantics changed — a v17 store from a 0.1.x install
 migrates automatically on the next write (verified against a real v17 store this session, and

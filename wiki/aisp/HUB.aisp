@@ -222,6 +222,21 @@
  R15≜𝒬(𝒟,--sql"SELECT r.run_uuid,COUNT(*) FROM transcript_turns t JOIN runs r ON t.run_id=r.run_id WHERE t.content_json LIKE'%is_error%true%'GROUP BY r.run_uuid"); R15≈¬≡ReportDoc.summary.error_results(Χ.C1)
 }
 
+;; ─── Λ: VERIFY (black-box, end-user-facing; bar-observatory/tests/verify.sh — ∅𝒦_source access) ───
+⟦Λ:Verify⟧{
+ verify≜sh_tests/verify.sh[SKIP_INSTALL=1]: installs(cargo,--locked)∨reuses_PATH ⊢ 6_checks,exit≡0⇔∀pass
+ verify.checks≜⟨
+  V1≜install(bar-hook,bar-mcp,bar-observatory,crates.io,--locked),
+  V2≜repro(examples/capture/*.jsonl→ℛ)≡examples/deterministic/session.report.json⧵{integrity.source_db_hash,report.id} (=ExampleArtifact.repro,codified∧CI-gated),
+  V3≜sha256sum_-c(checksums/SHA256SUMS.txt),
+  V4≜doctor(𝒟_from_V2)≡exit_0,
+  V5≜init(--dir<tmp>)⊢config_loads(∅error) (class_of_bug_shipped_once,ADR-128_gate_log),
+  V6≜mcp(initialize∘tools/list)⊢|tools|≡12 (=mcp.tools,live-checked¬asserted)
+ ⟩
+ verify.scope≜black-box(∅𝒦_source,∅private_suite); verify.discloses≜{699-test_suite,MCP_read-only-enforcement_depth}∉verify.scope (stated,¬silently_skipped — same G2-family absence discipline, applied to this doc's own evidence claims)
+ verify.ci≜.github/workflows/verify.yml(push∨PR→main); verify.wiki≜⟨human-md/verification.md,human-html/verification.html,agent/AI-CONTEXT.md§Verifying_claims_yourself⟩
+}
+
 ;; ─── Λ: ASK-MAP (question ↦ correct source; per⟦Γ:Agent⟧ "use{𝒬,MCP}∧⊬guess" — resolve here before inventing a query) ───
 ⟦Λ:AskMap⟧{
  Q.tool_usage              ↦ 𝒬(𝒟,tools) ∨ mcp.get_ledger
@@ -300,21 +315,23 @@
  README.md≜nav; README.html≜1-page(human/advanced/aisp_switch)
  human-md/README.md≜L1(human); agent/AI-CONTEXT.md≜L2(ai_prose,⊂this_doc)
  aisp/HUB.aisp≜L3(this_doc,δ_max,ground_here_first)
- human-md/{comparison,enterprise,architecture}.md
+ human-md/{comparison,enterprise,architecture,verification}.md
  human-html/documentation-layers.html≜why_3_layers
  human-html/report-guide.html≜annotated_walkthrough(synced≡Ε.E6)
+ human-html/verification.html≜⟦Λ:Verify⟧_human_register(V1..V6,synced≡this_block)
  human-html/guides/{guide-executive,guide-junior-dev}.html
  examples/README.md(+.html)≜5_row_artifact_table(4_ℛ+capture)+what_is_hand-assembled_table
  examples/capture/README.md≜7_𝒲_transcripts,stand-in_disclosure,repro_steps
+ tests/README.md≜⟦Λ:Verify⟧_human_register(commands+expected_output,∅wiki-tree_but_cross-linked_from_it)
  DOC_LAYERS_GENERATED≜⊥(hand-maintained,∅codegen)
 }
 
 ;; ─── Ε: EVIDENCE (required, self-certifying per G12) ───
 ⟦Ε⟧⟨
- δ≜0.663 (method:|{t:t∈Σ_512∪Ω:Symbols}|÷|{t:t≢whitespace,¬comment-line}|;recomputed_after_⟦Σ:Schema⟧/⟦Λ:AskMap⟧/⟦Λ:Toggles⟧_added(was_0.745@16_blocks_ago,now_0.663@16_blocks);¬the_official_npx_aisp-validator(∄∈this_env);residual_non-symbolic⊆{29_real_column_names×32_tables,17_crates.io_crate_names,literal_env_var_names(OBSERVATORY_*),verbatim_quoted_hook-event/error_strings,literal_SQL_keywords_in_R15}—all_correctness-required(a_column_name_IS_the_interface),¬prose_slack; ¬recomputed_after_the_2026-08-19_ExampleArtifact/Χ_refresh—4_lines_changed,2_added; ¬recomputed_after_this_pass's_⟦Σ:Crates⟧/⟦Σ:Schema⟧/⟦Σ:Types⟧_arithmetic_corrections_either(correlation_stats+2_new_ADR-129/130_tables+2_new_𝒦_added_to_the_counts_above;δ_itself_untouched); stated_rather_than_re-asserted)
- |𝔅|≜16 (Ω×3,Σ×3,Γ×3,Λ×4,Χ,Θ,Ε=16; Required{Ω,Σ,Γ,Λ,Ε}⊆present)
+ δ≜0.663 (method:|{t:t∈Σ_512∪Ω:Symbols}|÷|{t:t≢whitespace,¬comment-line}|;recomputed_after_⟦Σ:Schema⟧/⟦Λ:AskMap⟧/⟦Λ:Toggles⟧_added(was_0.745@16_blocks_ago,now_0.663@16_blocks);¬the_official_npx_aisp-validator(∄∈this_env);residual_non-symbolic⊆{29_real_column_names×32_tables,17_crates.io_crate_names,literal_env_var_names(OBSERVATORY_*),verbatim_quoted_hook-event/error_strings,literal_SQL_keywords_in_R15}—all_correctness-required(a_column_name_IS_the_interface),¬prose_slack; ¬recomputed_after_the_2026-08-19_ExampleArtifact/Χ_refresh—4_lines_changed,2_added; ¬recomputed_after_this_pass's_⟦Σ:Crates⟧/⟦Σ:Schema⟧/⟦Σ:Types⟧_arithmetic_corrections_either(correlation_stats+2_new_ADR-129/130_tables+2_new_𝒦_added_to_the_counts_above;δ_itself_untouched); ¬recomputed_after_⟦Λ:Verify⟧_added_either(+1_block,+8_lines;same_pattern,stated_not_re-asserted); stated_rather_than_re-asserted)
+ |𝔅|≜17 (Ω×3,Σ×3,Γ×3,Λ×5,Χ,Θ,Ε=17; Required{Ω,Σ,Γ,Λ,Ε}⊆present; +1_this_pass=⟦Λ:Verify⟧)
  φ≜96 (self-assessed:∀section∈{cli,mcp,report-schema,capture,crates,recipes,errors,proofs,full-column-schema,query-routing,capture-toggles}present)
  τ≜◊⁺ (Gold,δ≥0.60; conservatively_¬claiming◊⁺⁺since_δ_is_self-measured¬validator-confirmed)
  ⊢G1..G13∧Δ⊗λ-table∧Θ.proofs
- verify≜E5(crates.io=bar-observatory,bar-mcp,bar-hook;flags↔published_binary_--help)∧E6(examples/deterministic/session.report.json≜bar_report_output,¬hand-edited)∧E7(⟦Σ:Schema⟧∧Schema𝒟_table_set↔sqlite_master(fresh_SqliteStore::migrate()@schema_v26),33_rows(32_table+sqlite_sequence)+1_view,re-verified_this_edit_after_the_31≠29_arithmetic_error+missing_correlation_stats/validation_facts/test_verdict_facts_were_found_by_independent_review;prior_"verified_this_edit"_claim_was_unearned—asserted_∅real_PRAGMA_check_run)∧E8(⟦Λ:Toggles⟧_env-vars↔bar-otlp/bar-proxy_source_main.rs_doc-comments,verified_this_edit;measurement_gate-scope↔grep_confirming_measurements_config_consumed_ONLY∈bar-observatory,∅hits∈bar-hook/bar-otlp/bar-proxy)
+ verify≜E5(crates.io=bar-observatory,bar-mcp,bar-hook;flags↔published_binary_--help)∧E6(examples/deterministic/session.report.json≜bar_report_output,¬hand-edited)∧E7(⟦Σ:Schema⟧∧Schema𝒟_table_set↔sqlite_master(fresh_SqliteStore::migrate()@schema_v26),33_rows(32_table+sqlite_sequence)+1_view,re-verified_this_edit_after_the_31≠29_arithmetic_error+missing_correlation_stats/validation_facts/test_verdict_facts_were_found_by_independent_review;prior_"verified_this_edit"_claim_was_unearned—asserted_∅real_PRAGMA_check_run)∧E8(⟦Λ:Toggles⟧_env-vars↔bar-otlp/bar-proxy_source_main.rs_doc-comments,verified_this_edit;measurement_gate-scope↔grep_confirming_measurements_config_consumed_ONLY∈bar-observatory,∅hits∈bar-hook/bar-otlp/bar-proxy)∧E9(⟦Λ:Verify⟧.V1..V6↔tests/verify.sh,real_run_against_published_0.2.1_crates.io_binaries_this_edit:6_passed_0_failed,exit_0;V2's_ExampleArtifact.repro_claim_independently_re-confirmed_via_a_SEPARATE_outside-clone_install_the_same_session:99/101_fields,⧵{source_db_hash,report.id}_only)
 ⟩

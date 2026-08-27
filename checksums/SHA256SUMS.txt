@@ -1,6 +1,6 @@
-6d23c70d239c00427d4bcaf59dceb0f768bd6f60904e70daeaf20be74bed92b3  ./.claude-plugin/marketplace.json
-4c34c1f673e4170bd64118678f7bc0c0c7a7b8398e9dc9e208f7f21cc3907563  ./.claude-plugin/plugin.json
-ac91874cf85716b62fe5887eb87806236baaa439b268d6b794d0e43ab873eae8  ./CHANGELOG.md
+65930b6acddae14daed88f0659847aed569076b0876e8ad1bc51ca4ddcfb54e5  ./.claude-plugin/marketplace.json
+40b66dba6b156391f72b2bb85f3afdef1eb1fe9f03984d4238eac486e33b440a  ./.claude-plugin/plugin.json
+bd2b8ee88816e83409f6480ee0ac622dc936d3d04900ea800aff494d75158773  ./CHANGELOG.md
 fc0a8979c23019f8bcd05f95eb611bf01ac178d68aabd8cbe9b5bd1647775611  ./CONTRIBUTING.md
 2d5979e6b3070ed41d86dc6dfea512bee7805879e27b0cb09374e6d8a9cd7800  ./CRATES.md
 9eef188b474fcec7c00ed3b73bff6fd1f6b41b75fcf6e77dd509d1403948eea9  ./LICENSE

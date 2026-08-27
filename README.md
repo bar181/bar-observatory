@@ -419,7 +419,7 @@ Open an [issue](https://github.com/bar181/bar-observatory/issues). Security repo
 
 ## Where things stand
 
-Version 0.2.1 is live on crates.io — the full pipeline is built, tested end to end (699 tests),
+Version 0.3.0 is live on crates.io — the full pipeline is built, tested end to end (716 tests),
 and verified the same way you'd use it: a genuine `cargo install --locked` from the published
 registry, then a real `init`/`ingest`/`report`/`doctor` run against the installed binary, not
 just a passing test suite. Existing data migrates automatically on your next command if you're

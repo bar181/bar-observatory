@@ -2,6 +2,79 @@
 
 All notable changes to BAR Observatory.
 
+## [0.3.0] — published to crates.io; GitHub docs updated
+
+**Not breaking for any documented CLI usage.** Every crate in the family (all 15 publishable
+crates) moved from 0.2.1 to 0.3.0 together — `bar-store`'s schema and a few downstream public
+struct fields changed, and every dependent needed its own version bump so the whole dependency
+graph resolves against one consistent `bar-store`, not two incompatible instances (Cargo's 0.x
+caret semver treats the middle version position as the breaking one). Verified the same way prior
+releases were: a real `cargo install --locked bar-observatory --version 0.3.0` and
+`cargo install --locked bar-hook --version 0.3.0` from the published registry, then genuine runs
+against the installed binaries (`bar --help`, and `bar-hook` invoked with every `OBSERVATORY_*`
+env var removed) — not just a passing test suite.
+
+**Thank you to Piotr** for the two pieces of real-session feedback that drove most of this
+release: the "TOP PRIORITY FIXES" report on the two missing test-runner dialects (item 1 below),
+and the separate consumer-side brief that surfaced the hook-wiring defect and five of the other
+items here. Both are exactly the kind of field evidence — a real Python `unittest` harness run and
+a real Vitest product-repo run — that a synthetic test suite doesn't surface on its own.
+
+1. **Hook commands installed with no database path, so events silently fell back to a spool
+   instead of `.bar/ambient.sqlite`.** `bar-hook` opened storage ONLY from `OBSERVATORY_DB`, and
+   nothing wires that variable into the shipped hook command (`hooks/hooks.json` runs a bare
+   `bar-hook <event>`) — so a plugin install with no external environment setup captured nothing
+   into the real database, ever, without anyone noticing. Fixed: `bar-hook` now defaults to
+   `.bar/ambient.sqlite` (relative to wherever it runs), creating the directory if needed, when
+   `OBSERVATORY_DB` is unset — `OBSERVATORY_DB` still overrides it for anyone who wants a
+   different location. Verified by spawning the real installed binary with every `OBSERVATORY_*`
+   variable removed and confirming a real row lands in the database, not the spool.
+2. **Two real test-runner dialects were invisible to ingest-time validation extraction.** Python's
+   `unittest` prints its count and verdict as two SEPARATE lines (`"Ran N tests in Ms"` then a
+   bare `"OK"`/`"FAILED (...)"`), and Vitest's own summary line has NO colon after `"Tests"` —
+   both were silently unreadable even though pytest/npm/cargo/generic-exit already worked. Both
+   are recognized now.
+3. **`content_excerpt` truncates at 512 bytes with no signal distinguishing "this value is short"
+   from "this value was cut."** A census over `content_excerpt` alone silently under-reported any
+   signature past the cut point — measured at 32% of rows sitting exactly at the cap in a real
+   store. A new `content_excerpt_truncated` column on `transcript_turns` makes the two cases
+   distinguishable.
+4. **`bar query`'s read-only refusal (correct) left no write path into scored layers at all.**
+   `task_grades`/`method_scores` could only ever be populated by `bar` itself, and there was no
+   `bar` command that did it. A new `bar score <db> --kind task_grade|method_score --json '{...}'`
+   command writes through the same typed store methods `bar report` reads from — never raw SQL.
+5. **`bar doctor` reported a flat `capture` OK on a store where most of the scored layers were
+   empty.** A store carrying a transcript and nothing else can answer "what was said," never "what
+   did we already try, and did it work" — the question that prevents redoing finished work. A new
+   `depth` check reports how many of the 7 scored layers are actually populated (never a failure —
+   a transcript-only store is a legitimate configuration, just no longer silently implied to be
+   more than that).
+6. **`run_uuid` defaulted to the literal constant `"bar-ingest"`** when `--run-uuid` was omitted,
+   so every omitted-flag ingest, from every project, landed in one shared run — and the moment a
+   caller started passing `--run-uuid` correctly, it forked a full duplicate of everything already
+   ingested under the constant. Now generates a fresh id per call instead.
+7. **No freshness signal existed at all.** `transcript_turns` carries no timestamp column, so a
+   consumer had to guess from file mtimes — which breaks, because any reader touches SQLite's own
+   `-wal`/`-shm` sidecars. A `.bar/.last-capture` heartbeat file, written ONLY by `bar ingest`,
+   gives a dependency-free "did a capture happen" signal without opening the database at all.
+8. **`MAX(turn_id)` is not a row count** — it's a global autoincrement that keeps climbing through
+   upserts — and `bar query`'s table format puts a scripted consumer one off-by-one away from
+   grabbing its own footer line instead of the value. A new `turns_count` named query plus
+   `bar query --format value` (a bare scalar, no header/footer) removes both traps.
+9. **Runs never finalized** — `runs.status` stayed `incomplete` indefinitely, with no explicit way
+   to close one out. `bar ingest --finalize` marks the run complete once you know a session is
+   really over (kept opt-in, not automatic-at-EOF, since an ambient/incremental capture calls
+   `bar ingest` repeatedly against a still-growing transcript).
+10. **`--task`/`--trial`/`--rep` are integers, undocumented as such** — `--task <id>` read as
+    free-form, but `runs.task_id` has no lookup table and is a plain `INTEGER`. `bar --help` now
+    says `<int>`.
+11. **`bar compare --by condition` silently grouped everything into one `(unlabeled)` bucket**
+    when no run carried a `--condition` — now warns how many runs have none, rather than rendering
+    a meaningless comparison as if it were a real one.
+
+See [process/03-ingestion.md](process/03-ingestion.md) for the session-start/session-end
+`bar ingest` recipe these changes make possible (`--run-uuid`, `--finalize`, the heartbeat file).
+
 ## [0.2.1] — published to crates.io and pushed to GitHub
 
 **Not breaking.** Every fix below is an internal correctness or security fix; no config schema or

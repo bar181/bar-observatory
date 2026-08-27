@@ -75,6 +75,20 @@ a real Vitest product-repo run — that a synthetic test suite doesn't surface o
 See [process/03-ingestion.md](process/03-ingestion.md) for the session-start/session-end
 `bar ingest` recipe these changes make possible (`--run-uuid`, `--finalize`, the heartbeat file).
 
+**Also found while staging this release:** the shipped deterministic example's own
+`renderer_version` had gone stale at `0.2.1` — one release behind, same class of drift the
+`[0.2.1]` entry below describes fixing for `0.1.1`. Regenerated `examples/deterministic/
+session.report.{json,html,md}` from the real, committed capture transcripts against a genuine
+0.3.0 binary; the field-for-field diff against the previously-shipped example was exactly the
+three fields expected to move on any regeneration (`renderer_version`, `source_db_hash`, and the
+`report.id` derived from the hash) — no measured figure changed, and `template_hash` was
+unchanged too (the render templates themselves didn't move this release). New example id
+`barobs-94c4ff164bd8`, propagated to every current cross-reference (`examples/README.html`, the
+delivery memo and both interpreted commentary pages, `wiki/human-html/report-guide.html`) and
+`checksums/SHA256SUMS.txt` regenerated to match; the id in this file's own `[0.2.1]`/`[0.2.0]`
+entries below and in `PROVENANCE.json`'s dated history was deliberately left alone — those are a
+record of what was true when they were written, not live claims.
+
 ## [0.2.1] — published to crates.io and pushed to GitHub
 
 **Not breaking.** Every fix below is an internal correctness or security fix; no config schema or

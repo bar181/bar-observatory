@@ -10,7 +10,7 @@
 | **Audience** | Executive / client |
 | **Window** | 2026-05-04 → 2026-05-17 |
 | **Sessions** | 7 |
-| **Report id** | `barobs-14fd056be293` |
+| **Report id** | `barobs-94c4ff164bd8` |
 | **Cost tracking** | Not active this window |
 | **Machine contract** | [`session.report.json`](session.report.json) |
 
@@ -237,9 +237,9 @@ self-report.*
 
 | | |
 |---|---|
-| Report id | `barobs-14fd056be293` |
-| Source store hash | `blake3:14fd056be2935fc7…` |
-| Renderer version | 0.2.1 |
+| Report id | `barobs-94c4ff164bd8` |
+| Source store hash | `blake3:94c4ff164bd80915…` |
+| Renderer version | 0.3.0 |
 | Deterministic render | true |
 | LLM in render path | false |
 

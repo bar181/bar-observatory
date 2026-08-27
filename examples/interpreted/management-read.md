@@ -13,7 +13,7 @@
 | **Window** | 2026-05-04 → 2026-05-17 (session labels; scope window 2026-05-04T19:07Z → 2026-05-18T06:06Z UTC) |
 | **Sessions** | 7, captured in full |
 | **Evidence** | [`delivery-memo.md`](../deterministic/delivery-memo.md) · [`.html`](../deterministic/delivery-memo.html) |
-| **Report id** | `barobs-14fd056be293` |
+| **Report id** | `barobs-94c4ff164bd8` |
 | **Reading time** | 4 minutes (60 seconds for the box below) |
 
 | Work items closed | Commits landed | Human instructions | Error rate | Capture losses | Cost |

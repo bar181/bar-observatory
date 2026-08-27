@@ -41,7 +41,7 @@ bar init   --dir .                               # create local config + SQLite 
 bar ingest .bar/ambient.sqlite <session>.jsonl    # always-on transcript parsing, no API calls
 bar report .bar/ambient.sqlite --out .            # JSON + HTML + MD, deterministic
 bar doctor .bar/ambient.sqlite                    # live health check: is the recorder OK? what did it capture?
-bar query  .bar/ambient.sqlite --list             # direct read-only DB access (3 named queries + raw SELECT)
+bar query  .bar/ambient.sqlite --list             # direct read-only DB access (4 named queries + raw SELECT)
 ```
 
 Each command is safe to re-run. `bar init` never overwrites an existing config; `bar report` on

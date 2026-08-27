@@ -16,6 +16,37 @@ Because the transcript is local, ingestion makes **zero API calls**. This is the
 people will use every time: no proxy to configure, no collector to run, just a `.jsonl` file
 (JSON Lines — a plain-text file with one JSON record per line) you already have.
 
+## Keeping ingestion running for the length of a session
+
+`bar ingest` is a one-shot command, not a daemon — nothing runs it for you, and a transcript
+keeps growing for as long as the session does. Three flags make repeated, unattended ingestion
+safe and the result easy to track:
+
+```bash
+# At session start, and again at any later checkpoint during a long session:
+bar ingest .bar/ambient.sqlite ~/.claude/projects/<project>/<session>.jsonl \
+  --run-uuid "$CLAUDE_SESSION_ID"
+
+# Once, when the session actually ends (e.g. wired into a Stop/SessionEnd hook):
+bar ingest .bar/ambient.sqlite ~/.claude/projects/<project>/<session>.jsonl \
+  --run-uuid "$CLAUDE_SESSION_ID" --finalize
+```
+
+- **`--run-uuid`** ties every re-ingest of the same transcript to the same run instead of each
+  omitted flag minting a fresh one — pass a stable id (a session id, or anything else that
+  identifies this one session) rather than leaving it to the default.
+- **Re-running is always safe.** Ingest is idempotent on `(run, message)` — ingesting the same
+  transcript twice, or an updated copy of a still-growing one, never duplicates rows.
+- **`--finalize`** marks the run complete once you know the session is really over. Without it, a
+  run stays `incomplete` — correct while the transcript could still grow, but worth closing out
+  explicitly rather than leaving every run to expire past the reaper's own abandon window.
+
+Every successful ingest also touches a small heartbeat file, `.bar/.last-capture`, containing the
+capture time in milliseconds since the Unix epoch. A lightweight consumer that only wants to know
+"is this still being recorded" can read that one file instead of opening the database at all —
+and because only `bar ingest` itself ever writes it, its timestamp is a true "did a capture
+happen" signal, unlike the database file's own modification time (which any reader can move).
+
 ## Optional: opt-in capture channels
 
 If you want more than what's in the transcript, three capture modules add richer channels —

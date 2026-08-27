@@ -89,6 +89,14 @@ delivery memo and both interpreted commentary pages, `wiki/human-html/report-gui
 entries below and in `PROVENANCE.json`'s dated history was deliberately left alone — those are a
 record of what was true when they were written, not live claims.
 
+Also bumped `.claude-plugin/plugin.json` and `.claude-plugin/marketplace.json`'s own `version`
+fields (0.2.1 → 0.3.0) — genuinely stale, unlike the example artifacts above: these are the
+actual Claude Code plugin manifests, not point-in-time snapshots. `wiki/aisp/HUB.aisp`'s own
+`0.2.1` references were deliberately NOT touched this pass — that file is a rigorously
+self-certifying evidence block (it explicitly records catching a prior "unearned" claim in
+itself) and updating its assertions honestly means re-running its own verification protocol in
+full, not editing a version string in isolation.
+
 ## [0.2.1] — published to crates.io and pushed to GitHub
 
 **Not breaking.** Every fix below is an internal correctness or security fix; no config schema or

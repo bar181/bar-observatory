@@ -1,7 +1,7 @@
 {
   "name": "bar-observatory",
   "displayName": "BAR Observatory",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "description": "Local-only, deterministic flight recorder for Claude Code agent sessions. Five-channel effort ledger (T/R/L/Δ/E), report generation, and a read-only MCP query surface. Pure Rust + SQLite; nothing leaves your machine.",
   "author": { "name": "Bradley Ross" },
   "homepage": "https://github.com/bar181/bar-observatory",

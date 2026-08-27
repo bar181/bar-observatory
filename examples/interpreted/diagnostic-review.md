@@ -11,7 +11,7 @@
 | **Window** | 2026-05-04 → 2026-05-17 (session labels; scope window 2026-05-04T19:07Z → 2026-05-18T06:06Z UTC) |
 | **Volume** | 9,132 turns · 3,171 tool calls |
 | **Evidence** | [`session.report.md`](../deterministic/session.report.md) · [`.html`](../deterministic/session.report.html) · [`.json`](../deterministic/session.report.json) |
-| **Report id** | `barobs-14fd056be293` |
+| **Report id** | `barobs-94c4ff164bd8` |
 | **Ingest mode** | Transcript-only, retroactive |
 
 | Tool calls | Error results | Sub-agent dispatches | Rework hotspots | Test results | Tokens & cost |

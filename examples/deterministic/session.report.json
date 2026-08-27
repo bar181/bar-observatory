@@ -1,7 +1,7 @@
 {
   "schema_version": "bar-observatory-report-1.0",
   "report": {
-    "id": "barobs-14fd056be293",
+    "id": "barobs-94c4ff164bd8",
     "title": "BAR Observatory — captured session report",
     "generated_at": "2026-05-18T06:06:00Z",
     "template_version": "bar-observatory-engineering-1.0",
@@ -2644,9 +2644,9 @@
     "health_note": "No unresolved capture losses (dead_letters has no resolved=0 rows)."
   },
   "integrity": {
-    "source_db_hash": "blake3:14fd056be2935fc7f5ed2d979eaac9c3a2f891a7b031581711201090ebfc5ff4",
+    "source_db_hash": "blake3:94c4ff164bd809155968649f1a7bc068b9faed9f520ea88e3f8473b0294ccc98",
     "template_hash": "blake3:3384a44fb8e759ebed83168fa79ff83c4cf30b6b2bb3867be4c91310fd5a022e",
-    "renderer_version": "0.2.1",
+    "renderer_version": "0.3.0",
     "deterministic_render": true,
     "llm_in_render_path": false,
     "redact_mode": "off",

@@ -8,7 +8,7 @@
 |---:|---:|---:|---:|---:|---:|
 | **7** | **9,132** | **3,171** | **40 / 40** | **60** | **322h 59m** |
 
-*Report `barobs-14fd056be293` · renderer 0.2.1 · generated from the store at 2026-05-18T06:06:00Z. Uncaptured channels read "not recorded", never a fabricated 0.*
+*Report `barobs-94c4ff164bd8` · renderer 0.3.0 · generated from the store at 2026-05-18T06:06:00Z. Uncaptured channels read "not recorded", never a fabricated 0.*
 
 **Contents**
 
@@ -450,13 +450,13 @@ No token counts in this store — the token channel is captured by the proxy (`r
 Deterministic render — the same database renders byte-identically; no LLM and no network in the render path.
 
 - `recorded_window`: 322h 59m (1,162,740,000 ms)
-- `source_db_hash`: blake3:14fd056be2935fc7f5ed2d979eaac9c3a2f891a7b031581711201090ebfc5ff4
+- `source_db_hash`: blake3:94c4ff164bd809155968649f1a7bc068b9faed9f520ea88e3f8473b0294ccc98
 - `template_hash`: blake3:3384a44fb8e759ebed83168fa79ff83c4cf30b6b2bb3867be4c91310fd5a022e
-- `renderer_version`: 0.2.1
+- `renderer_version`: 0.3.0
 - `redact_mode`: off · `redact_paths`: verbatim · `redact_secrets`: detect_and_report
 - `generated_at` (from DB): 2026-05-18T06:06:00Z
 
 ---
 _Independent open-source project by Bradley Ross / Bradley.Academy. No third-party marks are used and no endorsement is implied._
 
-Report barobs-14fd056be293 · template bar-observatory-engineering-1.0 · Bradley.Academy
+Report barobs-94c4ff164bd8 · template bar-observatory-engineering-1.0 · Bradley.Academy
